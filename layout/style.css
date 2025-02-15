@@ -338,7 +338,9 @@ footer.The-Infinitys-Footer a {
   font-size: 20px;
   padding-bottom: 4px;
 }
-
+footer.The-Infinitys-Footer h1 {
+  text-align: center;
+}
 #mouse-stalker {
   position: fixed;
   top: 100vh;
