@@ -337,7 +337,9 @@ footer.The-Infinitys-Footer {
 
 footer.The-Infinitys-Footer a {
   font-size: 20px;
-  padding: 5px;
+}
+footer.The-Infinitys-Footer p {
+  line-height:1.5;
 }
 footer.The-Infinitys-Footer h1 {
   text-align: center;
