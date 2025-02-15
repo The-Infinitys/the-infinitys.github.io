@@ -7,8 +7,8 @@
 
 :root {
   /* テーマに応じた色を設定する */
-  --back-color: #000;
-  --text-color: #fff;
+  --back-color: #111;
+  --text-color: #eee;
   --link-color: aqua;
   --dark-visilibity: visible;
   --light-visilibity: hidden;
@@ -16,17 +16,17 @@
   --header-height: 50px;
   --footer-height: calc(64px + 4 * 16px);
   /* hambburger menu */
-  --hamburger-width: 350px;
+  --hamburger-width: 400px;
   --infinity-ease: cubic-bezier(0.5, 0, 0.5, 1);
 }
 
 :root[theme="light"] {
   /* テーマに応じた色を設定する */
-  --back-color: #fff;
-  --text-color: #000;
+  --back-color: #eee;
+  --text-color: #111;
 }
 
-@media screen and (max-width: 350px) {
+@media screen and (max-width: 400px) {
   :root {
     --hamburger-width: 100%;
   }
@@ -259,97 +259,6 @@ svg.The-Infinitys-txt {
   visibility: var(--light-visilibity);
 }
 
-/*For Space BackGround*/
-
-#BackGround>div[data-background-name="space"]>div.three-d {
-  --x-pos: 0;
-  --y-pos: 0;
-  --z-pos: 1;
-  --z-depth: 400;
-  --blur-length: calc(var(--z-depth) * 10);
-  --blur-level: calc(var(--z-depth) * 2);
-  z-index: calc(- 1000 - 1 * var(--z-pos));
-  visibility: visible;
-  position: absolute;
-  background-color: transparent;
-  border-radius: 50%;
-  opacity: min(1, max(calc(1 + (var(--blur-length) - var(--z-pos)) / var(--blur-level)), 0));
-  top: calc((var(--y-pos) * (var(--z-depth) / var(--z-pos)) + 1) * 50%);
-  left: calc((var(--x-pos) * (var(--z-depth) / var(--z-pos)) + 1) * 50%);
-  transform: translate(-50%, -50%) scale(calc(var(--z-depth) / var(--z-pos) * 100%));
-  animation: space_asteroid_animation 2s linear infinite;
-}
-
-@property --x-pos {
-  syntax: "<number>";
-  inherits: false;
-  initial-value: 0;
-}
-
-@property --y-pos {
-  syntax: "<number>";
-  inherits: false;
-  initial-value: 0;
-}
-
-@property --z-pos {
-  syntax: "<number>";
-  inherits: false;
-  initial-value: 0;
-}
-
-@keyframes space_asteroid_animation {
-  0% {
-    --z-pos: calc(var(--z-depth) * 12);
-  }
-
-  100% {
-    --z-pos: calc(var(--z-depth) * 0);
-  }
-}
-
-#BackGround>div[data-background-name="space"]>div.light {
-  width: 100px;
-  aspect-ratio: 1;
-  height: auto;
-}
-
-/* ここにゃんのサイン */
-#BackGround>div[data-background-name="space"]>svg {
-  width: min(100vw, 250px);
-  height: auto;
-  animation: kokonyan-sign-animation-x 10s linear infinite, kokonyan-sign-animation-y 11s linear infinite;
-  animation-delay: 55s, 55s; /* ここにゃんにちなんで、55秒経過すると、右下にあったここにゃんのサインがスクリーンセーバーの如く動き出す */
-}
-
-@keyframes kokonyan-sign-animation-x {
-  0% {
-    right: 0;
-  }
-
-  50% {
-    right: calc(100% - min(100vw, 250px));
-  }
-
-  100% {
-    right: 0;
-  }
-}
-
-@keyframes kokonyan-sign-animation-y {
-  0% {
-    bottom: 0;
-  }
-
-  50% {
-    bottom: calc(100% - min(100vw, 250px) * 175.69679 / 232.49988);
-  }
-
-  100% {
-    bottom: 0;
-  }
-}
-
 @keyframes rainbow-animation {
   from {
     background-position: 0;
@@ -415,18 +324,19 @@ a {
 }
 
 footer.The-Infinitys-Footer {
-  text-align: center;
+  text-align: right;
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   height: var(--footer-height);
   font-family: "noto-sans", system-ui, sans-serif;
-  background-color: color-mix(in srgb, var(--back-color), transparent 17%);
+  background-color: color-mix(in srgb, var(--back-color), transparent 2%);
 }
 
 footer.The-Infinitys-Footer a {
-  font-size: 14px;
+  font-size: 20px;
+  padding-bottom: 4px;
 }
 
 #mouse-stalker {
