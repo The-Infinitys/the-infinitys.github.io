@@ -14,7 +14,7 @@
   --light-visilibity: hidden;
   /* menu */
   --header-height: 50px;
-  --footer-height: calc(64px + 4 * 24px);
+  --footer-height: calc(64px + 4 * 30px);
   /* hambburger menu */
   --hamburger-width: 400px;
   --infinity-ease: cubic-bezier(0.5, 0, 0.5, 1);
@@ -24,6 +24,7 @@
   /* テーマに応じた色を設定する */
   --back-color: #eee;
   --text-color: #111;
+  --link-color: blue;
 }
 
 @media screen and (max-width: 400px) {
@@ -336,7 +337,7 @@ footer.The-Infinitys-Footer {
 
 footer.The-Infinitys-Footer a {
   font-size: 20px;
-  padding-bottom: 4px;
+  padding: 5px;
 }
 footer.The-Infinitys-Footer h1 {
   text-align: center;
