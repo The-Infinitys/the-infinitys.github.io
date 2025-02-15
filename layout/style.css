@@ -14,7 +14,7 @@
   --light-visilibity: hidden;
   /* menu */
   --header-height: 50px;
-  --footer-height: calc(64px + 4 * 16px);
+  --footer-height: calc(64px + 4 * 24px);
   /* hambburger menu */
   --hamburger-width: 400px;
   --infinity-ease: cubic-bezier(0.5, 0, 0.5, 1);
