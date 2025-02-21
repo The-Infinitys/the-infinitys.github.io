@@ -13,6 +13,7 @@
       <stop stop-color="#00ffff" offset="1" />
     </linearGradient>
    </defs>
+  <rect x="0" y="0" width="120" height="120" fill="#000" />
   <path
     d="
     M 10,60
