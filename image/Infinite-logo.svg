@@ -1,0 +1,74 @@
+<svg
+   viewBox="0 0 1000 120" version="1.1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+   <path
+   d="
+   M 10,60
+   l 10,20
+   h 30
+   l 20,-40
+   h 30
+   l 10,20
+   l -10,20
+   h -30
+   l -20,-40
+   h -30
+   z
+   "
+   fill="none"
+   stroke="#ffffff"
+   stroke-width="10"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+  />
+  <path d="
+  M 100,10
+  m30,0h50l-2,10h-20l-18,90h-10l18,-90h-20z
+  M 155,10
+  m30,0l-20,100h10l9,-45h30l-9,45h10l20,-100h-10l-9,45h-30l9,-45z
+  M 215,10
+  m 30,0   l -20,100   h 50   l 2,-10   h -40   l 7,-35   h 35   l 2,-10   h -35   l 7,-35   h 35   l 2,-10   z
+  M 305,10
+  m 30,0   m 10,0   h 30   l -2,10   h -10   l -16,80   h 10   l -2,10   h -30   l 2,-10   h 10   l 16,-80   h -10   z
+  M 360,10
+  m 30,0   l -20,100   h 10   l 16,-80   l 14,80   h 10   l 20,-100   h -10   l -16,80   l -14,-80   z
+  M 420,10
+  m 30,0   l -20,100   h 10   l 10,-50   h 35   l 2,-10   h -35   l 6,-30   h 35   l 2,-10   h -45   z
+  M 470,10
+  m 30,0   m 10,0   h 30   l -2,10   h -10   l -16,80   h 10   l -2,10   h -30   l 2,-10   h 10   l 16,-80   h -10   z
+  M 525,10
+  m 30,0   l -20,100   h 10   l 16,-80   l 14,80   h 10   l 20,-100   h -10   l -16,80   l -14,-80   z
+  M 580,10
+  m 30,0   m 10,0   h 30   l -2,10   h -10   l -16,80   h 10   l -2,10   h -30   l 2,-10   h 10   l 16,-80   h -10   z
+  M 635,10
+  m 30,0   h 50   l -2,10   h -20   l -18,90   h -10   l 18,-90   h -20   z
+  M 695,10
+  m 30,0   l 10,50   l -10,50   h 10   l 10,-50   l 30,-50   h -10   l -22.5,37.5   l -7.5,-37.5   z
+  M 735,10
+  m30,0m20,0h10l-4,20h-10z
+  M 780,10
+  m 30,0   m 10,0   h 30   l 8,10   l -5,25   h-10   l 4,-20   l -4,-5   h -20   l -6,5   l -5,25   l 4,5   h 25   l 8,10   l -7,35   l -12,10   h -30   l -8,-10   l 5,-25   h 10   l -4,20   l 4,5   h 20   l 6,-5   l 5,-25   l -4,-5   h -25   l -8,-10   l 7,-35   z
+  " fill-rule="evenodd" fill="#ffffff" stroke="none" />
+
+  <path
+  d="
+  M 880,60
+  l 10,20
+  h 30
+  l 20,-40
+  h 30
+  l 10,20
+  l -10,20
+  h -30
+  l -20,-40
+  h -30
+  z
+  "
+  fill="none"
+  stroke="#ffffff"
+  stroke-width="10"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+ />
+</svg>
