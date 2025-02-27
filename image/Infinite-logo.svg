@@ -17,7 +17,7 @@
    z
    "
    fill="none"
-   stroke="#ffffff"
+   stroke="#888888"
    stroke-width="10"
   />
   <path d="
@@ -47,7 +47,7 @@
   m30,0m20,0h10l-4,20h-10z
   M 780,10
   m 30,0   m 10,0   h 30   l 8,10   l -5,25   h-10   l 4,-20   l -4,-5   h -20   l -6,5   l -5,25   l 4,5   h 25   l 8,10   l -7,35   l -12,10   h -30   l -8,-10   l 5,-25   h 10   l -4,20   l 4,5   h 20   l 6,-5   l 5,-25   l -4,-5   h -25   l -8,-10   l 7,-35   z
-  " fill-rule="evenodd" fill="#ffffff" stroke="none" />
+  " fill-rule="evenodd" fill="#888888" stroke="none" />
 
   <path
      d="
@@ -64,7 +64,7 @@
      z
      "
      fill="none"
-     stroke="#ffffff"
+     stroke="#888888"
      stroke-width="10"
  />
 </svg>
