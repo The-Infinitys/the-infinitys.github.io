@@ -5,22 +5,20 @@
    <path
    d="
    M 10,60
-   l 10,20
+   l 6,20
    h 30
-   l 20,-40
+   l 28,-40
    h 30
-   l 10,20
-   l -10,20
+   l 6,20
+   l -16,20
    h -30
-   l -20,-40
+   l -12,-40
    h -30
    z
    "
    fill="none"
    stroke="#ffffff"
    stroke-width="10"
-   stroke-linecap="round"
-   stroke-linejoin="round"
   />
   <path d="
   M 100,10
@@ -52,23 +50,21 @@
   " fill-rule="evenodd" fill="#ffffff" stroke="none" />
 
   <path
-  d="
-  M 880,60
-  l 10,20
-  h 30
-  l 20,-40
-  h 30
-  l 10,20
-  l -10,20
-  h -30
-  l -20,-40
-  h -30
-  z
-  "
-  fill="none"
-  stroke="#ffffff"
-  stroke-width="10"
-  stroke-linecap="round"
-  stroke-linejoin="round"
+     d="
+     M 880,60
+     l 6,20
+     h 30
+     l 28,-40
+     h 30
+     l 6,20
+     l -16,20
+     h -30
+     l -12,-40
+     h -30
+     z
+     "
+     fill="none"
+     stroke="#ffffff"
+     stroke-width="10"
  />
 </svg>
