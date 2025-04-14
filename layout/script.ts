@@ -765,7 +765,7 @@ const layout_main: Function = () => {
       };
       const randInt: Function = (min: number, max: number): number =>
         Math.floor(Math.random() * (max + 1 - min)) + min;
-      const bg_num: number = randInt(1, 11);
+      const bg_num: number = randInt(1, 6);
       switch (bg_num) {
         case 0:
           console.log("Empty...");
