@@ -2,7 +2,7 @@ const recommendArticles = async () => {
   const article_list = document.querySelector(".article-list-main");
   article_list.innerHTML = "";
   article_info_datas = [];
-  const loading_img_src="../image/loading-thunderbolt.svg";
+  const loading_img_src="../image/loading-next.svg";
   const add_article_button = (article_info) => {
     const article_button = document.createElement("button");
     const article_root_path =
