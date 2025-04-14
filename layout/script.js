@@ -28,7 +28,7 @@ var layout_main = function () {
                 ]);
                 var infinity_logo = document.createElement("img");
                 infinity_logo.className = "logo the-inf-icon";
-                var The_Infinitys_logo_src = "/image/The-Infinitys.webp";
+                var The_Infinitys_logo_src = "/image/The-Infinite.svg";
                 htmlAttributes(infinity_logo, [
                     {
                         name: "src",
