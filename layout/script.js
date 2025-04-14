@@ -472,7 +472,7 @@ var layout_main = function () {
             var randInt = function (min, max) {
                 return Math.floor(Math.random() * (max + 1 - min)) + min;
             };
-            var bg_num = randInt(1, 11);
+            var bg_num = randInt(1, 6);
             switch (bg_num) {
                 case 0:
                     console.log("Empty...");
