@@ -213,9 +213,8 @@ const layout_main: Function = () => {
               github: string;
               pixiv: string;
             } = {
-              X: "/layout/image/hamburger/menu/x.svg",
+              X: "/layout/image/hamburger/menu/The-Infinite-X.svg",
               article: "/layout/image/hamburger/menu/article.svg",
-              // scratch: "/layout/image/hamburger/menu/scratch.svg",
               github: "/layout/image/hamburger/menu/github.svg",
               pixiv: "/layout/image/hamburger/menu/pixiv.svg",
             };

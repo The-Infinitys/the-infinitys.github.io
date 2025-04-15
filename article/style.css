@@ -49,7 +49,6 @@
   position: absolute;
   width: 100%;
   height: 80%;
-  background-color: var(--back-color);
   top: 0;
   left: 0;
   object-fit: cover;
