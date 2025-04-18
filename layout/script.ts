@@ -247,7 +247,7 @@ const layout_main: Function = () => {
                 ]);
                 const link_menu_txt: HTMLElement = document.createElement("p");
                 link_menu_txt.innerHTML = "<metal-fonts>" + menu.name + "</metal-fonts>";
-                link_menu_a.append(link_menu_img, link_menu_txt);
+                link_menu_a.append(link_menu_txt);
                 link_menu.append(link_menu_a);
               }
               hm_menu.append(link_menu);
