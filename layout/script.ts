@@ -206,9 +206,6 @@ const layout_main: Function = () => {
             </svg>
             `;
             hm_menu.append(color_theme_div);
-            const metal_fonts_script: HTMLScriptElement = document.createElement("script");
-            metal_fonts_script.src = "/Metal-Fonts/script.js";
-            hm_menu.append(metal_fonts_script);
             hm_menu.className = "Hamburger-Menu";
             type LinkMenu = {
               name: string;
@@ -921,3 +918,7 @@ const layout_main: Function = () => {
 };
 layout_main();
 
+
+const metal_fonts_script: HTMLScriptElement = document.createElement("script");
+metal_fonts_script.src = "/Metal-Fonts/script.js";
+document.body.append(metal_fonts_script);
