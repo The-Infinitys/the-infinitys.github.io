@@ -139,7 +139,7 @@ var layout_main = function () {
                                     { name: "target", value: "_" + menu.target },
                                 ]);
                                 var link_menu_txt = document.createElement("p");
-                                link_menu_txt.innerHTML = "<metal-fonts>" + menu.name + "</metal-fonts>";
+                                link_menu_txt.innerHTML = "<metal-fonts data-fill=\"#aaaaaa\">" + menu.name + "</metal-fonts>";
                                 link_menu_a.append(link_menu_txt);
                                 link_menu.append(link_menu_a);
                             }
