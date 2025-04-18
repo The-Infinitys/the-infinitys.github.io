@@ -206,56 +206,35 @@ const layout_main: Function = () => {
             </svg>
             `;
             hm_menu.append(color_theme_div);
-            const hamburger_icons: {
-              X: string;
-              article: string;
-              // scratch: string;
-              github: string;
-              pixiv: string;
-            } = {
-              X: "/layout/image/hamburger/menu/The-Infinite-X.svg",
-              article: "/layout/image/hamburger/menu/article.svg",
-              github: "/layout/image/hamburger/menu/github.svg",
-              pixiv: "/layout/image/hamburger/menu/pixiv.svg",
-            };
+            const metal_fonts_script: HTMLScriptElement = document.createElement("script");
+            metal_fonts_script.src = "/Metal-Fonts/script.js";
+            hm_menu.append(metal_fonts_script);
             hm_menu.className = "Hamburger-Menu";
             type LinkMenu = {
               name: string;
               href: string;
               target: string;
-              src: string;
             };
             const menus: LinkMenu[] = [
               {
                 name: "Article",
                 href: "/article/",
                 target: "self",
-                src: hamburger_icons.article,
               },
-              // {
-              //   name: "Scratch",
-              //   href: "/Scratch/",
-              //   target: "self",
-              //   src: hamburger_icons.scratch,
-              // },
-              // [Removed By ST]
               {
                 name: "GitHub",
                 href: "https://github.com/The-Infinitys/",
                 target: "blank",
-                src: hamburger_icons.github,
               },
               {
                 name: "X",
                 href: "https://x.com/The_Infinity_s/",
                 target: "blank",
-                src: hamburger_icons.X,
               },
               {
                 name: "Pixiv",
                 href: "https://www.pixiv.net/users/109461187",
                 target: "blank",
-                src: hamburger_icons.pixiv,
               },
             ];
             menus.forEach((menu: LinkMenu) => {
@@ -266,15 +245,8 @@ const layout_main: Function = () => {
                   { name: "href", value: menu.href },
                   { name: "target", value: "_" + menu.target },
                 ]);
-                const link_menu_img: HTMLImageElement =
-                  document.createElement("img");
-                htmlAttributes(link_menu_img, [
-                  { name: "alt", value: "" },
-                  { name: "class", value: "icon" },
-                  { name: "src", value: menu.src },
-                ]);
                 const link_menu_txt: HTMLElement = document.createElement("p");
-                link_menu_txt.innerHTML = menu.name;
+                link_menu_txt.innerHTML = "<metal-fonts>" + menu.name + "</metal-fonts>";
                 link_menu_a.append(link_menu_img, link_menu_txt);
                 link_menu.append(link_menu_a);
               }
@@ -948,3 +920,4 @@ const layout_main: Function = () => {
   client();
 };
 layout_main();
+
