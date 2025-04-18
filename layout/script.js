@@ -104,44 +104,30 @@ var layout_main = function () {
                         color_theme_div.id = "change-color-theme";
                         color_theme_div.innerHTML = "\n            <svg\n                viewBox=\"0 0 300 100\"\n                version=\"1.1\"\n                xmlns=\"http://www.w3.org/2000/svg\"\n                xmlns:xlink=\"http://www.w3.org/1999/xlink\"\n              >\n              <circle id=\"color-theme-change-selected\" data-inertia=\"0\" cx=\"250\" cy=\"50\" r=\"45\" />\n              <g name=\"light\">\n                <circle style=\"fill:color-mix(in srgb, transparent 99%, var(--back-color));stroke:none;\" cx=\"50\" cy=\"50\" r=\"45\" />\n                <circle cx=\"50\" cy=\"50\" r=\"20\" style=\"fill: var(--text-color); stroke: none\" />\n                  <path\n                    d=\"\n                    M50,25v-20\n                    M50,75v20\n                    M25,50h-20\n                    M75,50h20\n                    M67,67l14,14\n                    M33,67l-14,14\n                    M67,33l14,-14\n                    M33,33l-14,-14\n                    \"\n                    style=\"stroke: var(--text-color); stroke-width: 4; fill: none;stroke-linecap:round;\"\n                    />\n              </g>\n              <g name=\"dark\">\n                <circle style=\"fill:color-mix(in srgb, transparent 99%, var(--back-color));stroke:none;\" cx=\"150\" cy=\"50\" r=\"45\" />\n                <path\n                  d=\"\n                  M160,10\n                  A40,40,0,1,0,190,65\n                  A35,35,0,1,1,160,10\n                  z\n                  \"\n                  style=\"stroke: none; fill: var(--text-color)\"\n                  />\n              </g>\n              <g name=\"auto\">\n                <circle style=\"fill:color-mix(in srgb, transparent 99%, var(--back-color));stroke:none;\" cx=\"250\" cy=\"50\" r=\"45\" />\n                <path\n                  d=\"\n                  M250,30\n                  A20,20,0,1,0,267,57\n                  A15,15,0,1,1,250,30\n                  z\n                  \"\n                  style=\"stroke: none; fill: var(--text-color)\"\n                  />\n                <path\n                  d=\"\n                  M250,25v-20\n                  M250,75v20\n                  M225,50h-20\n                  M275,50h20\n                  M267,67l14,14\n                  M233,67l-14,14\n                  M267,33l14,-14\n                  M233,33l-14,-14\n                  \"\n                  style=\"stroke: var(--text-color); stroke-width: 4; fill: none;stroke-linecap:round;\"\n                  />\n              </g>\n            </svg>\n            ";
                         hm_menu.append(color_theme_div);
-                        var hamburger_icons = {
-                            X: "/layout/image/hamburger/menu/The-Infinite-X.svg",
-                            article: "/layout/image/hamburger/menu/article.svg",
-                            github: "/layout/image/hamburger/menu/github.svg",
-                            pixiv: "/layout/image/hamburger/menu/pixiv.svg",
-                        };
+                        var metal_fonts_script = document.createElement("script");
+                        metal_fonts_script.src = "/Metal-Fonts/script.js";
+                        hm_menu.append(metal_fonts_script);
                         hm_menu.className = "Hamburger-Menu";
                         var menus = [
                             {
                                 name: "Article",
                                 href: "/article/",
                                 target: "self",
-                                src: hamburger_icons.article,
                             },
-                            // {
-                            //   name: "Scratch",
-                            //   href: "/Scratch/",
-                            //   target: "self",
-                            //   src: hamburger_icons.scratch,
-                            // },
-                            // [Removed By ST]
                             {
                                 name: "GitHub",
                                 href: "https://github.com/The-Infinitys/",
                                 target: "blank",
-                                src: hamburger_icons.github,
                             },
                             {
                                 name: "X",
                                 href: "https://x.com/The_Infinity_s/",
                                 target: "blank",
-                                src: hamburger_icons.X,
                             },
                             {
                                 name: "Pixiv",
                                 href: "https://www.pixiv.net/users/109461187",
                                 target: "blank",
-                                src: hamburger_icons.pixiv,
                             },
                         ];
                         menus.forEach(function (menu) {
@@ -152,15 +138,9 @@ var layout_main = function () {
                                     { name: "href", value: menu.href },
                                     { name: "target", value: "_" + menu.target },
                                 ]);
-                                var link_menu_img = document.createElement("img");
-                                htmlAttributes(link_menu_img, [
-                                    { name: "alt", value: "" },
-                                    { name: "class", value: "icon" },
-                                    { name: "src", value: menu.src },
-                                ]);
                                 var link_menu_txt = document.createElement("p");
-                                link_menu_txt.innerHTML = menu.name;
-                                link_menu_a.append(link_menu_img, link_menu_txt);
+                                link_menu_txt.innerHTML = "<metal-fonts>" + menu.name + "</metal-fonts>";
+                                link_menu_a.append(link_menu_txt);
                                 link_menu.append(link_menu_a);
                             }
                             hm_menu.append(link_menu);
