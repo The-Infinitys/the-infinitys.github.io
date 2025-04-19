@@ -243,7 +243,7 @@ const layout_main: Function = () => {
                   { name: "target", value: "_" + menu.target },
                 ]);
                 const link_menu_txt: HTMLElement = document.createElement("p");
-                link_menu_txt.innerHTML = "<metal-fonts data-fill=\"#aaaaaa\">" + menu.name + "</metal-fonts>";
+                link_menu_txt.innerHTML = menu.name;
                 link_menu_a.append(link_menu_txt);
                 link_menu.append(link_menu_a);
               }
@@ -917,8 +917,3 @@ const layout_main: Function = () => {
   client();
 };
 layout_main();
-
-
-const metal_fonts_script: HTMLScriptElement = document.createElement("script");
-metal_fonts_script.src = "/Metal-Fonts/script.js";
-document.body.append(metal_fonts_script);

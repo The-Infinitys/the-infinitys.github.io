@@ -136,7 +136,7 @@ var layout_main = function () {
                                     { name: "target", value: "_" + menu.target },
                                 ]);
                                 var link_menu_txt = document.createElement("p");
-                                link_menu_txt.innerHTML = "<metal-fonts data-fill=\"#aaaaaa\">" + menu.name + "</metal-fonts>";
+                                link_menu_txt.innerHTML = menu.name;
                                 link_menu_a.append(link_menu_txt);
                                 link_menu.append(link_menu_a);
                             }
@@ -616,6 +616,3 @@ var layout_main = function () {
     client();
 };
 layout_main();
-var metal_fonts_script = document.createElement("script");
-metal_fonts_script.src = "/Metal-Fonts/script.js";
-document.body.append(metal_fonts_script);

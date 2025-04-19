@@ -73,9 +73,11 @@ header.The-Infinitys-Header .logo {
 header.The-Infinitys-Header+* {
   margin-top: var(--header-height);
 }
-img.the-inf-icon{
+
+img.the-inf-icon {
   visibility: hidden;
 }
+
 svg.The-Infinitys-txt {
   position: absolute;
   top: calc(0.1 * var(--header-height));
@@ -84,14 +86,17 @@ svg.The-Infinitys-txt {
   stroke: var(--text-color);
   fill: var(--text-color);
 }
+
 @media screen and (max-width: 350px) {
   svg.The-Infinitys-txt {
     display: none;
   }
+
   img.the-inf-icon {
     visibility: visible;
   }
 }
+
 #hamburger-button {
   display: none;
   position: absolute;
@@ -168,14 +173,21 @@ svg.The-Infinitys-txt {
   border: 2px solid var(--text-color);
 }
 
+@font-face {
+  font-family: "Chakra Petch";
+  src: url("/font/ChakraPetch-SemiBoldItalic.ttf") format("truetype");
+}
 
 .Hamburger-Menu a {
-  font-family: "noto-sans", system-ui, sans-serif;
+  font-family: "Chakra Petch", sans-serif;
   text-decoration: none;
   color: var(--text-color);
   font-size: calc(0.8 * var(--header-height));
 }
-
+.Hamburger-Menu a p {
+  font-family: "Chakra Petch", sans-serif;
+  text-decoration: none;
+}
 .Hamburger-Menu>div {
   width: 100%;
   height: calc(0.8 * var(--header-height));
@@ -338,12 +350,15 @@ footer.The-Infinitys-Footer {
 footer.The-Infinitys-Footer a {
   font-size: 20px;
 }
+
 footer.The-Infinitys-Footer p {
-  line-height:1.5;
+  line-height: 1.5;
 }
+
 footer.The-Infinitys-Footer h1 {
   text-align: center;
 }
+
 #mouse-stalker {
   position: fixed;
   top: 100vh;
