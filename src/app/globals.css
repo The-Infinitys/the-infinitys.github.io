@@ -1,0 +1,116 @@
+/* /home/the-infinitys/github/the-infinitys.next.site/src/app/globals.css */
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --primary: #eeeeee;
+  --link-color: #0000ff;
+  /* ライトテーマ用のリンク色を追加 */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  /* position: relative; */
+  /* この行を削除またはコメントアウト */
+  box-sizing: border-box;
+  /* box-sizing を追加 */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    --primary: #222222;
+    --link-color: #00ffff;
+  }
+}
+
+html,
+/* html にも適用 */
+body {
+  width: 100%;
+  overflow-x: hidden auto;
+  /* 横スクロールのみを禁止 */
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  min-height: 100vh;
+  /* body に min-height を設定 */
+}
+
+/* div.container は不要になったか、別の場所で使われている場合は width: 100% を確認 */
+/*
+div.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: inherit;
+}
+*/
+
+header {
+  width: 100%;
+  background-color: var(--primary);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  /* ボタン(z-30), メニュー(z-20) よりは下 */
+}
+
+/*header 内のリンクスタイルは header.tsx の Tailwind クラスで制御するため、ここでは不要な場合が多い */
+header a {
+  color: var(--foreground);
+  font-family: "Chakra Petch", "noto-sans", sans-serif;
+  font-style: italic;
+  font-weight: 600;
+  padding: 1em;
+  text-decoration: none;
+}
+
+
+main {
+  width: 100%;
+  /* min-height: 100%; */
+  /* flex: 1 などで高さを確保する方が一般的 */
+  flex: 1;
+  /* layout.tsx で body が flex コンテナでないため、これは効かない。必要なら body に display: flex; flex-direction: column; を追加 */
+}
+
+main>section.title>h1 {
+  text-align: center;
+  font-family: "Chakra Petch", "noto-sans", sans-serif;
+  font-size: 64px;
+  font-weight: 600;
+  font-style: italic;
+  padding: 2rem;
+}
+
+section{
+  padding:1rem; 
+}
+
+section>h1,
+section>h2,
+section>h3,
+section>h4,
+section>h5,
+section>h6,
+section>p {
+  line-height: 2;
+  margin: 1em;
+  padding: 1em;
+}
+
+footer {
+  width: 100%;
+  background-color: var(--primary);
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+}

@@ -1,0 +1,75 @@
+<svg
+  viewBox="0 0 100 100"
+  version="1.1"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+>
+  <defs>
+    <linearGradient id="rainbow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ff0" />
+      <stop offset="0.167" stop-color="#0f0" />
+      <stop offset="0.333" stop-color="#0ff" />
+      <stop offset="0.5" stop-color="#00f" />
+      <stop offset="0.667" stop-color="#f0f" />
+      <stop offset="0.833" stop-color="#f00" />
+      <stop offset="1" stop-color="#ff0" />
+    </linearGradient>
+  </defs>
+  <path
+    d="
+      M55,4
+      l-30,50
+      h30
+      l-20,40
+      l40,-50
+      h-30
+      z
+    "
+    fill-rule="nonzero"
+    fill="url(#rainbow)"
+    stroke="none"
+    stroke-width="0"
+  />
+  <path
+    d="
+      M0,50
+      a50,50,0,0,0,100,0
+      a50,50,0,0,0,-100,0
+      M5,50
+      a45,45,0,0,0,90,0
+      a45,45,0,0,0,-90,0
+    "
+    fill-rule="evenodd"
+    fill="url(#rainbow)"
+    stroke="none"
+    stroke-width="0"
+  >
+    <animate
+      attributeName="d"
+      values="
+      M0,50
+      a50,50,0,0,0,100,0
+      a50,50,0,0,0,-100,0
+      M10,50
+      a40,40,0,0,0,80,0
+      a40,40,0,0,0,-80,0;
+      M0,50
+      a50,50,0,0,0,100,0
+      a50,50,0,0,0,-100,0
+      M1,50
+      a49,49,0,0,0,98,0
+      a49,49,0,0,0,-98,0;
+      M0,50
+      a50,50,0,0,0,100,0
+      a50,50,0,0,0,-100,0
+      M10,50
+      a40,40,0,0,0,80,0
+      a40,40,0,0,0,-80,0"
+      dur="0.5s"
+      calcmode="spline"
+      keyTimes="0;0.5;1"
+      keySplines="0,1,1,1;0,0,1,0"
+      repeatCount="indefinite"
+    />
+  </path>
+</svg>
