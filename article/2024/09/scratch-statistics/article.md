@@ -1,3 +1,9 @@
+---
+title: 
+date: ""
+description: ""
+---
+
 # Scratchの傾向について
 
 本日、Scratchの傾向のデータについての調査をしました。

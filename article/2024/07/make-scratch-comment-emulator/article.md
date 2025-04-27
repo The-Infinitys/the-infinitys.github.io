@@ -1,3 +1,9 @@
+---
+title: 
+date: ""
+description: ""
+---
+
 # title: Scratch Comment emulatorを作ってみた！
 
 Scratchでコメントをした際にどのように表示されるのかをエミュレートするプログラムを作りました。ご自由にお使いください。

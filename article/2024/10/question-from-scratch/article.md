@@ -1,3 +1,9 @@
+---
+title: 
+date: ""
+description: ""
+---
+
 # Scratchの質問
 
 どうも、The Infinity'sです。

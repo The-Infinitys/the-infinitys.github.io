@@ -1,3 +1,9 @@
+---
+title: Blog List
+date: "2024-06-19"
+description: "Blog List"
+---
+
 # title: 検索機能を搭載する
 
 # 検索機能をブログに搭載しました
@@ -12,7 +18,7 @@ The Infinity'sです。つい最近
 ### html
 ```html
 <div id="list-head">
-  <h1>Blog List</h1>
+  # Blog List
   <div>
     <img
       onclick="search_articles()"
@@ -110,4 +116,3 @@ const search_articles = () => {
 アイコンを書いていくのが大変でした。検索アイコンはここにあります。
 ![search_icon](/image/Infinity-search.svg)
 
-<date>2024/06/19</date>

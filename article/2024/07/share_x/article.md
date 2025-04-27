@@ -1,3 +1,9 @@
+---
+title: 
+date: ""
+description: ""
+---
+
 # 「Xで公開する」ボタンを追加してみた！
 
 どうも！The Infinity'sです！

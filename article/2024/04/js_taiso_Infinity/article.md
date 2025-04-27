@@ -1,10 +1,18 @@
-<h1>JavaScriptで頭の体操をしよう！</h1>
-<p>最近Scratchで色々探していると...こんなのを見つけました！</p>
+---
+title: JavaScriptで頭の体操をしよう！
+date: "2024-04-26"
+description: "JavaScriptで頭の体操をしよう！"
+---
+
+# JavaScriptで頭の体操をしよう！
+最近Scratchで色々探していると...こんなのを見つけました！
+
 <img
   src="https://cdn2.scratch.mit.edu/get_image/project/1002443254_480x360.png"
   alt="JavaScriptで頭の体操をしよう！ by @abee のサムネイル"
   style="width: min(100%, 400px); height: auto" />
-<p>JavaScriptで頭の体操...?自分もやってみようかな...?</p>
+JavaScriptで頭の体操...?自分もやってみようかな...?
+
 <p>
   <a href="https://hubspot.kayac.com/js-taiso-001" target="_parent"
     >https://hubspot.kayac.com/js-taiso-001</a
@@ -12,7 +20,8 @@
   <a herf="https://bit.ly/js_qz001" target="_parent">問題のzipファイル</a
   >を手に入れて...
 </p>
-<p>ええと...readme...</p>
+ええと...readme...
+
 <div style="font-size: 10px">
   # JS体操 No. 1 https://hubspot.kayac.com/js-taiso-001 ## 問題の解き方 -<br />
   黒い実線が赤い点線のガイドとぴったり重なるように`f.js`を編集してください♪<br />
@@ -32,34 +41,44 @@
   - 文字数は開発者コンソールに表示されます♪ -<br />
   JavaScriptの文字列の`length`プロパティを文字数とみなします♪（つまりUTF-16のコードユニットの数を文字数とみなします）<br />
 </div>
-<p>ふむふむ...なるほど...よし！やってみよう！</p>
+ふむふむ...なるほど...よし！やってみよう！
+
 <pre style="color: #00ff00">
-      <code>/**</code>
-      <code>* f(x) の黒い実線が赤い点線のガイドとぴったり重なるようにしてください♪</code>
-      <code>*</code>
-      <code>* @param  {number} x 0〜1の数値</code>
-      <code>* @return {number}</code>
-      <code>*/</code>
-      <code>export default function f(x) {</code>
-        <code>return 0;</code>
-      <code>}</code>
+      `/**`
+      `* f(x) の黒い実線が赤い点線のガイドとぴったり重なるようにしてください♪`
+      `*`
+      `* @param  {number} x 0〜1の数値`
+      `* @return {number}`
+      `*/`
+      `export default function f(x) {`
+        `return 0;`
+      `}`
     </pre>
-<p>これを...</p>
+これを...
+
 <pre style="color: #00ff00">
-      <code>export default x=>{return (~~(x*5+1)-(1-(5*x%1)**2)**0.5)/5}</code>
+      `export default x=>{return (~~(x*5+1)-(1-(5*x%1)**2)**0.5)/5}`
     </pre>
-<p>こう！</p>
+こう！
+
 <a href="./js-taiso-001/public/index.html" target="_parent">ここ</a>から見ることができます！
-<p>それでそれで正解は...</p>
+それでそれで正解は...
+
 <a
   href="https://techblog.kayac.com/js-taiso-001-commentary-vol1"
   target="_parent"
   >ここ！</a>
 <code style="color: #00ff00">export default x=>x-(x%=.2)+.2-(.04-x*x)**.5</code>
-<p>うん...全然届かん。</p>
-<p>やっぱりみんな頭良いんだな...</p>
-<p>...って感じで実際にやってみたんですが、</p>
-<p>結構面白かったです！</p>
-<p>みなさんも挑戦する機会があったらぜひどうぞ！</p>
-<p>では！</p>
-<date>2024/04/26</date>
+うん...全然届かん。
+
+やっぱりみんな頭良いんだな...
+
+...って感じで実際にやってみたんですが、
+
+結構面白かったです！
+
+みなさんも挑戦する機会があったらぜひどうぞ！
+
+では！
+
+

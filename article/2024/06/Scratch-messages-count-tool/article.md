@@ -1,16 +1,31 @@
-<h1>Scratch messages counter</h1>
-<p>どもども!6月最初のブログだZE⭐️!The Infinity'sです！</p>
+---
+title: Scratch messages counter
+date: "2024-06-01"
+description: "Scratch messages counter"
+---
+
+# Scratch messages counter
+どもども!6月最初のブログだZE⭐️!The Infinity'sです！
+
 <p>
 最近、ふと思ったことがあるんです。もしも他のScratcherが活動しているか見れたら便利だなーぁ...
 </p>
-<p>って。そういうわけで作ることにします。</p>
-<p>おもな仕組みとしては、</p>
-<p>1.場所(現在地のURL)を取得</p>
-<p>2.ユーザー名が取れたら、とる。</p>
-<p>3.でなければ任意の値を入れさせる</p>
-<p>4.ユーザー名からメッセージ数をfetch</p>
-<p>5.表示</p>
-<p>というふうにするつもりです。</p>
+って。そういうわけで作ることにします。
+
+おもな仕組みとしては、
+
+1.場所(現在地のURL)を取得
+
+2.ユーザー名が取れたら、とる。
+
+3.でなければ任意の値を入れさせる
+
+4.ユーザー名からメッセージ数をfetch
+
+5.表示
+
+というふうにするつもりです。
+
 <a
 target="_parent"
 href="https://github.com/The-Infinitys/blog-data/blob/main/2024-6/Scratch-messages-count-tool/messagescount.js">
@@ -19,7 +34,8 @@ src="./img/messagescount.js.png"
 alt="messagescount.js"
 style="width:100%;"
 /></a>
-<p>作りました。</p>
+作りました。
+
 <p>
 で、このデータを元にして...<a
 target="_parent"
@@ -34,4 +50,3 @@ href="javascript:if(window.location.href.startsWith(%22https://scratch.mit.edu/u
 <p>
 今までこういった小物ツールをたくさん作ってきたので、結構簡単でした。
 </p>
-<date>2024/06/01</date>

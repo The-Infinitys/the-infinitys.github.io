@@ -1,3 +1,9 @@
+---
+title: The Infinity's
+date: ""
+description: "The Infinity's"
+---
+
 # title: 大和魂
 
 # 飽きてきた背景
@@ -23,7 +29,7 @@ const init_header = function () {
     <a href="/" aria-label="Home">
       <img id="headerLogo" class="The-Infinitys" src="/image/The-Infinitys.webp" alt="" onerror="generate_Infinitys()" />
     </a>
-    <h1>The Infinity's</h1>
+    # The Infinity's
     <button
       id="hamburger_menu_button"
       aria-label="hamburger_menu_button"
@@ -137,13 +143,17 @@ const init_footer = function () {
   const footer_text = `
     <div>
       <div>
-        <p><a href="/contact/">Contact to The Infinity's</a></p>
-        <p><a href="/blog/">Watch The Infinity's Blog</a></p>
-        <p><a href="https://scratch.mit.edu/users/The_Infinitys/">Go to Scratch profile</a></p>
-        <p><a href="https://github.com/The_Infinitys/">Go to GitHub profile</a></p>
+        <a href="/contact/">Contact to The Infinity's</a>
+
+        <a href="/blog/">Watch The Infinity's Blog</a>
+
+        <a href="https://scratch.mit.edu/users/The_Infinitys/">Go to Scratch profile</a>
+
+        <a href="https://github.com/The_Infinitys/">Go to GitHub profile</a>
+
       </div>
     </div>
-    <h1>&copy; 2024 The Infinity's</h1>
+    # &copy; 2024 The Infinity's
   `;
   const footer = document.createElement("footer");
   footer.style = `
@@ -577,7 +587,7 @@ const init_header = function () {
     <a href="/" aria-label="Home">
       <img id="headerLogo" class="The-Infinitys" src="/image/The-Infinitys.webp" alt="" onerror="generate_Infinitys()" />
     </a>
-    <h1>The Infinity's</h1>
+    # The Infinity's
     <button
       id="hamburger_menu_button"
       aria-label="hamburger_menu_button"
@@ -691,13 +701,17 @@ const init_footer = function () {
   const footer_text = `
     <div>
       <div>
-        <p><a href="/contact/">Contact to The Infinity's</a></p>
-        <p><a href="/blog/">Watch The Infinity's Blog</a></p>
-        <p><a href="https://scratch.mit.edu/users/The_Infinitys/">Go to Scratch profile</a></p>
-        <p><a href="https://github.com/The_Infinitys/">Go to GitHub profile</a></p>
+        <a href="/contact/">Contact to The Infinity's</a>
+
+        <a href="/blog/">Watch The Infinity's Blog</a>
+
+        <a href="https://scratch.mit.edu/users/The_Infinitys/">Go to Scratch profile</a>
+
+        <a href="https://github.com/The_Infinitys/">Go to GitHub profile</a>
+
       </div>
     </div>
-    <h1>&copy; 2024 The Infinity's</h1>
+    # &copy; 2024 The Infinity's
   `;
   const footer = document.createElement("footer");
   footer.style = `

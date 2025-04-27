@@ -1,3 +1,9 @@
+---
+title: 
+date: "2024-06-27"
+description: ""
+---
+
 # title: Scratchで777フォロワー!!!!!!
 
 # 悲願の目標
@@ -1573,4 +1579,3 @@ FutureSeeing
 The Infinity's!
 Believe The Infinity Possibility!
 <img style="width:100%;" src="./img/The-Infinitys-Believe-The-Infinity-Possibility.webp">
-<date>2024/06/27</date>

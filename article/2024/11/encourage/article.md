@@ -1,3 +1,9 @@
+---
+title: 
+date: ""
+description: ""
+---
+
 # Music: Encourage
 
 どうも！The Infinity'sです！

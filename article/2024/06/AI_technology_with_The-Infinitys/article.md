@@ -1,4 +1,10 @@
-<h1>実写じゃないぞ、ロゴだぞ</h1>
+---
+title: 実写じゃないぞ、ロゴだぞ
+date: "2024-06-04"
+description: "実写じゃないぞ、ロゴだぞ"
+---
+
+# 実写じゃないぞ、ロゴだぞ
 <p>
 どうも!The Infinity'sです!最近は<a
 target="_parent"
@@ -19,9 +25,11 @@ href="https://the-infinitys.f5.si/blog?name=To_all_AI_artists_who_call_themselve
 >AI絵師</a
 >」と呼ばれていたりと、色々問題点も多いです。
 </p>
-<p>そんな中で、私はふと思いました...</p>
+そんな中で、私はふと思いました...
+
 <h5>「自分の画像をAIに学習させたらどうなるんだろう...」</h5>
-<p>と。ということで</p>
+と。ということで
+
 <img
 src="https://the-infinitys.f5.si/image/The-Infinitys.webp"
 alt="The Infinity's logo"
@@ -30,7 +38,7 @@ height="auto" />
 <p>
 こいつを召喚、そして手持ちのAI(Gemini)に、この画像をインポートさせ、これを元に絵を描くように指示...
 </p>
-<h2>結果</h2>
+## 結果
 <style>
 #generated-img-list {
 display: flex;
@@ -44,21 +52,22 @@ height: auto;
 }
 </style>
 <div id="generated-img-list">
-<img src="./image/Gemini_1.jpeg" alt="1" />
-<img src="./image/Gemini_2.jpeg" alt="2" /><br />
-<img src="./image/Gemini_3.jpeg" alt="3" />
-<img src="./image/Gemini_4.jpeg" alt="4" /><br />
-<img src="./image/Gemini_5.jpeg" alt="5" />
-<img src="./image/Gemini_6.jpeg" alt="6" /><br />
-<img src="./image/Gemini_7.jpeg" alt="7" />
-<img src="./image/Gemini_8.jpeg" alt="8" /><br />
-<img src="./image/Gemini_8.jpeg" alt="9" />
-<img src="./thumbnail.jpg" alt="10" />
+![1](./image/Gemini_1.jpeg)
+![2](./image/Gemini_2.jpeg)<br />
+![3](./image/Gemini_3.jpeg)
+![4](./image/Gemini_4.jpeg)<br />
+![5](./image/Gemini_5.jpeg)
+![6](./image/Gemini_6.jpeg)<br />
+![7](./image/Gemini_7.jpeg)
+![8](./image/Gemini_8.jpeg)<br />
+![9](./image/Gemini_8.jpeg)
+![10](./thumbnail.jpg)
 </div>
-<h2>作ってみた感想</h2>
+## 作ってみた感想
 <p>
 実写感が半端ない。灰色の背景に木・プラスチック・金属的質感がある丸っこい物体を作って虹色に塗ったという感じ...
 </p>
-<p>綺麗...٩( ᐛ )و</p>
-<p>頼むのでGoogleAdsense合格させてください</p>
-<date>2024/06/04</date>
+綺麗...٩( ᐛ )و
+
+頼むのでGoogleAdsense合格させてください
+

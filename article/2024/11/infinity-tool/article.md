@@ -1,3 +1,9 @@
+---
+title: 
+date: ""
+description: ""
+---
+
 # Infinity Tool公開！
 
 どうも！ The Infinity'sです！

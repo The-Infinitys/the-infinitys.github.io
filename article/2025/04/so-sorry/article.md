@@ -1,3 +1,9 @@
+---
+title: 
+date: ""
+description: ""
+---
+
 # 投稿が遅れましたm(_ _)m
 
 どうもどうも、 The Infinity'sです。

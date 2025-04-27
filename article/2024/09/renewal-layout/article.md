@@ -1,3 +1,9 @@
+---
+title: &copy; 2024 The Infinity&apos;s
+date: ""
+description: "&copy; 2024 The Infinity&apos;s"
+---
+
 # Webサイトのスタイルがリニューアル！
 
 どうも！ The Infinity'sです！
@@ -292,7 +298,7 @@ const layout_main: Function = () => {
     const InfinityFooter: Function = () => {
       const result: HTMLElement = document.createElement("footer");
       result.className = "The-Infinitys-Footer";
-      const content: string = `<h1>&copy; 2024 The Infinity&apos;s</h1>`;
+      const content: string = `# &copy; 2024 The Infinity&apos;s`;
       result.innerHTML = content;
       return result;
     };

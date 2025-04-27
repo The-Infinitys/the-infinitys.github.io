@@ -1,3 +1,9 @@
+---
+title: 
+date: "2024-07-10"
+description: ""
+---
+
 # Infinity Spirit Blog 完成！
 ### 完成した究極
 
@@ -56,4 +62,4 @@ InfinitySpiritに関するご質問は、以下のURLからお気軽にお問い
 
 (helped by Gemini)
 
-<date>2024/07/10</date>
+

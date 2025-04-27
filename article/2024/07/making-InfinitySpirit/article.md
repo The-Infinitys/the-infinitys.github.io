@@ -1,3 +1,9 @@
+---
+title: 
+date: ""
+description: ""
+---
+
 # title: 最近ブログの更新が滞っている理由について
 どうも。The Infinity'sです。私は現在、**InfinitySpirrit**
 という名前の静的サイトジェネレーターを新たに作成しています。

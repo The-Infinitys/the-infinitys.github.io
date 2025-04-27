@@ -1,3 +1,9 @@
+---
+title: 
+date: ""
+description: ""
+---
+
 # 何も聞かずに音楽を作ってみた
 
 どうも！The Infinity'sです！

@@ -1,4 +1,10 @@
-<h1>サーバーについての話</h1>
+---
+title: サーバーについての話
+date: "2024-06-03"
+description: "サーバーについての話"
+---
+
+# サーバーについての話
 <p>
 私は現在、<a target="_parent" href="https://github.com/">GitHub</a>,
 <a target="_parent" href="https://render.com/">Render</a>, そして<a
@@ -31,5 +37,5 @@ href="https://the-infinitys.infinityon.com/"
 >でしか私のホームページを見ることが出来ない人たちを考慮して、パラメータ
 no-redirectをURLに入れることでリダイレクトを止められるようにしています。
 </p>
-<p>御理解をお願いしますm(_ _)m</p>
-<date>2024/06/03</date>
+御理解をお願いしますm(_ _)m
+

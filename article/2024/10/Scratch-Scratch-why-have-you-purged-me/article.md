@@ -1,3 +1,9 @@
+---
+title: 
+date: ""
+description: ""
+---
+
 # Scratchでの活動について
 
 この度、[諸事情](../../09/blocked-from-scratch/)によりScratchでの活動を無期限で休止させていただくこととなりました。

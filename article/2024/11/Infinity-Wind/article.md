@@ -1,3 +1,9 @@
+---
+title: 
+date: ""
+description: ""
+---
+
 # Music: Infinity Wind
 
 どうも！The Infinity'sです！

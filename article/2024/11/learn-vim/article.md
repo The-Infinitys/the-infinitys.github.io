@@ -1,3 +1,9 @@
+---
+title: 
+date: ""
+description: ""
+---
+
 # Vimエディタを学習する
 
 どうも！The Infinity'sです！

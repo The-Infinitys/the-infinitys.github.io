@@ -1,3 +1,9 @@
+---
+title: 
+date: ""
+description: ""
+---
+
 # Music: DeadLine
 
 お久しぶりです！The Infinity'sです！

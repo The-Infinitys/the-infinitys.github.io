@@ -1,4 +1,10 @@
-<h1>日本語にしか見えないフォント</h1>
+---
+title: 日本語にしか見えないフォント
+date: "2024-05-16"
+description: "日本語にしか見えないフォント"
+---
+
+# 日本語にしか見えないフォント
 <p>
 Electroharmonix is a pseudo-Japanese display typeface inspired by
 katakana, hiragana, and kanji. It was created by Canadian designer Ray
@@ -13,7 +19,8 @@ where they are no longer recognizable. This can make the font an
 interesting and playful choice for designers who want to create a
 sense of mystery or intrigue.
 </p>
-<p>Here are some of the key features of Electroharmonix:</p>
+Here are some of the key features of Electroharmonix:
+
 <ul>
 <li>
 <strong>Distorted and stylized forms:</strong> The characters in
@@ -33,7 +40,8 @@ fun and playful font to use, and it can also create a sense of
 mystery or intrigue.
 </li>
 </ul>
-<p>Here are some examples of how Electroharmonix can be used:</p>
+Here are some examples of how Electroharmonix can be used:
+
 <ul>
 <li>
 <strong>Logos and branding:</strong> Electroharmonix can be a great
@@ -55,7 +63,8 @@ Overall, Electroharmonix is a versatile and creative font that can be
 used for a variety of purposes. If you&#39;re looking for a font that
 is both unique and eye-catching, Electroharmonix is a great option.
 </p>
-<p>Here are some additional details that you may find helpful:</p>
+Here are some additional details that you may find helpful:
+
 <ul>
 <li>
 <strong>Availability:</strong> Electroharmonix is a free font that
@@ -79,5 +88,5 @@ means that it is not intended for long-form text. It is best used
 for headings, logos, and other short pieces of text.
 </li>
 </ul>
-<p>I hope this helps! Let me know if you have any other questions.</p>
-<date>2024/05/16</date>
+I hope this helps! Let me know if you have any other questions.
+

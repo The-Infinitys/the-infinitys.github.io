@@ -1,3 +1,9 @@
+---
+title: 
+date: "2024-06-17"
+description: ""
+---
+
 # title: お知らせ - ディレクトリ名が変わりました 他二つ
 
 ## ディレクトリが変更になったお知らせ
@@ -19,4 +25,4 @@ Scratchで傾向に乗ったぞ！
 とはいってもこっちの方が圧倒的に活動が多いのは気にせず...
 [@Mugen_Infinitys](https://x.com/Mugen_Infinitys/)
 
-<date>2024/06/17</date>
+

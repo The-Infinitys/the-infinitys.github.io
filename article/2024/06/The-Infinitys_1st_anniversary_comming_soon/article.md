@@ -1,3 +1,9 @@
+---
+title: 
+date: "2024-06-14"
+description: ""
+---
+
 # title: もう直ぐ1周年!
 
 ## 余りにも早すぎる一年の経過
@@ -10,7 +16,7 @@
 ### 今後の活動の予定について
 今後の活動は...特に変える予定はありません。
 まだまだこれからもGitHubもScratchも続けますので今後ともよろしくお願いします!
-<date>2024/06/14</date>
+
 <div style="height:1000vh;"></div>
 <details>
 <summary></summary>

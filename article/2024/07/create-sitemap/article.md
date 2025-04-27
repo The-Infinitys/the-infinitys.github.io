@@ -1,3 +1,9 @@
+---
+title: 
+date: ""
+description: ""
+---
+
 # サイトマップを自動で作成する
 ## ブログ記事の問題
 どうも！ The Infinity'sです！最近ドメイン[the-infinitys.f5.si](the-infinitys.f5.si)をGoogleに登録してから、いくつかサイトは登録されたのですが...

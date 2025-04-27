@@ -1,3 +1,9 @@
+---
+title: 
+date: ""
+description: ""
+---
+
 # Scratchでの今後の活動について
 
 皆さんどうも、The Infinity'sです。

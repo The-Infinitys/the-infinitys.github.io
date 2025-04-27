@@ -1,3 +1,9 @@
+---
+title: 
+date: ""
+description: ""
+---
+
 # インフィニティ、ストーカーになる
 
 どうも、 The Infinity'sです。

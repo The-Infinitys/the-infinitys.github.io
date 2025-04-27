@@ -1,3 +1,9 @@
+---
+title: " + title_elem.innerHTML + "
+date: "2024-06-15"
+description: "" + title_elem.innerHTML + ""
+---
+
 # title: ブログをさらに進化させる
 
 ## 前までなかったもの
@@ -32,7 +38,7 @@ const main = () => {//add article
   const title_elem = document.querySelector("title");
   const article_title = document.createElement("div");
   article_title.id = "article-title";
-  article_title.innerHTML = "<h1>" + title_elem.innerHTML + "</h1>";
+  article_title.innerHTML = "# " + title_elem.innerHTML + "";
   article_body.prepend(article_title);
   //add index
   const article_index = document.createElement("div");
@@ -278,4 +284,3 @@ pre {
 ## 感想
 個人的には大満足の出来でした。ですがやはり今まで貯めてきたプログラムが無ければ作業は難航していたでしょう...
 あ、[scratch](https://scratch.mit.edu/projects/1037788134/)にもあるのでよろしく。
-<date>2024/06/15</date>

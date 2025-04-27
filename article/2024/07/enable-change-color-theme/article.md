@@ -1,3 +1,9 @@
+---
+title: 
+date: ""
+description: ""
+---
+
 # カラーテーマを変更できるようにしました!
 
 どうも！The Infinity'sです！

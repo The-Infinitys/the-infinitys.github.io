@@ -1,3 +1,9 @@
+---
+title: 
+date: ""
+description: ""
+---
+
 # Dancing Infinity!
  
 どうも！ The Infinity'sです！

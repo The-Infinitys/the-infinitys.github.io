@@ -1,3 +1,9 @@
+---
+title: 
+date: ""
+description: ""
+---
+
 # title: フォロワー800人！
 どうも！ The Infinity'sです！
 つい先日、私のフォロワーが800人に到達しました！

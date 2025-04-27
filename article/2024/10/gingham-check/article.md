@@ -1,3 +1,9 @@
+---
+title: 
+date: ""
+description: ""
+---
+
 # ギンガムチェック
 
 どうも！The Infinity'sです！
