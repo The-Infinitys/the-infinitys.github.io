@@ -2,7 +2,7 @@ import { getArticleIndexes, toHTML } from "../../../article/article";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import "./page.css"; // 必要に応じてCSSをインポート
+import "./page.css";
 
 export async function generateStaticParams() {
   const indexes = getArticleIndexes();
@@ -17,13 +17,16 @@ export async function generateStaticParams() {
 export default async function ArticlePage({
   params,
 }: {
-  params: { year: string; month: string; aid: string };
+  params: Promise<{ year: string; month: string; aid: string }>;
 }) {
+  // 非同期でparamsを解決
+  const resolvedParams = await params;
+
   const indexes = getArticleIndexes();
   const articles = await toHTML(indexes);
 
   // スラッグに一致する記事を探す
-  const slug = `${await params.year}/${await params.month}/${await params.aid}`;
+  const slug = `${resolvedParams.year}/${resolvedParams.month}/${resolvedParams.aid}`;
   const article = articles.find((a) => a.slug === slug);
 
   if (!article) {
