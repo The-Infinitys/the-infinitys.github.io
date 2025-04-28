@@ -1,0 +1,12 @@
+name: The-Infinitys_Blog-index
+run-name: making repository-index...
+on: push
+jobs:
+  repository_index:
+    permissions:
+      repository-projects: write
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python ./programs/repository-index.py

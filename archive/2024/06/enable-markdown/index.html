@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    markdownでブログを書けるようにした The Infinity's Article
+  </title>
+  <link rel="stylesheet" href="/InfinitySpirit/layout/style.css" />
+  <script defer src="/InfinitySpirit/layout/script.js"></script>
+  <script defer src="/app/audio-player/insert.js"></script>
+  <link rel="stylesheet" href="/layout/style.css" />
+  <script defer src="/layout/script.js"></script>
+  <meta name="description" content="The Infinity's articles " />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="markdownでブログを書けるようにした" />
+  <meta property="og:description" content="Welcome to The Infinitys's Article!" />
+  <meta property="og:image" content="https://the-infinitys.f5.si/article-2024/06/enable-markdown/thumbnail.png" />
+  <!--icon-->
+  <link rel="apple-touch-icon" type="image/png" href="/image/favicon/apple-touch-icon-256x256.png" />
+  <link rel="icon" type="image/png" href="/image/favicon/icon-256x256.png" />
+  <!-- for Google -->
+  <script defer src="https://www.googletagmanager.com/gtag/js?id=G-6F5Z0EB6JE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+    gtag("config", "G-6F5Z0EB6JE");
+  </script>
+  <script defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2045274771035552"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="article-body">
+    <div class="article-title">
+      markdownでブログを書けるようにした
+      <br />
+      <svg class="clock-watch" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 100 100" stroke="#888" fill="none" stroke-width="5"
+        stroke-linecap="round">
+        <g class="Infinity-clock_frame">
+          <circle cx="50" cy="50" r="40" />
+          <circle cx="50" cy="50" r="30" stroke-opacity="0.5" />
+          <ellipse cx="37.5" cy="50" rx="12.5" ry="10" stroke-width="2" stroke-opacity="0.5" />
+          <ellipse cx="62.5" cy="50" rx="12.5" ry="10" stroke-width="2" stroke-opacity="0.5" />
+          <animate attributeName="stroke" dur="5s" repeatCount="indefinite"
+            values="#ff0000;#ffff00;#00ff00;#00ffff;#0000ff;#ff00ff;#ff0000">
+        </g>
+        <g class="Infinity-clock_hands">
+          <path d="M50 50,L50 20 Z" />
+          <path d="M50 50,L60 60 Z" />
+        </g>
+      </svg>
+      <InfinitySpiritDate>2024/06/13</InfinitySpiritDate>
+      <br />
+    </div>
+    <div class="article-content">
+      <InfinitySpiritContent>
+          <h2 id="html">余りにも面倒だったhtml</h2>
+          <p>どうもどうも! The Infinitysです!<br />
+          最近blogを書いていて、思ったことがあるんですよね&hellip;</p>
+          <p>「いちいちhtmlで書くのは面倒臭いな&hellip;(´・ω・)」</p>
+          <p>と。それでも今日までずっとhtmlで書いてきて慣れていたので、まあいっかって思ったんです。ですが私の友人の人子がきっかけでその考えは変わりました。</p>
+          <p>「markdownでblogを書きたい」</p>
+          <p>その時私の何かがフツッと切れ、次の瞬間にはキーボードをばちばち叩く私の姿が٩( ᐛ )وやっぱりhtmlで書くのは面倒くさい！</p>
+          <p>そう言うわけで、私はhtmlで書くのをやめたいと思いました。これからはブログは全てmarkdown経由で書きます。</p>
+          <h2 id="_1">どうやってやったのか</h2>
+          <p>私も一プログラマですので、自分のやりたい事くらいは自分でできなければメンタルが持ちません。そう言うわけでググりながら調べまわりました。<br />
+          markdownで書くうえで一切htmlを経由せずに書けるように、プログラムで自動化しました。まずは、pythonでスクリプトを書きます。</p>
+          <h4 id="markdown-converterpy">markdown-converter.pyのソースコード</h4>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #ff4689">import</span> <span style="color: #f8f8f2">datetime</span>
+<span style="color: #ff4689">import</span> <span style="color: #f8f8f2">os</span>
+<span style="color: #ff4689">import</span> <span style="color: #f8f8f2">markdown</span>
+<span style="color: #ff4689">from</span> <span style="color: #f8f8f2">sys</span> <span style="color: #ff4689">import</span> <span style="color: #f8f8f2">exit</span>
+<span style="color: #f8f8f2">article_temp_head</span><span style="color: #ff4689">=</span><span style="color: #e6db74">&#39;&#39;&#39;</span>
+<span style="color: #e6db74">&lt;!DOCTYPE html&gt;</span>
+<span style="color: #e6db74">&lt;html lang=&quot;Ja&quot;&gt;</span>
+<span style="color: #e6db74">  &lt;head&gt;</span>
+<span style="color: #e6db74">    &lt;meta charset=&quot;UTF-8&quot; /&gt;</span>
+<span style="color: #e6db74">        &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;&lt;meta name=&quot;description&quot; content=&quot;The Infinity&#39;s awesome blog article&quot; /&gt;</span>
+<span style="color: #e6db74">    &lt;title&gt;HERE TO THE TITLE&lt;/title&gt;</span>
+<span style="color: #e6db74">    &lt;link rel=&quot;stylesheet&quot; href=&quot;../../Infinity-style/style.css&quot; /&gt;</span>
+<span style="color: #e6db74">    &lt;script defer src=&quot;../../Infinity-style/script.js&quot;&gt;&lt;/script&gt;</span>
+<span style="color: #e6db74">  &lt;script defer src=&quot;/layout/script.js&quot;&gt;&lt;/script&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;/layout/style.css&quot; /&gt;</span>
+<span style="color: #e6db74">    &lt;script</span>
+<span style="color: #e6db74">    defer</span>
+<span style="color: #e6db74">    src=&quot;https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2045274771035552&quot;</span>
+<span style="color: #e6db74">    crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;&lt;/head&gt;</span>
+<span style="color: #e6db74">  &lt;body&gt;&lt;div id=&quot;article-body&quot;&gt;&lt;div id=&quot;article-content&quot;&gt;</span>
+<span style="color: #e6db74">&#39;&#39;&#39;</span>
+<span style="color: #f8f8f2">article_temp_foot</span><span style="color: #ff4689">=</span><span style="color: #e6db74">&#39;&#39;&#39;</span>
+<span style="color: #e6db74">  &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;</span>
+<span style="color: #e6db74">&lt;/html&gt;</span>
+<span style="color: #e6db74">&#39;&#39;&#39;</span>
+<span style="color: #66d9ef">def</span> <span style="color: #a6e22e">listfolders</span><span style="color: #f8f8f2">(dir_path):</span>
+  <span style="color: #f8f8f2">result</span> <span style="color: #ff4689">=</span> <span style="color: #f8f8f2">[</span>
+      <span style="color: #f8f8f2">f</span> <span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">f</span> <span style="color: #ff4689">in</span> <span style="color: #f8f8f2">os</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">listdir(dir_path)</span> <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">os</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">path</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">isdir(os</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">path</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">join(dir_path,</span> <span style="color: #f8f8f2">f))</span>
+  <span style="color: #f8f8f2">]</span>
+  <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">result</span>
+<span style="color: #66d9ef">def</span> <span style="color: #a6e22e">listfiles</span><span style="color: #f8f8f2">(dir_path):</span>
+  <span style="color: #f8f8f2">result</span> <span style="color: #ff4689">=</span> <span style="color: #f8f8f2">[</span>
+      <span style="color: #f8f8f2">f</span> <span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">f</span> <span style="color: #ff4689">in</span> <span style="color: #f8f8f2">os</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">listdir(dir_path)</span> <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">os</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">path</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">isfile(os</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">path</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">join(dir_path,</span> <span style="color: #f8f8f2">f))</span>
+  <span style="color: #f8f8f2">]</span>
+  <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">result</span>
+<span style="color: #f8f8f2">now</span><span style="color: #ff4689">=</span><span style="color: #f8f8f2">datetime</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">datetime</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">now()</span>
+<span style="color: #f8f8f2">now</span><span style="color: #ff4689">=</span><span style="color: #f8f8f2">str(now</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">year)</span><span style="color: #ff4689">+</span><span style="color: #e6db74">&quot;-&quot;</span><span style="color: #ff4689">+</span><span style="color: #f8f8f2">str(now</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">month)</span>
+<span style="color: #f8f8f2">root_dir</span><span style="color: #ff4689">=</span><span style="color: #e6db74">&quot;./&quot;</span><span style="color: #ff4689">+</span><span style="color: #f8f8f2">now</span>
+<span style="color: #66d9ef">def</span> <span style="color: #a6e22e">renew</span><span style="color: #f8f8f2">():</span>
+  <span style="color: #f8f8f2">os</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">system(</span><span style="color: #e6db74">&quot;git config user.name github-actions&quot;</span><span style="color: #f8f8f2">)</span>
+  <span style="color: #f8f8f2">os</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">system(</span><span style="color: #e6db74">&quot;git config user.email github-actions@github.com&quot;</span><span style="color: #f8f8f2">)</span>
+  <span style="color: #f8f8f2">os</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">system(</span><span style="color: #e6db74">&quot;git add .&quot;</span><span style="color: #f8f8f2">)</span>
+  <span style="color: #f8f8f2">os</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">system(</span><span style="color: #e6db74">&quot;git commit -m </span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">convert markdown</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">&quot;</span><span style="color: #f8f8f2">)</span>
+  <span style="color: #f8f8f2">os</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">system(</span><span style="color: #e6db74">&quot;git push&quot;</span><span style="color: #f8f8f2">)</span>
+<span style="color: #66d9ef">if</span> <span style="color: #ff4689">not</span> <span style="color: #f8f8f2">os</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">path</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">isdir(root_dir):</span>
+  <span style="color: #f8f8f2">print(</span><span style="color: #e6db74">&quot;No datas&quot;</span><span style="color: #f8f8f2">)</span>
+  <span style="color: #f8f8f2">exit()</span>
+<span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">article_dir</span> <span style="color: #ff4689">in</span> <span style="color: #f8f8f2">listfolders(root_dir):</span>
+  <span style="color: #f8f8f2">path</span> <span style="color: #ff4689">=</span> <span style="color: #f8f8f2">root_dir</span><span style="color: #ff4689">+</span><span style="color: #e6db74">&quot;/&quot;</span><span style="color: #ff4689">+</span><span style="color: #f8f8f2">article_dir</span>
+  <span style="color: #f8f8f2">file_names</span> <span style="color: #ff4689">=</span> <span style="color: #f8f8f2">listfiles(path)</span>
+  <span style="color: #f8f8f2">index_path</span> <span style="color: #ff4689">=</span> <span style="color: #66d9ef">None</span>
+  <span style="color: #f8f8f2">article_path</span><span style="color: #ff4689">=</span><span style="color: #66d9ef">None</span>
+  <span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">file_name</span> <span style="color: #ff4689">in</span> <span style="color: #f8f8f2">file_names:</span>
+    <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">file_name</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">startswith(</span><span style="color: #e6db74">&quot;index&quot;</span><span style="color: #f8f8f2">):</span>
+      <span style="color: #f8f8f2">index_path</span><span style="color: #ff4689">=</span><span style="color: #f8f8f2">file_name</span>
+    <span style="color: #66d9ef">elif</span> <span style="color: #f8f8f2">file_name</span><span style="color: #ff4689">==</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;article.md&quot;</span><span style="color: #f8f8f2">):</span>
+      <span style="color: #f8f8f2">article_path</span><span style="color: #ff4689">=</span><span style="color: #f8f8f2">file_name</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">article_path</span><span style="color: #ff4689">!=</span><span style="color: #66d9ef">None</span><span style="color: #f8f8f2">:</span>
+    <span style="color: #f8f8f2">markdown_text</span> <span style="color: #ff4689">=</span> <span style="color: #e6db74">&quot;&quot;</span>
+    <span style="color: #f8f8f2">markdown_title</span> <span style="color: #ff4689">=</span> <span style="color: #e6db74">&quot;&quot;</span>
+    <span style="color: #66d9ef">with</span> <span style="color: #f8f8f2">open(root_dir</span><span style="color: #ff4689">+</span><span style="color: #e6db74">&quot;/&quot;</span><span style="color: #ff4689">+</span><span style="color: #f8f8f2">article_dir</span><span style="color: #ff4689">+</span><span style="color: #e6db74">&quot;/&quot;</span><span style="color: #ff4689">+</span><span style="color: #f8f8f2">article_path,mode</span><span style="color: #ff4689">=</span><span style="color: #e6db74">&quot;r&quot;</span><span style="color: #f8f8f2">)</span> <span style="color: #66d9ef">as</span> <span style="color: #f8f8f2">f:</span>
+      <span style="color: #f8f8f2">markdown_text</span> <span style="color: #ff4689">=</span> <span style="color: #f8f8f2">f</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">read()</span>
+      <span style="color: #f8f8f2">f</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">close()</span>
+    <span style="color: #f8f8f2">markdown_result</span> <span style="color: #ff4689">=</span> <span style="color: #e6db74">&quot;&quot;</span>
+    <span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">markdown_line</span> <span style="color: #ff4689">in</span> <span style="color: #f8f8f2">markdown_text</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">split(</span><span style="color: #e6db74">&quot;</span><span style="color: #ae81ff">\n</span><span style="color: #e6db74">&quot;</span><span style="color: #f8f8f2">):</span>
+      <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">markdown_line</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">startswith(</span><span style="color: #e6db74">&quot;# title: &quot;</span><span style="color: #f8f8f2">):</span>
+        <span style="color: #f8f8f2">markdown_title</span><span style="color: #ff4689">=</span><span style="color: #f8f8f2">markdown_line[</span><span style="color: #ae81ff">8</span><span style="color: #f8f8f2">:]</span>
+      <span style="color: #66d9ef">else</span><span style="color: #f8f8f2">:</span>
+        <span style="color: #f8f8f2">markdown_result</span><span style="color: #ff4689">+=</span><span style="color: #f8f8f2">markdown_line</span><span style="color: #ff4689">+</span><span style="color: #e6db74">&quot;</span><span style="color: #ae81ff">\n</span><span style="color: #e6db74">&quot;</span>
+    <span style="color: #f8f8f2">html_text</span><span style="color: #ff4689">=</span><span style="color: #f8f8f2">markdown</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">markdown(markdown_result)</span>
+    <span style="color: #f8f8f2">html_result</span><span style="color: #ff4689">=</span><span style="color: #e6db74">&quot;&quot;</span>
+    <span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">html_line</span> <span style="color: #ff4689">in</span> <span style="color: #f8f8f2">html_text</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">split(</span><span style="color: #e6db74">&quot;</span><span style="color: #ae81ff">\n</span><span style="color: #e6db74">&quot;</span><span style="color: #f8f8f2">):</span>
+      <span style="color: #f8f8f2">html_result</span><span style="color: #ff4689">+=</span><span style="color: #e6db74">&quot; &quot;</span><span style="color: #ff4689">*</span><span style="color: #ae81ff">4</span><span style="color: #ff4689">+</span><span style="color: #f8f8f2">html_line</span><span style="color: #ff4689">+</span><span style="color: #e6db74">&quot;</span><span style="color: #ae81ff">\n</span><span style="color: #e6db74">&quot;</span>
+    <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">index_path</span><span style="color: #ff4689">!=</span><span style="color: #66d9ef">None</span><span style="color: #f8f8f2">:</span>
+      <span style="color: #f8f8f2">os</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">system(</span><span style="color: #e6db74">&quot;rm &quot;</span><span style="color: #ff4689">+</span><span style="color: #f8f8f2">root_dir</span><span style="color: #ff4689">+</span><span style="color: #e6db74">&quot;/&quot;</span><span style="color: #ff4689">+</span><span style="color: #f8f8f2">article_dir</span><span style="color: #ff4689">+</span><span style="color: #e6db74">&quot;/&quot;</span><span style="color: #ff4689">+</span><span style="color: #f8f8f2">index_path)</span>
+    <span style="color: #66d9ef">with</span> <span style="color: #f8f8f2">open(root_dir</span><span style="color: #ff4689">+</span><span style="color: #e6db74">&quot;/&quot;</span><span style="color: #ff4689">+</span><span style="color: #f8f8f2">article_dir</span><span style="color: #ff4689">+</span><span style="color: #e6db74">&quot;/index.html&quot;</span><span style="color: #f8f8f2">,mode</span><span style="color: #ff4689">=</span><span style="color: #e6db74">&quot;w&quot;</span><span style="color: #f8f8f2">)</span> <span style="color: #66d9ef">as</span> <span style="color: #f8f8f2">f:</span>
+      <span style="color: #f8f8f2">f</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">write(article_temp_head</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">replace(</span><span style="color: #e6db74">&quot;HERE TO THE TITLE&quot;</span><span style="color: #f8f8f2">,markdown_title)</span><span style="color: #ff4689">+</span><span style="color: #f8f8f2">html_result</span><span style="color: #ff4689">+</span><span style="color: #f8f8f2">article_temp_foot)</span>
+      <span style="color: #f8f8f2">f</span><span style="color: #ff4689">.</span><span style="color: #f8f8f2">close()</span>
+<span style="color: #f8f8f2">renew()</span>
+          </code></pre></div>
+          
+          <p>これだけのプログラムを自力で書きました&hellip;(´・ω・)ある程度(リポジトリの更新とファイル・フォルダ構造の解析)はapiのプログラムから流用が効いたのですが&hellip;こんなことをするのは恐らく私が初めてみたいで、参考になるような情報は一切合切手に入りませんでした。<br />
+          そして次に、github actionsのyamlファイルを書きました。</p>
+          <h4 id="yaml">yamlファイルの方</h4>
+          <p><code>github actions
+          name: The-Infinitys_Blog-markdown
+          run-name: converting markdown
+          on: push
+          jobs:
+            markdown-convert:
+              permissions:
+                repository-projects: write
+                contents: write
+              runs-on: ubuntu-latest
+              steps:
+                - uses: actions/checkout@v4
+                - run: git pull
+                - run: pip install markdown
+                - run: python ./programs/markdown-converter.py</code><br />
+          こっちのyamlファイルはがっつりapiから流用できたので苦でもありませんでした。</p>
+          <h2 id="_2">やってみた感想</h2>
+          <p>激ムズすぎて二度とやりたくないです(´・ω・)</p>
+
+          </InfinitySpiritContent>
+    </div>
+    <div class="article-share" onclick="copyURL()">
+      <img src="/InfinitySpirit/layout/image/Infinity-clipboard.svg" alt="" />
+      Copy To ClipBoard
+    </div>
+    <div class="article-share" onclick="shareX()">
+      <img src="/InfinitySpirit/layout/image/X-Infinity.svg" alt="" />
+      Share On X
+    </div>
+    <div class="article-index"></div>
+    <div class="articles-recommended">
+      <button>
+        <img src="/InfinitySpirit/layout/image/loading.svg" alt="" />
+        <div>
+          <h1>THE INFINITYS BELIEVE THE INFINITY</h1>
+          <p>date:2024/07/07</p>
+        </div>
+      </button>
+    </div>
+  </div>
+</body>
+
+</html>

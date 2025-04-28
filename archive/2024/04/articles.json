@@ -1,0 +1,22 @@
+{
+  "articles": [
+    {
+      "id": "SEO_1",
+      "title": "SEO\u5bfe\u7b56\u3084\u3063\u3066\u307f\u305f",
+      "date": "2024/04/30",
+      "thumbnail": "thumbnail.png"
+    },
+    {
+      "id": "js_taiso_Infinity",
+      "title": "JavaScript\u3067\u982d\u306e\u4f53\u64cd\u3092\u3057\u3088\u3046\uff01",
+      "date": "2024/04/26",
+      "thumbnail": "thumbnail.jpeg"
+    },
+    {
+      "id": "i_think_about_scratch",
+      "title": "Scratch\u306b\u3064\u3044\u3066\u601d\u3046\u3053\u3068",
+      "date": "2024/04/23",
+      "thumbnail": "thumbnail.png"
+    }
+  ]
+}

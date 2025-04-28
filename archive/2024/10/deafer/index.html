@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    何も聞かずに音楽を作ってみた The Infinity's Article
+  </title>
+  <link rel="stylesheet" href="/InfinitySpirit/layout/style.css" />
+  <script defer src="/InfinitySpirit/layout/script.js"></script>
+  <script defer src="/app/audio-player/insert.js"></script>
+  <link rel="stylesheet" href="/layout/style.css" />
+  <script defer src="/layout/script.js"></script>
+  <meta name="description" content="The Infinity's articles " />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="何も聞かずに音楽を作ってみた" />
+  <meta property="og:description" content="Welcome to The Infinitys's Article!" />
+  <meta property="og:image" content="https://the-infinitys.f5.si/article-2024/10/deafer/thumbnail.jpeg" />
+  <!--icon-->
+  <link rel="apple-touch-icon" type="image/png" href="/image/favicon/apple-touch-icon-256x256.png" />
+  <link rel="icon" type="image/png" href="/image/favicon/icon-256x256.png" />
+  <!-- for Google -->
+  <script defer src="https://www.googletagmanager.com/gtag/js?id=G-6F5Z0EB6JE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+    gtag("config", "G-6F5Z0EB6JE");
+  </script>
+  <script defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2045274771035552"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="article-body">
+    <div class="article-title">
+      何も聞かずに音楽を作ってみた
+      <br />
+      <svg class="clock-watch" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 100 100" stroke="#888" fill="none" stroke-width="5"
+        stroke-linecap="round">
+        <g class="Infinity-clock_frame">
+          <circle cx="50" cy="50" r="40" />
+          <circle cx="50" cy="50" r="30" stroke-opacity="0.5" />
+          <ellipse cx="37.5" cy="50" rx="12.5" ry="10" stroke-width="2" stroke-opacity="0.5" />
+          <ellipse cx="62.5" cy="50" rx="12.5" ry="10" stroke-width="2" stroke-opacity="0.5" />
+          <animate attributeName="stroke" dur="5s" repeatCount="indefinite"
+            values="#ff0000;#ffff00;#00ff00;#00ffff;#0000ff;#ff00ff;#ff0000">
+        </g>
+        <g class="Infinity-clock_hands">
+          <path d="M50 50,L50 20 Z" />
+          <path d="M50 50,L60 60 Z" />
+        </g>
+      </svg>
+      <InfinitySpiritDate>2024/10/23</InfinitySpiritDate>
+      <br />
+    </div>
+    <div class="article-content">
+      <InfinitySpiritContent>
+          <h1 id="_1">何も聞かずに音楽を作ってみた</h1>
+          <p>どうも！The Infinity&rsquo;sです！<br />
+          つい最近、ふと気になったことがあるんです。</p>
+          <p><strong>音が聞こえない人が音楽を作ったらどうなるのだろう</strong></p>
+          <p>と。ほら、ベートーヴェンとかですよ(´∞ω∞)<br />
+          晩年は耳が聞こえないのに曲を作っていたそうです<br />
+          そういうわけで真似事をしようかなと思った次第です。</p>
+          <h2 id="_2">実際にやってみた</h2>
+          <h3 id="_3">曲のキーを決める</h3>
+          <p>まずは、適当にキーを決めます。<br />
+          C, C#, D, D#, E, F, F#, G, G#, A, A#, B<br />
+          の12個から決めます。<br />
+          (1から12で乱数を出す)<br />
+          6が出ました。なので6番目のFにします。<br />
+          で&hellip;メジャーかマイナーかを決めます。<br />
+          コインを投げて、表ならメジャー、そうでなければマイナーです。<br />
+          &hellip;裏が出たので、マイナーにします。</p>
+          <h3 id="_4">コード進行を決める</h3>
+          <p>コード進行を、<br />
+          A♭, D♭, Gdim, Cm, Fm, B♭m, E♭, C<br />
+          の中から被らないように適当に5つ選びます。<br />
+          順番にa,b,c,d,eとして、<br />
+          a - b - c - d<br />
+          a - b - c - e<br />
+          というふうにループさせます。</p>
+          <p>適当にコインブンブンして&hellip;<br />
+          6, 2, 4, 5, 2&hellip;<br />
+          となったので、コードを組んで、<br />
+          a=B♭m,<br />
+          b=D♭<br />
+          c=Fm<br />
+          d=C<br />
+          e=Gdim<br />
+          とします。<br />
+          なので、コード進行は、</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%;"><span></span><code>B♭m - D♭ - Fm - C
+B♭m - D♭ - Fm - Gdim
+          </code></pre></div>
+          
+          <p>となります。</p>
+          <h3 id="_5">スピードを決める</h3>
+          <p>BPMは40から240の乱数で決めて&hellip;(DTMの最大値と最小値)</p>
+          <p>&hellip;BPM 128</p>
+          <p>凄く演技がいい！<code>128=2**7</code></p>
+          <h3 id="_6">実際に打ち込む</h3>
+          <p>ベースは、コードのルート音をずっと打ち続ける感じにして、</p>
+          <p>リフレインは&hellip;</p>
+          <p>コードの構成音三音を、それぞれ123,456,&hellip;として、<br />
+          8分音符で、<code>12323432</code>を叩き続けます。</p>
+          <p>コードは普通に一定のリズムで流し続けます。</p>
+          <p>ドラムは適当に組んで、</p>
+          <p>あとは帯域分けを行なってミキシングすれば&hellip;</p>
+          <p>完成！聞いてみましょう！</p>
+          <h2 id="deafer-the-infinitys">Deafer - The Infinity&rsquo;s</h2>
+          <p><inf-audio
+            data-audio="/article-2024/10/deafer/deafer.m4a"
+            data-img="/article-2024/10/deafer/thumbnail.jpeg"
+            data-title="deafer (The Infinity's)"></inf-audio><br />
+          <a href="./deafer.m4a"> Download Deafer</a></p>
+          <h2 id="_7">感想</h2>
+          <p>何も考えずに作ったので曲が凄く単調(短調)になりましたね&hellip;٩( ᐛ )و</p>
+
+          </InfinitySpiritContent>
+    </div>
+    <div class="article-share" onclick="copyURL()">
+      <img src="/InfinitySpirit/layout/image/Infinity-clipboard.svg" alt="" />
+      Copy To ClipBoard
+    </div>
+    <div class="article-share" onclick="shareX()">
+      <img src="/InfinitySpirit/layout/image/X-Infinity.svg" alt="" />
+      Share On X
+    </div>
+    <div class="article-index"></div>
+    <div class="articles-recommended">
+      <button>
+        <img src="/InfinitySpirit/layout/image/loading.svg" alt="" />
+        <div>
+          <h1>THE INFINITYS BELIEVE THE INFINITY</h1>
+          <p>date:2024/07/07</p>
+        </div>
+      </button>
+    </div>
+  </div>
+</body>
+
+</html>

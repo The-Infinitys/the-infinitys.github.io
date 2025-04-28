@@ -1,0 +1,10 @@
+{
+  "articles": [
+    {
+      "id": "happy-new-year",
+      "title": "\u8cc0\u6b63\u65b0\u5e74",
+      "date": "2025/01/01",
+      "thumbnail": "thumbnail.jpeg"
+    }
+  ]
+}

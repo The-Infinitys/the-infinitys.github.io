@@ -1,0 +1,53 @@
+/* .sce-box {
+  font-family: Arial, Helvetica, sans-serif;
+  position: fixed;
+  width: 50vw;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  background-color: #80f;
+  color: #ff0;
+  padding: 0%;
+}
+
+.sce-box .hide {
+  margin-bottom: 0;
+  margin-left: 40vw;
+  width: 10vw;
+  border-radius: 0;
+  color: #ff0;
+  font-size: 3vw;
+  background-color: #80f;
+  border: 1px solid #ff0;
+}
+
+.sce-box>h1 {
+  margin: 0;
+  border: 1px solid #ff0;
+  width: 100%;
+  font-size: 3vw;
+}
+
+.sce-box input,
+.sce-box textarea {
+  font-size: 2vh;
+  width: 100%;
+  border-radius: 0;
+  background-color: black;
+  color: white;
+  border: 1px solid #ff0;
+}
+
+#sce-messages {
+  height: 60%;
+}
+
+#sce-send {
+  font-size: 2vh;
+  width: 100%;
+  border-radius: 0;
+  color: #ff0;
+  background-color: #80f;
+  border: 1px solid #ff0;
+
+} */

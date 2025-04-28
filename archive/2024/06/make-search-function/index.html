@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    検索機能を搭載する The Infinity's Article
+  </title>
+  <link rel="stylesheet" href="/InfinitySpirit/layout/style.css" />
+  <script defer src="/InfinitySpirit/layout/script.js"></script>
+  <script defer src="/app/audio-player/insert.js"></script>
+  <link rel="stylesheet" href="/layout/style.css" />
+  <script defer src="/layout/script.js"></script>
+  <meta name="description" content="The Infinity's articles " />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="検索機能を搭載する" />
+  <meta property="og:description" content="Welcome to The Infinitys's Article!" />
+  <meta property="og:image" content="https://the-infinitys.f5.si/article-2024/06/make-search-function/thumbnail.png" />
+  <!--icon-->
+  <link rel="apple-touch-icon" type="image/png" href="/image/favicon/apple-touch-icon-256x256.png" />
+  <link rel="icon" type="image/png" href="/image/favicon/icon-256x256.png" />
+  <!-- for Google -->
+  <script defer src="https://www.googletagmanager.com/gtag/js?id=G-6F5Z0EB6JE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+    gtag("config", "G-6F5Z0EB6JE");
+  </script>
+  <script defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2045274771035552"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="article-body">
+    <div class="article-title">
+      検索機能を搭載する
+      <br />
+      <svg class="clock-watch" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 100 100" stroke="#888" fill="none" stroke-width="5"
+        stroke-linecap="round">
+        <g class="Infinity-clock_frame">
+          <circle cx="50" cy="50" r="40" />
+          <circle cx="50" cy="50" r="30" stroke-opacity="0.5" />
+          <ellipse cx="37.5" cy="50" rx="12.5" ry="10" stroke-width="2" stroke-opacity="0.5" />
+          <ellipse cx="62.5" cy="50" rx="12.5" ry="10" stroke-width="2" stroke-opacity="0.5" />
+          <animate attributeName="stroke" dur="5s" repeatCount="indefinite"
+            values="#ff0000;#ffff00;#00ff00;#00ffff;#0000ff;#ff00ff;#ff0000">
+        </g>
+        <g class="Infinity-clock_hands">
+          <path d="M50 50,L50 20 Z" />
+          <path d="M50 50,L60 60 Z" />
+        </g>
+      </svg>
+      <InfinitySpiritDate>2024/06/19</InfinitySpiritDate>
+      <br />
+    </div>
+    <div class="article-content">
+      <InfinitySpiritContent>
+          <h1 id="_1">検索機能をブログに搭載しました</h1>
+          <p>The Infinity&rsquo;sです。つい最近<br />
+          <a href="../update_and_add_blog_list/">次のブログ記事を表示する機能を追加</a><br />
+          したばかりですが、<br />
+          機能的には足りませんでした、と言うのもですね&hellip;<br />
+          私のブログには<strong>検索機能</strong>が存在して居なかったんですよ&hellip;<br />
+          それでこのままではまずいと思いまして、ブログに検索機能を足しました。</p>
+          <h2 id="_2">面倒だった作業</h2>
+          <p>やり方としては、inputエレメントを改めて作り、そこに検索クエリを入れる方式にします。</p>
+          <h3 id="html">html</h3>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">&lt;</span><span style="color: #ff4689">div</span> <span style="color: #a6e22e">id</span><span style="color: #ff4689">=</span><span style="color: #e6db74">&quot;list-head&quot;</span><span style="color: #f8f8f2">&gt;</span>
+  <span style="color: #f8f8f2">&lt;</span><span style="color: #ff4689">h1</span><span style="color: #f8f8f2">&gt;</span>Blog List<span style="color: #f8f8f2">&lt;/</span><span style="color: #ff4689">h1</span><span style="color: #f8f8f2">&gt;</span>
+  <span style="color: #f8f8f2">&lt;</span><span style="color: #ff4689">div</span><span style="color: #f8f8f2">&gt;</span>
+    <span style="color: #f8f8f2">&lt;</span><span style="color: #ff4689">img</span>
+      <span style="color: #a6e22e">onclick</span><span style="color: #ff4689">=</span><span style="color: #e6db74">&quot;search_articles()&quot;</span>
+      <span style="color: #a6e22e">src</span><span style="color: #ff4689">=</span><span style="color: #e6db74">&quot;../image/Infinity-search.svg&quot;</span>
+      <span style="color: #a6e22e">alt</span><span style="color: #ff4689">=</span><span style="color: #e6db74">&quot;&quot;</span> <span style="color: #f8f8f2">/&gt;</span>
+    <span style="color: #f8f8f2">&lt;</span><span style="color: #ff4689">input</span> <span style="color: #a6e22e">id</span><span style="color: #ff4689">=</span><span style="color: #e6db74">&quot;search&quot;</span> <span style="color: #a6e22e">type</span><span style="color: #ff4689">=</span><span style="color: #e6db74">&quot;text&quot;</span> <span style="color: #a6e22e">onchange</span><span style="color: #ff4689">=</span><span style="color: #e6db74">&quot;search_articles()&quot;</span> <span style="color: #f8f8f2">/&gt;</span>
+  <span style="color: #f8f8f2">&lt;/</span><span style="color: #ff4689">div</span><span style="color: #f8f8f2">&gt;</span>
+<span style="color: #f8f8f2">&lt;/</span><span style="color: #ff4689">div</span><span style="color: #f8f8f2">&gt;</span>
+          </code></pre></div>
+          
+          <p>こんな感じです。<br />
+          次に、CSSの適用&hellip;</p>
+          <h3 id="css">CSS</h3>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">#list-head {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">width</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">100</span><span style="color: #66d9ef">%</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">height</span><span style="color: #f8f8f2">: </span><span style="color: #66d9ef">auto</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">display</span><span style="color: #f8f8f2">: </span><span style="color: #66d9ef">flex</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #ed007e; background-color: #1e0010">@media</span><span style="color: #f8f8f2"> </span><span style="color: #ed007e; background-color: #1e0010">(</span><span style="color: #f8f8f2">max-aspect-ratio:</span><span style="color: #ae81ff">1</span><span style="color: #ff4689">/</span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">) </span><span style="color: #ed007e; background-color: #1e0010">{</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">display</span><span style="color: #ff4689">:</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">block</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  }</span>
+<span style="color: #ed007e; background-color: #1e0010">}</span>
+
+<span style="color: #f8f8f2">#list-head </span><span style="color: #ff4689">h1</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">margin-right</span><span style="color: #f8f8f2">: </span><span style="color: #66d9ef">auto</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">position</span><span style="color: #f8f8f2">: </span><span style="color: #66d9ef">relative</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">font-size</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">4</span><span style="color: #66d9ef">vh</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #f8f8f2">#list-head </span><span style="color: #ff4689">div</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">width</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">40</span><span style="color: #66d9ef">vh</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">height</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">4</span><span style="color: #66d9ef">vh</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">background-color</span><span style="color: #f8f8f2">: </span><span style="color: #a6e22e">var</span><span style="color: #f8f8f2">(--background);</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">display</span><span style="color: #f8f8f2">: </span><span style="color: #66d9ef">flex</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">auto</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #f8f8f2">#list-head </span><span style="color: #ff4689">div</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">img</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">width</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">10</span><span style="color: #66d9ef">%</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">height</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">100</span><span style="color: #66d9ef">%</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">margin-right</span><span style="color: #f8f8f2">: </span><span style="color: #66d9ef">auto</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #f8f8f2">#list-head </span><span style="color: #ff4689">div</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">input</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">width</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">85</span><span style="color: #66d9ef">%</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">height</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">100</span><span style="color: #66d9ef">%</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">font-size</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">4</span><span style="color: #66d9ef">vh</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">background-color</span><span style="color: #f8f8f2">: </span><span style="color: #a6e22e">var</span><span style="color: #f8f8f2">(--background);</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">color</span><span style="color: #f8f8f2">: </span><span style="color: #a6e22e">var</span><span style="color: #f8f8f2">(--text);</span>
+<span style="color: #f8f8f2">}</span>
+          </code></pre></div>
+          
+          <p>そしてjavascript&hellip;</p>
+          <h3 id="javascript">JavaScript</h3>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #959077">//検索機能</span>
+<span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">article_search_input</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> document.</span><span style="color: #a6e22e">querySelector</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;#list-head div input&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">search_articles</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> () =&gt; {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">search_query</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">article_search_input</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">value</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">replace</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;　&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #e6db74">&quot; &quot;</span><span style="color: #f8f8f2">).</span><span style="color: #a6e22e">toLowerCase</span><span style="color: #f8f8f2">();</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">blog_buttons</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> document.</span><span style="color: #a6e22e">querySelector</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;#blog-button-section&quot;</span><span style="color: #f8f8f2">).</span><span style="color: #a6e22e">children</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (</span><span style="color: #a6e22e">search_query</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">==</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">) {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">for</span><span style="color: #f8f8f2"> (</span><span style="color: #66d9ef">let</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">i</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">; </span><span style="color: #a6e22e">i</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">&lt;</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">blog_buttons</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">length</span><span style="color: #f8f8f2">; </span><span style="color: #a6e22e">i</span><span style="color: #ff4689">++</span><span style="color: #f8f8f2">) {</span>
+<span style="color: #f8f8f2">      </span><span style="color: #a6e22e">blog_buttons</span><span style="color: #f8f8f2">[</span><span style="color: #a6e22e">i</span><span style="color: #f8f8f2">].</span><span style="color: #a6e22e">style</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">display</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">    }</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">return</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">null</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  }</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">search_querys</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">search_query</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">split</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot; &quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">for</span><span style="color: #f8f8f2"> (</span><span style="color: #66d9ef">let</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">i</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">; </span><span style="color: #a6e22e">i</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">&lt;</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">blog_buttons</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">length</span><span style="color: #f8f8f2">; </span><span style="color: #a6e22e">i</span><span style="color: #ff4689">++</span><span style="color: #f8f8f2">) {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">blog_button</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">blog_buttons</span><span style="color: #f8f8f2">[</span><span style="color: #a6e22e">i</span><span style="color: #f8f8f2">];</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">button_inner</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">blog_button</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">innerHTML</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">title</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">button_inner</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">substring</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">button_inner</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">indexOf</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;&lt;div&gt;&quot;</span><span style="color: #f8f8f2">) </span><span style="color: #ff4689">+</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">5</span><span style="color: #f8f8f2">, </span><span style="color: #a6e22e">button_inner</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">indexOf</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;&lt;/div&gt;&quot;</span><span style="color: #f8f8f2">)).</span><span style="color: #a6e22e">toLowerCase</span><span style="color: #f8f8f2">();</span>
+<span style="color: #f8f8f2">    </span><span style="color: #a6e22e">blog_button</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">style</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">display</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">for</span><span style="color: #f8f8f2"> (</span><span style="color: #66d9ef">let</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">j</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">; </span><span style="color: #a6e22e">j</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">&lt;</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">search_querys</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">length</span><span style="color: #f8f8f2">; </span><span style="color: #ff4689">++</span><span style="color: #a6e22e">j</span><span style="color: #f8f8f2">) {</span>
+<span style="color: #f8f8f2">      </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (</span><span style="color: #ff4689">-</span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">==</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">title</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">indexOf</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">search_querys</span><span style="color: #f8f8f2">[</span><span style="color: #a6e22e">j</span><span style="color: #f8f8f2">])) {</span>
+<span style="color: #f8f8f2">        </span><span style="color: #a6e22e">blog_button</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">style</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">display</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;none&quot;</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">      }</span>
+<span style="color: #f8f8f2">    }</span>
+<span style="color: #f8f8f2">  }</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">return</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">search_query</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">}</span>
+          </code></pre></div>
+          
+          <h2 id="_3">仕組みの解説</h2>
+          <p>全体的な仕組みとしては、</p>
+          <ol>
+          <li>searchクエリが入力される</li>
+          <li>検索ボタンかenterが押される</li>
+          <li>全てのボタンをチェック開始する</li>
+          <li>ブログボタンを初期化(一旦displayの値をnullにする)</li>
+          <li>検索クエリを含まないブログのボタンのdisplayをnoneに設定する</li>
+          <li>(4-5の作業を)繰り返す</li>
+          </ol>
+          <p>と言うふうになっています。</p>
+          <h2 id="_4">感想</h2>
+          <p>かなり難しかったです。検索機能の実装自体が難しいのと、<br />
+          アイコンを書いていくのが大変でした。検索アイコンはここにあります。<br />
+          <img alt="search_icon" src="/image/Infinity-search.svg" /></p>
+
+          </InfinitySpiritContent>
+    </div>
+    <div class="article-share" onclick="copyURL()">
+      <img src="/InfinitySpirit/layout/image/Infinity-clipboard.svg" alt="" />
+      Copy To ClipBoard
+    </div>
+    <div class="article-share" onclick="shareX()">
+      <img src="/InfinitySpirit/layout/image/X-Infinity.svg" alt="" />
+      Share On X
+    </div>
+    <div class="article-index"></div>
+    <div class="articles-recommended">
+      <button>
+        <img src="/InfinitySpirit/layout/image/loading.svg" alt="" />
+        <div>
+          <h1>THE INFINITYS BELIEVE THE INFINITY</h1>
+          <p>date:2024/07/07</p>
+        </div>
+      </button>
+    </div>
+  </div>
+</body>
+
+</html>

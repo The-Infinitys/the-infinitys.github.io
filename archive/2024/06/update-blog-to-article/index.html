@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    Blogを更新しました The Infinity's Article
+  </title>
+  <link rel="stylesheet" href="/InfinitySpirit/layout/style.css" />
+  <script defer src="/InfinitySpirit/layout/script.js"></script>
+  <script defer src="/app/audio-player/insert.js"></script>
+  <link rel="stylesheet" href="/layout/style.css" />
+  <script defer src="/layout/script.js"></script>
+  <meta name="description" content="The Infinity's articles " />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Blogを更新しました" />
+  <meta property="og:description" content="Welcome to The Infinitys's Article!" />
+  <meta property="og:image" content="https://the-infinitys.f5.si/article-2024/06/update-blog-to-article/thumbnail.png" />
+  <!--icon-->
+  <link rel="apple-touch-icon" type="image/png" href="/image/favicon/apple-touch-icon-256x256.png" />
+  <link rel="icon" type="image/png" href="/image/favicon/icon-256x256.png" />
+  <!-- for Google -->
+  <script defer src="https://www.googletagmanager.com/gtag/js?id=G-6F5Z0EB6JE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+    gtag("config", "G-6F5Z0EB6JE");
+  </script>
+  <script defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2045274771035552"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="article-body">
+    <div class="article-title">
+      Blogを更新しました
+      <br />
+      <svg class="clock-watch" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 100 100" stroke="#888" fill="none" stroke-width="5"
+        stroke-linecap="round">
+        <g class="Infinity-clock_frame">
+          <circle cx="50" cy="50" r="40" />
+          <circle cx="50" cy="50" r="30" stroke-opacity="0.5" />
+          <ellipse cx="37.5" cy="50" rx="12.5" ry="10" stroke-width="2" stroke-opacity="0.5" />
+          <ellipse cx="62.5" cy="50" rx="12.5" ry="10" stroke-width="2" stroke-opacity="0.5" />
+          <animate attributeName="stroke" dur="5s" repeatCount="indefinite"
+            values="#ff0000;#ffff00;#00ff00;#00ffff;#0000ff;#ff00ff;#ff0000">
+        </g>
+        <g class="Infinity-clock_hands">
+          <path d="M50 50,L50 20 Z" />
+          <path d="M50 50,L60 60 Z" />
+        </g>
+      </svg>
+      <InfinitySpiritDate>2024/06/07</InfinitySpiritDate>
+      <br />
+    </div>
+    <div class="article-content">
+      <InfinitySpiritContent>
+          <h1>Blogを更新しました</h1>
+          <h2>ダサすぎたデザイン</h2>
+          <p>
+          ?????????????????????
+          「ブログを更新って...当たり前のことじゃないの？」
+          違う違う、そうじゃない。前々から、blogのデザインがダサいなー...って気になってたから、
+          GitHubに暫く籠ることにしたのを期に、ページのデザインをもっと勉強しようと思って、
+          それで、ブログを「更新」しました。
+          </p>
+          <h2>ちょっと何言ってるかよくわからない</h2>
+          <p>
+          わからないでしょう...私だってさっぱりです٩( ᐛ )و<br />
+          ブログを更新っていうのは、新しくブログ記事を書いたとか、そういうのじゃなくて、
+          ブログ自体の仕組みを変えたって意味。
+          もっと具体的にいうなら、ほら、今のURLを見てごらん？前まではずっと"https://the-infinitys.*.*/blog/"だったでしょ？
+          インラインで全部表示しようとして、無茶をして、あの滅茶苦茶なデザインになってたんよ...
+          で、このままだと不味いなって思って、大幅に変えることにしました。
+          ブログってどんな感じの見た目だったっけ...って思いながら、あちこちでブログを調べて回ったりして、
+          一生懸命探しました。
+          </p>
+          <h2>で、結局何をやったの？</h2>
+          <p>
+          先ずは、見ての通り、URLが<strong>article</strong>に変わりました。
+          その結果、前まではiframeでやってた関係でいちいちaタグにtarget="_parent"属性を付けずに済むようになりました。
+          その上、 cssを、<a href="../../main.css">main.css</a>から、<a
+          href="../../Infinity-style/style.css"
+          >Infinity-style</a
+          >に変えました。具体的に何が変わったかというと、他のブログサイトと同じようなデザインに変わったということです。<br />
+          さらに、インデックス機能も付けました。右側に、=><br />
+          目次みたいに文字が並んでると思います。それがインデックスです。そこのところをクリックすると、対応する部分まで移動することができます。
+          ちなみにこれは<a href="../../Infinity-style/script.js"
+          >Infinity-stylejs</a
+          >でやるようにしています。
+          これを適用することで、前と書き方を変えずに自動的に、<br />
+          </p>
+          
+          <h5>1.ブログの記事をボックスに収めて、</h5>
+          <h5>2.タイトルを上に表示して、</h5>
+          <h5>3.インデックスを作成して、</h5>
+          <h5>4.デザインを整える</h5>
+          <p>といったことが自動でできます。</p>
+          <h2>なんでこんなことを？</h2>
+          <p>さっき言ったでしょう。読みなさい</p>
+          <h2>他のブログの表示がおかしいのは、？</h2>
+          <p>知らん。放っておけ</p>
+          <h2>どんな感じに表示されるの？</h2>
+          <p><a href="../../Infinity-style/"><br />
+          <img
+          src="./img/demo.jpeg"
+          alt="demo"
+          style="width: 100%; height: auto" /><br />
+          </a></p>
+          <h2>最後に</h2>
+          <p>糞程面倒だったけど、これはすごく役にたつ。</p>
+
+          </InfinitySpiritContent>
+    </div>
+    <div class="article-share" onclick="copyURL()">
+      <img src="/InfinitySpirit/layout/image/Infinity-clipboard.svg" alt="" />
+      Copy To ClipBoard
+    </div>
+    <div class="article-share" onclick="shareX()">
+      <img src="/InfinitySpirit/layout/image/X-Infinity.svg" alt="" />
+      Share On X
+    </div>
+    <div class="article-index"></div>
+    <div class="articles-recommended">
+      <button>
+        <img src="/InfinitySpirit/layout/image/loading.svg" alt="" />
+        <div>
+          <h1>THE INFINITYS BELIEVE THE INFINITY</h1>
+          <p>date:2024/07/07</p>
+        </div>
+      </button>
+    </div>
+  </div>
+</body>
+
+</html>

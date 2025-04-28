@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    Scratch messages counter The Infinity's Article
+  </title>
+  <link rel="stylesheet" href="/InfinitySpirit/layout/style.css" />
+  <script defer src="/InfinitySpirit/layout/script.js"></script>
+  <script defer src="/app/audio-player/insert.js"></script>
+  <link rel="stylesheet" href="/layout/style.css" />
+  <script defer src="/layout/script.js"></script>
+  <meta name="description" content="The Infinity's articles " />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Scratch messages counter" />
+  <meta property="og:description" content="Welcome to The Infinitys's Article!" />
+  <meta property="og:image" content="https://the-infinitys.f5.si/article-2024/06/Scratch-messages-count-tool/thumbnail.png" />
+  <!--icon-->
+  <link rel="apple-touch-icon" type="image/png" href="/image/favicon/apple-touch-icon-256x256.png" />
+  <link rel="icon" type="image/png" href="/image/favicon/icon-256x256.png" />
+  <!-- for Google -->
+  <script defer src="https://www.googletagmanager.com/gtag/js?id=G-6F5Z0EB6JE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+    gtag("config", "G-6F5Z0EB6JE");
+  </script>
+  <script defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2045274771035552"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="article-body">
+    <div class="article-title">
+      Scratch messages counter
+      <br />
+      <svg class="clock-watch" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 100 100" stroke="#888" fill="none" stroke-width="5"
+        stroke-linecap="round">
+        <g class="Infinity-clock_frame">
+          <circle cx="50" cy="50" r="40" />
+          <circle cx="50" cy="50" r="30" stroke-opacity="0.5" />
+          <ellipse cx="37.5" cy="50" rx="12.5" ry="10" stroke-width="2" stroke-opacity="0.5" />
+          <ellipse cx="62.5" cy="50" rx="12.5" ry="10" stroke-width="2" stroke-opacity="0.5" />
+          <animate attributeName="stroke" dur="5s" repeatCount="indefinite"
+            values="#ff0000;#ffff00;#00ff00;#00ffff;#0000ff;#ff00ff;#ff0000">
+        </g>
+        <g class="Infinity-clock_hands">
+          <path d="M50 50,L50 20 Z" />
+          <path d="M50 50,L60 60 Z" />
+        </g>
+      </svg>
+      <InfinitySpiritDate>2024/06/01</InfinitySpiritDate>
+      <br />
+    </div>
+    <div class="article-content">
+      <InfinitySpiritContent>
+          <h1>Scratch messages counter</h1>
+          <p>どもども!6月最初のブログだZE⭐️!The Infinity'sです！</p>
+          <p>
+          最近、ふと思ったことがあるんです。もしも他のScratcherが活動しているか見れたら便利だなーぁ...
+          </p>
+          <p>って。そういうわけで作ることにします。</p>
+          <p>おもな仕組みとしては、</p>
+          <p>1.場所(現在地のURL)を取得</p>
+          <p>2.ユーザー名が取れたら、とる。</p>
+          <p>3.でなければ任意の値を入れさせる</p>
+          <p>4.ユーザー名からメッセージ数をfetch</p>
+          <p>5.表示</p>
+          <p>というふうにするつもりです。</p>
+          <p><a
+          target="_parent"
+          href="https://github.com/The-Infinitys/blog-data/blob/main/2024-6/Scratch-messages-count-tool/messagescount.js"><br />
+          <img
+          src="./img/messagescount.js.png"
+          alt="messagescount.js"
+          style="width:100%;"
+          /></a></p>
+          <p>作りました。</p>
+          <p>
+          で、このデータを元にして...<a
+          target="_parent"
+          href="https://google.com/search?q=ブックマークレット"
+          >ブックマークレット</a
+          >を作成します。
+          </p>
+          <p>&lt;a<br />
+          href=&rdquo;javascript:if(window.location.href.startsWith(%22https://scratch.mit.edu/users/%22))%7Bvar%20messagescounter<em>username=(messagescounter</em>url=new%20URL(window.location.href)).pathname.replace(%22/users/%22,%22%22).replace(%22/%22,%22%22);fetch(%22https://api.scratch.mit.edu/users/%22+messagescounter<em>username+%22/messages/count/%22).then((e=%3Ee.json())).then((e=%3Ealert(messagescounter</em>username+%22%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E6%95%B0%E3%81%AF%E3%80%81%22+e.count.toString()+%22%E3%81%A7%E3%81%99%22)))%7Delse%20if(window.location.href.startsWith(%22https://scratch.mit.edu/projects/%22))%7Bvar%20messagescounter<em>url=new%20URL(window.location.href);fetch(%22https://api.scratch.mit.edu%22+messagescounter</em>url.pathname).then((e=%3Ee.json())).then((e=%3E%7Bvar%20t=e.author.username;fetch(%22https://api.scratch.mit.edu/users/%22+t+%22/messages/count/%22).then((e=%3Ee.json())).then((e=%3Ealert(t+%22%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E6%95%B0%E3%81%AF%E3%80%81%22+e.count.toString()+%22%E3%81%A7%E3%81%99%22)))%7D))%7Delse%20if(window.location.href.startsWith(%22https://scratch.mit.edu%22))%7Bmessagescounter<em>username=prompt(%22%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E5%90%8D%E3%82%92%E5%85%A5%E5%8A%9B%E3%81%97%E3%81%A6%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84%E3%80%82%22);fetch(%22https://api.scratch.mit.edu/users/%22+messagescounter</em>username+%22/messages/count/%22).then((e=%3Ee.json())).then((e=%3Ealert(messagescounter_username+%22%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E6%95%B0%E3%81%AF%E3%80%81%22+e.count.toString()+%22%E3%81%A7%E3%81%99%22)))%7Delsealert(%22https://scratch.mit.edu%E3%81%AEURL%E3%81%A7%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84%E3%80%82(by%20messagescounter)%22);void(0);&rdquo;</p>
+          <blockquote>
+          <p>完成品&lt;/a<br />
+          </p>
+          </blockquote>
+          <p>
+          今までこういった小物ツールをたくさん作ってきたので、結構簡単でした。
+          </p>
+
+          </InfinitySpiritContent>
+    </div>
+    <div class="article-share" onclick="copyURL()">
+      <img src="/InfinitySpirit/layout/image/Infinity-clipboard.svg" alt="" />
+      Copy To ClipBoard
+    </div>
+    <div class="article-share" onclick="shareX()">
+      <img src="/InfinitySpirit/layout/image/X-Infinity.svg" alt="" />
+      Share On X
+    </div>
+    <div class="article-index"></div>
+    <div class="articles-recommended">
+      <button>
+        <img src="/InfinitySpirit/layout/image/loading.svg" alt="" />
+        <div>
+          <h1>THE INFINITYS BELIEVE THE INFINITY</h1>
+          <p>date:2024/07/07</p>
+        </div>
+      </button>
+    </div>
+  </div>
+</body>
+
+</html>

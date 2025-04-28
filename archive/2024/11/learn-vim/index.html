@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    Vimエディタを学習する The Infinity's Article
+  </title>
+  <link rel="stylesheet" href="/InfinitySpirit/layout/style.css" />
+  <script defer src="/InfinitySpirit/layout/script.js"></script>
+  <script defer src="/app/audio-player/insert.js"></script>
+  <link rel="stylesheet" href="/layout/style.css" />
+  <script defer src="/layout/script.js"></script>
+  <meta name="description" content="The Infinity's articles " />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Vimエディタを学習する" />
+  <meta property="og:description" content="Welcome to The Infinitys's Article!" />
+  <meta property="og:image" content="https://the-infinitys.f5.si/article-2024/11/learn-vim/thumbnail.png" />
+  <!--icon-->
+  <link rel="apple-touch-icon" type="image/png" href="/image/favicon/apple-touch-icon-256x256.png" />
+  <link rel="icon" type="image/png" href="/image/favicon/icon-256x256.png" />
+  <!-- for Google -->
+  <script defer src="https://www.googletagmanager.com/gtag/js?id=G-6F5Z0EB6JE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+    gtag("config", "G-6F5Z0EB6JE");
+  </script>
+  <script defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2045274771035552"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="article-body">
+    <div class="article-title">
+      Vimエディタを学習する
+      <br />
+      <svg class="clock-watch" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 100 100" stroke="#888" fill="none" stroke-width="5"
+        stroke-linecap="round">
+        <g class="Infinity-clock_frame">
+          <circle cx="50" cy="50" r="40" />
+          <circle cx="50" cy="50" r="30" stroke-opacity="0.5" />
+          <ellipse cx="37.5" cy="50" rx="12.5" ry="10" stroke-width="2" stroke-opacity="0.5" />
+          <ellipse cx="62.5" cy="50" rx="12.5" ry="10" stroke-width="2" stroke-opacity="0.5" />
+          <animate attributeName="stroke" dur="5s" repeatCount="indefinite"
+            values="#ff0000;#ffff00;#00ff00;#00ffff;#0000ff;#ff00ff;#ff0000">
+        </g>
+        <g class="Infinity-clock_hands">
+          <path d="M50 50,L50 20 Z" />
+          <path d="M50 50,L60 60 Z" />
+        </g>
+      </svg>
+      <InfinitySpiritDate>2024/11/15</InfinitySpiritDate>
+      <br />
+    </div>
+    <div class="article-content">
+      <InfinitySpiritContent>
+          <h1 id="vim">Vimエディタを学習する</h1>
+          <p>どうも！The Infinity&rsquo;sです！<br />
+          普段私はUbuntuというOSを使っているのですが、<br />
+          &hellip;あまりコマンドを使わないんですよね&hellip;()<br />
+          どうせだったら少しはそういうのを学習したいなと思いまして、今回、<br />
+          <a href="https://vim.org">Vim</a>というものを学習しようという考えに至りました。</p>
+          <h2 id="vim_1">Vimとは</h2>
+          <p>Vimは、vi から派生し、発展した高機能なテキストエディタである。<br />
+          で、viとは、UNIX系OS上で使用できるテキストエディタで、Visual Editorというものの略です。</p>
+          <h2 id="_1">実際に使ってみた</h2>
+          <p>先ず、Vimをインストールします。</p>
+          <p><code>sudo apt install --fix-missing vim</code></p>
+          <p>で、コマンドラインでコマンドを実行し、vimを起動。</p>
+          <p><code>vim</code></p>
+          <p>そして実際に表示された感じがこんな感じです。</p>
+          <p><img src="./thumbnail.png" style="width:100%;height:auto;" /></p>
+          <p>表示がすごくシンプル()<br />
+          機能も単純で扱いやすいです。</p>
+          <p>使ってみると様々な機能が内蔵されていることがわかります。<br />
+          一番便利だなと思ったのはテキストに色付けをしてくれる機能ですね&hellip;<br />
+          凄く便利です()<br />
+          その上動作も非常に軽快です。</p>
+          <h2 id="_2">一番の醍醐味</h2>
+          <p>コマンドで色々と動かすことも可能です。<br />
+          例えば<code>12G</code>と入力することで12行目に一瞬で移動したりすることができます。<br />
+          他にも<code>:s/(検索語)/(置換語)/g</code>と入力することで特定の単語を別の単語に置き換えたりできます。</p>
+          <p>例:</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%;"><span></span><code>Teh Infinitys
+Teh Infinitys
+Teh Infinitys
+Teh Infinitys
+          </code></pre></div>
+          
+          <p>ここで<code>:%s/The/The/g</code>を実行すると&hellip;</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%;"><span></span><code>The Infinity&#39;s
+The Infinity&#39;s
+The Infinity&#39;s
+The Infinity&#39;s
+          </code></pre></div>
+          
+          <p>となります。</p>
+          <p>(実は最初に間違えてThe Infinity&rsquo;sのことをThe Infinitysと打っていてコマンドで修正したのは内緒)</p>
+          <p>他にも種々多々のコマンドがあります。</p>
+          <h2 id="_3">感想</h2>
+          <p>使ってみて非常に便利で楽しかったので、今後も勉強していこうと考えています。</p>
+
+          </InfinitySpiritContent>
+    </div>
+    <div class="article-share" onclick="copyURL()">
+      <img src="/InfinitySpirit/layout/image/Infinity-clipboard.svg" alt="" />
+      Copy To ClipBoard
+    </div>
+    <div class="article-share" onclick="shareX()">
+      <img src="/InfinitySpirit/layout/image/X-Infinity.svg" alt="" />
+      Share On X
+    </div>
+    <div class="article-index"></div>
+    <div class="articles-recommended">
+      <button>
+        <img src="/InfinitySpirit/layout/image/loading.svg" alt="" />
+        <div>
+          <h1>THE INFINITYS BELIEVE THE INFINITY</h1>
+          <p>date:2024/07/07</p>
+        </div>
+      </button>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    X Editor! The Infinity's Article
+  </title>
+  <link rel="stylesheet" href="/InfinitySpirit/layout/style.css" />
+  <script defer src="/InfinitySpirit/layout/script.js"></script>
+  <script defer src="/app/audio-player/insert.js"></script>
+  <link rel="stylesheet" href="/layout/style.css" />
+  <script defer src="/layout/script.js"></script>
+  <meta name="description" content="The Infinity's articles " />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="X Editor!" />
+  <meta property="og:description" content="Welcome to The Infinitys's Article!" />
+  <meta property="og:image" content="https://the-infinitys.f5.si/article-2024/08/X-editor/thumbnail.svg" />
+  <!--icon-->
+  <link rel="apple-touch-icon" type="image/png" href="/image/favicon/apple-touch-icon-256x256.png" />
+  <link rel="icon" type="image/png" href="/image/favicon/icon-256x256.png" />
+  <!-- for Google -->
+  <script defer src="https://www.googletagmanager.com/gtag/js?id=G-6F5Z0EB6JE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+    gtag("config", "G-6F5Z0EB6JE");
+  </script>
+  <script defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2045274771035552"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="article-body">
+    <div class="article-title">
+      X Editor!
+      <br />
+      <svg class="clock-watch" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 100 100" stroke="#888" fill="none" stroke-width="5"
+        stroke-linecap="round">
+        <g class="Infinity-clock_frame">
+          <circle cx="50" cy="50" r="40" />
+          <circle cx="50" cy="50" r="30" stroke-opacity="0.5" />
+          <ellipse cx="37.5" cy="50" rx="12.5" ry="10" stroke-width="2" stroke-opacity="0.5" />
+          <ellipse cx="62.5" cy="50" rx="12.5" ry="10" stroke-width="2" stroke-opacity="0.5" />
+          <animate attributeName="stroke" dur="5s" repeatCount="indefinite"
+            values="#ff0000;#ffff00;#00ff00;#00ffff;#0000ff;#ff00ff;#ff0000">
+        </g>
+        <g class="Infinity-clock_hands">
+          <path d="M50 50,L50 20 Z" />
+          <path d="M50 50,L60 60 Z" />
+        </g>
+      </svg>
+      <InfinitySpiritDate>2024/08/05</InfinitySpiritDate>
+      <br />
+    </div>
+    <div class="article-content">
+      <InfinitySpiritContent>
+          <h1 id="x-editor">X Editor!</h1>
+          <p>どうも！The Infinity&rsquo;s です！<br />
+          今回！X のタイムラインを編集するプログラムを作成したので公開します！</p>
+          <p><a href="" id="x-editor-source"><br />
+          X Editor Bookmarklet<br />
+          </a></p>
+          <script>
+            document.querySelector("#x-editor-source").href=`javascript:const timeline_div=document.querySelector("#react-root > div > div > div.css-175oi2r.r-1f2l425.r-13qz1uu.r-417010.r-18u37iz > main > div > div > div > div.css-175oi2r.r-kemksi.r-1kqtdi0.r-1ua6aaf.r-th6na.r-1phboty.r-16y2uox.r-184en5c.r-1c4cdxw.r-1t251xo.r-f8sm7e.r-13qz1uu.r-1ye8kvj > div > div:nth-child(3) > div > div > section > div > div"),x_editor={max:()=>{const t=document.querySelector("#x-editor");"98%"==t.style.width?t.style.width="auto":t.style.width="98%"},hide:()=>{const t=document.querySelector("#x-editor-hide"),e=document.querySelector("#x-editor");"none"==e.style.display?(e.style.display="",t.style.opacity="1"):(e.style.display="none",t.style.opacity="0")},copy_post_content:()=>{const t=parseInt(document.querySelector('#x-editor>input[data-type="target_position"]').value);timeline_div.prepend(timeline_div.children[t].importNode())},remove_post_content:()=>{const t=parseInt(document.querySelector('#x-editor>input[data-type="target_position"]').value);timeline_div.children[t].remove()},get_post_content:()=>{const t=parseInt(document.querySelector('#x-editor>input[data-type="target_position"]').value);document.querySelector('#x-editor>textarea[data-type="content"]').value=timeline_div.children[t].innerHTML},edit_post_content:()=>{const t=parseInt(document.querySelector('#x-editor>input[data-type="target_position"]').value),e=document.querySelector('#x-editor>textarea[data-type="content"]');timeline_div.children[t].innerHTML=e.value.replace("&amp;","&").replace("&lt;","<").replace("&gt;",">")}},x_editor_source={html:' <button id="x-editor-max">□</button> <h1>X Post Editor</h1> <p>target position</p> <input data-type="target_position" type="text" /> <button data-type="target_position">get content</button> <p>content</p> <textarea data-type="content"></textarea><br /> <button data-type="edit">edit</button><br /> <button data-type="remove">remove</button><br /> <button data-type="copy">copy</button> ',css:" #x-editor{ padding:0; position:fixed; z-index:1000000; width:auto; height:100%; top:0; right:0; background-color:black; color:white; border:2px solid aqua; border-radius:10px 0 0 10px; } #x-editor-hide{ text-align:center; padding:0; position:fixed; z-index:10000000; width:40px; height:24px; top:0; right:0; background-color:black; color:white; border:2px solid aqua; } #x-editor-max{ text-align:center; font-weight:600; padding:0; position:fixed; z-index:10000000; width:40px; height:24px; top:0; right:40px; background-color:black; color:white; border:2px solid aqua; border-radius:0 0 0 10px; } #x-editor>input, #x-editor>button{ background-color:black; color:white; border:2px solid aqua; border-radius:10px; } #x-editor>textarea{ background-color:black; color:white; width:100%; height:50%; border:2px solid aqua; } "},init=()=>{const t=document.createElement("style");t.innerHTML=x_editor_source.css,document.body.append(t);const e=document.createElement("div");e.innerHTML=x_editor_source.html,e.id="x-editor",document.body.append(e),document.querySelector('#x-editor>button[data-type="target_position"]').addEventListener("click",x_editor.get_post_content),document.querySelector('#x-editor>button[data-type="edit"]').addEventListener("click",x_editor.edit_post_content),document.querySelector('#x-editor>button[data-type="remove"]').addEventListener("click",x_editor.remove_post_content),document.querySelector('#x-editor>button[data-type="copy"]').addEventListener("click",x_editor.copy_post_content);const o=document.createElement("button");o.innerHTML="x",o.id="x-editor-hide",o.addEventListener("click",x_editor.hide),document.querySelector("#x-editor-max").addEventListener("click",x_editor.max),document.body.append(o)};init();void(0);`;
+          </script>
+          <p><img style="width:100%;" src="./thumbnail.svg"></p>
+
+          </InfinitySpiritContent>
+    </div>
+    <div class="article-share" onclick="copyURL()">
+      <img src="/InfinitySpirit/layout/image/Infinity-clipboard.svg" alt="" />
+      Copy To ClipBoard
+    </div>
+    <div class="article-share" onclick="shareX()">
+      <img src="/InfinitySpirit/layout/image/X-Infinity.svg" alt="" />
+      Share On X
+    </div>
+    <div class="article-index"></div>
+    <div class="articles-recommended">
+      <button>
+        <img src="/InfinitySpirit/layout/image/loading.svg" alt="" />
+        <div>
+          <h1>THE INFINITYS BELIEVE THE INFINITY</h1>
+          <p>date:2024/07/07</p>
+        </div>
+      </button>
+    </div>
+  </div>
+</body>
+
+</html>

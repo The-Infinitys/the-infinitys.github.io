@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    乗ろうぜ！このインフィニティウェーブに！ The Infinity's Article
+  </title>
+  <link rel="stylesheet" href="/InfinitySpirit/layout/style.css" />
+  <script defer src="/InfinitySpirit/layout/script.js"></script>
+  <script defer src="/app/audio-player/insert.js"></script>
+  <link rel="stylesheet" href="/layout/style.css" />
+  <script defer src="/layout/script.js"></script>
+  <meta name="description" content="The Infinity's articles " />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="乗ろうぜ！このインフィニティウェーブに！" />
+  <meta property="og:description" content="Welcome to The Infinitys's Article!" />
+  <meta property="og:image" content="https://the-infinitys.f5.si/article-2024/09/lets-ride-the-infinity-wave/thumbnail.jpeg" />
+  <!--icon-->
+  <link rel="apple-touch-icon" type="image/png" href="/image/favicon/apple-touch-icon-256x256.png" />
+  <link rel="icon" type="image/png" href="/image/favicon/icon-256x256.png" />
+  <!-- for Google -->
+  <script defer src="https://www.googletagmanager.com/gtag/js?id=G-6F5Z0EB6JE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+    gtag("config", "G-6F5Z0EB6JE");
+  </script>
+  <script defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2045274771035552"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="article-body">
+    <div class="article-title">
+      乗ろうぜ！このインフィニティウェーブに！
+      <br />
+      <svg class="clock-watch" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 100 100" stroke="#888" fill="none" stroke-width="5"
+        stroke-linecap="round">
+        <g class="Infinity-clock_frame">
+          <circle cx="50" cy="50" r="40" />
+          <circle cx="50" cy="50" r="30" stroke-opacity="0.5" />
+          <ellipse cx="37.5" cy="50" rx="12.5" ry="10" stroke-width="2" stroke-opacity="0.5" />
+          <ellipse cx="62.5" cy="50" rx="12.5" ry="10" stroke-width="2" stroke-opacity="0.5" />
+          <animate attributeName="stroke" dur="5s" repeatCount="indefinite"
+            values="#ff0000;#ffff00;#00ff00;#00ffff;#0000ff;#ff00ff;#ff0000">
+        </g>
+        <g class="Infinity-clock_hands">
+          <path d="M50 50,L50 20 Z" />
+          <path d="M50 50,L60 60 Z" />
+        </g>
+      </svg>
+      <InfinitySpiritDate>2024/09/19</InfinitySpiritDate>
+      <br />
+    </div>
+    <div class="article-content">
+      <InfinitySpiritContent>
+          <h1 id="_1">乗ろうぜ！このインフィニティウェーブに！</h1>
+          <p>どうも！ The Infinity&rsquo;s です！<br />
+          今回、新しく背景を制作しました！<br />
+          <img style="width:100%;height:auto;"src="./thumbnail.jpeg" /></p>
+          <h2 id="typescript">TypeScript</h2>
+          <p>コードはこんな感じです。！</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">wave_width</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">250</span><span style="color: #f8f8f2">;</span>
+<span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">wave_r</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">25</span><span style="color: #f8f8f2">;</span>
+<span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">pattern</span><span style="color: #ff4689">:</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">bg_pattern</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #a6e22e">width</span><span style="color: #ff4689">:</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">wave_width</span><span style="color: #f8f8f2">,</span>
+<span style="color: #f8f8f2">  </span><span style="color: #a6e22e">height</span><span style="color: #ff4689">:</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">wave_r</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">*</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">2</span><span style="color: #f8f8f2">,</span>
+<span style="color: #f8f8f2">  </span><span style="color: #a6e22e">shift</span><span style="color: #ff4689">:</span><span style="color: #f8f8f2"> [</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">],</span>
+<span style="color: #f8f8f2">  </span><span style="color: #a6e22e">func</span><span style="color: #ff4689">:</span><span style="color: #f8f8f2"> (</span><span style="color: #a6e22e">ctx</span><span style="color: #ff4689">:</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">CanvasRenderingContext2D</span><span style="color: #f8f8f2">, </span><span style="color: #a6e22e">x</span><span style="color: #ff4689">:</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">number</span><span style="color: #f8f8f2">, </span><span style="color: #a6e22e">y</span><span style="color: #ff4689">:</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">number</span><span style="color: #f8f8f2">) =&gt; {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #a6e22e">ctx</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">globalCompositeOperation</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;destination-out&quot;</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">    </span><span style="color: #a6e22e">ctx</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">lineWidth</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">    </span><span style="color: #a6e22e">ctx</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">beginPath</span><span style="color: #f8f8f2">();</span>
+<span style="color: #f8f8f2">    </span><span style="color: #a6e22e">ctx</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">moveTo</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">x</span><span style="color: #f8f8f2">, </span><span style="color: #a6e22e">y</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">for</span><span style="color: #f8f8f2"> (</span><span style="color: #66d9ef">let</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">i</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">; </span><span style="color: #a6e22e">i</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">&lt;</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">wave_width</span><span style="color: #f8f8f2">; </span><span style="color: #a6e22e">i</span><span style="color: #ff4689">++</span><span style="color: #f8f8f2">) {</span>
+<span style="color: #f8f8f2">      </span><span style="color: #a6e22e">ctx</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">lineTo</span><span style="color: #f8f8f2">(</span>
+<span style="color: #f8f8f2">        </span><span style="color: #a6e22e">x</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">+</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">i</span><span style="color: #f8f8f2">,</span>
+<span style="color: #f8f8f2">        </span><span style="color: #a6e22e">y</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">+</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">wave_r</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">*</span><span style="color: #f8f8f2"> Math.</span><span style="color: #a6e22e">sin</span><span style="color: #f8f8f2">((</span><span style="color: #ae81ff">2</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">*</span><span style="color: #f8f8f2"> Math.</span><span style="color: #a6e22e">PI</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">*</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">i</span><span style="color: #f8f8f2">) </span><span style="color: #ff4689">/</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">wave_width</span><span style="color: #f8f8f2">)</span>
+<span style="color: #f8f8f2">      );</span>
+<span style="color: #f8f8f2">    }</span>
+<span style="color: #f8f8f2">    </span><span style="color: #a6e22e">ctx</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">lineTo</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">x</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">+</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">wave_width</span><span style="color: #f8f8f2">, </span><span style="color: #a6e22e">y</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">    </span><span style="color: #a6e22e">ctx</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">stroke</span><span style="color: #f8f8f2">();</span>
+<span style="color: #f8f8f2">    </span><span style="color: #a6e22e">ctx</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">globalCompositeOperation</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;source-over&quot;</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  },</span>
+<span style="color: #f8f8f2">};</span>
+<span style="color: #a6e22e">bg_func</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">rainbow</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">run</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">pattern</span><span style="color: #f8f8f2">);</span>
+<span style="color: #a6e22e">setTimeout</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">bg_func</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">rainbow</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">wave</span><span style="color: #f8f8f2">, </span><span style="color: #ae81ff">100</span><span style="color: #f8f8f2">);</span>
+          </code></pre></div>
+          
+          <h2 id="_2">この背景を作って</h2>
+          <p><a href="https://scratch.mit.edu/users/fluffycat_tuna">ツナさん</a>！ありがとうございました！</p>
+
+          </InfinitySpiritContent>
+    </div>
+    <div class="article-share" onclick="copyURL()">
+      <img src="/InfinitySpirit/layout/image/Infinity-clipboard.svg" alt="" />
+      Copy To ClipBoard
+    </div>
+    <div class="article-share" onclick="shareX()">
+      <img src="/InfinitySpirit/layout/image/X-Infinity.svg" alt="" />
+      Share On X
+    </div>
+    <div class="article-index"></div>
+    <div class="articles-recommended">
+      <button>
+        <img src="/InfinitySpirit/layout/image/loading.svg" alt="" />
+        <div>
+          <h1>THE INFINITYS BELIEVE THE INFINITY</h1>
+          <p>date:2024/07/07</p>
+        </div>
+      </button>
+    </div>
+  </div>
+</body>
+
+</html>

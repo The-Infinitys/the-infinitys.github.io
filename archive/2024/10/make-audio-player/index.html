@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    音楽プレイヤーを作ってみた The Infinity's Article
+  </title>
+  <link rel="stylesheet" href="/InfinitySpirit/layout/style.css" />
+  <script defer src="/InfinitySpirit/layout/script.js"></script>
+  <script defer src="/app/audio-player/insert.js"></script>
+  <link rel="stylesheet" href="/layout/style.css" />
+  <script defer src="/layout/script.js"></script>
+  <meta name="description" content="The Infinity's articles " />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="音楽プレイヤーを作ってみた" />
+  <meta property="og:description" content="Welcome to The Infinitys's Article!" />
+  <meta property="og:image" content="https://the-infinitys.f5.si/article-2024/10/make-audio-player/thumbnail.jpeg" />
+  <!--icon-->
+  <link rel="apple-touch-icon" type="image/png" href="/image/favicon/apple-touch-icon-256x256.png" />
+  <link rel="icon" type="image/png" href="/image/favicon/icon-256x256.png" />
+  <!-- for Google -->
+  <script defer src="https://www.googletagmanager.com/gtag/js?id=G-6F5Z0EB6JE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+    gtag("config", "G-6F5Z0EB6JE");
+  </script>
+  <script defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2045274771035552"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="article-body">
+    <div class="article-title">
+      音楽プレイヤーを作ってみた
+      <br />
+      <svg class="clock-watch" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 100 100" stroke="#888" fill="none" stroke-width="5"
+        stroke-linecap="round">
+        <g class="Infinity-clock_frame">
+          <circle cx="50" cy="50" r="40" />
+          <circle cx="50" cy="50" r="30" stroke-opacity="0.5" />
+          <ellipse cx="37.5" cy="50" rx="12.5" ry="10" stroke-width="2" stroke-opacity="0.5" />
+          <ellipse cx="62.5" cy="50" rx="12.5" ry="10" stroke-width="2" stroke-opacity="0.5" />
+          <animate attributeName="stroke" dur="5s" repeatCount="indefinite"
+            values="#ff0000;#ffff00;#00ff00;#00ffff;#0000ff;#ff00ff;#ff0000">
+        </g>
+        <g class="Infinity-clock_hands">
+          <path d="M50 50,L50 20 Z" />
+          <path d="M50 50,L60 60 Z" />
+        </g>
+      </svg>
+      <InfinitySpiritDate>2024/10/20</InfinitySpiritDate>
+      <br />
+    </div>
+    <div class="article-content">
+      <InfinitySpiritContent>
+          <h1 id="_1">音楽プレイヤーを作ってみた</h1>
+          <h2 id="_2">きっかけはいつもそこに</h2>
+          <p>どうも！The Infinity&rsquo;sです！<br />
+          最近楽曲の投稿が増えてきて、<br />
+          ジャケットと音源だけを出すのもあれだなぁ&hellip;<br />
+          と思ったので、<br />
+          楽曲を出す際に使えそうな<strong>音楽プレイヤー</strong>を作ってみました！</p>
+          <h2 id="_3">コンセプト</h2>
+          <p>音楽の再生や停止などの操作は、デフォルトでついているブラウザの機能に任せて、<br />
+          任意でジャケットや音楽、タイトルなどを自由に変更できるようなイコライザ付きのプレイヤー<br />
+          を作ろうと考えました。</p>
+          <h2 id="_4">作るにあたって</h2>
+          <p>今回、この音楽プレイヤーを作る際、一からコードを作るのは少し大変だったので、<br />
+          過去に作っていた、<a href="/Scratch/audioPlayer/">Scratch用アナライザ</a>から一部プログラムを持ってきました。</p>
+          <h2 id="_5">完成図</h2>
+          <p>このような感じになりました。</p>
+          <p><img src="./thumbnail.jpeg" style="width:100%;height:auto;" /></p>
+          <p>URLは<a href="/app/audio-player/">/app/audio-player/</a>です。</p>
+          <h2 id="_6">プログラム</h2>
+          <h3 id="html">HTML</h3>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #959077">&lt;!DOCTYPE html&gt;</span>
+<span style="color: #f8f8f2">&lt;</span><span style="color: #ff4689">html</span> <span style="color: #a6e22e">lang</span><span style="color: #ff4689">=</span><span style="color: #e6db74">&quot;ja&quot;</span><span style="color: #f8f8f2">&gt;</span>
+  <span style="color: #f8f8f2">&lt;</span><span style="color: #ff4689">head</span><span style="color: #f8f8f2">&gt;</span>
+    <span style="color: #f8f8f2">&lt;</span><span style="color: #ff4689">meta</span> <span style="color: #a6e22e">charset</span><span style="color: #ff4689">=</span><span style="color: #e6db74">&quot;UTF-8&quot;</span> <span style="color: #f8f8f2">/&gt;</span>
+    <span style="color: #f8f8f2">&lt;</span><span style="color: #ff4689">meta</span> <span style="color: #a6e22e">name</span><span style="color: #ff4689">=</span><span style="color: #e6db74">&quot;viewport&quot;</span> <span style="color: #a6e22e">content</span><span style="color: #ff4689">=</span><span style="color: #e6db74">&quot;width=device-width, initial-scale=1.0&quot;</span> <span style="color: #f8f8f2">/&gt;</span>
+    <span style="color: #f8f8f2">&lt;</span><span style="color: #ff4689">title</span><span style="color: #f8f8f2">&gt;</span>audio player<span style="color: #f8f8f2">&lt;/</span><span style="color: #ff4689">title</span><span style="color: #f8f8f2">&gt;</span>
+    <span style="color: #f8f8f2">&lt;</span><span style="color: #ff4689">link</span> <span style="color: #a6e22e">rel</span><span style="color: #ff4689">=</span><span style="color: #e6db74">&quot;stylesheet&quot;</span> <span style="color: #a6e22e">href</span><span style="color: #ff4689">=</span><span style="color: #e6db74">&quot;./style.css&quot;</span> <span style="color: #f8f8f2">/&gt;</span>
+    <span style="color: #f8f8f2">&lt;</span><span style="color: #ff4689">script</span> <span style="color: #a6e22e">defer</span> <span style="color: #a6e22e">src</span><span style="color: #ff4689">=</span><span style="color: #e6db74">&quot;./script.js&quot;</span><span style="color: #f8f8f2">&gt;&lt;/</span><span style="color: #ff4689">script</span><span style="color: #f8f8f2">&gt;</span>
+  <span style="color: #f8f8f2">&lt;/</span><span style="color: #ff4689">head</span><span style="color: #f8f8f2">&gt;</span>
+  <span style="color: #f8f8f2">&lt;</span><span style="color: #ff4689">body</span><span style="color: #f8f8f2">&gt;</span>
+    <span style="color: #f8f8f2">&lt;</span><span style="color: #ff4689">div</span> <span style="color: #a6e22e">class</span><span style="color: #ff4689">=</span><span style="color: #e6db74">&quot;control&quot;</span><span style="color: #f8f8f2">&gt;</span>
+      <span style="color: #f8f8f2">&lt;</span><span style="color: #ff4689">h1</span> <span style="color: #a6e22e">class</span><span style="color: #ff4689">=</span><span style="color: #e6db74">&quot;music-title&quot;</span><span style="color: #f8f8f2">&gt;&lt;/</span><span style="color: #ff4689">h1</span><span style="color: #f8f8f2">&gt;</span>
+      <span style="color: #f8f8f2">&lt;</span><span style="color: #ff4689">div</span> <span style="color: #a6e22e">class</span><span style="color: #ff4689">=</span><span style="color: #e6db74">&quot;container&quot;</span><span style="color: #f8f8f2">&gt;&lt;/</span><span style="color: #ff4689">div</span><span style="color: #f8f8f2">&gt;</span>
+    <span style="color: #f8f8f2">&lt;/</span><span style="color: #ff4689">div</span><span style="color: #f8f8f2">&gt;</span>
+    <span style="color: #f8f8f2">&lt;</span><span style="color: #ff4689">audio</span> <span style="color: #a6e22e">crossorigin</span><span style="color: #ff4689">=</span><span style="color: #e6db74">&quot;anonymous&quot;</span> <span style="color: #a6e22e">controls</span> <span style="color: #a6e22e">src</span><span style="color: #ff4689">=</span><span style="color: #e6db74">&quot;&quot;</span> <span style="color: #a6e22e">id</span><span style="color: #ff4689">=</span><span style="color: #e6db74">&quot;audio&quot;</span><span style="color: #f8f8f2">&gt;&lt;/</span><span style="color: #ff4689">audio</span><span style="color: #f8f8f2">&gt;</span>
+  <span style="color: #f8f8f2">&lt;/</span><span style="color: #ff4689">body</span><span style="color: #f8f8f2">&gt;</span>
+<span style="color: #f8f8f2">&lt;/</span><span style="color: #ff4689">html</span><span style="color: #f8f8f2">&gt;</span>
+          </code></pre></div>
+          
+          <h3 id="css">CSS</h3>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #ff4689">*</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">position</span><span style="color: #f8f8f2">: </span><span style="color: #66d9ef">relative</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">padding</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">margin</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #f8f8f2">:</span><span style="color: #a6e22e">root</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">  --jacket-size: </span><span style="color: #a6e22e">min</span><span style="color: #f8f8f2">(</span><span style="color: #ae81ff">90</span><span style="color: #66d9ef">vw</span><span style="color: #f8f8f2">, </span><span style="color: #ae81ff">50</span><span style="color: #66d9ef">vmax</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #ff4689">div</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">control</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">width</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">100</span><span style="color: #66d9ef">%</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">height</span><span style="color: #f8f8f2">: calc(</span><span style="color: #ae81ff">100</span><span style="color: #66d9ef">%</span><span style="color: #ae81ff">-24</span><span style="color: #66d9ef">px</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">display</span><span style="color: #f8f8f2">: </span><span style="color: #66d9ef">flex</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">align-items</span><span style="color: #f8f8f2">: </span><span style="color: #66d9ef">stretch</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">flex-direction</span><span style="color: #f8f8f2">: </span><span style="color: #66d9ef">column</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #f8f8f2">#audio {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">position</span><span style="color: #f8f8f2">: </span><span style="color: #66d9ef">fixed</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">bottom</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">left</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">width</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">100</span><span style="color: #66d9ef">%</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">height</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">24</span><span style="color: #66d9ef">px</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #f8f8f2">.</span><span style="color: #a6e22e">bg</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">position</span><span style="color: #f8f8f2">: </span><span style="color: #66d9ef">fixed</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">width</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">100</span><span style="color: #66d9ef">%</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">height</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">100</span><span style="color: #66d9ef">%</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">top</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">left</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">filter</span><span style="color: #f8f8f2">: blur(</span><span style="color: #ae81ff">50</span><span style="color: #66d9ef">px</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #ff4689">img</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">jacket</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">width</span><span style="color: #f8f8f2">: </span><span style="color: #a6e22e">var</span><span style="color: #f8f8f2">(--jacket-size);</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">aspect-ratio</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">1</span><span style="color: #ff4689">/</span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">margin-top</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">10</span><span style="color: #66d9ef">px</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">margin-left</span><span style="color: #f8f8f2">: calc(</span><span style="color: #ed007e; background-color: #1e0010">(</span><span style="color: #ae81ff">100</span><span style="color: #66d9ef">%</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">-</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">var</span><span style="color: #f8f8f2">(--jacket-size)) </span><span style="color: #ff4689">/</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">2</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">border</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">2</span><span style="color: #66d9ef">px</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">solid</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">#8888</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">border-radius</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">10</span><span style="color: #66d9ef">px</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #ff4689">h1</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">music-title</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">color</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">#000</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">background</span><span style="color: #f8f8f2">:</span><span style="color: #ae81ff">#fff8</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">border-radius</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">5</span><span style="color: #66d9ef">px</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">font-family</span><span style="color: #f8f8f2">: system-ui, </span><span style="color: #ff4689">-</span><span style="color: #f8f8f2">apple-system, BlinkMacSystemFont, </span><span style="color: #e6db74">&#39;Segoe UI&#39;</span><span style="color: #f8f8f2">, Roboto, Oxygen, Ubuntu, Cantarell, </span><span style="color: #e6db74">&#39;Open Sans&#39;</span><span style="color: #f8f8f2">, </span><span style="color: #e6db74">&#39;Helvetica Neue&#39;</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">sans-serif</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">font-size</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">24</span><span style="color: #66d9ef">px</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">text-align</span><span style="color: #f8f8f2">: </span><span style="color: #66d9ef">center</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">left</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">50</span><span style="color: #66d9ef">%</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">transform</span><span style="color: #f8f8f2">: translate(</span><span style="color: #ae81ff">-50</span><span style="color: #66d9ef">%</span><span style="color: #f8f8f2">, </span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #959077">/* 親 */</span>
+<span style="color: #f8f8f2">.</span><span style="color: #a6e22e">container</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">position</span><span style="color: #f8f8f2">: </span><span style="color: #66d9ef">fixed</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">width</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">100</span><span style="color: #66d9ef">%</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">height</span><span style="color: #f8f8f2">: calc(</span><span style="color: #ae81ff">100</span><span style="color: #66d9ef">%</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">-</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">24</span><span style="color: #66d9ef">px</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">top</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">left</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">z-index</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">-1000</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">opacity</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">0.5</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">filter</span><span style="color: #f8f8f2">: blur(</span><span style="color: #ae81ff">4</span><span style="color: #66d9ef">px</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">display</span><span style="color: #f8f8f2">: </span><span style="color: #66d9ef">flex</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">justify-content</span><span style="color: #f8f8f2">: </span><span style="color: #66d9ef">center</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">align-items</span><span style="color: #f8f8f2">: </span><span style="color: #66d9ef">center</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">gap</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">1</span><span style="color: #66d9ef">px</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #f8f8f2">.</span><span style="color: #a6e22e">container</span><span style="color: #f8f8f2">:</span><span style="color: #a6e22e">after</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">content</span><span style="color: #f8f8f2">: </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">display</span><span style="color: #f8f8f2">: </span><span style="color: #66d9ef">block</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">width</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">100</span><span style="color: #66d9ef">%</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">height</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">1</span><span style="color: #66d9ef">px</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">position</span><span style="color: #f8f8f2">: </span><span style="color: #66d9ef">absolute</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">top</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">50</span><span style="color: #66d9ef">%</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">left</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #f8f8f2">.</span><span style="color: #a6e22e">box</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">flex</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">height</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">95</span><span style="color: #66d9ef">%</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">scale</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">0.01</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">animation</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">10</span><span style="color: #66d9ef">s</span><span style="color: #f8f8f2"> rainbow-animation </span><span style="color: #66d9ef">linear</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">infinite</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">}</span>
+
+
+<span style="color: #f8f8f2">@</span><span style="color: #66d9ef">keyframes</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">rainbow-animation</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #ff4689">0%</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">background-color</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">#f00</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  }</span>
+
+<span style="color: #f8f8f2">  </span><span style="color: #ff4689">17%</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">background-color</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">#ff0</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  }</span>
+
+<span style="color: #f8f8f2">  </span><span style="color: #ff4689">33%</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">background-color</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">#0f0</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  }</span>
+
+<span style="color: #f8f8f2">  </span><span style="color: #ff4689">50%</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">background-color</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">#0ff</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  }</span>
+
+<span style="color: #f8f8f2">  </span><span style="color: #ff4689">67%</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">background-color</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">#00f</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  }</span>
+
+<span style="color: #f8f8f2">  </span><span style="color: #ff4689">83%</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">background-color</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">#f0f</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  }</span>
+
+<span style="color: #f8f8f2">  </span><span style="color: #ff4689">100%</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">background-color</span><span style="color: #f8f8f2">: </span><span style="color: #ae81ff">#f00</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  }</span>
+<span style="color: #f8f8f2">}</span>
+          </code></pre></div>
+          
+          <h3 id="javascript">JavaScript</h3>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">controller</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2">document.</span><span style="color: #a6e22e">querySelector</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;div.control&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">audio</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> document.</span><span style="color: #a6e22e">querySelector</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;#audio&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">get_audio_url</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> () =&gt; {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">default_audio</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span>
+<span style="color: #f8f8f2">    </span><span style="color: #e6db74">&quot;https://develop.the-infinitys.f5.si/article-2024/09/through-infinity/Through-Infinity.mp3&quot;</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">param_audio</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">new</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">URLSearchParams</span><span style="color: #f8f8f2">(document.</span><span style="color: #a6e22e">location</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">search</span><span style="color: #f8f8f2">).</span><span style="color: #a6e22e">get</span><span style="color: #f8f8f2">(</span>
+<span style="color: #f8f8f2">    </span><span style="color: #e6db74">&quot;audio&quot;</span>
+<span style="color: #f8f8f2">  );</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">return</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">param_audio</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">==</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">null</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">?</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">default_audio</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">:</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">param_audio</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">};</span>
+<span style="color: #a6e22e">audio</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">src</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">get_audio_url</span><span style="color: #f8f8f2">();</span>
+<span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">add_bg</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> () =&gt; {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">get_image_url</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> () =&gt; {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">default_img</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span>
+<span style="color: #f8f8f2">      </span><span style="color: #e6db74">&quot;https://develop.the-infinitys.f5.si/image/The-Infinitys.webp&quot;</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">param_img</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">new</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">URLSearchParams</span><span style="color: #f8f8f2">(document.</span><span style="color: #a6e22e">location</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">search</span><span style="color: #f8f8f2">).</span><span style="color: #a6e22e">get</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;img&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">return</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">param_img</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">==</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">null</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">?</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">default_img</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">:</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">param_img</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  };</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">jacket</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> document.</span><span style="color: #a6e22e">createElement</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;img&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  </span><span style="color: #a6e22e">jacket</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">src</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">get_image_url</span><span style="color: #f8f8f2">();</span>
+<span style="color: #f8f8f2">  </span><span style="color: #a6e22e">jacket</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">className</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;jacket&quot;</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #a6e22e">jacket</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">setAttribute</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;crossorigin&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #e6db74">&quot;anonymous&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  </span><span style="color: #a6e22e">controller</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">prepend</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">jacket</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">bg</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> document.</span><span style="color: #a6e22e">createElement</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;img&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  </span><span style="color: #a6e22e">bg</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">src</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">get_image_url</span><span style="color: #f8f8f2">();</span>
+<span style="color: #f8f8f2">  </span><span style="color: #a6e22e">bg</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">className</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;bg&quot;</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #a6e22e">bg</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">setAttribute</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;crossorigin&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #e6db74">&quot;anonymous&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  document.</span><span style="color: #a6e22e">body</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">prepend</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">bg</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">};</span>
+<span style="color: #a6e22e">add_bg</span><span style="color: #f8f8f2">();</span>
+<span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">set_title</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> () =&gt; {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">default_title</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;Though Infinity (The Infinity&#39;s) &quot;</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">param_title</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">new</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">URLSearchParams</span><span style="color: #f8f8f2">(document.</span><span style="color: #a6e22e">location</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">search</span><span style="color: #f8f8f2">).</span><span style="color: #a6e22e">get</span><span style="color: #f8f8f2">(</span>
+<span style="color: #f8f8f2">    </span><span style="color: #e6db74">&quot;title&quot;</span>
+<span style="color: #f8f8f2">  );</span>
+<span style="color: #f8f8f2">  document.</span><span style="color: #a6e22e">querySelector</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;h1.music-title&quot;</span><span style="color: #f8f8f2">).</span><span style="color: #a6e22e">innerHTML</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span>
+<span style="color: #f8f8f2">    </span><span style="color: #a6e22e">param_title</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">==</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">null</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">?</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">default_title</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">:</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">param_title</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">};</span>
+<span style="color: #a6e22e">set_title</span><span style="color: #f8f8f2">();</span>
+<span style="color: #66d9ef">let</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">already_inited</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">false</span><span style="color: #f8f8f2">;</span>
+<span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">containerElement</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> document.</span><span style="color: #a6e22e">querySelector</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;.container&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">FFT_SIZE</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">64</span><span style="color: #f8f8f2">;</span>
+<span style="color: #66d9ef">function</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">init_container</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #a6e22e">containerElement</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">innerHTML</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">for</span><span style="color: #f8f8f2"> (</span><span style="color: #66d9ef">let</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">i</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">; </span><span style="color: #a6e22e">i</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">&lt;</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">FFT_SIZE</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">/</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">2</span><span style="color: #f8f8f2">; </span><span style="color: #a6e22e">i</span><span style="color: #ff4689">++</span><span style="color: #f8f8f2">) {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">div</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> document.</span><span style="color: #a6e22e">createElement</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;div&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">    </span><span style="color: #a6e22e">div</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">classList</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">add</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;box&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">    </span><span style="color: #a6e22e">containerElement</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">append</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">div</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  }</span>
+<span style="color: #f8f8f2">}</span>
+<span style="color: #a6e22e">init_container</span><span style="color: #f8f8f2">();</span>
+<span style="color: #66d9ef">function</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">init</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (</span><span style="color: #a6e22e">already_inited</span><span style="color: #f8f8f2">) {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">return</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  }</span>
+<span style="color: #f8f8f2">  </span><span style="color: #a6e22e">already_inited</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">true</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">boxes</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">containerElement</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">children</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">context</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">new</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">AudioContext</span><span style="color: #f8f8f2">();</span>
+<span style="color: #f8f8f2">  </span><span style="color: #959077">// アナライザーを生成</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">nodeAnalyser</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">context</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">createAnalyser</span><span style="color: #f8f8f2">();</span>
+<span style="color: #f8f8f2">  </span><span style="color: #959077">// フーリエ変換を行う分割数。2の乗数でなくてはならない</span>
+<span style="color: #f8f8f2">  </span><span style="color: #a6e22e">nodeAnalyser</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">fftSize</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">FFT_SIZE</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #959077">// 0～1の範囲でデータの動きの速さ 0だともっとも速く、1に近づくほど遅くなる</span>
+<span style="color: #f8f8f2">  </span><span style="color: #a6e22e">nodeAnalyser</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">smoothingTimeConstant</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">0.8</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #959077">// オーディオの出力先を設定</span>
+<span style="color: #f8f8f2">  </span><span style="color: #a6e22e">nodeAnalyser</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">connect</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">context</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">destination</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  </span><span style="color: #959077">// audio 要素と紐付ける</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">nodeSource</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">context</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">createMediaElementSource</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">audio</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  </span><span style="color: #a6e22e">nodeSource</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">connect</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">nodeAnalyser</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">function</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">freqByteData</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">new</span><span style="color: #f8f8f2"> Uint8Array(</span><span style="color: #a6e22e">FFT_SIZE</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">/</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">2</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">    </span><span style="color: #a6e22e">nodeAnalyser</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">getByteFrequencyData</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">freqByteData</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">for</span><span style="color: #f8f8f2"> (</span><span style="color: #66d9ef">let</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">i</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">; </span><span style="color: #a6e22e">i</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">&lt;</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">freqByteData</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">length</span><span style="color: #f8f8f2">; </span><span style="color: #a6e22e">i</span><span style="color: #ff4689">++</span><span style="color: #f8f8f2">) {</span>
+<span style="color: #f8f8f2">      </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">freqSum</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">freqByteData</span><span style="color: #f8f8f2">[</span><span style="color: #a6e22e">i</span><span style="color: #f8f8f2">];</span>
+<span style="color: #f8f8f2">      </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">scale</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">freqSum</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">/</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">256</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">      </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">div</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">boxes</span><span style="color: #f8f8f2">[</span><span style="color: #a6e22e">i</span><span style="color: #f8f8f2">];</span>
+<span style="color: #f8f8f2">      </span><span style="color: #a6e22e">div</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">style</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">scale</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">`1 ${</span><span style="color: #a6e22e">scale</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">*</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">0.99</span><span style="color: #f8f8f2"> </span><span style="color: #ff4689">+</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">0.01</span><span style="color: #e6db74">}`</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">    }</span>
+<span style="color: #f8f8f2">    </span><span style="color: #a6e22e">requestAnimationFrame</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  }</span>
+<span style="color: #f8f8f2">  </span><span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">();</span>
+<span style="color: #f8f8f2">}</span>
+<span style="color: #a6e22e">audio</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">addEventListener</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;play&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #a6e22e">init</span><span style="color: #f8f8f2">);</span>
+          </code></pre></div>
+          
+          <h2 id="_7">仕組み</h2>
+          <p>URLパラメーターから、<br />
+           - img: ジャケット画像<br />
+           - audio: 音楽<br />
+           - title: 曲名<br />
+          のデータを取得し、それに応じて要素を組むようになっています。</p>
+          <p>最初に音楽が再生された時に、アナライザの初期化をして、以後その音楽に応じて、<br />
+          アナライザが動くようになっています。なので、<br />
+          <code>init</code>内の<code>loop</code>関数を弄ることで、アナライザの挙動を変えたりもできます。<br />
+          (例えばcanvasにアナライザを描くようにしたり)</p>
+          <p>パラメーターは全てURLから取得するようになっているので、どこの場所のものでも取得できて便利です。</p>
+          <h2 id="_8">作った感想</h2>
+          <p>構想を練っている間はかなり大変でしたが、プログラムを組んでいるときは軽快に指が動き、<br />
+          非常に楽しかったです。<br />
+          一番大変だったのはデザインです()</p>
+
+          </InfinitySpiritContent>
+    </div>
+    <div class="article-share" onclick="copyURL()">
+      <img src="/InfinitySpirit/layout/image/Infinity-clipboard.svg" alt="" />
+      Copy To ClipBoard
+    </div>
+    <div class="article-share" onclick="shareX()">
+      <img src="/InfinitySpirit/layout/image/X-Infinity.svg" alt="" />
+      Share On X
+    </div>
+    <div class="article-index"></div>
+    <div class="articles-recommended">
+      <button>
+        <img src="/InfinitySpirit/layout/image/loading.svg" alt="" />
+        <div>
+          <h1>THE INFINITYS BELIEVE THE INFINITY</h1>
+          <p>date:2024/07/07</p>
+        </div>
+      </button>
+    </div>
+  </div>
+</body>
+
+</html>
