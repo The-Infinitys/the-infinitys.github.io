@@ -44,7 +44,7 @@ export function getArticleIndexes() {
           const { data } = matter(fileContents);
 
           return {
-            slug: `article-${year}/${month}/${articleId}`,
+            slug: `${year}/${month}/${articleId}`,
             title: data.title || "Untitled", // タイトルがない場合のデフォルト値
             date: data.date || "Unknown date", // 日付がない場合のデフォルト値
             thumbnail: thumbnailPath,
