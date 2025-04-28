@@ -1,10 +1,9 @@
 ---
-title: 
-date: ""
+title: 投稿が遅れましたm(_ _)m
+date: "2025-04-14"
 description: ""
 ---
 
-# 投稿が遅れましたm(_ _)m
 
 どうもどうも、 The Infinity'sです。
 
@@ -24,5 +23,3 @@ description: ""
 詳しく聞きたい方はXなり何なりでお願いします。
 
 敬具
-
-# date: 2025/04/14
