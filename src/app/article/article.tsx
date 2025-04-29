@@ -4,7 +4,7 @@ import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
 
-const postsDirectory = path.join(process.cwd(), "public/posts");
+const postsDirectory = path.join(process.cwd(), "public");
 
 export function getArticleIndexes() {
   const years = fs.readdirSync(postsDirectory).filter((year) => {
@@ -18,7 +18,8 @@ export function getArticleIndexes() {
     const months = fs.readdirSync(yearPath).filter((month) => {
       const monthPath = path.join(yearPath, month);
       if (!fs.statSync(monthPath).isDirectory()) return false; // ファイルの場合はスキップ
-      return true;
+      if (year.startsWith("article-")) return true; // article_で始まらない場合はスキップ
+      return false;
     });
 
     return months.flatMap((month) => {
