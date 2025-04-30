@@ -38,7 +38,7 @@ React の JSX と組み合わせることで、**よりモダンで保守性の�
 
 #### TypeScriptの例
 
-```tsx
+```tsx title="example.tsx" showLineNumbers
 "use client";
 
 import { useState, useEffect } from "react";

@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import rehypeHighlight from "rehype-highlight";
+import rehypePrettyCode from "rehype-pretty-code";
 import rehypeFormat from "rehype-format";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
@@ -90,7 +90,7 @@ export async function toHTML(
       const processedContent = await unified()
         .use(remarkParse)
         .use(remarkRehype)
-        .use(rehypeHighlight)
+        .use(rehypePrettyCode)
         .use(rehypeFormat)
         .use(rehypeStringify)
         .process(content);
