@@ -122,7 +122,7 @@ export default function Header() {
                 onClick={handleLinkClick}
                 target={menu.target} // target属性を追加
                 className={`${chakraPetch.className} block py-2 md:py-0 hover:text-[var(--foreground)]`}
-                ariaLabel={menu.label}
+                aria-label={menu.label}
                 style={{
                   fontStyle: "italic",
                 }}
