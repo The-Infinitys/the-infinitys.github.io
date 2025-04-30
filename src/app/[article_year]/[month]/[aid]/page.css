@@ -1,0 +1,270 @@
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
+
+.article-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  overflow-x: hidden auto;
+  min-height: 100vh;
+  max-width: 90vw;
+  /* スマートフォン対応 */
+}
+
+.toc {
+  flex: 1;
+  top: 64px;
+  left: 0;
+  max-height: calc(100vh - 128px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 2px solid var(--primary);
+  padding: 16px;
+  border-radius: 8px;
+  background-color: var(--background);
+  min-width: 250px;
+  /* 最小幅を設定 */
+}
+
+.toc h2 {
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+}
+
+.toc ul {
+  list-style: none;
+  padding: 0;
+}
+
+.toc li {
+  margin-bottom: 8px;
+}
+
+.toc a {
+  text-decoration: none;
+  color: var(--link-color);
+  cursor: pointer;
+}
+
+.toc a:hover {
+  text-decoration: underline;
+}
+
+.article-detail {
+  flex: 3;
+  min-width: 300px;
+  /* 最小幅を設定 */
+}
+
+.article-detail h1 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+/* 日付 */
+.article-detail p {
+  color: color-mix(in srgb, var(--foreground), var(--background) 50%);
+}
+
+
+.article-thumbnail {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.article-content {
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  line-height: 2;
+  overflow: hidden;
+  padding: 2px;
+}
+
+.article-content pre {
+  padding: 1em;
+  border: 1px solid var(--foreground);
+  width: 100%;
+  overflow: scroll;
+  color: var(--foreground);
+  background-color: var(--background);
+  font-family: monospace;
+
+}
+
+.article-content h1,
+.article-content h2,
+.article-content h3,
+.article-content h4 {
+  line-height: 2;
+  padding-left: 10px;
+  margin: 10px 0 20px -5px;
+  border-radius: 10px 5px 5px 10px;
+  border-left: 15px solid;
+  animation: article-h-borders 5s linear infinite;
+}
+
+.article-content h1[id],
+.article-content h2[id],
+.article-content h3[id],
+.article-content h4[id],
+.article-content h5[id],
+.article-content h6[id] {
+  scroll-margin-top: 64px;
+  /* 固定ヘッダーの高さに応じて調整 */
+}
+
+.article-content h5,
+.article-content h6,
+.article-content p {
+  color: var(--foreground);
+  font-weight: 500;
+}
+
+.article-content h1::before,
+.article-content h2::before,
+.article-content h3::before,
+.article-content h4::before,
+.article-content h1::after,
+.article-content h2::after,
+.article-content h3::after,
+.article-content h4::after {
+  background: linear-gradient(to right, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00) 0 / 200%;
+  content: "";
+  display: block;
+  width: calc(100% + 12px);
+  border-radius: 5px;
+  height: 3px;
+  position: relative;
+  left: -11px;
+  animation: border-back-animation linear 5s infinite;
+}
+
+@keyframes article-h-borders {
+  0% {
+    border-left: 15px solid #f00;
+    border-right: 4px solid #0ff;
+  }
+
+  17% {
+    border-left: 15px solid #ff0;
+    border-right: 4px solid #00f;
+  }
+
+  33% {
+    border-left: 15px solid #0f0;
+    border-right: 4px solid #f0f;
+  }
+
+  50% {
+    border-left: 15px solid #0ff;
+    border-right: 4px solid #f00;
+  }
+
+  67% {
+    border-left: 15px solid #00f;
+    border-right: 4px solid #ff0;
+  }
+
+  83% {
+    border-left: 15px solid #f0f;
+    border-right: 4px solid #0f0;
+  }
+
+  100% {
+    border-left: 15px solid #f00;
+    border-right: 4px solid #0ff;
+  }
+}
+
+@keyframes border-back-animation {
+  0% {
+    background-position-x: 0%;
+  }
+
+  100% {
+    background-position-x: 200%;
+  }
+}
+
+.other-articles {
+  margin-top: 40px;
+  top: 20px;
+  /* スクロール時に追従 */
+}
+
+.other-articles h2 {
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+}
+
+.other-articles ul {
+  list-style: none;
+  padding: 0;
+}
+
+.other-articles li {
+  margin-bottom: 8px;
+}
+
+.other-articles a {
+  text-decoration: none;
+  color: var(--link-color);
+}
+
+.other-articles a:hover {
+  text-decoration: underline;
+}
+
+/* スマートフォン対応 */
+@media (max-width: 768px) {
+  .article-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* 縦並びに変更 */
+  }
+
+  .toc {
+    position: relative;
+    /* stickyを無効化 */
+    max-height: none;
+    order: -1;
+    box-sizing: border-box;
+    margin-bottom: 4em;
+    /* 記事の上部に配置 */
+  }
+
+  .article-detail {
+    position: relative;
+    margin: 1rem;
+  }
+
+  .other-articles {
+    position: relative;
+    /* stickyを無効化 */
+    top: auto;
+    margin-top: 20px;
+    /* 記事の下部に配置 */
+  }
+
+  .article-content {
+    position: relative;
+    width: calc(100vw - 64px);
+    margin: 30px auto;
+  }
+
+  .article-content pre {
+    width: 100%;
+    /* 幅を100%に設定 */
+    overflow-x: auto;
+    /* 横スクロールを有効化 */
+    font-size: 0.9rem;
+    /* 必要に応じてフォントサイズを調整 */
+  }
+}

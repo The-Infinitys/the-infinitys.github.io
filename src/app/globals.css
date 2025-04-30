@@ -38,18 +38,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   min-height: 100vh;
-  /* body に min-height を設定 */
 }
-
-/* div.container は不要になったか、別の場所で使われている場合は width: 100% を確認 */
-/*
-div.container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  min-height: inherit;
-}
-*/
 
 header {
   width: 100%;
@@ -82,23 +71,23 @@ main {
 main>section.title>h1 {
   text-align: center;
   font-family: "Chakra Petch", "noto-sans", sans-serif;
-  font-size: min(64px,8vw);
+  font-size: min(64px, 8vw);
   font-weight: 600;
   font-style: italic;
   padding: 2rem;
 }
 
-section{
-  padding:1rem; 
+section {
+  padding: 1rem;
 }
 
-section>h1,
-section>h2,
-section>h3,
-section>h4,
-section>h5,
-section>h6,
-section>p {
+section h1,
+section h2,
+section h3,
+section h4,
+section h5,
+section h6,
+section p {
   line-height: 2;
   margin: 1em;
   padding: 1em;
@@ -112,4 +101,46 @@ footer {
 a {
   color: var(--link-color);
   text-decoration: none;
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background-color: var(--primary);
+  color: var(--foreground);
+  border: none;
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  z-index: 1000;
+  opacity: 0;
+  /* 初期状態は非表示 */
+  visibility: hidden;
+  /* 初期状態は非表示 */
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+
+.back-to-top.visible {
+  opacity: 0.8;
+  /* 表示時の透明度 */
+  visibility: visible;
+  /* 表示状態に変更 */
+  transform: scale(1);
+  /* 通常サイズ */
+}
+
+.back-to-top:hover {
+  opacity: 1;
+  transform: scale(1.1);
+  /* ホバー時に拡大 */
+}
+
+.back-to-top svg {
+  fill: var(--foreground);
 }

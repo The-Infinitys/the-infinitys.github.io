@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/app/layout/header";
 import Footer from "@/app/layout/footer";
+import BackToTopButton from "@/app/layout/back2top";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,6 +33,7 @@ export default function RootLayout({
         <Header />
         <main style={{ minHeight: "100vh" }}>{children}</main>
         <Footer />
+        <BackToTopButton /> {/* 上に戻るボタンを追加 */}
       </body>
     </html>
   );

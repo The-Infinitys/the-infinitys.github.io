@@ -2,22 +2,22 @@ import { getArticleIndexes, toHTML } from "../../../article/article";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import crypto from "crypto"; // 追加
 import "./page.css";
-
 export async function generateStaticParams() {
   const indexes = getArticleIndexes();
 
   // 静的に生成するパスを返す
   return indexes.map((article) => {
-    const [year, month, aid] = article.slug.split("/");
-    return { year, month, aid };
+    const [article_year, month, aid] = article.slug.split("/");
+    return { article_year, month, aid };
   });
 }
 
 export default async function ArticlePage({
   params,
 }: {
-  params: Promise<{ year: string; month: string; aid: string }>;
+  params: Promise<{ article_year: string; month: string; aid: string }>;
 }) {
   // 非同期でparamsを解決
   const resolvedParams = await params;
@@ -26,7 +26,7 @@ export default async function ArticlePage({
   const articles = await toHTML(indexes);
 
   // スラッグに一致する記事を探す
-  const slug = `${resolvedParams.year}/${resolvedParams.month}/${resolvedParams.aid}`;
+  const slug = `${resolvedParams.article_year}/${resolvedParams.month}/${resolvedParams.aid}`;
   const article = articles.find((a) => a.slug === slug);
 
   if (!article) {
@@ -39,14 +39,10 @@ export default async function ArticlePage({
   // 目次を生成
   const headings = article.content.match(/<h[1-6]>.*?<\/h[1-6]>/g) || [];
   const toc = headings.map((heading) => {
-    const id = heading
-      .replace(/<.*?>/g, "")
-      .trim()
-      .toLowerCase()
-      .replace(/\s+/g, "-");
-    return { id, text: heading.replace(/<.*?>/g, "").trim() };
+    const text = heading.replace(/<.*?>/g, "").trim();
+    const id = crypto.createHash("sha256").update(text).digest("hex"); // ハッシュ生成
+    return { id, text };
   });
-
   return (
     <div className="article-container">
       <aside className="toc relative md:sticky">
@@ -73,16 +69,19 @@ export default async function ArticlePage({
           />
         )}
         <div
-          className="article-content"
+          className="article-content "
           dangerouslySetInnerHTML={{
-            __html: article.content.replace(/<h[1-6]>/g, (match) => {
-              const id = match
-                .replace(/<.*?>/g, "")
-                .trim()
-                .toLowerCase()
-                .replace(/\s+/g, "-");
-              return `<h2 id="${id}">`;
-            }),
+            __html: article.content.replace(
+              /<h([1-6])>(.*?)<\/h[1-6]>/g,
+              (match, level, text) => {
+                const newLevel = Math.min(parseInt(level) + 1, 6);
+                const id = crypto
+                  .createHash("sha256")
+                  .update(text)
+                  .digest("hex"); // ハッシュ生成
+                return `<h${newLevel} id="${id}">${text}</h${newLevel}>`;
+              }
+            ),
           }}
         />
       </article>
