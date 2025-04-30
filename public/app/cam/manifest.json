@@ -1,0 +1,15 @@
+{
+  "name": "silent Camera",
+  "short_name": "sicam",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#000",
+  "description": "Camera...",
+  "icons": [
+    {
+      "src": "images/touch/homescreen192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
