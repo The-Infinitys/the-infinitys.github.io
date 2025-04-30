@@ -90,10 +90,14 @@ export async function toHTML(
       const processedContent = await unified()
         .use(remarkParse)
         .use(remarkRehype)
-        .use(rehypePrettyCode)
+        .use(rehypePrettyCode, {
+          theme: "github-dark-high-contrast",
+          keepBackground: false,
+        })
         .use(rehypeFormat)
         .use(rehypeStringify)
         .process(content);
+
       return {
         ...article,
         content: processedContent.toString(),
