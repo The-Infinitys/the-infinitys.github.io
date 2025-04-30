@@ -17,16 +17,19 @@ const menus_list = [
     name: "Home",
     link: "/",
     target: "_self",
+    label: "Home",
   },
   {
     name: "Articles",
     link: "/article",
     target: "_self",
+    label: "Articles",
   },
   {
     img: TheInfiniteX,
-    link: "https://x.com",
+    link: "https://x.com/The_Infinity_s/",
     target: "_blank",
+    label: "X (Twitter)",
   },
 ];
 
@@ -119,6 +122,7 @@ export default function Header() {
                 onClick={handleLinkClick}
                 target={menu.target} // target属性を追加
                 className={`${chakraPetch.className} block py-2 md:py-0 hover:text-[var(--foreground)]`}
+                ariaLabel={menu.label}
                 style={{
                   fontStyle: "italic",
                 }}
