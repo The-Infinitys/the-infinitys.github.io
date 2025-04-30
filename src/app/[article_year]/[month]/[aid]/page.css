@@ -45,7 +45,7 @@ html {
 
 .toc a {
   text-decoration: none;
-  color: var(--link-color);
+  color: var(--foreground);
   cursor: pointer;
 }
 
@@ -246,6 +246,7 @@ html {
 .other-articles {
   margin-top: 40px;
   top: 20px;
+  max-width: 250px;
   /* スクロール時に追従 */
 }
 
@@ -299,6 +300,7 @@ html {
   .other-articles {
     position: relative;
     /* stickyを無効化 */
+    max-width: none;
     top: auto;
     margin-top: 20px;
     /* 記事の下部に配置 */
@@ -318,4 +320,29 @@ html {
     font-size: 0.9rem;
     /* 必要に応じてフォントサイズを調整 */
   }
+}
+
+/* 目次の見出しの右余白を調整 */
+.toc ul li a.index-h1 {
+  margin-right: 0px;
+}
+
+.toc ul li a.index-h2 {
+  margin-right: 10px;
+}
+
+.toc ul li a.index-h3 {
+  margin-right: 20px;
+}
+
+.toc ul li a.index-h4 {
+  margin-right: 30px;
+}
+
+.toc ul li a.index-h5 {
+  margin-right: 40px;
+}
+
+.toc ul li a.index-h6 {
+  margin-right: 50px;
 }

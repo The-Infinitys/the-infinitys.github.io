@@ -1,8 +1,13 @@
-import { getArticleIndexes, toHTML } from "../../../article/article";
+import {
+  getArticleIndexes,
+  toHTML,
+  generateArticleButton,
+  Article,
+} from "../../../article/article";
+import "../../../article/article.css";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link";
-import crypto from "crypto"; // 追加
+import crypto from "crypto";
 import "./page.css";
 
 export async function generateStaticParams() {
@@ -35,14 +40,15 @@ export default async function ArticlePage({
   }
 
   // 他の記事一覧を取得
-  const otherArticles = articles.filter((a) => a.slug !== slug);
+  const otherArticles: Article[] = articles.filter((a) => a.slug !== slug);
 
   // 目次を生成
   const headings = article.content.match(/<h[1-6]>.*?<\/h[1-6]>/g) || [];
   const toc = headings.map((heading) => {
     const text = heading.replace(/<.*?>/g, "").trim();
     const id = crypto.createHash("sha512").update(text).digest("hex"); // ハッシュ生成
-    return { id, text };
+    const level = "index-"+heading.slice(1, 3);
+    return { id, text, level };
   });
   return (
     <div className="article-container">
@@ -51,7 +57,7 @@ export default async function ArticlePage({
         <ul>
           {toc.map((item) => (
             <li key={item.id}>
-              <a href={`#${item.id}`}>{item.text}</a>
+              <a className={item.level} href={`#${item.id}`}>{item.text}</a>
             </li>
           ))}
         </ul>
@@ -88,15 +94,7 @@ export default async function ArticlePage({
       </article>
       <section className="other-articles relative md:sticky">
         <h2>他の記事</h2>
-        <ul>
-          {otherArticles.map((other) => (
-            <li key={other.slug}>
-              <Link href={`/${other.slug}`}>
-                <a>{other.title}</a>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <ul>{otherArticles.map((other) => generateArticleButton(other))}</ul>
       </section>
     </div>
   );

@@ -10,7 +10,7 @@
   color: inherit;
   display: block;
   width: 300px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--background);
   border-radius: 8px;
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -18,7 +18,7 @@
 
 .article-link:hover {
   transform: translateY(-4px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(127, 127, 127, 0.1);
 }
 
 .article-thumbnail {
@@ -38,6 +38,6 @@
 
 .article-content p {
   font-size: 0.875rem;
-  color: #666;
+  color: color-mix(in srgb, var(--background), var(--foreground) 50%);
   margin: 0;
 }

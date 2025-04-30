@@ -1,13 +1,17 @@
+import Image from "next/image";
+import Link from "next/link";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeFormat from "rehype-format";
 import remarkParse from "remark-parse";
+import remarkGfm from "remark-gfm";
 import remarkRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 import { unified } from "unified";
 import "highlight.js/styles/gradient-dark.css";
+import { ReactNode } from "react";
 const postsDirectory = path.join(process.cwd(), "public");
 
 export function getArticleIndexes() {
@@ -72,16 +76,16 @@ function findThumbnailFile(directory: string): string | null {
     : null;
 }
 
-export async function toHTML(
-  articles:
-    | {
-        slug: string;
-        title: string;
-        date: string;
-        thumbnail: string | null;
-        articlePath: string;
-      }[]
-) {
+export type Article = {
+  slug: string;
+  title: string;
+  date: string;
+  thumbnail: string | null;
+  articlePath: string;
+};
+
+// 該当箇所の置き換え
+export async function toHTML(articles: Article[]) {
   const htmlArticles = await Promise.all(
     articles.map(async (article) => {
       const fileContents = fs.readFileSync(article.articlePath, "utf-8");
@@ -89,6 +93,7 @@ export async function toHTML(
 
       const processedContent = await unified()
         .use(remarkParse)
+        .use(remarkGfm)
         .use(remarkRehype)
         .use(rehypePrettyCode, {
           theme: "github-dark-high-contrast",
@@ -106,4 +111,33 @@ export async function toHTML(
   );
 
   return htmlArticles;
+}
+
+export function generateArticleButton(article: Article): ReactNode {
+  // スラッグから年、月、記事IDを抽出
+  const [year, month, aid] = article.slug.split("/");
+  return (
+    <Link
+      key={article.slug}
+      href={`/${year}/${month}/${aid}`} // 動的に記事のパスを生成
+      className="article-link"
+    >
+      <article>
+        {article.thumbnail && (
+          <Image
+            src={article.thumbnail}
+            alt={article.title}
+            width={300}
+            height={200}
+            objectFit="cover"
+            className="article-thumbnail"
+          />
+        )}
+        <div className="article-content">
+          <h2>{article.title}</h2>
+          <p>{article.date}</p>
+        </div>
+      </article>
+    </Link>
+  );
 }
