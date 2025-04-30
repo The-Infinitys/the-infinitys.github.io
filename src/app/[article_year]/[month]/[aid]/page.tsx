@@ -69,7 +69,7 @@ export default async function ArticlePage({
           />
         )}
         <div
-          className="article-content"
+          className="article-content "
           dangerouslySetInnerHTML={{
             __html: article.content.replace(
               /<h([1-6])>(.*?)<\/h[1-6]>/g,

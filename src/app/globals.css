@@ -38,18 +38,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   min-height: 100vh;
-  /* body に min-height を設定 */
 }
-
-/* div.container は不要になったか、別の場所で使われている場合は width: 100% を確認 */
-/*
-div.container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  min-height: inherit;
-}
-*/
 
 header {
   width: 100%;
