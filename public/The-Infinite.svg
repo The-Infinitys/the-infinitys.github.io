@@ -1,0 +1,36 @@
+<svg
+   viewBox="0 0 120 120" version="1.1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+   <defs>
+    <linearGradient id="rainbow-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop stop-color="#00ffff" offset="0" />
+      <stop stop-color="#0000ff" offset="0.167" />
+      <stop stop-color="#ff00ff" offset="0.333" />
+      <stop stop-color="#ff0000" offset="0.5" />
+      <stop stop-color="#ffff00" offset="0.667" />
+      <stop stop-color="#00ff00" offset="0.833" />
+      <stop stop-color="#00ffff" offset="1" />
+    </linearGradient>
+   </defs>
+  <path
+    d="
+    M 10,60
+    l 10,20
+    h 30
+    l 20,-40
+    h 30
+    l 10,20
+    l -10,20
+    h -30
+    l -20,-40
+    h -30
+    z
+    "
+    fill="none"
+    stroke="url(#rainbow-gradient)"
+    stroke-width="10"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>

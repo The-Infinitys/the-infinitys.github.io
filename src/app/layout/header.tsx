@@ -3,8 +3,9 @@
 import { Chakra_Petch } from "next/font/google";
 import Link from "next/link";
 import Image from "next/image"; // Import Image component
+import TheInfiniteImage from "../../../public/The-Infinite.svg";
 import React, { useState } from "react";
-
+import { TheInfiniteX } from "./img";
 const chakraPetch = Chakra_Petch({
   variable: "--font-chakra-petch",
   subsets: ["latin"],
@@ -15,10 +16,17 @@ const menus_list = [
   {
     name: "Home",
     link: "/",
+    target: "_self",
   },
   {
     name: "Articles",
     link: "/article",
+    target: "_self",
+  },
+  {
+    img: TheInfiniteX,
+    link: "https://x.com",
+    target: "_blank",
   },
 ];
 
@@ -38,26 +46,34 @@ export default function Header() {
     // Added padding, flex layout for alignment
     <header className="p-4 flex justify-between items-center relative">
       {/* Title */}
-      <h1
-        className={`${chakraPetch.className} italic font-semibold text-3xl`} // Use Tailwind classes
+      <div
         style={{
-          fontStyle: "italic",
-          fontWeight: "600",
-          fontSize: "32px", // Use text-3xl or similar
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-start",
         }}
       >
-        <Link
-          href="/"
-          onClick={handleLinkClick}
+        <Image src={TheInfiniteImage} alt="" width={30} height={30} />
+        <h1
+          className={`${chakraPetch.className} italic font-semibold text-3xl`} // Use Tailwind classes
           style={{
-            color: "var(--foreground)",
+            fontStyle: "italic",
+            fontWeight: "600",
+            fontSize: "32px", // Use text-3xl or similar
           }}
         >
-          {"The Infinity's"}
-          {/* Added Link here for consistency */}
-        </Link>
-      </h1>
-
+          <Link
+            href="/"
+            onClick={handleLinkClick}
+            style={{
+              color: "var(--foreground)",
+            }}
+          >
+            {"The Infinity's"}
+            {/* Added Link here for consistency */}
+          </Link>
+        </h1>
+      </div>
       {/* Hamburger Button - Hidden on md and larger screens */}
       <button
         onClick={toggleMenu}
@@ -81,20 +97,19 @@ export default function Header() {
         className={`
           ${
             isMenuOpen ? "opacity-100 max-h-screen" : "opacity-0 max-h-0"
-          } md:opacity-100 md:max-h-none /* Show/hide based on state and screen size */
-          transition-all duration-300 ease-in-out /* Smooth animation */
+          } md:opacity-100 md:max-h-none
+          transition-all duration-300 ease-in-out
           fixed md:relative top-0 left-0 w-full h-full md:w-auto md:h-100%
-          bg-[var(--primary)] md:bg-transparent /* Background for mobile */
-          z-20 /* Ensure menu is below header content but above main */
-          overflow-hidden /* Prevent content overflow during animation */
-          flex flex-col md:flex-row items-center justify-center md:justify-end /* Center items for mobile, right-align for desktop */
+          bg-[var(--primary)] md:bg-transparent
+          z-20 overflow-hidden
+          flex flex-col md:flex-row items-center justify-center md:justify-end
         `}
       >
         <ul
           className={`
-            flex flex-col md:flex-row md:space-x-6 /* Layout adjustments */
-            items-center /* Center items for better mobile view */
-            p-4 md:p-0 /* Padding for mobile */
+            flex flex-col md:flex-row md:space-x-6
+            items-center
+            p-4 md:p-0
           `}
         >
           {menus_list.map((menu, index) => (
@@ -102,11 +117,13 @@ export default function Header() {
               <Link
                 href={menu.link}
                 onClick={handleLinkClick}
+                target={menu.target} // target属性を追加
                 className={`${chakraPetch.className} block py-2 md:py-0 hover:text-[var(--foreground)]`}
                 style={{
                   fontStyle: "italic",
                 }}
               >
+                {menu.img && menu.img}
                 {menu.name}
               </Link>
             </li>
