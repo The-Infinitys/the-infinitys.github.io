@@ -103,7 +103,7 @@ export default function Header() {
           } md:opacity-100 md:max-h-none
           transition-all duration-300 ease-in-out
           fixed md:relative top-0 left-0 w-full h-full md:w-auto md:h-100%
-          bg-[var(--primary)] md:bg-transparent
+          md:bg-transparent
           z-20 overflow-hidden
           flex flex-col md:flex-row items-center justify-center md:justify-end
         `}

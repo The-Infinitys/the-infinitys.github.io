@@ -5,6 +5,7 @@
   --foreground: #171717;
   --primary: #eeeeee;
   --link-color: #0000ff;
+  --body-color-value: 0deg;
   /* ライトテーマ用のリンク色を追加 */
 }
 
@@ -34,15 +35,57 @@ body {
   /* 横スクロールのみを禁止 */
 }
 
+@keyframes body-background-animation {
+  0% {
+    --body-color-value: 0deg;
+  }
+
+  17% {
+    --body-color-value: 60deg;
+  }
+
+  33% {
+    --body-color-value: 120deg;
+  }
+
+  50% {
+    --body-color-value: 180deg;
+  }
+
+  67% {
+    --body-color-value: 240deg;
+  }
+
+  83% {
+    --body-color-value: 300deg;
+  }
+
+  100% {
+    --body-color-value: 360deg;
+  }
+}
+
+
+@property --body-color-value {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0deg;
+}
+
 body {
-  background: var(--background);
   color: var(--foreground);
+  background:
+    radial-gradient(color-mix(in srgb,
+        hsl(var(--body-color-value) 100% 50%),
+        var(--background) 80%),
+      var(--background));
   min-height: 100vh;
+  animation: body-background-animation 20s infinite;
 }
 
 header {
   width: 100%;
-  background-color: var(--primary);
+  background-color: color-mix(in srgb, var(--primary), transparent 50%);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -60,6 +103,10 @@ header a {
   text-decoration: none;
 }
 
+header nav {
+  background-color: color-mix(in srgb, var(--primary), transparent 50%);
+  backdrop-filter: blur(4px);
+}
 
 main {
   width: 100%;
@@ -80,6 +127,7 @@ main>section.title>h1 {
 
 section {
   padding: 1rem;
+  margin: 1rem;
 }
 
 section h1,
@@ -96,7 +144,8 @@ section p {
 
 footer {
   width: 100%;
-  background-color: var(--primary);
+  background-color: color-mix(in srgb, var(--primary), transparent 50%);
+  backdrop-filter: blur(4px);
 }
 
 a {
