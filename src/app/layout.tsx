@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "The infinity's",
+  title: "The Infinity's",
   description: "Believe in The Infinite Possibilities!",
 };
 
