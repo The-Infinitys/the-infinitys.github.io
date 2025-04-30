@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import crypto from "crypto"; // 追加
 import "./page.css";
+
 export async function generateStaticParams() {
   const indexes = getArticleIndexes();
 
@@ -40,7 +41,7 @@ export default async function ArticlePage({
   const headings = article.content.match(/<h[1-6]>.*?<\/h[1-6]>/g) || [];
   const toc = headings.map((heading) => {
     const text = heading.replace(/<.*?>/g, "").trim();
-    const id = crypto.createHash("sha256").update(text).digest("hex"); // ハッシュ生成
+    const id = crypto.createHash("sha512").update(text).digest("hex"); // ハッシュ生成
     return { id, text };
   });
   return (
@@ -76,7 +77,7 @@ export default async function ArticlePage({
               (match, level, text) => {
                 const newLevel = Math.min(parseInt(level) + 1, 6);
                 const id = crypto
-                  .createHash("sha256")
+                  .createHash("sha512")
                   .update(text)
                   .digest("hex"); // ハッシュ生成
                 return `<h${newLevel} id="${id}">${text}</h${newLevel}>`;

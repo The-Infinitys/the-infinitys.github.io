@@ -1,5 +1,5 @@
 <svg
-   viewBox="0 0 120 120" version="1.1"
+   viewBox="0 0 120 60" version="1.1"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:xlink="http://www.w3.org/1999/xlink">
    <defs>
@@ -15,7 +15,7 @@
    </defs>
   <path
     d="
-    M 10,60
+    M 10,30
     l 10,20
     h 30
     l 20,-40

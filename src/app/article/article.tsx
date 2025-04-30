@@ -1,9 +1,13 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { remark } from "remark";
-import html from "remark-html";
-
+import rehypeHighlight from "rehype-highlight";
+import rehypeFormat from "rehype-format";
+import remarkParse from "remark-parse";
+import remarkRehype from "remark-rehype";
+import rehypeStringify from "rehype-stringify";
+import { unified } from "unified";
+import "highlight.js/styles/gradient-dark.css";
 const postsDirectory = path.join(process.cwd(), "public");
 
 export function getArticleIndexes() {
@@ -83,7 +87,13 @@ export async function toHTML(
       const fileContents = fs.readFileSync(article.articlePath, "utf-8");
       const { content } = matter(fileContents);
 
-      const processedContent = await remark().use(html).process(content);
+      const processedContent = await unified()
+        .use(remarkParse)
+        .use(remarkRehype)
+        .use(rehypeHighlight)
+        .use(rehypeFormat)
+        .use(rehypeStringify)
+        .process(content);
       return {
         ...article,
         content: processedContent.toString(),

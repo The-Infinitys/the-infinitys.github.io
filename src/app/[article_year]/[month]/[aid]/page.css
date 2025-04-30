@@ -87,12 +87,11 @@ html {
 }
 
 .article-content pre {
-  padding: 1em;
-  border: 1px solid var(--foreground);
+  padding: 0;
+  border: 2px solid var(--primary);
+  border-radius: 16px;
   width: 100%;
   overflow: scroll;
-  color: var(--foreground);
-  background-color: var(--background);
   font-family: monospace;
 
 }
