@@ -96,8 +96,9 @@ export async function toHTML(articles: Article[]) {
         .use(remarkGfm)
         .use(remarkRehype)
         .use(rehypePrettyCode, {
+          defaultLang:"plaintext",
           theme: "github-dark-high-contrast",
-          keepBackground: false,
+          keepBackground: true,
         })
         .use(rehypeFormat)
         .use(rehypeStringify)
