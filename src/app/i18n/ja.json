@@ -10,7 +10,14 @@
       "msg6": "そして、X (旧Twitter)およびGitHubのフォローをよろしくおねがいします！"
     }
   },
-  "article":{
-    "title":"Articles"
+  "article": {
+    "title": "Articles",
+    "description": {
+      "msg1": "ここでは、私が書いた様々な記事(というよりブログ)を見ることができます！",
+      "msg2": "色々書いているので是非見てください！"
+    },
+    "words":{
+      "search":"検索"
+    }
   }
 }
