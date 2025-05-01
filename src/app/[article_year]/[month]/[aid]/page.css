@@ -247,6 +247,7 @@ html {
   margin-top: 40px;
   top: 20px;
   max-width: 250px;
+  background-color: transparent;
   /* スクロール時に追従 */
 }
 
@@ -295,10 +296,15 @@ html {
   .other-articles {
     position: relative;
     /* stickyを無効化 */
-    max-width: none;
+    max-width: 90vw;
+    margin: 0 auto;
     top: auto;
     margin-top: 20px;
     /* 記事の下部に配置 */
+  }
+
+  .other-articles .article-link {
+    width: 90%;
   }
 
   .article-content {

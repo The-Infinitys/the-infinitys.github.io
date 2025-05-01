@@ -12,6 +12,10 @@ export default async function Home() {
       <section className="title">
         <h1>{t("article.title")}</h1>
       </section>
+      <section className="description">
+        <p>{t("article.description.msg1")}</p>
+        <p>{t("article.description.msg2")}</p>
+      </section>
       <section className="articles">
         {articles.map(
           (article: Article): ReactNode => generateArticleButton(article)

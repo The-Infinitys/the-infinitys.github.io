@@ -7,12 +7,14 @@ export default function Home() {
       <section className="title">
         <h1>{t("home.title")}</h1>
       </section>
-      <p>{t("home.description.msg1")}</p>
-      <p>{t("home.description.msg2")}</p>
-      <p>{t("home.description.msg3")}</p>
-      <p>{t("home.description.msg4")}</p>
-      <p>{t("home.description.msg5")}</p>
-      <p>{t("home.description.msg6")}</p>
+      <section>
+        <p>{t("home.description.msg1")}</p>
+        <p>{t("home.description.msg2")}</p>
+        <p>{t("home.description.msg3")}</p>
+        <p>{t("home.description.msg4")}</p>
+        <p>{t("home.description.msg5")}</p>
+        <p>{t("home.description.msg6")}</p>
+      </section>
     </>
   );
 }

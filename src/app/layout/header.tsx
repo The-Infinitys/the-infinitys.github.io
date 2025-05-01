@@ -3,7 +3,7 @@
 import { Chakra_Petch } from "next/font/google";
 import Link from "next/link";
 import Image from "next/image"; // Import Image component
-import TheInfiniteImage from "../../../public/The-Infinite.svg";
+// import TheInfiniteImage from "../../../public/The-Infinite.svg";
 import React, { useState } from "react";
 import { TheInfiniteX } from "./img";
 const chakraPetch = Chakra_Petch({
@@ -56,7 +56,7 @@ export default function Header() {
           justifyContent: "flex-start",
         }}
       >
-        <Image src={TheInfiniteImage} alt="" width={30} height={30} />
+        {/* <Image src={TheInfiniteImage} alt="" width={30} height={30} /> */}
         <h1
           className={`${chakraPetch.className} italic font-semibold text-3xl`} // Use Tailwind classes
           style={{

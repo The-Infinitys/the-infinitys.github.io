@@ -125,9 +125,16 @@ main>section.title>h1 {
   padding: 2rem;
 }
 
+section.title {
+  background-color: transparent;
+}
+
 section {
   padding: 1rem;
   margin: 1rem;
+  border-radius: 16px;
+  background-color: color-mix(in srgb, transparent 50%, var(--background));
+  backdrop-filter: blur(4px);
 }
 
 section h1,
