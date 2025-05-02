@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { generateArticleButton, Article } from "../article";
-import useTranslation from "i18next";
+import useTranslation from "@/app/i18n/translate";
 
 interface ArticleListProps {
   articles: Article[];

@@ -1,7 +1,7 @@
-import "@/app/i18n/i18n";
-import useTranslation from "i18next";
+
+import useTranslation from "@/app/i18n/translate";
 export default function Home() {
-  const { t } = useTranslation;
+  const t = useTranslation;
   return (
     <>
       <section className="title">
