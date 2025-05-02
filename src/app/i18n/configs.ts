@@ -1,4 +1,5 @@
 import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
 
 // 言語jsonファイルのimport
 import translation_en from "./en.json"; // en.json が存在することを確認
@@ -14,16 +15,28 @@ const resources = {
   },
 };
 
+// クライアントサイドでのローカルストレージチェック
+const getInitialLanguage = () => {
+  if (typeof window !== 'undefined') {
+    const savedLang = localStorage.getItem("language");
+    return savedLang || "ja";
+  }
+  return "ja";
+};
+
 // i18nextの初期化
 i18n
+  .use(initReactI18next) // react-i18nextを使用
   .init({
     resources, // リソースを設定
-    lng: "ja", // デフォルト言語を日本語に設定
+    lng: typeof window !== 'undefined' ? getInitialLanguage() : "ja", // 言語設定
     fallbackLng: "en", // フォールバック言語を英語に設定
     interpolation: {
       escapeValue: false, // ReactはXSS対策済み
     },
-    debug: true, // デバッグモードを有効化（必要に応じて削除）
+    react: {
+      useSuspense: false, // Suspenseを使わない設定
+    },
   });
 
 export default i18n;
