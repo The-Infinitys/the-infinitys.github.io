@@ -33,7 +33,7 @@ export default function RootLayout({
         <Header />
         <main style={{ minHeight: "100vh" }}>{children}</main>
         <Footer />
-        <BackToTopButton />
+        <BackToTopButton /> {/* 上に戻るボタンを追加 */}
       </body>
     </html>
   );
