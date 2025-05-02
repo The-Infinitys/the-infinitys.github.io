@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import i18n from "i18next"; // i18nextをインポート
+import i18n from "@/i18n/i18n"; // i18nextをインポート
 
 export default function Footer() {
   const [language, setLanguage] = useState(i18n.language || "en"); // 初期言語を設定

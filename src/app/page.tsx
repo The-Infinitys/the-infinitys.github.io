@@ -1,5 +1,5 @@
 import "@/app/i18n/i18n";
-import useTranslation from "i18next";
+import useTranslation from "@/i18n/i18n";
 export default function Home() {
   const { t } = useTranslation;
   return (

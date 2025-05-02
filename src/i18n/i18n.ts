@@ -14,15 +14,14 @@ const resources = {
 };
 
 // i18nextの初期化
-i18n
-  .init({
-    resources, // リソースを設定
-    lng: "ja", // デフォルト言語を日本語に設定
-    fallbackLng: "en", // フォールバック言語を英語に設定
-    interpolation: {
-      escapeValue: false, // ReactはXSS対策済み
-    },
-    debug: true, // デバッグモードを有効化（必要に応じて削除）
-  });
+i18n.init({
+  resources, // リソースを設定
+  lng: "ja", // デフォルト言語を日本語に設定
+  fallbackLng: "en", // フォールバック言語を英語に設定
+  interpolation: {
+    escapeValue: false, // ReactはXSS対策済み
+  },
+  debug: true, // デバッグモードを有効化（必要に応じて削除）
+});
 
 export default i18n;
