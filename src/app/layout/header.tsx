@@ -36,24 +36,42 @@ const menus_list = [
 ];
 
 // 言語切り替えコンポーネント
-const LanguageSwitcher = () => {
+const LanguageSwitcher = ({ setLang }: { setLang?: (lang: string) => void }) => {
   const [currentLang, setCurrentLang] = useState("ja");
 
   useEffect(() => {
-    // 保存された言語設定があれば読み込む
-    const savedLang = localStorage.getItem("language");
-    if (savedLang) {
-      setCurrentLang(savedLang);
-      i18n.changeLanguage(savedLang);
+    // クライアントサイドでのみ実行
+    try {
+      const savedLang = localStorage.getItem("language");
+      if (savedLang) {
+        setCurrentLang(savedLang);
+        i18n.changeLanguage(savedLang);
+      }
+    } catch (error) {
+      console.error("Error accessing localStorage:", error);
     }
   }, []);
 
   const switchLanguage = (lang: string) => {
-    setCurrentLang(lang);
-    i18n.changeLanguage(lang);
-    localStorage.setItem("language", lang);
-    // ページをリロードして翻訳を適用
-    window.location.reload();
+    try {
+      setCurrentLang(lang);
+      // setLang が定義されている場合のみ呼び出す
+      if (setLang) {
+        setLang(lang);
+      }
+      i18n.changeLanguage(lang);
+      localStorage.setItem("language", lang);
+
+      // ページのHTMLタグのlang属性を直接変更
+      if (typeof document !== "undefined") {
+        document.documentElement.lang = lang;
+      }
+
+      // ページをリロードして翻訳を適用
+      window.location.reload();
+    } catch (error) {
+      console.error("Error switching language:", error);
+    }
   };
 
   return (
@@ -80,7 +98,11 @@ const LanguageSwitcher = () => {
   );
 };
 
-export default function Header() {
+interface HeaderProps {
+  setLang?: (lang: string) => void;
+}
+
+export default function Header({ setLang }: HeaderProps = {}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -180,7 +202,7 @@ export default function Header() {
             </li>
           ))}
           <li>
-            <LanguageSwitcher />
+            <LanguageSwitcher setLang={setLang} />
           </li>
         </ul>
       </nav>
