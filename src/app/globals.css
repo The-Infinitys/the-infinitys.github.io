@@ -201,3 +201,23 @@ a {
 .back-to-top svg {
   fill: var(--foreground);
 }
+
+.language-button {
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  background-color: var(--gray-200);
+  color: var(--foreground);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.language-button.active {
+  background-color: var(--link-color);
+  color: var(--background);
+}
+
+.language-button:last-child {
+  margin-right: 0;
+}

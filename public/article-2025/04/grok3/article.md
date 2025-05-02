@@ -1,7 +1,7 @@
 ---
 title: Researching about Grok AI
 date: "2025-04-30"
-descrption: "Grokに自分自身について説明してもらった"
+description: "Grokに自分自身について説明してもらった"
 ---
 
 # Grok3 についての詳細な記事
