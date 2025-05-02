@@ -1,17 +1,17 @@
 "use client"; // Add this directive for useState
 
 import { Chakra_Petch } from "next/font/google";
-import Link from "next/link";
+import {Link} from "@/i18n/routing";
 import Image from "next/image"; // Import Image component
 // import TheInfiniteImage from "../../../public/The-Infinite.svg";
 import React, { useState } from "react";
+import { useTranslations } from "next-intl";
 import { TheInfiniteX } from "./img";
 const chakraPetch = Chakra_Petch({
   variable: "--font-chakra-petch",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
-
 const menus_list = [
   {
     name: "Home",

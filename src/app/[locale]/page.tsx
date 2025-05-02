@@ -1,7 +1,7 @@
 
-import useTranslation from "@/i18n/i18n";
+import { useTranslations } from "next-intl";
 export default function Home() {
-  const { t } = useTranslation;
+  const t = useTranslations();
   return (
     <>
       <section className="title">

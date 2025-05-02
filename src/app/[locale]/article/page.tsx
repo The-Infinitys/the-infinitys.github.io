@@ -1,4 +1,4 @@
-import useTranslation from "@/i18n/i18n";
+import useTranslations from "next-intl";
 import { getArticleIndexes, Article } from "./article";
 import "./article.css"; // CSSファイルをインポート
 import ArticleList from "./components/list";
