@@ -4,8 +4,10 @@ import { Chakra_Petch } from "next/font/google";
 import Link from "next/link";
 import Image from "next/image"; // Import Image component
 // import TheInfiniteImage from "../../../public/The-Infinite.svg";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TheInfiniteX } from "./img";
+import i18n from "@/app/i18n/configs";
+
 const chakraPetch = Chakra_Petch({
   variable: "--font-chakra-petch",
   subsets: ["latin"],
@@ -33,7 +35,74 @@ const menus_list = [
   },
 ];
 
-export default function Header() {
+// 言語切り替えコンポーネント
+const LanguageSwitcher = ({ setLang }: { setLang?: (lang: string) => void }) => {
+  const [currentLang, setCurrentLang] = useState("ja");
+
+  useEffect(() => {
+    // クライアントサイドでのみ実行
+    try {
+      const savedLang = localStorage.getItem("language");
+      if (savedLang) {
+        setCurrentLang(savedLang);
+        i18n.changeLanguage(savedLang);
+      }
+    } catch (error) {
+      console.error("Error accessing localStorage:", error);
+    }
+  }, []);
+
+  const switchLanguage = (lang: string) => {
+    try {
+      setCurrentLang(lang);
+      // setLang が定義されている場合のみ呼び出す
+      if (setLang) {
+        setLang(lang);
+      }
+      i18n.changeLanguage(lang);
+      localStorage.setItem("language", lang);
+
+      // ページのHTMLタグのlang属性を直接変更
+      if (typeof document !== "undefined") {
+        document.documentElement.lang = lang;
+      }
+
+      // ページをリロードして翻訳を適用
+      window.location.reload();
+    } catch (error) {
+      console.error("Error switching language:", error);
+    }
+  };
+
+  return (
+    <div className="flex gap-2 items-center">
+      <button
+        onClick={() => switchLanguage("ja")}
+        className={`px-2 py-1 rounded ${
+          currentLang === "ja" ? "bg-[var(--primary)] text-[var(--foreground)]" : ""
+        }`}
+        aria-label="日本語に切り替え"
+      >
+        日本語
+      </button>
+      <button
+        onClick={() => switchLanguage("en")}
+        className={`px-2 py-1 rounded ${
+          currentLang === "en" ? "bg-[var(--primary)] text-[var(--foreground)]" : ""
+        }`}
+        aria-label="Switch to English"
+      >
+        English
+      </button>
+    </div>
+  );
+};
+
+interface HeaderProps {
+  setLang?: (lang: string) => void;
+}
+
+export default function Header({ setLang }: HeaderProps = {}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -132,6 +201,9 @@ export default function Header() {
               </Link>
             </li>
           ))}
+          <li>
+            <LanguageSwitcher setLang={setLang} />
+          </li>
         </ul>
       </nav>
     </header>

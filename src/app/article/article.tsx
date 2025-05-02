@@ -59,18 +59,12 @@ export function getArticleIndexes() {
           const fileContents = fs.readFileSync(articlePath, "utf-8");
           const { data } = matter(fileContents);
 
-          // 言語を判定 (デフォルトは "ja")
-          const langMatch = articlePath.match(/article(?:-(\w+))?\.md$/);
-          const lang = langMatch && langMatch[1] ? langMatch[1] : "ja";
-
           return {
             slug: `${year}/${month}/${articleId}`,
             title: data.title || "Untitled", // タイトルがない場合のデフォルト値
             date: data.date || "Unknown date", // 日付がない場合のデフォルト値
             thumbnail: thumbnailPath,
             articlePath,
-            description: data.description || "No description available", // description を追加
-            lang, // 言語を追加
           };
         })
         .filter(
@@ -95,8 +89,6 @@ export type Article = {
   date: string;
   thumbnail: string | null;
   articlePath: string;
-  description: string; // description を追加
-  lang: string; // lang を追加
 };
 
 // 該当箇所の置き換え
@@ -145,6 +137,7 @@ export function generateArticleButton(article: Article): ReactNode {
             alt={article.title}
             width={300}
             height={200}
+            objectFit="cover"
             placeholder={LoadingImage as PlaceholderValue}
             className="article-thumbnail"
           />
@@ -152,7 +145,6 @@ export function generateArticleButton(article: Article): ReactNode {
         <div className="article-content">
           <h2>{article.title}</h2>
           <p>{article.date}</p>
-          <p>{article.description}</p>
         </div>
       </article>
     </Link>
