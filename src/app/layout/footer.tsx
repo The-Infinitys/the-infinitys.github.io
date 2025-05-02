@@ -1,13 +1,13 @@
 "use client";
 import { useState } from "react";
-import i18n from "@/i18n/i18n"; // i18nextをインポート
-
+import i18n from "@/i18n/i18n";
 export default function Footer() {
   const [language, setLanguage] = useState(i18n.language || "en"); // 初期言語を設定
-
   const handleLanguageChange = (lang: string) => {
     setLanguage(lang);
-    i18n.changeLanguage(lang); // 言語を切り替え
+    i18n.changeLanguage(lang === "ja" ? "en" : "ja").then(()=>{}); // 言語を切り替え
+    // alert(i18n.language);
+    // window.location.reload();
     console.log(`Language changed to: ${lang}`);
   };
 
