@@ -8,16 +8,16 @@
       "msg4": "Also, on X (formerly Twitter), I share technical topics and daily life updates.",
       "msg5": "If you're interested in my activities, please check them out!",
       "msg6": "And, I would appreciate it if you could follow me on X (formerly Twitter) and GitHub!"
-    }
-  },
-  "article": {
-    "title": "Articles",
-    "description": {
-      "msg1": "Here, you can find various articles (or rather blogs) that I have written!",
-      "msg2": "I write about many topics, so please take a look!"
     },
-    "words": {
-      "search": "Search"
+    "article": {
+      "title": "Articles",
+      "description": {
+        "msg1": "Here, you can find various articles (or rather blogs) that I have written!",
+        "msg2": "I write about many topics, so please take a look!"
+      },
+      "words": {
+        "search": "Search"
+      }
     }
   }
 }

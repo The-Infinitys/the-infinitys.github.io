@@ -4,10 +4,8 @@ import { Chakra_Petch } from "next/font/google";
 import Link from "next/link";
 import Image from "next/image"; // Import Image component
 // import TheInfiniteImage from "../../../public/The-Infinite.svg";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { TheInfiniteX } from "./img";
-import i18n from "@/app/i18n/configs";
-
 const chakraPetch = Chakra_Petch({
   variable: "--font-chakra-petch",
   subsets: ["latin"],
@@ -34,51 +32,6 @@ const menus_list = [
     label: "X (Twitter)",
   },
 ];
-
-// 言語切り替えコンポーネント
-const LanguageSwitcher = () => {
-  const [currentLang, setCurrentLang] = useState("ja");
-
-  useEffect(() => {
-    // 保存された言語設定があれば読み込む
-    const savedLang = localStorage.getItem("language");
-    if (savedLang) {
-      setCurrentLang(savedLang);
-      i18n.changeLanguage(savedLang);
-    }
-  }, []);
-
-  const switchLanguage = (lang: string) => {
-    setCurrentLang(lang);
-    i18n.changeLanguage(lang);
-    localStorage.setItem("language", lang);
-    // ページをリロードして翻訳を適用
-    window.location.reload();
-  };
-
-  return (
-    <div className="flex gap-2 items-center">
-      <button
-        onClick={() => switchLanguage("ja")}
-        className={`px-2 py-1 rounded ${
-          currentLang === "ja" ? "bg-[var(--primary)] text-[var(--foreground)]" : ""
-        }`}
-        aria-label="日本語に切り替え"
-      >
-        日本語
-      </button>
-      <button
-        onClick={() => switchLanguage("en")}
-        className={`px-2 py-1 rounded ${
-          currentLang === "en" ? "bg-[var(--primary)] text-[var(--foreground)]" : ""
-        }`}
-        aria-label="Switch to English"
-      >
-        English
-      </button>
-    </div>
-  );
-};
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -179,9 +132,6 @@ export default function Header() {
               </Link>
             </li>
           ))}
-          <li>
-            <LanguageSwitcher />
-          </li>
         </ul>
       </nav>
     </header>
