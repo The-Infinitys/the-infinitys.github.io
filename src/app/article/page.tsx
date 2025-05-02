@@ -1,4 +1,4 @@
-import "@/app/i18n/configs";
+import "@/app/i18n/i18n";
 import useTranslation from "i18next";
 import { getArticleIndexes, Article } from "./article";
 import "./article.css"; // CSSファイルをインポート

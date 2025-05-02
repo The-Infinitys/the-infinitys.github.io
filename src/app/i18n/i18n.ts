@@ -1,5 +1,4 @@
 import i18n from "i18next";
-
 // 言語jsonファイルのimport
 import translation_en from "./en.json"; // en.json が存在することを確認
 import translation_ja from "./ja.json"; // ja.json が存在することを確認
