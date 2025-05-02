@@ -153,6 +153,7 @@ footer {
   width: 100%;
   background-color: color-mix(in srgb, var(--primary), transparent 50%);
   backdrop-filter: blur(4px);
+  padding-bottom: 4em;
 }
 
 a {
