@@ -1,20 +1,7 @@
-'use client';
-
-import { useEffect } from "react";
-import i18n from "@/app/i18n/configs";
-import { useTranslation } from "react-i18next";
-
+import "@/app/i18n/configs";
+import useTranslation from "i18next";
 export default function Home() {
-  const { t } = useTranslation();
-  
-  useEffect(() => {
-    // クライアントサイドでのみ実行される初期化処理
-    const savedLang = localStorage.getItem("language");
-    if (savedLang) {
-      i18n.changeLanguage(savedLang);
-    }
-  }, []);
-  
+  const { t } = useTranslation;
   return (
     <>
       <section className="title">
