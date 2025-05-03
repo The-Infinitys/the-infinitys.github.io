@@ -135,7 +135,7 @@ export function generateArticleButton(article: Article): ReactNode {
   return (
     <Link
       key={article.slug}
-      href={`/${year}/${month}/${aid}`} // 動的に記事のパスを生成
+      href={`/${article.lang}/${year}/${month}/${aid}`} // 動的に記事のパスを生成
       className="article-link"
     >
       <article>

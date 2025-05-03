@@ -1,35 +1,34 @@
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useLocale } from 'next-intl';
+import { usePathname } from 'next/navigation';
 
 export default function LanguageSwitcher() {
-  const router = useRouter();
   const currentLocale = useLocale();
+  const pathname = usePathname();
 
-  const switchLocale = (newLocale: string) => {
-    const pathname = window.location.pathname;
-
-    const newPath = pathname.replace(
-      new RegExp(`\\b(${currentLocale})\\b`, 'g'),
-      newLocale
-    );
-
-    return newPath;
+  const switchLocalePath = (newLocale: string) => {
+    // 現在のパスを分割してロケール部分を置き換える
+    const segments = pathname.split('/');
+    if (segments[1] === currentLocale) {
+      segments[1] = newLocale; // ロケール部分を新しいロケールに置き換える
+    }
+    return segments.join('/');
   };
 
   return (
     <div className="mt-4">
-      <button
-        onClick={() => { router.push(switchLocale("en")) }}
-        className={`language-button ${currentLocale === "en" ? "active" : ""}`}
+      <Link
+        href={switchLocalePath('en')}
+        className={`language-button ${currentLocale === 'en' ? 'active' : ''}`}
       >
         English
-      </button>
-      <button
-        onClick={() => { router.push(switchLocale("ja")) }}
-        className={`language-button ${currentLocale === "ja" ? "active" : ""}`}
+      </Link>
+      <Link
+        href={switchLocalePath('ja')}
+        className={`language-button ${currentLocale === 'ja' ? 'active' : ''}`}
       >
         日本語
-      </button>
+      </Link>
     </div>
   );
 }

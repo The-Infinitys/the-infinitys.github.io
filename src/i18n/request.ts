@@ -1,8 +1,9 @@
 import { routing } from "./routing";
 import enCommon from "../../public/locales/en/common.json";
 import jaCommon from "../../public/locales/ja/common.json";
+
 // 静的なロケールデータを直接使用
-const messages = {
+const messages: Record<"en" | "ja", typeof enCommon> = {
   en: enCommon,
   ja: jaCommon,
 };
@@ -15,6 +16,6 @@ export default function getStaticLocaleConfig(locale: string) {
 
   return {
     locale,
-    messages: messages[locale],
+    messages: messages[locale as "en" | "ja"], // 型を明示的にキャスト
   };
 }
