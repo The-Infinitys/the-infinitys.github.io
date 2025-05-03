@@ -1,13 +1,13 @@
 import { ReactNode } from "react";
 import { generateArticleButton, Article } from "../article";
-import useTranslation from "@/i18n/i18n";
+import { useTranslations } from "next-intl";
 
 interface ArticleListProps {
   articles: Article[];
 }
 
 export default function ArticleList({ articles }: ArticleListProps) {
-  const { t } = useTranslation;
+  const t = useTranslations();
   const language = t("info.lang");
 
   // 言語で記事をフィルタリング

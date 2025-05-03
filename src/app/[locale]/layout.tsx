@@ -48,3 +48,7 @@ export default async function RootLayout({
     </html>
   );
 }
+export function generateStaticParams() {
+  const locales = ["en", "ja"];
+  return locales.map((locale) => ({ locale }));
+}

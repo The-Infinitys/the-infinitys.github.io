@@ -1,10 +1,10 @@
-import useTranslations from "next-intl";
+import { useTranslations } from "next-intl";
 import { getArticleIndexes, Article } from "./article";
 import "./article.css"; // CSSファイルをインポート
 import ArticleList from "./components/list";
 
-export default async function Home() {
-  const { t } = useTranslation;
+export default function Home() {
+  const t  = useTranslations();
   const articles: Article[] = getArticleIndexes();
   return (
     <>

@@ -33,7 +33,7 @@ export function getArticleIndexes() {
     const months = fs.readdirSync(yearPath).filter((month) => {
       const monthPath = path.join(yearPath, month);
       if (!fs.statSync(monthPath).isDirectory()) return false; // ファイルの場合はスキップ
-      if (year.startsWith("article-")) return true; // article_で始まらない場合はスキップ
+      if (year.startsWith("article-")) return true; // article-で始まらない場合はスキップ
       return false;
     });
 

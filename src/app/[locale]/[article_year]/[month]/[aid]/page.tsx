@@ -47,7 +47,7 @@ export default async function ArticlePage({
   const toc = headings.map((heading) => {
     const text = heading.replace(/<.*?>/g, "").trim();
     const id = crypto.createHash("sha512").update(text).digest("hex"); // ハッシュ生成
-    const level = "index-"+heading.slice(1, 3);
+    const level = "index-" + heading.slice(1, 3);
     return { id, text, level };
   });
   return (

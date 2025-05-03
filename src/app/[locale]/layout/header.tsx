@@ -5,7 +5,6 @@ import {Link} from "@/i18n/routing";
 import Image from "next/image"; // Import Image component
 // import TheInfiniteImage from "../../../public/The-Infinite.svg";
 import React, { useState } from "react";
-import { useTranslations } from "next-intl";
 import { TheInfiniteX } from "./img";
 const chakraPetch = Chakra_Petch({
   variable: "--font-chakra-petch",

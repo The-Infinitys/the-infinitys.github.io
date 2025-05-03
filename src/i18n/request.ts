@@ -1,18 +1,20 @@
-import { getRequestConfig } from "next-intl/server";
 import { routing } from "./routing";
+import enCommon from "../../public/locales/en/common.json";
+import jaCommon from "../../public/locales/ja/common.json";
+// 静的なロケールデータを直接使用
+const messages = {
+  en: enCommon,
+  ja: jaCommon,
+};
 
-export default getRequestConfig(async ({ requestLocale }) => {
-  // This typically corresponds to the `[locale]` segment
-  let locale = await requestLocale;
-
-  // Ensure that a valid locale is used
-  if (!locale || !routing.locales.includes(locale as "en" | "ja")) {
+export default function getStaticLocaleConfig(locale: string) {
+  // 有効なロケールを確認
+  if (!routing.locales.includes(locale as "en" | "ja")) {
     locale = routing.defaultLocale;
   }
 
   return {
     locale,
-    messages: (await import(`../../public/locales/${locale}/common.json`))
-      .default,
+    messages: messages[locale],
   };
-});
+}
