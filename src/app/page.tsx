@@ -11,8 +11,8 @@ const Page = () => {
     const languageCode = browserLanguage.split("-")[0]; // 言語コードのみ取得 (例: "en", "ja")
 
     // サポートされている言語とデフォルト言語
-    const supportedLanguages = ["en", "ja", "es"]; // サポートする言語を追加
-    const defaultLanguage = "en";
+    const supportedLanguages = ["en", "ja"]; // サポートする言語を追加
+    const defaultLanguage = "ja";
 
     // リダイレクト先を決定
     const targetLanguage = supportedLanguages.includes(languageCode)

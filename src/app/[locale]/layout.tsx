@@ -2,11 +2,10 @@ import "./globals.css";
 import Header from "./layout/header";
 import Footer from "./layout/footer";
 import BackToTopButton from "./layout/back2top";
-import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import I18nProvider from "./i18nProvider";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
-
+import { getMessages,AvailableLocales } from "@/i18n/request";
 export default async function RootLayout({
   children,
   params
@@ -16,17 +15,18 @@ export default async function RootLayout({
 }>) {
   const resolvedParams = await params;
   const locale = resolvedParams.locale;
-  if (!routing.locales.includes(locale as "en" | "ja")) {
+  if (!routing.locales.includes(locale as AvailableLocales)) {
     notFound();
   }
-  const message = await getMessages({ locale: locale });
+  const messages = getMessages(locale as AvailableLocales);
+  console.log(messages);
   return (
     <>
-      <NextIntlClientProvider locale={locale} messages={message}>
+      <I18nProvider locale={locale} messages={messages}>
         <Header />
         <main style={{ minHeight: "100vh" }}>{children}</main>
         <Footer />
-      </NextIntlClientProvider>
+      </I18nProvider>
       <BackToTopButton />
     </>
   );
