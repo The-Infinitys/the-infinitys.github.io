@@ -12,15 +12,10 @@ import rehypeStringify from "rehype-stringify";
 import { unified } from "unified";
 import "highlight.js/styles/gradient-dark.css";
 import { ReactNode } from "react";
-import { PlaceholderValue } from "next/dist/shared/lib/get-img-props";
 
 const postsDirectory = path.join(process.cwd(), "public");
 
 // SVGファイルをBase64に変換してLoadingImageに代入
-const svgFilePath = path.join(process.cwd(), "public", "next-loading.svg");
-const LoadingImage =
-  "data:image/svg+xml," + fs.readFileSync(svgFilePath, "utf-8").toString();
-
 export function getArticleIndexes() {
   const years = fs.readdirSync(postsDirectory).filter((year) => {
     const yearPath = path.join(postsDirectory, year);
@@ -154,7 +149,6 @@ export function generateArticleButton(article: Article): ReactNode{
             alt={article.title}
             width={300}
             height={200}
-            placeholder={LoadingImage as PlaceholderValue}
             className="article-thumbnail"
           />
         )}
