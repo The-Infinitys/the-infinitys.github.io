@@ -1,5 +1,10 @@
+import "./globals.css";
+import Header from "./layout/header";
+import Footer from "./layout/footer";
+import BackToTopButton from "./layout/back2top";
+import I18nProvider from "./i18nProvider";
+import { getMessages, AvailableLocales } from "@/i18n/request";
 import { Geist, Geist_Mono } from "next/font/google";
-
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -17,7 +22,7 @@ const geistMono = Geist_Mono({
 });
 
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
@@ -27,7 +32,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <I18nProvider>
+          <Header />
+          <main style={{ minHeight: "100vh" }}>{children}</main>
+          <Footer />
+        </I18nProvider>
+        <BackToTopButton />
       </body>
     </html>
   );

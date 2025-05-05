@@ -1,29 +1,20 @@
 "use client";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-
-const Page = () => {
-  const router = useRouter();
-
-  useEffect(() => {
-    // ブラウザの言語を取得
-    const browserLanguage = navigator.language || navigator.languages[0];
-    const languageCode = browserLanguage.split("-")[0]; // 言語コードのみ取得 (例: "en", "ja")
-
-    // サポートされている言語とデフォルト言語
-    const supportedLanguages = ["en", "ja"]; // サポートする言語を追加
-    const defaultLanguage = "ja";
-
-    // リダイレクト先を決定
-    const targetLanguage = supportedLanguages.includes(languageCode)
-      ? languageCode
-      : defaultLanguage;
-
-    // リダイレクト
-    router.push(`/${targetLanguage}`);
-  }, [router]);
-
-  return <div>Loading...</div>;
-};
-
-export default Page;
+import { useTranslations } from "next-intl";
+export default function Home() {
+  const t = useTranslations();
+  return (
+    <>
+      <section className="title">
+        <h1>{t("pages.home.title")}</h1>
+      </section>
+      <section>
+        <p>{t("pages.home.description.msg1")}</p>
+        <p>{t("pages.home.description.msg2")}</p>
+        <p>{t("pages.home.description.msg3")}</p>
+        <p>{t("pages.home.description.msg4")}</p>
+        <p>{t("pages.home.description.msg5")}</p>
+        <p>{t("pages.home.description.msg6")}</p>
+      </section>
+    </>
+  );
+}
