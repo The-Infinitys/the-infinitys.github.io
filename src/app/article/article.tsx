@@ -47,35 +47,43 @@ export function getArticleIndexes() {
 
       return articleIds
         .map((articleId) => {
-          const articlePath = path.join(monthPath, articleId, "article.md");
-          const thumbnailPath = findThumbnailFile(
-            path.join(monthPath, articleId)
-          );
+          const articleDir = path.join(monthPath, articleId);
+          const articleFiles = fs
+            .readdirSync(articleDir)
+            .filter(
+              (file) => file.startsWith("article") && file.endsWith(".md")
+            );
 
-          if (!fs.existsSync(articlePath)) {
-            return null; // article.md が存在しない場合はスキップ
+          if (articleFiles.length === 0) {
+            return null; // article*.md が存在しない場合はスキップ
           }
 
-          const fileContents = fs.readFileSync(articlePath, "utf-8");
-          const { data } = matter(fileContents);
+          const thumbnailPath = findThumbnailFile(articleDir);
 
-          // 言語を判定 (デフォルトは "ja")
-          const langMatch = articlePath.match(/article(?:-(\w+))?\.md$/);
-          const lang = langMatch && langMatch[1] ? langMatch[1] : "ja";
+          return articleFiles.map((articleFile) => {
+            const articlePath = path.join(articleDir, articleFile);
+            const fileContents = fs.readFileSync(articlePath, "utf-8");
+            const { data } = matter(fileContents);
 
-          return {
-            slug: `${year}/${month}/${articleId}`,
-            title: data.title || "Untitled", // タイトルがない場合のデフォルト値
-            date: data.date || "Unknown date", // 日付がない場合のデフォルト値
-            thumbnail: thumbnailPath,
-            articlePath,
-            description: data.description || "No description available", // description を追加
-            lang, // 言語を追加
-          };
+            // 言語を判定 (デフォルトは "ja")
+            const langMatch = articleFile.match(/article(?:-(\w+))?\.md$/);
+            const lang = langMatch && langMatch[1] ? langMatch[1] : "ja";
+
+            return {
+              slug: `${year}/${month}/${articleId}`,
+              title: data.title || "Untitled",
+              date: data.date || "Unknown date",
+              thumbnail: thumbnailPath,
+              articlePath,
+              description: data.description || "No description available",
+              lang,
+            };
+          });
         })
         .filter(
           (article): article is NonNullable<typeof article> => article !== null
-        ); // null を除外
+        )
+        .flat(); // ネストされた配列を平坦化
     });
   });
 
@@ -129,13 +137,14 @@ export async function toHTML(articles: Article[]) {
   return htmlArticles;
 }
 
-export function generateArticleButton(article: Article): ReactNode {
+export function generateArticleButton(article: Article): ReactNode{
+
   // スラッグから年、月、記事IDを抽出
   const [year, month, aid] = article.slug.split("/");
   return (
     <Link
-      key={article.slug}
-      href={`/${year}/${month}/${aid}`} // 動的に記事のパスを生成
+      key={article.slug+article.lang}
+      href={`/${year}/${month}/${aid}`}
       className="article-link"
     >
       <article>

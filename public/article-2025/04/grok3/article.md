@@ -1,5 +1,5 @@
 ---
-title: Researching about Grok AI
+title: Grok AIの自己分析
 date: "2025-04-30"
 description: "Grokに自分自身について説明してもらった"
 ---

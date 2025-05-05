@@ -6,7 +6,6 @@ interface ArticleListProps {
 }
 
 export default async function ArticleList({ articles }: ArticleListProps) {
-  // 言語で記事をフィルタリング
   return (
     <section className="articles">
       {articles.map(
