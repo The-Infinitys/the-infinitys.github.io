@@ -17,7 +17,7 @@ export default function I18nProvider({
   const locale = useLocale();
   const messages: Translation = getMessages(locale);
   return (
-    <NextIntlClientProvider locale={locale} messages={messages}>
+    <NextIntlClientProvider locale={locale} messages={messages} timeZone='Asia/Tokyo'>
       {children}
     </NextIntlClientProvider>
   );

@@ -33,5 +33,6 @@ export default getRequestConfig(async ({ locale }) => {
   return {
     locale: availableLocale,
     messages: messages[availableLocale],
+    timeZone:"Asia/Tokyo"
   };
 });
