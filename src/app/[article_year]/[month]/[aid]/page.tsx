@@ -33,14 +33,23 @@ export default async function ArticlePage({
 
   // スラッグに一致する記事を探す
   const slug = `${resolvedParams.article_year}/${resolvedParams.month}/${resolvedParams.aid}`;
-  const article = articles.find((a) => a.slug === slug);
+
+  // デフォルトの言語を設定
+  const defaultLocale = "ja";
+
+  // 言語に基づいて記事をフィルタリング
+  const article = articles.find(
+    (a) => a.slug === slug && a.lang === defaultLocale
+  );
 
   if (!article) {
     notFound(); // 記事が見つからない場合は404ページを表示
   }
 
-  // 他の記事一覧を取得
-  const otherArticles: Article[] = articles.filter((a) => a.slug !== slug);
+  // 他の記事一覧を取得（同じ言語の記事のみ）
+  const otherArticles: Article[] = articles.filter(
+    (a) => a.slug !== slug && a.lang === defaultLocale
+  );
 
   // 目次を生成
   const headings = article.content.match(/<h[1-6]>.*?<\/h[1-6]>/g) || [];
@@ -57,7 +66,9 @@ export default async function ArticlePage({
         <ul>
           {toc.map((item) => (
             <li key={item.id}>
-              <a className={item.level} href={`#${item.id}`}>{item.text}</a>
+              <a className={item.level} href={`#${item.id}`}>
+                {item.text}
+              </a>
             </li>
           ))}
         </ul>

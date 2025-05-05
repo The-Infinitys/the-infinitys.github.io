@@ -3,7 +3,6 @@ import { useTranslations } from "next-intl";
 
 export default function Explains() {
   const t = useTranslations();
-  const language = t("info.lang");
   return (
     <>
       <section className="title">
