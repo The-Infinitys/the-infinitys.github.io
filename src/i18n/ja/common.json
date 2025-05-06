@@ -22,6 +22,12 @@
       },
       "words": {
         "search": "検索"
+      },
+      "content":{
+        "words":{
+          "index":"目次",
+          "others":"他の記事"
+        }
       }
     }
   }
