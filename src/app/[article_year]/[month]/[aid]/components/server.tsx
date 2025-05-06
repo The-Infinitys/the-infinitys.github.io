@@ -1,14 +1,8 @@
-import {
-  getArticleIndexes,
-  toHTML,
-  generateArticleButton,
-  Article,
-} from "../../../../article/article";
+import { getArticleIndexes, toHTML } from "../../../../article/article";
 import "../../../../article/article.css";
-import { notFound } from "next/navigation";
-import Image from "next/image";
 import crypto from "crypto";
 import ClientComponent from "./client";
+import { AvailableLocales } from "@/i18n/request";
 
 export async function generateStaticParams() {
   const indexes = getArticleIndexes();
@@ -28,32 +22,48 @@ export default async function ArticleServer({
   const articles = await toHTML(indexes);
   const slug = `${resolvedParams.article_year}/${resolvedParams.month}/${resolvedParams.aid}`;
 
-  const headings =
-    articles
-      .find((a) => a.slug === slug)
-      ?.content.match(/<h[1-6]>.*?<\/h[1-6]>/g) || [];
-  const toc = headings.map((heading) => {
-    const text = heading.replace(/<.*?>/g, "").trim();
-    const id = crypto.createHash("sha512").update(text).digest("hex");
-    const level = "index-" + heading.slice(1, 3);
-    return { id, text, level };
+  const headings_list = articles
+    .filter((a) => a.slug === slug)
+    .map((article) => {
+      return {
+        lang: article.lang as AvailableLocales,
+        toc: article.content.match(/<h[1-6]>.*?<\/h[1-6]>/g) || [],
+      };
+    });
+  const tocs = headings_list.map((headings) => {
+    return {
+      toc: headings.toc.map((heading) => {
+        const text = heading.replace(/<.*?>/g, "").trim();
+        const id = crypto.createHash("sha512").update(text).digest("hex");
+        const level = "index-" + heading.slice(1, 3);
+        return { id, text, level };
+      }),
+      lang: headings.lang,
+    };
   });
 
-  const processedContent =
-    articles
-      .find((a) => a.slug === slug)
-      ?.content.replace(/<h([1-6])>(.*?)<\/h[1-6]>/g, (match, level, text) => {
-        const newLevel = Math.min(parseInt(level) + 1, 6);
-        const id = crypto.createHash("sha512").update(text).digest("hex");
-        return `<h${newLevel} id="${id}">${text}</h${newLevel}>`;
-      }) || "";
+  const processedContents = articles
+    .filter((a) => a.slug === slug)
+    .map((article) => {
+      return {
+        content: article.content.replace(
+          /<h([1-6])>(.*?)<\/h[1-6]>/g,
+          (match, level, text) => {
+            const newLevel = Math.min(parseInt(level) + 1, 6);
+            const id = crypto.createHash("sha512").update(text).digest("hex");
+            return `<h${newLevel} id="${id}">${text}</h${newLevel}>`;
+          }
+        ),
+        lang: article.lang as AvailableLocales,
+      };
+    });
 
   return (
     <ClientComponent
       articles={articles}
       slug={slug}
-      toc={toc}
-      processedContent={processedContent}
+      tocs={tocs}
+      processedContents={processedContents}
     />
   );
 }

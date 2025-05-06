@@ -4,33 +4,33 @@ import { Article } from "../../../../article/article-client";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { generateArticleButton } from "../../../../article/article-client";
-import { useTranslations, useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
+import { notFound } from "next/navigation";
+import { AvailableLocales } from "@/i18n/request";
 
 interface ClientComponentProps {
   articles: Article[];
   slug: string;
-  toc: { id: string; text: string; level: string }[];
-  processedContent: string;
+  tocs: {lang:AvailableLocales,toc:{ id: string; text: string; level: string }[]}[];
+  processedContents: {content:string,lang:AvailableLocales}[];
 }
 
 export default function ClientComponent({
   articles,
   slug,
-  toc,
-  processedContent,
+  tocs,
+  processedContents,
 }: ClientComponentProps) {
   const tocRef = useRef<HTMLElement>(null);
   const t = useTranslations();
   const locale = t("info.lang");
-
+  const processedContent = processedContents.find((c) => c.lang === locale)?.content;
+  const toc = tocs.find((t) => t.lang === locale)?.toc || [];
   const article = articles.find((a) => a.slug === slug && a.lang === locale);
+  console.log(article);
   const otherArticles = articles.filter(
     (a) => a.slug !== slug && a.lang === locale
   );
-
-  if (!article) {
-    return null;
-  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,10 +59,13 @@ export default function ClientComponent({
         }
       });
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  if (!article || !processedContent) {
+    return notFound();
+  }
 
   return (
     <div className="article-container">

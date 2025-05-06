@@ -3,7 +3,6 @@ import Header from "./layout/header";
 import Footer from "./layout/footer";
 import BackToTopButton from "./layout/back2top";
 import I18nProvider from "./i18nProvider";
-import { getMessages, AvailableLocales } from "@/i18n/request";
 import { Geist, Geist_Mono } from "next/font/google";
 import type { Metadata } from "next";
 
