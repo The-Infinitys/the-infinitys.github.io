@@ -11,6 +11,8 @@ export default function ArticleList({ articles }: ArticleListProps) {
   const t = useTranslations();
   const locale = t("info.lang");
   const [searchQuery, setSearchQuery] = useState("");
+  const [startDate, setStartDate] = useState(""); // 範囲指定の開始日
+  const [endDate, setEndDate] = useState(""); // 範囲指定の終了日
   const [currentPage, setCurrentPage] = useState(1);
 
   const articlesPerPage = 8;
@@ -20,7 +22,14 @@ export default function ArticleList({ articles }: ArticleListProps) {
     .filter((a) => a.lang === locale)
     .filter((a) =>
       a.title.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    )
+    .filter((a) => {
+      if (!startDate && !endDate) return true; // 日付範囲が指定されていない場合はすべて通す
+      const articleDate = new Date(a.date).toISOString().split("T")[0]; // 記事の日付をフォーマット
+      if (startDate && articleDate < startDate) return false; // 開始日より前は除外
+      if (endDate && articleDate > endDate) return false; // 終了日より後は除外
+      return true;
+    });
 
   // ページネーション用の計算
   const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
@@ -38,34 +47,63 @@ export default function ArticleList({ articles }: ArticleListProps) {
   };
 
   return (
-    <section className="articles">
-      <input
-        type="text"
-        placeholder="Search articles..."
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        className="search-input"
-      />
-      {currentArticles.map(
-        (article: Article): ReactNode => generateArticleButton(article)
-      )}
-      <div className="pagination">
-        <button
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          {t("pages.article.words.previous")}
-        </button>
-        <span>
-          Page {currentPage} of {totalPages}
-        </span>
-        <button
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
-          {t("pages.article.words.next")}
-        </button>
-      </div>
-    </section>
+    <>
+      <section className="search">
+        <input
+          type="text"
+          placeholder={t("pages.article.words.search")}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="search-input"
+        />
+        <details>
+          <summary>{t("pages.article.words.advancedSearch")}</summary>
+          <div className="advanced-search">
+            <label>
+              {t("pages.article.words.startDate")}
+              <input
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+                className="search-date"
+              />
+            </label>
+            <label>
+              {t("pages.article.words.endDate")}
+              <input
+                type="date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+                className="search-date"
+              />
+            </label>
+          </div>
+        </details>
+      </section>
+      <section className="articles">
+        {currentArticles.map(
+          (article: Article): ReactNode => generateArticleButton(article)
+        )}
+      </section>
+      <section className="pager">
+        <div className="pagination">
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            {t("pages.article.words.previous")}
+          </button>
+          <span>
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            {t("pages.article.words.next")}
+          </button>
+        </div>
+      </section>
+    </>
   );
 }
