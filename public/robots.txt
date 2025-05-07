@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://the-infinitys.f5.si
+
+# Sitemaps
+Sitemap: https://the-infinitys.f5.si/sitemap.xml
