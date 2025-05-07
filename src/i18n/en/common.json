@@ -21,7 +21,9 @@
         "msg2": "I write about various topics, so please take a look!"
       },
       "words": {
-        "search": "Search"
+        "search": "Search",
+        "previous":"Previous",
+        "next":"Next"
       },
       "content": {
         "words": {
