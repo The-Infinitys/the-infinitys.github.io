@@ -10,5 +10,10 @@ const nextConfig: NextConfig = {
   images: { unoptimized: true },
   trailingSlash: true,
 };
+/** @type {import("next-sitemap").IConfig} */
+module.exports = {
+  siteUrl: process.env.SITE_URL || "https://the-infinitys.f5.si",
+  generateRobotsTxt:true,
+}
 
 export default nextConfig;
