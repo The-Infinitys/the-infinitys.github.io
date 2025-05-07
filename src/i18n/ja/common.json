@@ -21,7 +21,9 @@
         "msg2": "色々書いているので是非見てください！"
       },
       "words": {
-        "search": "検索"
+        "search": "検索",
+        "previous":"前へ",
+        "next":"次へ"
       },
       "content":{
         "words":{
