@@ -2,7 +2,7 @@
 
 import { Article } from "../../../../article/article-client";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react"; // useStateを追加
+import { useEffect, useMemo, useRef, useState } from "react";
 import { generateArticleButton } from "../../../../article/article-client";
 import { useTranslations } from "next-intl";
 import { notFound } from "next/navigation";
@@ -15,6 +15,17 @@ interface ClientComponentProps {
   processedContents: { content: string; lang: AvailableLocales }[];
 }
 
+// Helper function to generate SHA256 hash and return as hex string
+async function generateSha256Hex(input: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(input);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  return hashHex;
+}
+
+
 export default function ClientComponent({
   articles,
   slug,
@@ -26,55 +37,61 @@ export default function ClientComponent({
   const locale = t("info.lang");
   const processedContent = processedContents.find((c) => c.lang === locale)?.content;
   const toc = tocs.find((t) => t.lang === locale)?.toc || [];
-  const article = articles.find((a) => a.slug === slug && a.lang === locale);
-  const otherArticles = articles.filter((a) => a.slug !== slug && a.lang === locale);
-
-  // 検索機能用の状態
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [searchResults, setSearchResults] = useState<string[]>([]);
-
-  // 検索実行用の関数
-  const handleSearch = (query: string) => {
-    if (!query.trim()) {
-      setSearchResults([]);
-      return;
-    }
-
-    try {
-      // 正規表現を作成（エラーハンドリング付き）
-      const regex = new RegExp(query, "i"); // 大文字小文字を無視
-      const results: string[] = [];
-
-      // 記事のタイトルと内容を検索
-      if (article?.title && regex.test(article.title)) {
-        results.push(`Title: ${article.title}`);
-      }
-
-      if (processedContent) {
-        // HTMLタグを除去して純粋なテキストを検索
-        const div = document.createElement("div");
-        div.innerHTML = processedContent;
-        const textContent = div.textContent || div.innerText || "";
-        const lines = textContent.split("\n").filter((line) => regex.test(line));
-
-        lines.forEach((line) => {
-          if (line.trim()) {
-            results.push(line.trim());
-          }
-        });
-      }
-
-      setSearchResults(results);
-    } catch (error) {
-      console.error("Invalid regular expression:", error);
-      setSearchResults(["Invalid regular expression"]);
-    }
+  const [sha256Seed, setSha256Seed] = useState<number | null>(null);
+  const max_show_others = 2;
+  // シードに基づいた疑似乱数生成器 (Mulberry32)
+  const mulberry32 = (seed: number) => {
+    return () => {
+      let t = seed += 0x6D2B79F5;
+      t = Math.imul(t ^ t >>> 15, t | 1);
+      t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
   };
 
-  // 検索クエリが変更されたときに検索を実行
   useEffect(() => {
-    handleSearch(searchQuery);
-  }, [searchQuery]);
+    const seedString = `${slug}-${locale}`;
+    generateSha256Hex(seedString)
+      .then(hashHex => {
+        // Use the first 8 hex characters (32 bits) as a numeric seed
+        // Provide a fallback of 0 if parsing fails or results in NaN
+        const numericSeed = parseInt(hashHex.substring(0, 8), 16) || 0;
+        setSha256Seed(numericSeed);
+      })
+      .catch(error => {
+        console.warn("SHA-256 hashing failed, falling back to simple character code sum seed:", error);
+        // Fallback to a simple hash if SHA-256 fails
+        let fallbackSeed = 0;
+        for (let i = 0; i < seedString.length; i++) {
+          fallbackSeed = (fallbackSeed + seedString.charCodeAt(i)) % 2147483647; // Keep it a positive int
+        }
+        setSha256Seed(fallbackSeed | 0); // Ensure it's a 32-bit integer
+      });
+  }, [slug, locale]);
+
+  const currentArticleData = useMemo(() => {
+    const article = articles.find((a) => a.slug === slug && a.lang === locale);
+
+    if (sha256Seed === null) {
+      // Seed is not yet generated, return current article but no shuffled related articles
+      return { article, randomOtherArticles: [] };
+    }
+
+    const otherArticles = articles.filter((a) => a.slug !== slug && a.lang === locale);
+
+    const pseudoRandom = mulberry32(sha256Seed);
+
+    const shuffledOtherArticles = [...otherArticles];
+    // Fisher-Yates shuffle using the pseudo-random generator
+    for (let i = shuffledOtherArticles.length - 1; i > 0; i--) {
+      const j = Math.floor(pseudoRandom() * (i + 1));
+      [shuffledOtherArticles[i], shuffledOtherArticles[j]] = [shuffledOtherArticles[j], shuffledOtherArticles[i]];
+    }
+    const randomOtherArticles = shuffledOtherArticles.slice(0, max_show_others);
+    return { article, randomOtherArticles };
+  }, [articles, slug, locale, sha256Seed]);
+
+  const { article, randomOtherArticles } = currentArticleData;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -113,27 +130,6 @@ export default function ClientComponent({
 
   return (
     <div className="article-container">
-      {/* 検索バーを追加 */}
-      <div className="search-bar">
-        <input
-          type="text"
-          placeholder={t("pages.article.content.words.searchPlaceholder") || "Search article..."}
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="search-input"
-        />
-        {searchResults.length > 0 && (
-          <div className="search-results">
-            <h3>{t("pages.article.content.words.searchResults") || "Search Results"}</h3>
-            <ul>
-              {searchResults.map((result, index) => (
-                <li key={index}>{result}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
-
       <aside className="toc relative md:sticky" ref={tocRef}>
         <h2>{t("pages.article.content.words.index")}</h2>
         <ul>
@@ -166,7 +162,7 @@ export default function ClientComponent({
       </article>
       <section className="other-articles relative md:sticky">
         <h2>{t("pages.article.content.words.others")}</h2>
-        <ul>{otherArticles.map((other) => generateArticleButton(other))}</ul>
+        <ul>{randomOtherArticles.map((other) => generateArticleButton(other))}</ul>
       </section>
     </div>
   );
