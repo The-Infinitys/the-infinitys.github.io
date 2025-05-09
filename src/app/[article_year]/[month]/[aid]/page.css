@@ -94,7 +94,7 @@ html {
   border-top: none;
   border-radius: 0 0 16px 16px;
   width: 100%;
-  overflow: scroll;
+  overflow: scroll hidden;
   font-family: monospace;
 }
 
