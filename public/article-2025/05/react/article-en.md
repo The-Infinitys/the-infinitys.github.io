@@ -1,7 +1,4 @@
-Below is the English translation of the provided Markdown blog post about React.js:
-
-
----
+--
 title: About React.js
 date: "2025-05-09"
 description: "A detailed explanation of React.js, from its basics to the latest features and its relationship with Next.js."
