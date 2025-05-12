@@ -28,7 +28,7 @@ export function getArticleIndexes() {
     return true;
   });
 
-  const articles = years.flatMap((year) => {
+  const articles = years.reverse().flatMap((year) => {
     const yearPath = path.join(postsDirectory, year);
     const months = fs.readdirSync(yearPath).filter((month) => {
       const monthPath = path.join(yearPath, month);
@@ -37,7 +37,7 @@ export function getArticleIndexes() {
       return false;
     });
 
-    return months.flatMap((month) => {
+    return months.reverse().flatMap((month) => {
       const monthPath = path.join(yearPath, month);
       const articleIds = fs.readdirSync(monthPath).filter((articleId) => {
         const articlePath = path.join(monthPath, articleId);
@@ -45,7 +45,7 @@ export function getArticleIndexes() {
         return true;
       });
 
-      return articleIds
+      return articleIds.reverse()
         .map((articleId) => {
           const articleDir = path.join(monthPath, articleId);
           const articleFiles = fs
@@ -86,7 +86,6 @@ export function getArticleIndexes() {
         .flat(); // ネストされた配列を平坦化
     });
   });
-  articles.reverse();
   return articles;
 }
 function findThumbnailFile(directory: string): string | null {
