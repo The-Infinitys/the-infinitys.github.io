@@ -86,7 +86,7 @@ export function getArticleIndexes() {
         .flat(); // ネストされた配列を平坦化
     });
   });
-
+  articles.reverse();
   return articles;
 }
 function findThumbnailFile(directory: string): string | null {
