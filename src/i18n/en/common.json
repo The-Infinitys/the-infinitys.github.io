@@ -22,12 +22,15 @@
       },
       "words": {
         "search": "Search",
-        "previous":"Previous",
-        "next":"Next"
+        "advancedSearch": "Advanced Search",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "previous": "Previous",
+        "next": "Next"
       },
       "content": {
         "words": {
-          "index": "Table of Contents",
+          "index": "Index",
           "others": "Other Articles"
         }
       }
