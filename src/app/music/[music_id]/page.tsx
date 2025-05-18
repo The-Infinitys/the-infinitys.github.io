@@ -1,6 +1,6 @@
 import { getMusicList } from "../music";
 import { notFound } from "next/navigation";
-import { Player } from "./player";
+import { Player } from "./components/player";
 
 export function generateStaticParams() {
   const musicList = getMusicList();
@@ -13,7 +13,7 @@ export default async function MusicPage({
   params,
 }: {
   params: Promise<{ music_id: string }>;
-  }) {
+}) {
   const resolvedParams = await params;
   const musicList = getMusicList();
   const music = musicList.find((m) => m.id === resolvedParams.music_id);
