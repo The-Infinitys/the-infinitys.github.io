@@ -6,7 +6,8 @@
   --primary: #eeeeee;
   --link-color: #0000ff;
   --body-color-value: 0deg;
-  /* ライトテーマ用のリンク色を追加 */
+  --secondary: color-mix(in srgb, var(--foreground), var(--background) 50%);
+    /* ライトテーマ用のリンク色を追加 */
 }
 
 * {

@@ -25,6 +25,12 @@ const menus_list = [
     label: "Articles",
   },
   {
+    name: "Musics",
+    link: "/music",
+    target: "_self",
+    label: "Musics",
+  },
+  {
     img: TheInfiniteX,
     link: "https://x.com/The_Infinity_s/",
     target: "_blank",

@@ -1,0 +1,50 @@
+.music-page {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.music-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.music-card {
+  background: var(--background);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px var(--primary);
+  transition: transform 0.2s ease-in-out;
+}
+
+.music-card:hover {
+  transform: translateY(-4px);
+}
+
+.music-jacket {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.music-info {
+  padding: 1rem;
+}
+
+.music-info h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--foreground);
+}
+
+.music-info p {
+  margin: 0.5rem 0;
+  color: var(--secondary);
+}
+
+.music-player {
+  width: 100%;
+  margin-top: 1rem;
+}
