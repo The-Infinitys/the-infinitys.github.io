@@ -79,7 +79,7 @@ export function Player({ music, musicList }: PlayerProps) {
       audioRef.current,
     );
     const analyser = audioCtxRef.current.createAnalyser();
-    analyser.fftSize = 2 ** 6;
+    analyser.fftSize = 2 ** 8;
     elementSource.connect(analyser).connect(audioCtxRef.current.destination);
     setSource(elementSource);
     setAnalyserNode(analyser);
@@ -99,8 +99,6 @@ export function Player({ music, musicList }: PlayerProps) {
       }
     };
   }, []);
-
-  // Render spectrum
   useEffect(() => {
     if (
       !source ||
@@ -117,8 +115,18 @@ export function Player({ music, musicList }: PlayerProps) {
     const updateCanvasSize = () => {
       const container = canvas.parentElement;
       if (container) {
-        canvas.width = container.clientWidth;
-        canvas.height = container.clientHeight;
+        // --- MODIFICATION START ---
+        if (isCircular) {
+          // For circular mode, make the canvas square based on the minimum dimension
+          const size = Math.min(container.clientWidth, container.clientHeight);
+          canvas.width = size;
+          canvas.height = size;
+        } else {
+          // For linear mode, use the full container size
+          canvas.width = container.clientWidth;
+          canvas.height = container.clientHeight;
+        }
+        // --- MODIFICATION END ---
       }
     };
     updateCanvasSize();
@@ -134,14 +142,20 @@ export function Player({ music, musicList }: PlayerProps) {
       analyserNode.getByteFrequencyData(dataArray);
       canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
 
+      // The rest of your drawing logic remains largely the same,
+      // but now it will draw on a square canvas when isCircular is true,
+      // naturally resulting in a circle.
+
       if (isCircular) {
+        // Center will now be relative to the square canvas dimensions
         const centerX = canvas.width / 2;
         const centerY = canvas.height / 2;
+        // maxRadius calculation uses the now equal width/height
         const maxRadius = Math.min(canvas.width, canvas.height) / 2 - 10;
-        const maxBarLength = maxRadius * 0.5;
-        const innerRadius = maxRadius - maxBarLength;
-        const barWidthCirc = 4;
-        const displayLength = Math.min(64, bufferLength);
+        const maxBarLength = maxRadius * 0.5; // Keep this relative
+        const innerRadius = maxRadius - maxBarLength; // Keep this relative
+        const barWidthCirc = 8;
+        const displayLength = bufferLength; // Or a subset if needed
 
         for (let i = 0; i < displayLength; i++) {
           const idx = Math.floor((i * bufferLength) / displayLength);
@@ -152,6 +166,8 @@ export function Player({ music, musicList }: PlayerProps) {
           canvasCtx.save();
           canvasCtx.translate(centerX, centerY);
           canvasCtx.rotate(angle);
+          canvasCtx.strokeStyle = `hsla(${hue}, 100%, 50%, 0.8)`;
+          canvasCtx.lineWidth = barWidthCirc;
           canvasCtx.fillStyle = `hsla(${hue}, 100%, 50%, 0.8)`;
           canvasCtx.fillRect(
             innerRadius,
@@ -162,6 +178,7 @@ export function Player({ music, musicList }: PlayerProps) {
           canvasCtx.restore();
         }
       } else {
+        // Linear drawing logic (remains unchanged)
         const barWidth = canvas.width / bufferLength;
         let x = 0;
         for (let i = 0; i < bufferLength; i++) {
@@ -195,8 +212,7 @@ export function Player({ music, musicList }: PlayerProps) {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [playState, source, analyserNode, isCircular]);
-
+  }, [playState, source, analyserNode, isCircular]); // Add isCircular to dependency array
   const handleTogglePlay = () => {
     if (!audioRef.current || !audioCtxRef.current) return;
 
@@ -431,9 +447,8 @@ export function Player({ music, musicList }: PlayerProps) {
           {musicList.map((track) => (
             <li
               key={track.id}
-              className={`${styles["music-list-item"]} ${
-                track.id === music.id ? styles["active"] : ""
-              }`}
+              className={`${styles["music-list-item"]} ${track.id === music.id ? styles["active"] : ""
+                }`}
               onClick={() => handleSelectTrack(track.id)}
             >
               {track.jacketUrl && (

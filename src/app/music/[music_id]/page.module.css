@@ -32,12 +32,10 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    to bottom,
-    color-mix(in srgb, var(--background), transparent 70%) 0%,
-    color-mix(in srgb, var(--background), transparent 50%) 50%,
-    color-mix(in srgb, var(--background), transparent 70%) 100%
-  );
+  background: linear-gradient(to bottom,
+      color-mix(in srgb, var(--background), transparent 70%) 0%,
+      color-mix(in srgb, var(--background), transparent 50%) 50%,
+      color-mix(in srgb, var(--background), transparent 70%) 100%);
 }
 
 .music-info {
@@ -68,10 +66,9 @@
   width: 100%;
   max-width: 600px;
   z-index: 1;
-  background: color-mix(in srgb, var(--background), transparent 50%);
+  background: color-mix(in srgb, var(--background), transparent 80%);
   padding: 2rem;
   border-radius: 1rem;
-  backdrop-filter: blur(10px);
 }
 
 .time-control {
@@ -140,12 +137,14 @@
 
 .spectrum {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vmin;
+  height: 100vmin;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
   z-index: 0;
-  opacity: 0.75;
+  border: none;
+  opacity: 0.25;
   mix-blend-mode: screen;
 }
 
@@ -220,7 +219,8 @@
 
 .music-list-item {
   display: flex;
-  align-items: center; /* 垂直方向の中央揃え */
+  align-items: center;
+  /* 垂直方向の中央揃え */
   padding: 10px;
   cursor: pointer;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -250,7 +250,8 @@
 .music-list-info {
   display: flex;
   flex-direction: column;
-  flex: 1; /* テキスト部分が残りのスペースを占有 */
+  flex: 1;
+  /* テキスト部分が残りのスペースを占有 */
 }
 
 .music-list-title {
