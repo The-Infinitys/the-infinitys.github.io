@@ -31,11 +31,16 @@
       "content": {
         "words": {
           "index": "目次",
-          "others": "他の記事"
+          "others": "他の記事",
+          "shareX":"X/Twitterで共有する"
         }
       }
     },
     "music": {
+      "description":{
+        "msg1":"ここでは、私が制作した様々な音楽を聴くことができます！",
+        "msg2":"種々多々の音楽を楽しんでください！"
+      },
       "title": "Music",
       "player": {
         "play": "再生",

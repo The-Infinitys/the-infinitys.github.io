@@ -1,0 +1,38 @@
+/* share.css */
+
+.twitter-share-button {
+  display: inline-flex;
+  /* アイコンとテキストを横に並べる場合などに便利 */
+  align-items: center;
+  justify-content: center;
+  /* 必要に応じてパディング、マージン、ボーダー、背景色などを設定 */
+  /* 例: */
+  padding: 8px 12px;
+  margin: 0 5px;
+  background-color: var(--backgroud);
+  border: 1px solid var(--primary);
+  color: var(--foreground);
+  text-decoration: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* 画像のサイズ調整や、アイコンとテキストの間隔などを設定する場合はここに追記 */
+.twitter-share-button svg {
+  margin-right: 4px;
+  /* アイコンの右側の間隔 */
+  /* 画像のサイズをCSSで調整したい場合は width, height を指定 */
+  /* 例: width: 24px; height: 24px; */
+}
+
+/* ホバー時のスタイル */
+.twitter-share-button:hover {
+  opacity: 0.8;
+}
+
+div.sns-share {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

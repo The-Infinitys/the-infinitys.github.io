@@ -3,9 +3,7 @@
 import { Chakra_Petch } from "next/font/google";
 import {Link} from "@/i18n/routing";
 import Image from "next/image"; // Import Image component
-// import TheInfiniteImage from "../../../public/The-Infinite.svg";
 import React, { useState } from "react";
-import { TheInfiniteX } from "./img";
 const chakraPetch = Chakra_Petch({
   variable: "--font-chakra-petch",
   subsets: ["latin"],
@@ -29,13 +27,7 @@ const menus_list = [
     link: "/music",
     target: "_self",
     label: "Musics",
-  },
-  {
-    img: TheInfiniteX,
-    link: "https://x.com/The_Infinity_s/",
-    target: "_blank",
-    label: "X (Twitter)",
-  },
+  }
 ];
 
 export default function Header() {
@@ -132,7 +124,7 @@ export default function Header() {
                   fontStyle: "italic",
                 }}
               >
-                {menu.img && menu.img}
+                {/* {menu.img && menu.img} */}
                 {menu.name}
               </Link>
             </li>

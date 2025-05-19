@@ -1,5 +1,5 @@
 "use client";
-
+import SNSShare from "./share";
 import { Article } from "../../../../article/article-client";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -159,6 +159,7 @@ export default function ClientComponent({
           className="article-content"
           dangerouslySetInnerHTML={{ __html: processedContent }}
         />
+        <SNSShare />
       </article>
       <section className="other-articles relative md:sticky">
         <h2>{t("pages.article.content.words.others")}</h2>

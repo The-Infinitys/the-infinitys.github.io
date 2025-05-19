@@ -31,19 +31,24 @@
       "content": {
         "words": {
           "index": "Index",
-          "others": "Other Articles"
+          "others": "Other Articles",
+          "shareX": "Share on X/Twitter"
         }
       }
     },
     "music": {
-      "title": "Music",
-      "player": {
-        "play": "Play",
-        "pause": "Pause",
-        "artist": "Artist",
-        "duration": "Duration",
-        "browserNotSupported": "Your browser does not support audio playback."
+      "description": {
+        "msg1": "Here you can listen to various music I have produced!",
+        "msg2": "Enjoy a variety of music!"
       }
+    },
+    "title": "Music",
+    "player": {
+      "play": "Play",
+      "pause": "Pause",
+      "artist": "Artist",
+      "duration": "Duration",
+      "browserNotSupported": "Your browser does not support audio playback."
     }
   }
 }
