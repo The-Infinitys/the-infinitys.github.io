@@ -1,4 +1,4 @@
-export function PlayButton() {
+export function StopButton() {
   return <svg
     width="24"
     height="24"
@@ -11,7 +11,7 @@ export function PlayButton() {
   </svg>;
 }
 
-export function StopButton() {
+export function PlayButton() {
   return <svg
     width="24"
     height="24"

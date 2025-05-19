@@ -1,7 +1,6 @@
 .music-player-container {
   position: relative;
   width: 100%;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -144,6 +143,7 @@
   width: 100%;
   height: 100%;
   z-index: 0;
+  opacity: 0.75;
   mix-blend-mode: screen;
 }
 
@@ -196,4 +196,67 @@
 .rate-button.active {
   background: var(--primary);
   font-weight: bold;
+}
+
+.music-list-container {
+  margin-top: 20px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 8px;
+  max-width: 600px;
+  width: 100%;
+}
+
+.music-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 100px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.music-list-item {
+  display: flex;
+  align-items: center; /* 垂直方向の中央揃え */
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background-color 0.2s;
+}
+
+.music-list-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.music-list-item.active {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.music-list-jacket {
+  margin-right: 15px;
+}
+
+.music-list-jacket-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.music-list-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* テキスト部分が残りのスペースを占有 */
+}
+
+.music-list-title {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.music-list-artist {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
 }

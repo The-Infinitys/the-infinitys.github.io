@@ -1,11 +1,11 @@
 "use client";
-
 import { useState, useEffect, useRef } from "react";
 import { Music } from "../../music";
 import styles from "../page.module.css";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { PlayButton, StopButton, PreviousMusic, NextMusic, SkipToBack, SkipToForward } from "./images";
+
 interface PlayerProps {
   music: Music;
   musicList: Music[];
@@ -17,10 +17,9 @@ export function Player({ music, musicList }: PlayerProps) {
   const [duration, setDuration] = useState(0);
   const [timePosition, setTimePosition] = useState(0);
   const [playbackRate, setPlaybackRate] = useState(1);
-  const [source, setSource] = useState<MediaElementAudioSourceNode | null>(
-    null
-  );
+  const [source, setSource] = useState<MediaElementAudioSourceNode | null>(null);
   const [analyserNode, setAnalyserNode] = useState<AnalyserNode | null>(null);
+  const [isCircular, setIsCircular] = useState(false);
 
   const audioRef = useRef<HTMLAudioElement>(null);
   const audioCtxRef = useRef<AudioContext | null>(null);
@@ -28,7 +27,7 @@ export function Player({ music, musicList }: PlayerProps) {
   const spectrumRef = useRef<HTMLCanvasElement>(null);
   const animationFrameRef = useRef<number>(null);
 
-  // 音声ファイルのメタデータを読み込む
+  // Load audio metadata
   useEffect(() => {
     if (!audioRef.current) return;
 
@@ -37,7 +36,6 @@ export function Player({ music, musicList }: PlayerProps) {
       setDuration(audio.duration);
     };
 
-    // すでにメタデータが読み込まれている場合
     if (audio.readyState >= 1) {
       handleLoadedMetadata();
     }
@@ -48,7 +46,7 @@ export function Player({ music, musicList }: PlayerProps) {
     };
   }, []);
 
-  // 再生位置の更新
+  // Update playback position
   useEffect(() => {
     if (!audioRef.current) return;
 
@@ -63,15 +61,14 @@ export function Player({ music, musicList }: PlayerProps) {
     };
   }, []);
 
+  // Initialize AudioContext and Analyser
   useEffect(() => {
     if (!audioRef.current) return;
 
     audioCtxRef.current = new AudioContext();
-    const elementSource = audioCtxRef.current.createMediaElementSource(
-      audioRef.current
-    );
+    const elementSource = audioCtxRef.current.createMediaElementSource(audioRef.current);
     const analyser = audioCtxRef.current.createAnalyser();
-    analyser.fftSize = 2048;
+    analyser.fftSize = 2**8;
     elementSource.connect(analyser).connect(audioCtxRef.current.destination);
     setSource(elementSource);
     setAnalyserNode(analyser);
@@ -92,14 +89,9 @@ export function Player({ music, musicList }: PlayerProps) {
     };
   }, []);
 
+  // Render spectrum
   useEffect(() => {
-    if (
-      !source ||
-      !analyserNode ||
-      playState !== "play" ||
-      !spectrumRef.current
-    )
-      return;
+    if (!source || !analyserNode || playState !== "play" || !spectrumRef.current) return;
 
     const canvas = spectrumRef.current;
     const canvasCtx = canvas.getContext("2d");
@@ -117,35 +109,52 @@ export function Player({ music, musicList }: PlayerProps) {
 
     const bufferLength = analyserNode.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
-    const barWidth = canvas.width / bufferLength;
 
-    function renderFrame() {
+    const renderFrame = () => {
       if (!analyserNode || !canvasCtx) return;
 
       animationFrameRef.current = requestAnimationFrame(renderFrame);
-
       analyserNode.getByteFrequencyData(dataArray);
       canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
 
-      let x = 0;
-      for (let i = 0; i < bufferLength; i++) {
-        const barHeight = (dataArray[i] / 255) * canvas.height;
+      if (isCircular) {
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const maxRadius = Math.min(canvas.width, canvas.height) / 2 - 10;
+        const maxBarLength = maxRadius * 0.5;
+        const innerRadius = maxRadius - maxBarLength;
+        const barWidthCirc = 4;
+        const displayLength = Math.min(64, bufferLength);
 
-        const hue = (i / bufferLength) * 360;
-        const gradient = canvasCtx.createLinearGradient(0, canvas.height, 0, 0);
-        gradient.addColorStop(0, `hsla(${hue}, 100%, 50%, 0.8)`);
-        gradient.addColorStop(1, `hsla(${hue}, 100%, 50%, 0.2)`);
+        for (let i = 0; i < displayLength; i++) {
+          const idx = Math.floor(i * bufferLength / displayLength);
+          const barHeight = (dataArray[idx] / 255) * maxBarLength;
+          const angle = (i / displayLength) * 2 * Math.PI;
+          const hue = (i / displayLength) * 360;
 
-        canvasCtx.fillStyle = gradient;
-        canvasCtx.fillRect(
-          x,
-          canvas.height - barHeight,
-          barWidth - 1,
-          barHeight
-        );
-        x += barWidth;
+          canvasCtx.save();
+          canvasCtx.translate(centerX, centerY);
+          canvasCtx.rotate(angle);
+          canvasCtx.fillStyle = `hsla(${hue}, 100%, 50%, 0.8)`;
+          canvasCtx.fillRect(innerRadius, -barWidthCirc / 2, barHeight, barWidthCirc);
+          canvasCtx.restore();
+        }
+      } else {
+        const barWidth = canvas.width / bufferLength;
+        let x = 0;
+        for (let i = 0; i < bufferLength; i++) {
+          const barHeight = (dataArray[i] / 255) * canvas.height;
+          const hue = (i / bufferLength) * 360;
+          const gradient = canvasCtx.createLinearGradient(0, canvas.height, 0, 0);
+          gradient.addColorStop(0, `hsla(${hue}, 100%, 50%, 0.8)`);
+          gradient.addColorStop(1, `hsla(${hue}, 100%, 50%, 0.2)`);
+
+          canvasCtx.fillStyle = gradient;
+          canvasCtx.fillRect(x, canvas.height - barHeight, barWidth - 1, barHeight);
+          x += barWidth;
+        }
       }
-    }
+    };
     renderFrame();
 
     return () => {
@@ -154,7 +163,7 @@ export function Player({ music, musicList }: PlayerProps) {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [playState, source, analyserNode]);
+  }, [playState, source, analyserNode, isCircular]);
 
   const handleTogglePlay = () => {
     if (!audioRef.current || !audioCtxRef.current) return;
@@ -194,18 +203,12 @@ export function Player({ music, musicList }: PlayerProps) {
 
   const handleSkipForward = () => {
     if (!audioRef.current) return;
-    audioRef.current.currentTime = Math.min(
-      audioRef.current.currentTime + 10,
-      duration
-    );
+    audioRef.current.currentTime = Math.min(audioRef.current.currentTime + 10, duration);
   };
 
   const handleSkipBackward = () => {
     if (!audioRef.current) return;
-    audioRef.current.currentTime = Math.max(
-      audioRef.current.currentTime - 5,
-      0
-    );
+    audioRef.current.currentTime = Math.max(audioRef.current.currentTime - 5, 0);
   };
 
   const handleNextTrack = () => {
@@ -246,6 +249,19 @@ export function Player({ music, musicList }: PlayerProps) {
     if (!audioRef.current) return;
     audioRef.current.playbackRate = rate;
     setPlaybackRate(rate);
+  };
+
+  const handleToggleArrangement = () => {
+    setIsCircular(!isCircular);
+  };
+
+  // 楽曲リストから選択した楽曲に切り替える処理
+  const handleSelectTrack = (trackId: string) => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      setPlayState("stop");
+    }
+    window.location.href = `/music/${trackId}`;
   };
 
   return (
@@ -291,10 +307,7 @@ export function Player({ music, musicList }: PlayerProps) {
             onClick={handleTogglePlay}
             className={styles["play-button"]}
           >
-            {playState === "stop" ? (
-              <StopButton />
-            ) : (<PlayButton />
-            )}
+            {playState === "stop" ? <PlayButton /> : <StopButton />}
           </button>
           <button
             type="button"
@@ -316,34 +329,40 @@ export function Player({ music, musicList }: PlayerProps) {
           <button
             type="button"
             onClick={() => handlePlaybackRateChange(0.5)}
-            className={`${styles["rate-button"]} ${playbackRate === 0.5 ? styles["active"] : ""
-              }`}
+            className={`${styles["rate-button"]} ${playbackRate === 0.5 ? styles["active"] : ""}`}
           >
             0.5x
           </button>
           <button
             type="button"
             onClick={() => handlePlaybackRateChange(1)}
-            className={`${styles["rate-button"]} ${playbackRate === 1 ? styles["active"] : ""
-              }`}
+            className={`${styles["rate-button"]} ${playbackRate === 1 ? styles["active"] : ""}`}
           >
             1x
           </button>
           <button
             type="button"
             onClick={() => handlePlaybackRateChange(1.5)}
-            className={`${styles["rate-button"]} ${playbackRate === 1.5 ? styles["active"] : ""
-              }`}
+            className={`${styles["rate-button"]} ${playbackRate === 1.5 ? styles["active"] : ""}`}
           >
             1.5x
           </button>
           <button
             type="button"
             onClick={() => handlePlaybackRateChange(2)}
-            className={`${styles["rate-button"]} ${playbackRate === 2 ? styles["active"] : ""
-              }`}
+            className={`${styles["rate-button"]} ${playbackRate === 2 ? styles["active"] : ""}`}
           >
             2x
+          </button>
+        </div>
+
+        <div className={styles["playback-rate-control"]}>
+          <button
+            type="button"
+            onClick={handleToggleArrangement}
+            className={`${styles["rate-button"]} ${isCircular ? styles["active"] : ""}`}
+          >
+            {isCircular ? "Linear" : "Circular"}
           </button>
         </div>
 
@@ -367,6 +386,37 @@ export function Player({ music, musicList }: PlayerProps) {
       </audio>
 
       <canvas className={styles["spectrum"]} ref={spectrumRef} />
+
+      {/* 楽曲リストの表示 */}
+      <section className={styles["music-list-container"]}>
+        <ul className={styles["music-list"]}>
+          {musicList.map((track) => (
+            <li
+              key={track.id}
+              className={`${styles["music-list-item"]} ${
+                track.id === music.id ? styles["active"] : ""
+              }`}
+              onClick={() => handleSelectTrack(track.id)}
+            >
+              {track.jacketUrl && (
+                <div className={styles["music-list-jacket"]}>
+                  <Image
+                    src={track.jacketUrl}
+                    alt={track.title}
+                    width={50}
+                    height={50}
+                    className={styles["music-list-jacket-image"]}
+                  />
+                </div>
+              )}
+              <div className={styles["music-list-info"]}>
+                <span className={styles["music-list-title"]}>{track.title}</span>
+                <span className={styles["music-list-artist"]}>{track.artist}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
     </div>
   );
 }
