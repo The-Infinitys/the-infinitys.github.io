@@ -79,7 +79,7 @@ export function Player({ music, musicList }: PlayerProps) {
       audioRef.current,
     );
     const analyser = audioCtxRef.current.createAnalyser();
-    analyser.fftSize = 2 ** 8;
+    analyser.fftSize = 2 ** 6;
     elementSource.connect(analyser).connect(audioCtxRef.current.destination);
     setSource(elementSource);
     setAnalyserNode(analyser);
