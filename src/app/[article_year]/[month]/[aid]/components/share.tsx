@@ -16,7 +16,7 @@ export default function SNSShare() {
   );
 }
 export function ToXTwitter({ hashtags, via }: ToXTwitterProps) {
-  const t = useTranslations(); // 翻訳フック
+  const t = useTranslations("pages.article.content.words"); // 翻訳フック
   const [shareUrl, setShareUrl] = useState("#"); // 共有URLを保持するstate。初期値は無効なリンク'#'
 
   useEffect(() => {
@@ -54,12 +54,12 @@ export function ToXTwitter({ hashtags, via }: ToXTwitterProps) {
       target="_blank"
       rel="noopener noreferrer"
       className="twitter-share-button" // このクラス名でCSSを適用
-      aria-label={t("pages.article.content.words.shareX")} // 翻訳されたテキストをaria-labelに使用
+      aria-label={t("shareX")} // 翻訳されたテキストをaria-labelに使用
     >
       {/* Xのアイコン画像 - next/imageコンポーネントを使用 */}
       {TheInfiniteX}
       {/* 共有ボタンのテキスト - 翻訳されたテキストを使用 */}
-      <p>{t("pages.article.content.words.shareX")}</p>
+      <p>{t("shareX")}</p>
     </a>
   );
 }
