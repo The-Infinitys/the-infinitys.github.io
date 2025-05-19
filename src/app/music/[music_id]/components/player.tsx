@@ -24,19 +24,20 @@ export function Player({ music, musicList }: PlayerProps) {
   const [duration, setDuration] = useState(0);
   const [timePosition, setTimePosition] = useState(0);
   const [playbackRate, setPlaybackRate] = useState(1);
-  const [source, setSource] = useState<MediaElementAudioSourceNode | null>(null);
+  const [source, setSource] = useState<MediaElementAudioSourceNode | null>(
+    null
+  );
   const [analyserNode, setAnalyserNode] = useState<AnalyserNode | null>(null);
   const [isCircular, setIsCircular] = useState(false);
-  const [eqGains, setEqGains] = useState<number[]>([0, 0, 0, 0, 0]); // イコライザーゲイン
+  const [eqGains, setEqGains] = useState<number[]>([0, 0, 0, 0, 0]);
 
   const audioRef = useRef<HTMLAudioElement>(null);
   const audioCtxRef = useRef<AudioContext | null>(null);
   const timePositionRef = useRef<HTMLInputElement>(null);
   const spectrumRef = useRef<HTMLCanvasElement>(null);
   const animationFrameRef = useRef<number>(null);
-  const eqFiltersRef = useRef<BiquadFilterNode[]>([]); // イコライザーフィルター参照
+  const eqFiltersRef = useRef<BiquadFilterNode[]>([]);
 
-  // 音声メタデータの読み込み
   useEffect(() => {
     if (!audioRef.current) return;
 
@@ -55,7 +56,6 @@ export function Player({ music, musicList }: PlayerProps) {
     };
   }, []);
 
-  // 再生位置の更新
   useEffect(() => {
     if (!audioRef.current) return;
 
@@ -70,16 +70,16 @@ export function Player({ music, musicList }: PlayerProps) {
     };
   }, []);
 
-  // AudioContextとアナライザー、イコライザーフィルターの初期化
   useEffect(() => {
     if (!audioRef.current) return;
 
     audioCtxRef.current = new AudioContext();
-    const elementSource = audioCtxRef.current.createMediaElementSource(audioRef.current);
+    const elementSource = audioCtxRef.current.createMediaElementSource(
+      audioRef.current
+    );
     const analyser = audioCtxRef.current.createAnalyser();
-    analyser.fftSize = 2 ** 5;
+    analyser.fftSize = 2 ** 8;
 
-    // イコライザーフィルターの作成
     const eqFilters: BiquadFilterNode[] = [
       audioCtxRef.current.createBiquadFilter(),
       audioCtxRef.current.createBiquadFilter(),
@@ -88,16 +88,14 @@ export function Player({ music, musicList }: PlayerProps) {
       audioCtxRef.current.createBiquadFilter(),
     ];
 
-    // 各フィルターの設定
     const frequencies = [60, 250, 1000, 4000, 16000];
     eqFilters.forEach((filter, index) => {
-      filter.type = 'peaking';
+      filter.type = "peaking";
       filter.frequency.value = frequencies[index];
       filter.Q.value = 1.5;
       filter.gain.value = eqGains[index];
     });
 
-    // チェーンの接続：ソース → フィルター1 → フィルター2 → ... → アナライザー → 出力先
     let previousNode: AudioNode = elementSource;
     eqFilters.forEach((filter) => {
       previousNode.connect(filter);
@@ -110,7 +108,6 @@ export function Player({ music, musicList }: PlayerProps) {
     setAnalyserNode(analyser);
     eqFiltersRef.current = eqFilters;
 
-    // クリーンアップ
     return () => {
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
@@ -128,11 +125,8 @@ export function Player({ music, musicList }: PlayerProps) {
         filter.disconnect();
       });
     };
-    // オーディオアナライザーのエラーを回避するために、依存配列を空にしている
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // イコライザーゲインの更新
   useEffect(() => {
     if (!audioCtxRef.current || eqFiltersRef.current.length === 0) return;
 
@@ -141,9 +135,14 @@ export function Player({ music, musicList }: PlayerProps) {
     });
   }, [eqGains]);
 
-  // スペクトル視覚化（変更なし、簡略化のため省略）
   useEffect(() => {
-    if (!source || !analyserNode || playState !== "play" || !spectrumRef.current) return;
+    if (
+      !source ||
+      !analyserNode ||
+      playState !== "play" ||
+      !spectrumRef.current
+    )
+      return;
 
     const canvas = spectrumRef.current;
     const canvasCtx = canvas.getContext("2d");
@@ -171,7 +170,6 @@ export function Player({ music, musicList }: PlayerProps) {
     const renderFrame = () => {
       if (!analyserNode || !canvasCtx) return;
 
-      animationFrameRef.current = requestAnimationFrame(renderFrame);
       analyserNode.getByteFrequencyData(dataArray);
       canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -196,7 +194,12 @@ export function Player({ music, musicList }: PlayerProps) {
           canvasCtx.strokeStyle = `hsla(${hue}, 100%, 50%, 0.8)`;
           canvasCtx.lineWidth = barWidthCirc;
           canvasCtx.fillStyle = `hsla(${hue}, 100%, 50%, 0.8)`;
-          canvasCtx.fillRect(innerRadius, -barWidthCirc / 2, barHeight, barWidthCirc);
+          canvasCtx.fillRect(
+            innerRadius,
+            -barWidthCirc / 2,
+            barHeight,
+            barWidthCirc
+          );
           canvasCtx.restore();
         }
       } else {
@@ -205,16 +208,30 @@ export function Player({ music, musicList }: PlayerProps) {
         for (let i = 0; i < bufferLength; i++) {
           const barHeight = (dataArray[i] / 255) * canvas.height;
           const hue = (i / bufferLength) * 360;
-          const gradient = canvasCtx.createLinearGradient(0, canvas.height, 0, 0);
+          const gradient = canvasCtx.createLinearGradient(
+            0,
+            canvas.height,
+            0,
+            0
+          );
           gradient.addColorStop(0, `hsla(${hue}, 100%, 50%, 0.8)`);
           gradient.addColorStop(1, `hsla(${hue}, 100%, 50%, 0.2)`);
 
           canvasCtx.fillStyle = gradient;
-          canvasCtx.fillRect(x, canvas.height - barHeight, barWidth - 1, barHeight);
+          canvasCtx.fillRect(
+            x,
+            canvas.height - barHeight,
+            barWidth - 1,
+            barHeight
+          );
           x += barWidth;
         }
       }
+
+      animationFrameRef.current = requestAnimationFrame(renderFrame);
     };
+
+    // 初回描画を即座に開始
     renderFrame();
 
     return () => {
@@ -263,12 +280,18 @@ export function Player({ music, musicList }: PlayerProps) {
 
   const handleSkipForward = () => {
     if (!audioRef.current) return;
-    audioRef.current.currentTime = Math.min(audioRef.current.currentTime + 10, duration);
+    audioRef.current.currentTime = Math.min(
+      audioRef.current.currentTime + 10,
+      duration
+    );
   };
 
   const handleSkipBackward = () => {
     if (!audioRef.current) return;
-    audioRef.current.currentTime = Math.max(audioRef.current.currentTime - 5, 0);
+    audioRef.current.currentTime = Math.max(
+      audioRef.current.currentTime - 5,
+      0
+    );
   };
 
   const handleNextTrack = () => {
@@ -323,8 +346,10 @@ export function Player({ music, musicList }: PlayerProps) {
     window.location.href = `/music/${trackId}`;
   };
 
-  // イコライザーゲイン変更ハンドラー
-  const handleEqChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleEqChange = (
+    index: number,
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const newGains = [...eqGains];
     newGains[index] = parseFloat(e.target.value);
     setEqGains(newGains);
@@ -354,19 +379,39 @@ export function Player({ music, musicList }: PlayerProps) {
 
       <div className={styles["player-controls"]}>
         <div className={styles["control-buttons"]}>
-          <button type="button" onClick={handlePreviousTrack} className={styles["control-button"]}>
+          <button
+            type="button"
+            onClick={handlePreviousTrack}
+            className={styles["control-button"]}
+          >
             <PreviousMusic />
           </button>
-          <button type="button" onClick={handleSkipBackward} className={styles["control-button"]}>
+          <button
+            type="button"
+            onClick={handleSkipBackward}
+            className={styles["control-button"]}
+          >
             <SkipToBack />
           </button>
-          <button type="button" onClick={handleTogglePlay} className={styles["play-button"]}>
+          <button
+            type="button"
+            onClick={handleTogglePlay}
+            className={styles["play-button"]}
+          >
             {playState === "stop" ? <PlayButton /> : <StopButton />}
           </button>
-          <button type="button" onClick={handleSkipForward} className={styles["control-button"]}>
+          <button
+            type="button"
+            onClick={handleSkipForward}
+            className={styles["control-button"]}
+          >
             <SkipToForward />
           </button>
-          <button type="button" onClick={handleNextTrack} className={styles["control-button"]}>
+          <button
+            type="button"
+            onClick={handleNextTrack}
+            className={styles["control-button"]}
+          >
             <NextMusic />
           </button>
         </div>
@@ -425,8 +470,6 @@ export function Player({ music, musicList }: PlayerProps) {
           />
           <span>{formatTime(duration)}</span>
         </div>
-
-        {/* イコライザーコントロール */}
 
         <details>
           <summary>{t("equalizer")}</summary>
@@ -511,8 +554,12 @@ export function Player({ music, musicList }: PlayerProps) {
                 </div>
               )}
               <div className={styles["music-list-info"]}>
-                <span className={styles["music-list-title"]}>{track.title}</span>
-                <span className={styles["music-list-artist"]}>{track.artist}</span>
+                <span className={styles["music-list-title"]}>
+                  {track.title}
+                </span>
+                <span className={styles["music-list-artist"]}>
+                  {track.artist}
+                </span>
               </div>
             </li>
           ))}
