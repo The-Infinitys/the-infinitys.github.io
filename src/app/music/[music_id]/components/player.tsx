@@ -77,7 +77,7 @@ export function Player({ music, musicList }: PlayerProps) {
     audioCtxRef.current = new AudioContext();
     const elementSource = audioCtxRef.current.createMediaElementSource(audioRef.current);
     const analyser = audioCtxRef.current.createAnalyser();
-    analyser.fftSize = 2 ** 8;
+    analyser.fftSize = 2 ** 5;
 
     // イコライザーフィルターの作成
     const eqFilters: BiquadFilterNode[] = [
@@ -181,7 +181,7 @@ export function Player({ music, musicList }: PlayerProps) {
         const maxRadius = Math.min(canvas.width, canvas.height) / 2 - 10;
         const maxBarLength = maxRadius * 0.5;
         const innerRadius = maxRadius - maxBarLength;
-        const barWidthCirc = 8;
+        const barWidthCirc = 4;
         const displayLength = bufferLength;
 
         for (let i = 0; i < displayLength; i++) {
