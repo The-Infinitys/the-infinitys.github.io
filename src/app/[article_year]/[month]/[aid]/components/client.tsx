@@ -39,7 +39,9 @@ export default function ClientComponent({
   const tocRef = useRef<HTMLElement>(null);
   const t = useTranslations("pages.article.content");
   const locale = useLocale();
-  const processedContent = processedContents.find((c) => c.lang === locale)?.content;
+  const processedContent = processedContents.find(
+    (c) => c.lang === locale,
+  )?.content;
   const toc = tocs.find((t) => t.lang === locale)?.toc || [];
   const [sha256Seed, setSha256Seed] = useState<number | null>(null);
   const max_show_others = 2;
@@ -175,7 +177,9 @@ export default function ClientComponent({
       </article>
       <section className="other-articles relative md:sticky">
         <h2>{t("words.others")}</h2>
-        <ul>{randomOtherArticles.map((other) => generateArticleButton(other))}</ul>
+        <ul>
+          {randomOtherArticles.map((other) => generateArticleButton(other))}
+        </ul>
       </section>
     </div>
   );

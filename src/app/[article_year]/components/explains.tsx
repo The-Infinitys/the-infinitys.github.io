@@ -11,5 +11,7 @@ export default function Explains({ year }: { year: string }) {
       <section className="description">
         <p>{t("description.msg1")}</p>
         <p>{t("description.msg2")}</p>
-      </section></>)
+      </section>
+    </>
+  );
 }
