@@ -7,5 +7,6 @@ export default function Explains() {
     <section>
       <p>{t("description.msg1")}</p>
       <p>{t("description.msg2")}</p>
-    </section>);
+    </section>
+  );
 }

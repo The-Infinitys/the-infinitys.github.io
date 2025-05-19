@@ -34,18 +34,18 @@ export function getMusicList(): Music[] {
     // 音楽ファイルとジャケット画像を探す
     const musicFile = files.find(
       (file) =>
-        file.endsWith(".mp3") || file.endsWith(".m4a") || file.endsWith(".wav")
+        file.endsWith(".mp3") || file.endsWith(".m4a") || file.endsWith(".wav"),
     );
     const jacketFile = files.find(
-      (file) => file.startsWith("jacket.") || file.startsWith("cover.")
+      (file) => file.startsWith("jacket.") || file.startsWith("cover."),
     );
 
     // music.jsonを読み込む
     const jsonPath = path.join(folderPath, "music.json");
     let jsonData: MusicJson = {
-      title:"unknown",
-      artist:"unknown",
-      date:"unknown"
+      title: "unknown",
+      artist: "unknown",
+      date: "unknown",
     };
     if (fs.existsSync(jsonPath)) {
       const jsonContent = fs.readFileSync(jsonPath, "utf-8");
@@ -58,8 +58,7 @@ export function getMusicList(): Music[] {
 
     return {
       id: folder,
-      title:
-        jsonData.title || folder.charAt(0).toUpperCase() + folder.slice(1),
+      title: jsonData.title || folder.charAt(0).toUpperCase() + folder.slice(1),
       artist: jsonData.artist || "The Infinitys",
       url: `/music/${folder}/${musicFile}`,
       jacketUrl: jacketFile ? `/music/${folder}/${jacketFile}` : undefined,

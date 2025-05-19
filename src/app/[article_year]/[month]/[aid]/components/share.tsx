@@ -9,9 +9,11 @@ interface ToXTwitterProps {
   via?: string; // ツイートに含めるvia (オプション)
 }
 export default function SNSShare() {
-  return <div className="sns-share">
-    <ToXTwitter />
-  </div>;
+  return (
+    <div className="sns-share">
+      <ToXTwitter />
+    </div>
+  );
 }
 export function ToXTwitter({ hashtags, via }: ToXTwitterProps) {
   const t = useTranslations(); // 翻訳フック
@@ -19,10 +21,10 @@ export function ToXTwitter({ hashtags, via }: ToXTwitterProps) {
 
   useEffect(() => {
     // このeffectはクライアントサイドでのみ実行されます
-    if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+    if (typeof window !== "undefined" && typeof document !== "undefined") {
       const pageUrl = window.location.href; // 現在のページのURLを自動取得
       // ページのタイトルまたは適切なテキストを自動取得（ここではタイトルを使用）
-      const pageText = document.title || ''; // document.titleがない場合を考慮
+      const pageText = document.title || ""; // document.titleがない場合を考慮
 
       const baseUrl = "https://twitter.com/intent/tweet";
       const queryParams = new URLSearchParams({

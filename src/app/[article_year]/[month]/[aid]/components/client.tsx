@@ -11,7 +11,10 @@ import { AvailableLocales } from "@/i18n/request";
 interface ClientComponentProps {
   articles: Article[];
   slug: string;
-  tocs: { lang: AvailableLocales; toc: { id: string; text: string; level: string }[] }[];
+  tocs: {
+    lang: AvailableLocales;
+    toc: { id: string; text: string; level: string }[];
+  }[];
   processedContents: { content: string; lang: AvailableLocales }[];
 }
 
@@ -19,12 +22,13 @@ interface ClientComponentProps {
 async function generateSha256Hex(input: string): Promise<string> {
   const encoder = new TextEncoder();
   const data = encoder.encode(input);
-  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
   const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  const hashHex = hashArray
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
   return hashHex;
 }
-
 
 export default function ClientComponent({
   articles,
@@ -35,31 +39,36 @@ export default function ClientComponent({
   const tocRef = useRef<HTMLElement>(null);
   const t = useTranslations();
   const locale = t("info.lang");
-  const processedContent = processedContents.find((c) => c.lang === locale)?.content;
+  const processedContent = processedContents.find(
+    (c) => c.lang === locale,
+  )?.content;
   const toc = tocs.find((t) => t.lang === locale)?.toc || [];
   const [sha256Seed, setSha256Seed] = useState<number | null>(null);
   const max_show_others = 2;
   // シードに基づいた疑似乱数生成器 (Mulberry32)
   const mulberry32 = (seed: number) => {
     return () => {
-      let t = seed += 0x6D2B79F5;
-      t = Math.imul(t ^ t >>> 15, t | 1);
-      t ^= t + Math.imul(t ^ t >>> 7, t | 61);
-      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+      let t = (seed += 0x6d2b79f5);
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
     };
   };
 
   useEffect(() => {
     const seedString = `${slug}-${locale}`;
     generateSha256Hex(seedString)
-      .then(hashHex => {
+      .then((hashHex) => {
         // Use the first 8 hex characters (32 bits) as a numeric seed
         // Provide a fallback of 0 if parsing fails or results in NaN
         const numericSeed = parseInt(hashHex.substring(0, 8), 16) || 0;
         setSha256Seed(numericSeed);
       })
-      .catch(error => {
-        console.warn("SHA-256 hashing failed, falling back to simple character code sum seed:", error);
+      .catch((error) => {
+        console.warn(
+          "SHA-256 hashing failed, falling back to simple character code sum seed:",
+          error,
+        );
         // Fallback to a simple hash if SHA-256 fails
         let fallbackSeed = 0;
         for (let i = 0; i < seedString.length; i++) {
@@ -77,7 +86,9 @@ export default function ClientComponent({
       return { article, randomOtherArticles: [] };
     }
 
-    const otherArticles = articles.filter((a) => a.slug !== slug && a.lang === locale);
+    const otherArticles = articles.filter(
+      (a) => a.slug !== slug && a.lang === locale,
+    );
 
     const pseudoRandom = mulberry32(sha256Seed);
 
@@ -85,7 +96,10 @@ export default function ClientComponent({
     // Fisher-Yates shuffle using the pseudo-random generator
     for (let i = shuffledOtherArticles.length - 1; i > 0; i--) {
       const j = Math.floor(pseudoRandom() * (i + 1));
-      [shuffledOtherArticles[i], shuffledOtherArticles[j]] = [shuffledOtherArticles[j], shuffledOtherArticles[i]];
+      [shuffledOtherArticles[i], shuffledOtherArticles[j]] = [
+        shuffledOtherArticles[j],
+        shuffledOtherArticles[i],
+      ];
     }
     const randomOtherArticles = shuffledOtherArticles.slice(0, max_show_others);
     return { article, randomOtherArticles };
@@ -163,7 +177,9 @@ export default function ClientComponent({
       </article>
       <section className="other-articles relative md:sticky">
         <h2>{t("pages.article.content.words.others")}</h2>
-        <ul>{randomOtherArticles.map((other) => generateArticleButton(other))}</ul>
+        <ul>
+          {randomOtherArticles.map((other) => generateArticleButton(other))}
+        </ul>
       </section>
     </div>
   );

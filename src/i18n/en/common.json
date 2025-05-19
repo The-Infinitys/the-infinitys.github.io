@@ -32,14 +32,14 @@
         "words": {
           "index": "Table of Contents",
           "others": "Other Articles",
-          "shareX":"Share on X/Twitter"
+          "shareX": "Share on X/Twitter"
         }
       }
     },
     "music": {
-      "description":{
-        "msg1":"Here, you can listen to various music that I have produced!",
-        "msg2":"Enjoy a wide variety of music!"
+      "description": {
+        "msg1": "Here, you can listen to various music that I have produced!",
+        "msg2": "Enjoy a wide variety of music!"
       },
       "title": "Music",
       "player": {

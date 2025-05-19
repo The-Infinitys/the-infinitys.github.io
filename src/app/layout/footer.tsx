@@ -12,14 +12,14 @@ export default function Footer() {
     {
       href: "https://github.com/The-Infinitys/",
       target: "blank",
-      text: "GitHub"
+      text: "GitHub",
     },
     {
       href: "https://x.com/The_Infinity_s/",
       target: "blank",
-      text: "X (Twitter)"
-    }
-  ]
+      text: "X (Twitter)",
+    },
+  ];
   return (
     <footer className="p-4 text-center bg-[var(--primary)]">
       <p className="text-sm text-[var(--foreground)]">

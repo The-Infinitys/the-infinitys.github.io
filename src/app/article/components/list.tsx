@@ -20,9 +20,7 @@ export default function ArticleList({ articles }: ArticleListProps) {
   // 検索とフィルタリング
   const filteredArticles = articles
     .filter((a) => a.lang === locale)
-    .filter((a) =>
-      a.title.toLowerCase().includes(searchQuery.toLowerCase())
-    )
+    .filter((a) => a.title.toLowerCase().includes(searchQuery.toLowerCase()))
     .filter((a) => {
       if (!startDate && !endDate) return true; // 日付範囲が指定されていない場合はすべて通す
       const articleDate = new Date(a.date).toISOString().split("T")[0]; // 記事の日付をフォーマット
@@ -36,7 +34,7 @@ export default function ArticleList({ articles }: ArticleListProps) {
   const startIndex = (currentPage - 1) * articlesPerPage;
   const currentArticles = filteredArticles.slice(
     startIndex,
-    startIndex + articlesPerPage
+    startIndex + articlesPerPage,
   );
 
   // ページ変更ハンドラー
@@ -82,7 +80,7 @@ export default function ArticleList({ articles }: ArticleListProps) {
       </section>
       <section className="articles">
         {currentArticles.map(
-          (article: Article): ReactNode => generateArticleButton(article)
+          (article: Article): ReactNode => generateArticleButton(article),
         )}
       </section>
       <section className="pager">

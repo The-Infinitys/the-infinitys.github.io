@@ -12,13 +12,12 @@ export type Article = {
   lang: string; // lang を追加
 };
 
-export function generateArticleButton(article: Article): ReactNode{
-
+export function generateArticleButton(article: Article): ReactNode {
   // スラッグから年、月、記事IDを抽出
   const [year, month, aid] = article.slug.split("/");
   return (
     <Link
-      key={article.slug+article.lang}
+      key={article.slug + article.lang}
       href={`/${year}/${month}/${aid}`}
       className="article-link"
     >

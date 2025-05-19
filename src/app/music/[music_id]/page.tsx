@@ -11,7 +11,7 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ music_id: string; }>;
+  params: Promise<{ music_id: string }>;
 }): Promise<Metadata> {
   const resolvedParams = await params;
   const musicList = getMusicList();
@@ -27,7 +27,9 @@ export async function generateMetadata({
   const description = "Music: ${title}";
   const og_image_url = `${slug}/${music.jacketUrl?.split("/").slice(-1)[0]}`;
   const metadata: Metadata = {
-    metadataBase: new URL(process.env.BASE_URL || "https://the-infinitys.f5.si"),
+    metadataBase: new URL(
+      process.env.BASE_URL || "https://the-infinitys.f5.si",
+    ),
     title: fullTitle, // ページのタイトルを設定
     description: description, // ページのディスクリプションを設定
     alternates: {
@@ -38,10 +40,10 @@ export async function generateMetadata({
       title: fullTitle,
       description: description,
       url: `/${slug}`, // 絶対URLが推奨
-      type: 'music.song', // コンテンツタイプを記事に設定
+      type: "music.song", // コンテンツタイプを記事に設定
       // 記事に画像がある場合は、imagesプロパティを追加
       images: [og_image_url || ""],
-    }
+    },
   };
   return metadata;
 }

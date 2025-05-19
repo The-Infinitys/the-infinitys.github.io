@@ -4,7 +4,14 @@ import { Music } from "../../music";
 import styles from "../page.module.css";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { PlayButton, StopButton, PreviousMusic, NextMusic, SkipToBack, SkipToForward } from "./images";
+import {
+  PlayButton,
+  StopButton,
+  PreviousMusic,
+  NextMusic,
+  SkipToBack,
+  SkipToForward,
+} from "./images";
 
 interface PlayerProps {
   music: Music;
@@ -17,7 +24,9 @@ export function Player({ music, musicList }: PlayerProps) {
   const [duration, setDuration] = useState(0);
   const [timePosition, setTimePosition] = useState(0);
   const [playbackRate, setPlaybackRate] = useState(1);
-  const [source, setSource] = useState<MediaElementAudioSourceNode | null>(null);
+  const [source, setSource] = useState<MediaElementAudioSourceNode | null>(
+    null,
+  );
   const [analyserNode, setAnalyserNode] = useState<AnalyserNode | null>(null);
   const [isCircular, setIsCircular] = useState(false);
 
@@ -66,9 +75,11 @@ export function Player({ music, musicList }: PlayerProps) {
     if (!audioRef.current) return;
 
     audioCtxRef.current = new AudioContext();
-    const elementSource = audioCtxRef.current.createMediaElementSource(audioRef.current);
+    const elementSource = audioCtxRef.current.createMediaElementSource(
+      audioRef.current,
+    );
     const analyser = audioCtxRef.current.createAnalyser();
-    analyser.fftSize = 2**8;
+    analyser.fftSize = 2 ** 8;
     elementSource.connect(analyser).connect(audioCtxRef.current.destination);
     setSource(elementSource);
     setAnalyserNode(analyser);
@@ -91,7 +102,13 @@ export function Player({ music, musicList }: PlayerProps) {
 
   // Render spectrum
   useEffect(() => {
-    if (!source || !analyserNode || playState !== "play" || !spectrumRef.current) return;
+    if (
+      !source ||
+      !analyserNode ||
+      playState !== "play" ||
+      !spectrumRef.current
+    )
+      return;
 
     const canvas = spectrumRef.current;
     const canvasCtx = canvas.getContext("2d");
@@ -127,7 +144,7 @@ export function Player({ music, musicList }: PlayerProps) {
         const displayLength = Math.min(64, bufferLength);
 
         for (let i = 0; i < displayLength; i++) {
-          const idx = Math.floor(i * bufferLength / displayLength);
+          const idx = Math.floor((i * bufferLength) / displayLength);
           const barHeight = (dataArray[idx] / 255) * maxBarLength;
           const angle = (i / displayLength) * 2 * Math.PI;
           const hue = (i / displayLength) * 360;
@@ -136,7 +153,12 @@ export function Player({ music, musicList }: PlayerProps) {
           canvasCtx.translate(centerX, centerY);
           canvasCtx.rotate(angle);
           canvasCtx.fillStyle = `hsla(${hue}, 100%, 50%, 0.8)`;
-          canvasCtx.fillRect(innerRadius, -barWidthCirc / 2, barHeight, barWidthCirc);
+          canvasCtx.fillRect(
+            innerRadius,
+            -barWidthCirc / 2,
+            barHeight,
+            barWidthCirc,
+          );
           canvasCtx.restore();
         }
       } else {
@@ -145,12 +167,22 @@ export function Player({ music, musicList }: PlayerProps) {
         for (let i = 0; i < bufferLength; i++) {
           const barHeight = (dataArray[i] / 255) * canvas.height;
           const hue = (i / bufferLength) * 360;
-          const gradient = canvasCtx.createLinearGradient(0, canvas.height, 0, 0);
+          const gradient = canvasCtx.createLinearGradient(
+            0,
+            canvas.height,
+            0,
+            0,
+          );
           gradient.addColorStop(0, `hsla(${hue}, 100%, 50%, 0.8)`);
           gradient.addColorStop(1, `hsla(${hue}, 100%, 50%, 0.2)`);
 
           canvasCtx.fillStyle = gradient;
-          canvasCtx.fillRect(x, canvas.height - barHeight, barWidth - 1, barHeight);
+          canvasCtx.fillRect(
+            x,
+            canvas.height - barHeight,
+            barWidth - 1,
+            barHeight,
+          );
           x += barWidth;
         }
       }
@@ -203,12 +235,18 @@ export function Player({ music, musicList }: PlayerProps) {
 
   const handleSkipForward = () => {
     if (!audioRef.current) return;
-    audioRef.current.currentTime = Math.min(audioRef.current.currentTime + 10, duration);
+    audioRef.current.currentTime = Math.min(
+      audioRef.current.currentTime + 10,
+      duration,
+    );
   };
 
   const handleSkipBackward = () => {
     if (!audioRef.current) return;
-    audioRef.current.currentTime = Math.max(audioRef.current.currentTime - 5, 0);
+    audioRef.current.currentTime = Math.max(
+      audioRef.current.currentTime - 5,
+      0,
+    );
   };
 
   const handleNextTrack = () => {
@@ -410,8 +448,12 @@ export function Player({ music, musicList }: PlayerProps) {
                 </div>
               )}
               <div className={styles["music-list-info"]}>
-                <span className={styles["music-list-title"]}>{track.title}</span>
-                <span className={styles["music-list-artist"]}>{track.artist}</span>
+                <span className={styles["music-list-title"]}>
+                  {track.title}
+                </span>
+                <span className={styles["music-list-artist"]}>
+                  {track.artist}
+                </span>
               </div>
             </li>
           ))}

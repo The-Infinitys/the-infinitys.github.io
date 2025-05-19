@@ -13,14 +13,15 @@ export async function generateStaticParams() {
   });
 }
 
-
 export default async function Home({
   params,
 }: {
   params: Promise<{ article_year: string }>;
 }) {
   const resolvedParams = await params;
-  const article_year = parseInt(resolvedParams.article_year.replace("article-", "")).toString();
+  const article_year = parseInt(
+    resolvedParams.article_year.replace("article-", ""),
+  ).toString();
   return (
     <>
       <Explains year={article_year} />

@@ -45,13 +45,14 @@ export function getArticleIndexes() {
         return true;
       });
 
-      return articleIds.reverse()
+      return articleIds
+        .reverse()
         .map((articleId) => {
           const articleDir = path.join(monthPath, articleId);
           const articleFiles = fs
             .readdirSync(articleDir)
             .filter(
-              (file) => file.startsWith("article") && file.endsWith(".md")
+              (file) => file.startsWith("article") && file.endsWith(".md"),
             );
 
           if (articleFiles.length === 0) {
@@ -81,7 +82,7 @@ export function getArticleIndexes() {
           });
         })
         .filter(
-          (article): article is NonNullable<typeof article> => article !== null
+          (article): article is NonNullable<typeof article> => article !== null,
         )
         .flat(); // ネストされた配列を平坦化
     });
@@ -130,19 +131,18 @@ export async function toHTML(articles: Article[]) {
         ...article,
         content: processedContent.toString(),
       };
-    })
+    }),
   );
 
   return htmlArticles;
 }
 
-export function generateArticleButton(article: Article): ReactNode{
-
+export function generateArticleButton(article: Article): ReactNode {
   // スラッグから年、月、記事IDを抽出
   const [year, month, aid] = article.slug.split("/");
   return (
     <Link
-      key={article.slug+article.lang}
+      key={article.slug + article.lang}
       href={`/${year}/${month}/${aid}`}
       className="article-link"
     >

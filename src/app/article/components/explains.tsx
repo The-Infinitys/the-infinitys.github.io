@@ -11,5 +11,7 @@ export default function Explains() {
       <section className="description">
         <p>{t("pages.article.description.msg1")}</p>
         <p>{t("pages.article.description.msg2")}</p>
-      </section></>)
+      </section>
+    </>
+  );
 }

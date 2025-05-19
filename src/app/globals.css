@@ -7,7 +7,7 @@
   --link-color: #0000ff;
   --body-color-value: 0deg;
   --secondary: color-mix(in srgb, var(--foreground), var(--background) 50%);
-    /* ライトテーマ用のリンク色を追加 */
+  /* ライトテーマ用のリンク色を追加 */
 }
 
 * {
@@ -66,7 +66,6 @@ body {
   }
 }
 
-
 @property --body-color-value {
   syntax: "<angle>";
   inherits: true;
@@ -75,11 +74,14 @@ body {
 
 body {
   color: var(--foreground);
-  background:
-    radial-gradient(color-mix(in srgb,
-        hsl(var(--body-color-value) 100% 50%),
-        var(--background) 80%),
-      var(--background));
+  background: radial-gradient(
+    color-mix(
+      in srgb,
+      hsl(var(--body-color-value) 100% 50%),
+      var(--background) 80%
+    ),
+    var(--background)
+  );
   min-height: 100vh;
   animation: body-background-animation 20s infinite;
 }
@@ -117,7 +119,7 @@ main {
   /* layout.tsx で body が flex コンテナでないため、これは効かない。必要なら body に display: flex; flex-direction: column; を追加 */
 }
 
-main>section.title>h1 {
+main > section.title > h1 {
   text-align: center;
   font-family: "Chakra Petch", "noto-sans", sans-serif;
   font-size: min(64px, 8vw);
@@ -182,7 +184,10 @@ a {
   /* 初期状態は非表示 */
   visibility: hidden;
   /* 初期状態は非表示 */
-  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease,
+    transform 0.3s ease;
 }
 
 .back-to-top.visible {
@@ -212,7 +217,9 @@ a {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 .language-button.active {

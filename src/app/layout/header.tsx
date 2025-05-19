@@ -1,7 +1,7 @@
 "use client"; // Add this directive for useState
 
 import { Chakra_Petch } from "next/font/google";
-import {Link} from "@/i18n/routing";
+import { Link } from "@/i18n/routing";
 import Image from "next/image"; // Import Image component
 import React, { useState } from "react";
 const chakraPetch = Chakra_Petch({
@@ -27,7 +27,7 @@ const menus_list = [
     link: "/music",
     target: "_self",
     label: "Musics",
-  }
+  },
 ];
 
 export default function Header() {
