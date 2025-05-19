@@ -24,7 +24,7 @@ export async function generateMetadata({
   const title = music.title;
   const artist = music.artist;
   const fullTitle = `${title} | by ${artist}`; // 例: "Next.jsでメタデータを生成する | あなたのサイト名"
-  const description = "Music: ${title}";
+  const description = `Music: ${title}`;
   const og_image_url = `${slug}/${music.jacketUrl?.split("/").slice(-1)[0]}`;
   const metadata: Metadata = {
     metadataBase: new URL(
