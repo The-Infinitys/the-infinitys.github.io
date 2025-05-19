@@ -2,14 +2,15 @@
 import { ReactNode, useState } from "react";
 import { generateArticleButton, Article } from "../article-client";
 import { useTranslations } from "next-intl";
+import { useLocale } from "@/app/i18nProvider";
 
 interface ArticleListProps {
   articles: Article[];
 }
 
 export default function ArticleList({ articles }: ArticleListProps) {
-  const t = useTranslations();
-  const locale = t("info.lang");
+  const t = useTranslations("pages.article");
+  const locale = useLocale();
   const [searchQuery, setSearchQuery] = useState("");
   const [startDate, setStartDate] = useState(""); // 範囲指定の開始日
   const [endDate, setEndDate] = useState(""); // 範囲指定の終了日
@@ -51,16 +52,16 @@ export default function ArticleList({ articles }: ArticleListProps) {
       <section className="search">
         <input
           type="text"
-          placeholder={t("pages.article.words.search")}
+          placeholder={t("words.search")}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="search-input"
         />
         <details>
-          <summary>{t("pages.article.words.advancedSearch")}</summary>
+          <summary>{t("words.advancedSearch")}</summary>
           <div className="advanced-search">
             <label>
-              {t("pages.article.words.startDate")}
+              {t("words.startDate")}
               <input
                 type="date"
                 value={startDate}
@@ -69,7 +70,7 @@ export default function ArticleList({ articles }: ArticleListProps) {
               />
             </label>
             <label>
-              {t("pages.article.words.endDate")}
+              {t("words.endDate")}
               <input
                 type="date"
                 value={endDate}
@@ -91,7 +92,7 @@ export default function ArticleList({ articles }: ArticleListProps) {
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
           >
-            {t("pages.article.words.previous")}
+            {t("words.previous")}
           </button>
           <span>
             Page {currentPage} of {totalPages}
@@ -100,7 +101,7 @@ export default function ArticleList({ articles }: ArticleListProps) {
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
           >
-            {t("pages.article.words.next")}
+            {t("words.next")}
           </button>
         </div>
       </section>

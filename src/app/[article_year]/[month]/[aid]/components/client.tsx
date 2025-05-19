@@ -7,7 +7,7 @@ import { generateArticleButton } from "../../../../article/article-client";
 import { useTranslations } from "next-intl";
 import { notFound } from "next/navigation";
 import { AvailableLocales } from "@/i18n/request";
-
+import { useLocale } from "@/app/i18nProvider";
 interface ClientComponentProps {
   articles: Article[];
   slug: string;
@@ -33,8 +33,8 @@ export default function ClientComponent({
   processedContents,
 }: ClientComponentProps) {
   const tocRef = useRef<HTMLElement>(null);
-  const t = useTranslations();
-  const locale = t("info.lang");
+  const t = useTranslations("pages.article.content");
+  const locale = useLocale();
   const processedContent = processedContents.find((c) => c.lang === locale)?.content;
   const toc = tocs.find((t) => t.lang === locale)?.toc || [];
   const [sha256Seed, setSha256Seed] = useState<number | null>(null);
@@ -131,7 +131,7 @@ export default function ClientComponent({
   return (
     <div className="article-container">
       <aside className="toc relative md:sticky" ref={tocRef}>
-        <h2>{t("pages.article.content.words.index")}</h2>
+        <h2>{t("words.index")}</h2>
         <ul>
           {toc.map((item) => (
             <li key={item.id}>
@@ -162,7 +162,7 @@ export default function ClientComponent({
         <SNSShare />
       </article>
       <section className="other-articles relative md:sticky">
-        <h2>{t("pages.article.content.words.others")}</h2>
+        <h2>{t("words.others")}</h2>
         <ul>{randomOtherArticles.map((other) => generateArticleButton(other))}</ul>
       </section>
     </div>
