@@ -47,6 +47,7 @@
         "pause": "停止",
         "artist": "アーティスト",
         "duration": "時間",
+        "equalizer": "イコライザ",
         "browserNotSupported": "お使いのブラウザは音声再生に対応していません。"
       }
     }

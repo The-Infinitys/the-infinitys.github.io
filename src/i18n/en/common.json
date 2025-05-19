@@ -47,6 +47,7 @@
         "pause": "Pause",
         "artist": "Artist",
         "duration": "Duration",
+        "equalizer": "Equalizer",
         "browserNotSupported": "Your browser does not support audio playback."
       }
     }
