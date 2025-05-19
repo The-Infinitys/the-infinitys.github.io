@@ -1,6 +1,7 @@
 import { getMusicList, MusicCard } from "./music";
 import styles from "./page.module.css";
 import Explains from "./components/explains";
+import { Metadata } from "next";
 export default function MusicPage() {
   const musicList = getMusicList();
 
@@ -20,3 +21,8 @@ export default function MusicPage() {
     </>
   );
 }
+
+export const metadata: Metadata = {
+  title: "The Infinity's Musics",
+  description: "Listen for the Infinite possibilities!",
+};
