@@ -48,6 +48,7 @@
         "artist": "Artist",
         "duration": "Duration",
         "equalizer": "Equalizer",
+        "preset": "Preset",
         "browserNotSupported": "Your browser does not support audio playback."
       }
     }

@@ -18,18 +18,39 @@ interface PlayerProps {
   musicList: Music[];
 }
 
+// イコライザのプリセットを定義
+const equalizerPresets: { [key: string]: number[] } = {
+  Flat: [0, 0, 0, 0, 0],
+  Rock: [4, 2, 0, 2, 4],
+  Pop: [2, 4, 2, -2, -4],
+  BassBoost: [6, 4, 0, -2, -4],
+  TrebleBoost: [-4, -2, 0, 4, 6],
+  Jazz: [2, 0, 4, 2, 0],
+  Classical: [0, 2, 4, 0, -2],
+  Acoustic: [0, 4, 2, -2, -4],
+  Dance: [4, 2, 0, 4, 6],
+  HipHop: [2, 4, 0, -2, 0],
+  RnB: [0, 2, 4, 2, 0],
+  Country: [0, 0, 2, 4, 2],
+  Blues: [0, 2, 4, 0, -2],
+  Reggae: [2, 0, -2, 4, 6],
+  Electronic: [4, 2, 0, -2, 0],
+  Indie: [0, 4, 2, -2, -4],
+  Metal: [6, 4, 0, -2, -4],
+  Custom: [0, 0, 0, 0, 0], // Custom preset for manual adjustments
+};
+
 export function Player({ music, musicList }: PlayerProps) {
   const t = useTranslations("pages.music.player");
   const [playState, setPlayState] = useState<"stop" | "play">("stop");
   const [duration, setDuration] = useState(0);
   const [timePosition, setTimePosition] = useState(0);
   const [playbackRate, setPlaybackRate] = useState(1);
-  const [source, setSource] = useState<MediaElementAudioSourceNode | null>(
-    null
-  );
+  const [source, setSource] = useState<MediaElementAudioSourceNode | null>(null);
   const [analyserNode, setAnalyserNode] = useState<AnalyserNode | null>(null);
   const [isCircular, setIsCircular] = useState(false);
-  const [eqGains, setEqGains] = useState<number[]>([0, 0, 0, 0, 0]);
+  const [eqGains, setEqGains] = useState<number[]>(equalizerPresets.Flat); // 初期値はFlat
+  const [selectedPreset, setSelectedPreset] = useState<string>("Flat");
 
   const audioRef = useRef<HTMLAudioElement>(null);
   const audioCtxRef = useRef<AudioContext | null>(null);
@@ -125,6 +146,7 @@ export function Player({ music, musicList }: PlayerProps) {
         filter.disconnect();
       });
     };
+    //lint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -214,7 +236,7 @@ export function Player({ music, musicList }: PlayerProps) {
             0,
             0
           );
-          gradient.addColorStop(0, `hsla(${hue}, 100%, 50%, 0.8)`);
+          gradient.addColorStop(0, `hsla(${hue}, 100%, 50%, 0.4)`);
           gradient.addColorStop(1, `hsla(${hue}, 100%, 50%, 0.2)`);
 
           canvasCtx.fillStyle = gradient;
@@ -231,7 +253,6 @@ export function Player({ music, musicList }: PlayerProps) {
       animationFrameRef.current = requestAnimationFrame(renderFrame);
     };
 
-    // 初回描画を即座に開始
     renderFrame();
 
     return () => {
@@ -353,6 +374,13 @@ export function Player({ music, musicList }: PlayerProps) {
     const newGains = [...eqGains];
     newGains[index] = parseFloat(e.target.value);
     setEqGains(newGains);
+    setSelectedPreset("Custom"); // 手動で変更したらプリセットをCustomに
+  };
+
+  const handlePresetChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const presetName = e.target.value;
+    setSelectedPreset(presetName);
+    setEqGains(equalizerPresets[presetName]);
   };
 
   return (
@@ -474,7 +502,24 @@ export function Player({ music, musicList }: PlayerProps) {
         <details>
           <summary>{t("equalizer")}</summary>
           <div className={styles["eq-controls"]}>
+            <div className={styles["eq-preset"]}>
+              <label htmlFor="eqPreset">{t("preset")}</label>
+              <select
+                id="eqPreset"
+                value={selectedPreset}
+                onChange={handlePresetChange}
+                className={styles["eq-preset-select"]}
+              >
+                {Object.keys(equalizerPresets).map((preset) => (
+                  <option key={preset} value={preset}>
+                    {preset}
+                  </option>
+                ))}
+                <option value="Custom">Custom</option>
+              </select>
+            </div>
             <div className={styles["eq-slider"]}>
+              <label>60 Hz</label>
               <input
                 type="range"
                 min="-12"
@@ -485,6 +530,7 @@ export function Player({ music, musicList }: PlayerProps) {
               />
             </div>
             <div className={styles["eq-slider"]}>
+              <label>250 Hz</label>
               <input
                 type="range"
                 min="-12"
@@ -495,6 +541,7 @@ export function Player({ music, musicList }: PlayerProps) {
               />
             </div>
             <div className={styles["eq-slider"]}>
+              <label>1 kHz</label>
               <input
                 type="range"
                 min="-12"
@@ -505,6 +552,7 @@ export function Player({ music, musicList }: PlayerProps) {
               />
             </div>
             <div className={styles["eq-slider"]}>
+              <label>4 kHz</label>
               <input
                 type="range"
                 min="-12"
@@ -515,6 +563,7 @@ export function Player({ music, musicList }: PlayerProps) {
               />
             </div>
             <div className={styles["eq-slider"]}>
+              <label>16 kHz</label>
               <input
                 type="range"
                 min="-12"
