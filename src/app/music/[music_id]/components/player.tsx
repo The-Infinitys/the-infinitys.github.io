@@ -36,8 +36,7 @@ const equalizerPresets: { [key: string]: number[] } = {
   Reggae: [2, 0, -2, 4, 6],
   Electronic: [4, 2, 0, -2, 0],
   Indie: [0, 4, 2, -2, -4],
-  Metal: [6, 4, 0, -2, -4],
-  Custom: [0, 0, 0, 0, 0], // Custom preset for manual adjustments
+  Metal: [6, 4, 0, -2, -4]
 };
 
 export function Player({ music, musicList }: PlayerProps) {
