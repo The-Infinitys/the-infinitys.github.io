@@ -36,7 +36,7 @@ const equalizerPresets: { [key: string]: number[] } = {
   Reggae: [2, 0, -2, 4, 6],
   Electronic: [4, 2, 0, -2, 0],
   Indie: [0, 4, 2, -2, -4],
-  Metal: [6, 4, 0, -2, -4]
+  Metal: [6, 4, 0, -2, -4],
 };
 
 export function Player({ music, musicList }: PlayerProps) {
@@ -45,7 +45,9 @@ export function Player({ music, musicList }: PlayerProps) {
   const [duration, setDuration] = useState(0);
   const [timePosition, setTimePosition] = useState(0);
   const [playbackRate, setPlaybackRate] = useState(1);
-  const [source, setSource] = useState<MediaElementAudioSourceNode | null>(null);
+  const [source, setSource] = useState<MediaElementAudioSourceNode | null>(
+    null,
+  );
   const [analyserNode, setAnalyserNode] = useState<AnalyserNode | null>(null);
   const [isCircular, setIsCircular] = useState(false);
   const [eqGains, setEqGains] = useState<number[]>(equalizerPresets.Flat); // 初期値はFlat
@@ -95,7 +97,7 @@ export function Player({ music, musicList }: PlayerProps) {
 
     audioCtxRef.current = new AudioContext();
     const elementSource = audioCtxRef.current.createMediaElementSource(
-      audioRef.current
+      audioRef.current,
     );
     const analyser = audioCtxRef.current.createAnalyser();
     analyser.fftSize = 2 ** 8;
@@ -219,7 +221,7 @@ export function Player({ music, musicList }: PlayerProps) {
             innerRadius,
             -barWidthCirc / 2,
             barHeight,
-            barWidthCirc
+            barWidthCirc,
           );
           canvasCtx.restore();
         }
@@ -233,7 +235,7 @@ export function Player({ music, musicList }: PlayerProps) {
             0,
             canvas.height,
             0,
-            0
+            0,
           );
           gradient.addColorStop(0, `hsla(${hue}, 100%, 50%, 0.4)`);
           gradient.addColorStop(1, `hsla(${hue}, 100%, 50%, 0.2)`);
@@ -243,7 +245,7 @@ export function Player({ music, musicList }: PlayerProps) {
             x,
             canvas.height - barHeight,
             barWidth - 1,
-            barHeight
+            barHeight,
           );
           x += barWidth;
         }
@@ -302,7 +304,7 @@ export function Player({ music, musicList }: PlayerProps) {
     if (!audioRef.current) return;
     audioRef.current.currentTime = Math.min(
       audioRef.current.currentTime + 10,
-      duration
+      duration,
     );
   };
 
@@ -310,7 +312,7 @@ export function Player({ music, musicList }: PlayerProps) {
     if (!audioRef.current) return;
     audioRef.current.currentTime = Math.max(
       audioRef.current.currentTime - 5,
-      0
+      0,
     );
   };
 
@@ -368,7 +370,7 @@ export function Player({ music, musicList }: PlayerProps) {
 
   const handleEqChange = (
     index: number,
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const newGains = [...eqGains];
     newGains[index] = parseFloat(e.target.value);
