@@ -1,6 +1,6 @@
 ---
-title: Microsoft Official Editor, "Edit"
-date: 2025-05-20
+title: Microsoft Official Editor, \"Edit\"
+date: "2025-05-20"
 description: "Super easy to use"
 ---
 

@@ -1,6 +1,6 @@
 --- 
-title: MicroSoft公式エディター、「Edit」
-date: 2025-05-20
+title: "MicroSoft公式エディター、「Edit」"
+date: "2025-05-20"
 description: "すごく使いやすい"
 ---
 
