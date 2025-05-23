@@ -3,7 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --primary: #eeeeee;
+  --primary:  color-mix(in srgb, var(--foreground), var(--background) 80%);
   --link-color: #0000ff;
   --body-color-value: 0deg;
   --secondary: color-mix(in srgb, var(--foreground), var(--background) 50%);
@@ -23,7 +23,6 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
-    --primary: #222222;
     --link-color: #00ffff;
   }
 }
@@ -92,7 +91,7 @@ header {
   position: sticky;
   top: 0;
   z-index: 10;
-  /* ボタン(z-30), メニュー(z-20) よりは下 */
+  min-height: 48px; /* 高さを大きく */
 }
 
 /*header 内のリンクスタイルは header.tsx の Tailwind クラスで制御するため、ここでは不要な場合が多い */
@@ -104,11 +103,6 @@ header a {
   padding: 1em;
   padding-left: 0;
   text-decoration: none;
-}
-
-header nav {
-  background-color: color-mix(in srgb, var(--primary), transparent 50%);
-  backdrop-filter: blur(4px);
 }
 
 main {

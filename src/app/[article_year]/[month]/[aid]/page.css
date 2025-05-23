@@ -277,25 +277,34 @@ html {
 }
 
 .other-articles {
+  position: relative;      /* かぶり防止 */
+  z-index: 1;              /* 他要素より下に */
   align-items: center;
   justify-content: center;
   margin-top: 40px;
-  top: 20px;
-  max-width: 250px;
-  margin-left: 0 auto;
-  margin-right: 0 auto;
+  margin-bottom: 40px;     /* 下にも余白を追加 */
+  top: auto;               /* top指定を解除 */
+  width: 100%;             /* 幅を100%に */
+  margin-left: 275px;
   background-color: transparent;
-  /* スクロール時に追従 */
+  padding: 16px 0;         /* 上下に余白 */
+  box-sizing: border-box;  /* パディングを含める */
 }
-
-.other-articles h2 {
+.other-articles>h2 {
   font-size: 1.5rem;
   margin-bottom: 16px;
+  color: var(--foreground);
+  text-overflow: wrap;
 }
 
 .other-articles ul {
   list-style: none;
   padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  width: 100%;
+  justify-items: center;
 }
 
 .other-articles li {
@@ -318,13 +327,15 @@ html {
   .toc {
     position: relative;
     /* stickyを無効化 */
+    max-width: none;
+    width: 100%;
     max-height: none;
     order: -1;
     box-sizing: border-box;
     margin-bottom: 4em;
     /* 記事の上部に配置 */
   }
-
+  
   .article-detail {
     position: relative;
     margin: 1rem;
@@ -332,19 +343,23 @@ html {
 
   .other-articles {
     position: relative;
-    /* stickyを無効化 */
+    z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     max-width: 90vw;
+    width: 100%;
     margin: 0 auto;
-    top: auto;
     margin-top: 20px;
-    /* 記事の下部に配置 */
+    margin-bottom: 20px;
+    top: auto;
+    background-color: transparent;
+    padding: 16px 0;
+    box-sizing: border-box;
   }
 
-  .other-articles .article-link {
+  .other-articles .article-link article {
     width: 90%;
     margin: 0 auto;
   }
@@ -362,6 +377,11 @@ html {
     /* 横スクロールを有効化 */
     font-size: 0.9rem;
     /* 必要に応じてフォントサイズを調整 */
+  }
+
+  .other-articles ul {
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
 }
 

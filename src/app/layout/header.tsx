@@ -44,7 +44,7 @@ export default function Header() {
 
   return (
     // Added padding, flex layout for alignment
-    <header className="p-4 flex justify-between items-center relative">
+    <header className="p-4 py-6 flex justify-between items-center relative">
       {/* Title */}
       <div
         style={{
@@ -55,11 +55,11 @@ export default function Header() {
       >
         {/* <Image src={TheInfiniteImage} alt="" width={30} height={30} /> */}
         <h1
-          className={`${chakraPetch.className} italic font-semibold text-3xl`} // Use Tailwind classes
+          className={`${chakraPetch.className} italic font-semibold text-4xl`} // text-4xlに変更
           style={{
             fontStyle: "italic",
             fontWeight: "600",
-            fontSize: "32px", // Use text-3xl or similar
+            fontSize: "40px", // 32px→40pxに
           }}
         >
           <Link
@@ -85,8 +85,8 @@ export default function Header() {
         <Image
           src={isMenuOpen ? "/layout/close.svg" : "/layout/open.svg"}
           alt={isMenuOpen ? "メニューを閉じる" : "メニューを開く"}
-          width={30} // Adjust size as needed
-          height={30} // Adjust size as needed
+          width={32} // Adjust size as needed
+          height={32} // Adjust size as needed
           priority // Load icons quickly
         />
       </button>
@@ -94,13 +94,24 @@ export default function Header() {
       {/* Navigation Menu */}
       <nav
         id="navigation-menu"
+        style={
+          isMenuOpen
+            ? {
+                backgroundColor:
+                  "color-mix(in srgb, var(--primary), transparent 50%)",
+                backdropFilter: "blur(4px)",
+              }
+            : {}
+        }
         className={`
           ${
-            isMenuOpen ? "opacity-100 max-h-screen" : "opacity-0 max-h-0"
+            isMenuOpen
+              ? "opacity-100 max-h-screen"
+              : "opacity-50 max-h-0 bg-[color-mix(in srgb, var(--primary),transparent 50%)]"
           } md:opacity-100 md:max-h-none
           transition-all duration-300 ease-in-out
+          bg-transparent
           fixed md:relative top-0 left-0 w-full h-full md:w-auto md:h-100%
-          md:bg-transparent
           z-20 overflow-hidden
           flex flex-col md:flex-row items-center justify-center md:justify-end
         `}
