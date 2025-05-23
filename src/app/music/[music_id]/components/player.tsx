@@ -147,7 +147,7 @@ export function Player({ music, musicList }: PlayerProps) {
         filter.disconnect();
       });
     };
-    //lint-disable-next-line
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
