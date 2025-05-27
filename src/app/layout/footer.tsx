@@ -11,12 +11,12 @@ export default function Footer() {
   const link_info: LinkInfo[] = [
     {
       href: "https://github.com/The-Infinitys/",
-      target: "blank",
+      target: "_blank",
       text: "GitHub",
     },
     {
       href: "https://x.com/The_Infinity_s/",
-      target: "blank",
+      target: "_blank",
       text: "X (Twitter)",
     },
   ];
@@ -31,7 +31,7 @@ export default function Footer() {
             <li key={index}>
               <a
                 href={link.href}
-                target={"_" + link.target}
+                target={link.target}
                 rel="noopener noreferrer"
                 className="text-[var(--link-color)] hover:underline"
               >

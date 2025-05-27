@@ -28,6 +28,12 @@ const menus_list = [
     target: "_self",
     label: "Musics",
   },
+  {
+    name: "Games",
+    link: "/games",
+    target: "_self",
+    label: "Games",
+  },
 ];
 
 export default function Header() {
@@ -47,27 +53,16 @@ export default function Header() {
     <header className="p-4 py-6 flex justify-between items-center relative">
       {/* Title */}
       <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-start",
-        }}
+        className="flex items-center justify-start"
       >
         {/* <Image src={TheInfiniteImage} alt="" width={30} height={30} /> */}
         <h1
           className={`${chakraPetch.className} italic font-semibold text-4xl`} // text-4xlに変更
-          style={{
-            fontStyle: "italic",
-            fontWeight: "600",
-            fontSize: "40px", // 32px→40pxに
-          }}
         >
           <Link
             href="/"
             onClick={handleLinkClick}
-            style={{
-              color: "var(--foreground)",
-            }}
+            className="text-[var(--foreground)]"
           >
             {"The Infinity's"}
             {/* Added Link here for consistency */}
@@ -129,11 +124,8 @@ export default function Header() {
                 href={menu.link}
                 onClick={handleLinkClick}
                 target={menu.target} // target属性を追加
-                className={`${chakraPetch.className} block py-2 md:py-0 hover:text-[var(--foreground)]`}
+                className={`${chakraPetch.className} block py-2 md:py-0 hover:text-[var(--foreground)] italic`}
                 aria-label={menu.label}
-                style={{
-                  fontStyle: "italic",
-                }}
               >
                 {/* {menu.img && menu.img} */}
                 {menu.name}
