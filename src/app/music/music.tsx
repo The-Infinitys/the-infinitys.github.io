@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import styles from "./page.module.css";
 import Image from "next/image";
+import Link from "next/link";
 
 interface MusicJson {
   title?: string;
@@ -62,6 +63,7 @@ export function getMusicList(): Music[] {
       artist: jsonData.artist || "The Infinitys",
       url: `/music/${folder}/${musicFile}`,
       jacketUrl: jacketFile ? `/music/${folder}/${jacketFile}` : undefined,
+      // TODO: Replace hardcoded duration with actual music duration
       duration: 10000,
       date: jsonData.date,
     };
@@ -70,7 +72,7 @@ export function getMusicList(): Music[] {
 
 export function MusicCard({ music }: { music: Music }) {
   return (
-    <a href={`/music/${music.id}`} className={styles["music-card"]}>
+    <Link href={`/music/${music.id}`} className={styles["music-card"]}>
       {music.jacketUrl && (
         <Image
           src={music.jacketUrl}
@@ -84,6 +86,6 @@ export function MusicCard({ music }: { music: Music }) {
         <h2>{music.title}</h2>
         <p>{music.artist}</p>
       </div>
-    </a>
+    </Link>
   );
 }

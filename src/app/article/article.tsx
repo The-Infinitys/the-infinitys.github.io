@@ -16,70 +16,99 @@ import { PlaceholderValue } from "next/dist/shared/lib/get-img-props";
 
 const postsDirectory = path.join(process.cwd(), "public");
 
-// SVGファイルをBase64に変換してLoadingImageに代入
+// SVGファイルを読み込み、Next/Imageのプレースホルダーとして使用するためのData URLを生成します。
+// Next.jsの標準的なSVGインポート方法（例: `import loadingIcon from './next-loading.svg'`）では、
+// 通常、Reactコンポーネントまたはファイルパスが返され、直接`placeholder`プロパティ（Data URLを期待）には使用できません。
+// `@svgr/webpack`のようなローダーをカスタマイズすれば可能かもしれませんが、
+// `fs.readFileSync`を使用することで、追加の設定なしにSVGのコンテンツを直接取得し、
+// Data URLを確実に構築できます。
 const svgFilePath = path.join(process.cwd(), "public", "next-loading.svg");
 const LoadingImage =
   "data:image/svg+xml," + fs.readFileSync(svgFilePath, "utf-8").toString();
 
-export function getArticleIndexes() {
-  const years = fs.readdirSync(postsDirectory).filter((year) => {
-    const yearPath = path.join(postsDirectory, year);
-    if (!fs.statSync(yearPath).isDirectory()) return false; // ファイルの場合はスキップ
-    return true;
+function getYearDirectories(basePath: string): string[] {
+  return fs
+    .readdirSync(basePath)
+    .filter((year) => {
+      const yearPath = path.join(basePath, year);
+      // Ensure it's a directory and starts with "article-"
+      return fs.statSync(yearPath).isDirectory() && year.startsWith("article-");
+    })
+    .reverse(); // Process in reverse chronological order (e.g., 2025 before 2024)
+}
+
+function getMonthDirectories(yearPath: string): string[] {
+  return fs
+    .readdirSync(yearPath)
+    .filter((month) => {
+      const monthPath = path.join(yearPath, month);
+      return fs.statSync(monthPath).isDirectory();
+    })
+    .reverse(); // Process in reverse chronological order
+}
+
+function getArticleIdDirectories(monthPath: string): string[] {
+  return fs
+    .readdirSync(monthPath)
+    .filter((articleId) => {
+      const articlePath = path.join(monthPath, articleId);
+      return fs.statSync(articlePath).isDirectory();
+    })
+    .reverse(); // Process in reverse chronological order
+}
+
+function processArticleDirectory(
+  articleDir: string,
+  year: string,
+  month: string,
+  articleId: string,
+): Article[] | null {
+  const articleFiles = fs
+    .readdirSync(articleDir)
+    .filter((file) => file.startsWith("article") && file.endsWith(".md"));
+
+  if (articleFiles.length === 0) {
+    return null; // article*.md が存在しない場合はスキップ
+  }
+
+  const thumbnailPath = findThumbnailFile(articleDir);
+
+  return articleFiles.map((articleFile) => {
+    const articlePath = path.join(articleDir, articleFile);
+    const fileContents = fs.readFileSync(articlePath, "utf-8");
+    const { data } = matter(fileContents);
+
+    // 言語を判定 (デフォルトは "ja")
+    const langMatch = articleFile.match(/article(?:-(\w+))?\.md$/);
+    const lang = langMatch && langMatch[1] ? langMatch[1] : "ja";
+
+    return {
+      slug: `${year}/${month}/${articleId}`,
+      title: data.title || "Untitled",
+      date: data.date || "Unknown date",
+      thumbnail: thumbnailPath,
+      articlePath,
+      description: data.description || "No description available",
+      lang,
+    };
   });
+}
 
-  const articles = years.reverse().flatMap((year) => {
+export function getArticleIndexes() {
+  const years = getYearDirectories(postsDirectory);
+
+  const articles = years.flatMap((year) => {
     const yearPath = path.join(postsDirectory, year);
-    const months = fs.readdirSync(yearPath).filter((month) => {
-      const monthPath = path.join(yearPath, month);
-      if (!fs.statSync(monthPath).isDirectory()) return false; // ファイルの場合はスキップ
-      if (year.startsWith("article-")) return true; // article-で始まらない場合はスキップ
-      return false;
-    });
+    const months = getMonthDirectories(yearPath);
 
-    return months.reverse().flatMap((month) => {
+    return months.flatMap((month) => {
       const monthPath = path.join(yearPath, month);
-      const articleIds = fs.readdirSync(monthPath).filter((articleId) => {
-        const articlePath = path.join(monthPath, articleId);
-        if (!fs.statSync(articlePath).isDirectory()) return false; // ファイルの場合はスキップ
-        return true;
-      });
+      const articleIds = getArticleIdDirectories(monthPath);
 
       return articleIds
-        .reverse()
         .map((articleId) => {
           const articleDir = path.join(monthPath, articleId);
-          const articleFiles = fs
-            .readdirSync(articleDir)
-            .filter(
-              (file) => file.startsWith("article") && file.endsWith(".md"),
-            );
-
-          if (articleFiles.length === 0) {
-            return null; // article*.md が存在しない場合はスキップ
-          }
-
-          const thumbnailPath = findThumbnailFile(articleDir);
-
-          return articleFiles.map((articleFile) => {
-            const articlePath = path.join(articleDir, articleFile);
-            const fileContents = fs.readFileSync(articlePath, "utf-8");
-            const { data } = matter(fileContents);
-
-            // 言語を判定 (デフォルトは "ja")
-            const langMatch = articleFile.match(/article(?:-(\w+))?\.md$/);
-            const lang = langMatch && langMatch[1] ? langMatch[1] : "ja";
-
-            return {
-              slug: `${year}/${month}/${articleId}`,
-              title: data.title || "Untitled",
-              date: data.date || "Unknown date",
-              thumbnail: thumbnailPath,
-              articlePath,
-              description: data.description || "No description available",
-              lang,
-            };
-          });
+          return processArticleDirectory(articleDir, year, month, articleId);
         })
         .filter(
           (article): article is NonNullable<typeof article> => article !== null,
