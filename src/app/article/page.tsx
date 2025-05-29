@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: "Much! A lot of! Ideas!",
 };
 
-export default function Home() {
+export default function Article() {
   return (
     <>
       <Explains />

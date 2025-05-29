@@ -55,7 +55,6 @@ export default function Header() {
       <div
         className="flex items-center justify-start"
       >
-        {/* <Image src={TheInfiniteImage} alt="" width={30} height={30} /> */}
         <h1
           className={`${chakraPetch.className} italic font-semibold text-4xl`} // text-4xlに変更
         >
@@ -127,7 +126,6 @@ export default function Header() {
                 className={`${chakraPetch.className} block py-2 md:py-0 hover:text-[var(--foreground)] italic`}
                 aria-label={menu.label}
               >
-                {/* {menu.img && menu.img} */}
                 {menu.name}
               </Link>
             </li>
