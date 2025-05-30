@@ -19,7 +19,7 @@
     "install": "^0.13.0",
     "lighthouse": "^12.6.0",
     "negotiator": "^1.0.0",
-    "next": "15.3.2",
+    "next": "15.3.3",
     "next-intl": "^4.1.0",
     "next-sitemap": "^4.2.3",
     "npm": "^11.4.1",
