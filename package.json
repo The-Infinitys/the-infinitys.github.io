@@ -19,7 +19,7 @@
     "install": "^0.13.0",
     "lighthouse": "^12.6.0",
     "negotiator": "^1.0.0",
-    "next": "15.3.2",
+    "next": "15.3.3",
     "next-intl": "^4.1.0",
     "next-sitemap": "^4.2.3",
     "npm": "^11.4.1",
@@ -44,13 +44,13 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@next/bundle-analyzer": "^15.4.0-canary.51",
+    "@next/bundle-analyzer": "^15.4.0-canary.57",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "15.3.2",
+    "eslint-config-next": "15.3.3",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
