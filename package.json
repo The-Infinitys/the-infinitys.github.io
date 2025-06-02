@@ -24,7 +24,7 @@
     "next-sitemap": "^4.2.3",
     "npm": "^11.4.1",
     "prettier": "^3.5.3",
-    "puppeteer": "^24.9.0",
+    "puppeteer": "^24.10.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-i18next": "^15.5.2",
