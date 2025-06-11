@@ -11,7 +11,7 @@
     "format": "prettier --write src"
   },
   "dependencies": {
-    "framer-motion": "^12.16.0",
+    "framer-motion": "^12.17.0",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.11.1",
     "i18next": "^25.2.1",
