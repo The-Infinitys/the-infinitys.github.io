@@ -15,7 +15,7 @@
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.11.1",
     "i18next": "^25.2.1",
-    "i18next-browser-languagedetector": "^8.1.0",
+    "i18next-browser-languagedetector": "^8.2.0",
     "i18next-http-backend": "^3.0.2",
     "install": "^0.13.0",
     "lighthouse": "^12.6.1",
