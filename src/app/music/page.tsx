@@ -4,7 +4,6 @@ import Explains from "./components/explains";
 import { Metadata } from "next";
 export default function MusicPage() {
   const musicList = getMusicList();
-
   return (
     <>
       <section className="title">

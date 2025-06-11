@@ -1,11 +1,12 @@
 import "./globals.css";
 import Header from "./layout/header";
 import Footer from "./layout/footer";
+import { Suspense } from "react";
 import BackToTopButton from "./layout/back2top";
 import I18nProvider from "./i18nProvider";
 import { Geist, Geist_Mono } from "next/font/google";
 import type { Metadata } from "next";
-
+import Loading from "./loading";
 export const metadata: Metadata = {
   title: "The Infinity's",
   description: "Believe in The Infinite Possibilities!",
@@ -31,9 +32,11 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <I18nProvider>
-          <Header />
-          <main style={{ minHeight: "100vh" }}>{children}</main>
-          <Footer />
+          <Suspense fallback={<Loading />}>
+            <Header />
+            {children}
+            <Footer />
+          </Suspense>
         </I18nProvider>
         <BackToTopButton />
       </body>

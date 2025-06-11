@@ -46,7 +46,7 @@ export function Player({ music, musicList }: PlayerProps) {
   const [timePosition, setTimePosition] = useState(0);
   const [playbackRate, setPlaybackRate] = useState(1);
   const [source, setSource] = useState<MediaElementAudioSourceNode | null>(
-    null,
+    null
   );
   const [analyserNode, setAnalyserNode] = useState<AnalyserNode | null>(null);
   const [isCircular, setIsCircular] = useState(false);
@@ -94,10 +94,9 @@ export function Player({ music, musicList }: PlayerProps) {
 
   useEffect(() => {
     if (!audioRef.current) return;
-
     audioCtxRef.current = new AudioContext();
     const elementSource = audioCtxRef.current.createMediaElementSource(
-      audioRef.current,
+      audioRef.current
     );
     const analyser = audioCtxRef.current.createAnalyser();
     analyser.fftSize = 2 ** 8;
@@ -221,7 +220,7 @@ export function Player({ music, musicList }: PlayerProps) {
             innerRadius,
             -barWidthCirc / 2,
             barHeight,
-            barWidthCirc,
+            barWidthCirc
           );
           canvasCtx.restore();
         }
@@ -235,7 +234,7 @@ export function Player({ music, musicList }: PlayerProps) {
             0,
             canvas.height,
             0,
-            0,
+            0
           );
           gradient.addColorStop(0, `hsla(${hue}, 100%, 50%, 0.4)`);
           gradient.addColorStop(1, `hsla(${hue}, 100%, 50%, 0.2)`);
@@ -245,7 +244,7 @@ export function Player({ music, musicList }: PlayerProps) {
             x,
             canvas.height - barHeight,
             barWidth - 1,
-            barHeight,
+            barHeight
           );
           x += barWidth;
         }
@@ -304,7 +303,7 @@ export function Player({ music, musicList }: PlayerProps) {
     if (!audioRef.current) return;
     audioRef.current.currentTime = Math.min(
       audioRef.current.currentTime + 10,
-      duration,
+      duration
     );
   };
 
@@ -312,7 +311,7 @@ export function Player({ music, musicList }: PlayerProps) {
     if (!audioRef.current) return;
     audioRef.current.currentTime = Math.max(
       audioRef.current.currentTime - 5,
-      0,
+      0
     );
   };
 
@@ -370,7 +369,7 @@ export function Player({ music, musicList }: PlayerProps) {
 
   const handleEqChange = (
     index: number,
-    e: React.ChangeEvent<HTMLInputElement>,
+    e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const newGains = [...eqGains];
     newGains[index] = parseFloat(e.target.value);
