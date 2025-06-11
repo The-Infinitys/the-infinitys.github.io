@@ -2,7 +2,6 @@ import fs from "fs";
 import path from "path";
 import styles from "./page.module.css";
 import Image from "next/image";
-import Link from "next/link";
 
 interface MusicJson {
   title?: string;
@@ -35,10 +34,10 @@ export function getMusicList(): Music[] {
     // 音楽ファイルとジャケット画像を探す
     const musicFile = files.find(
       (file) =>
-        file.endsWith(".mp3") || file.endsWith(".m4a") || file.endsWith(".wav"),
+        file.endsWith(".mp3") || file.endsWith(".m4a") || file.endsWith(".wav")
     );
     const jacketFile = files.find(
-      (file) => file.startsWith("jacket.") || file.startsWith("cover."),
+      (file) => file.startsWith("jacket.") || file.startsWith("cover.")
     );
 
     // music.jsonを読み込む
@@ -63,8 +62,7 @@ export function getMusicList(): Music[] {
       artist: jsonData.artist || "The Infinitys",
       url: `/music/${folder}/${musicFile}`,
       jacketUrl: jacketFile ? `/music/${folder}/${jacketFile}` : undefined,
-      // TODO: Replace hardcoded duration with actual music duration
-      duration: 10000,
+      duration: 10000, // init with 10000
       date: jsonData.date,
     };
   });
@@ -72,7 +70,10 @@ export function getMusicList(): Music[] {
 
 export function MusicCard({ music }: { music: Music }) {
   return (
-    <Link href={`/music/${music.id}`} className={styles["music-card"]}>
+    <a
+      href={`/music/${music.id}`}
+      className={styles["music-card"]}
+    >
       {music.jacketUrl && (
         <Image
           src={music.jacketUrl}
@@ -86,6 +87,6 @@ export function MusicCard({ music }: { music: Music }) {
         <h2>{music.title}</h2>
         <p>{music.artist}</p>
       </div>
-    </Link>
+    </a>
   );
 }
