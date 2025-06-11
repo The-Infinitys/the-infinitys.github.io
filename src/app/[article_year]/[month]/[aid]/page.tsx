@@ -3,6 +3,8 @@ import { getArticleIndexes } from "@/app/article/article";
 import { toHTML } from "@/app/article/article";
 import "./page.css";
 import { Metadata } from "next";
+import Loading from "@/app/loading";
+import { Suspense } from "react";
 export async function generateStaticParams() {
   const indexes = getArticleIndexes();
 
@@ -46,7 +48,7 @@ export async function generateMetadata({
   const og_image_url = `${slug}/${article?.thumbnail?.split("/").slice(-1)[0]}`;
   const metadata: Metadata = {
     metadataBase: new URL(
-      process.env.BASE_URL || "https://the-infinitys.f5.si",
+      process.env.BASE_URL || "https://the-infinitys.f5.si"
     ),
     title: fullTitle, // ページのタイトルを設定
     description: description, // ページのディスクリプションを設定
@@ -72,5 +74,9 @@ export default function ArticlePage({
 }: {
   params: Promise<{ article_year: string; month: string; aid: string }>;
 }) {
-  return <ArticleServer params={params} />;
+  return (
+    <Suspense fallback={<Loading />}>
+      <ArticleServer params={params} />
+    </Suspense>
+  );
 }
