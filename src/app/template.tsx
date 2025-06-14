@@ -18,7 +18,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
         minHeight: "100vh",
       }}
       transition={{
-        type: "linear",
+        type: "keyframes",
         duration: 2,
       }}
     >

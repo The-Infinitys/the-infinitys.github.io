@@ -11,11 +11,11 @@
     "format": "prettier --write src"
   },
   "dependencies": {
-    "framer-motion": "^12.16.0",
+    "framer-motion": "^12.18.1",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.11.1",
     "i18next": "^25.2.1",
-    "i18next-browser-languagedetector": "^8.1.0",
+    "i18next-browser-languagedetector": "^8.2.0",
     "i18next-http-backend": "^3.0.2",
     "install": "^0.13.0",
     "lighthouse": "^12.6.1",
@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@next/bundle-analyzer": "^15.4.0-canary.65",
+    "@next/bundle-analyzer": "^15.4.0-canary.81",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^24",
     "@types/react": "^19",
