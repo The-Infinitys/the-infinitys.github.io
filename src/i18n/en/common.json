@@ -6,19 +6,19 @@
     "home": {
       "title": "The Infinity's",
       "description": {
-        "msg1": "Hello! I am The-Infinitys.",
-        "msg2": "I am passionate about programming and work on various projects on GitHub.",
-        "msg3": "On my personal website, I publish my work and ideas, allowing visitors to peek into my world.",
-        "msg4": "Also, on X (formerly Twitter), I share technical topics and daily events.",
-        "msg5": "If you are interested in my activities, please check them out!",
+        "msg1": "Hello! I'm The-Infinitys.",
+        "msg2": "I'm passionate about programming and work on various projects on GitHub.",
+        "msg3": "On my personal website, I publish my work and ideas, allowing visitors to glimpse into my world.",
+        "msg4": "I also share technical topics and daily happenings on X (formerly Twitter).",
+        "msg5": "If you're interested in my activities, please check them out!",
         "msg6": "And please follow me on X (formerly Twitter) and GitHub!"
       }
     },
     "article": {
       "title": "Articles",
       "description": {
-        "msg1": "Here, you can find various articles (or rather, blog posts) that I have written!",
-        "msg2": "I write about a lot of things, so please take a look!"
+        "msg1": "Here you can find various articles (or rather, blog posts) I've written!",
+        "msg2": "I've written a lot, so please take a look!"
       },
       "words": {
         "search": "Search",
@@ -36,9 +36,16 @@
         }
       }
     },
+    "game": {
+      "title": "Games",
+      "description": {
+        "msg1": "Here you can play games I've created!",
+        "msg2": "Feel free to play as much as you like!"
+      }
+    },
     "music": {
       "description": {
-        "msg1": "Here, you can listen to various music that I have produced!",
+        "msg1": "Here you can listen to various music I've produced!",
         "msg2": "Enjoy a wide variety of music!"
       },
       "title": "Music",
