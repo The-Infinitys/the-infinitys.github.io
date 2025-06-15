@@ -55,6 +55,7 @@
         "artist": "アーティスト",
         "duration": "時間",
         "equalizer": "イコライザ",
+        "volume": "音量",
         "preset": "プリセット",
         "browserNotSupported": "お使いのブラウザは音声再生に対応していません。"
       }
