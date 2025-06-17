@@ -23,7 +23,7 @@
     "next": "15.3.3",
     "next-intl": "^4.1.0",
     "next-sitemap": "^4.2.3",
-    "npm": "^11.4.1",
+    "npm": "^11.4.2",
     "prettier": "^3.5.3",
     "puppeteer": "^24.10.1",
     "react": "^19.1.0",
@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@next/bundle-analyzer": "^15.4.0-canary.83",
+    "@next/bundle-analyzer": "^15.4.0-canary.84",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^24",
     "@types/react": "^19",
