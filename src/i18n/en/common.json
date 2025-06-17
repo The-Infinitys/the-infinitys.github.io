@@ -55,6 +55,7 @@
         "artist": "Artist",
         "duration": "Duration",
         "equalizer": "Equalizer",
+        "volume":"Volume",
         "preset": "Preset",
         "browserNotSupported": "Your browser does not support audio playback."
       }

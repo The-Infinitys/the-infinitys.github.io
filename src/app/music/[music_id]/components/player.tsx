@@ -52,6 +52,7 @@ export function Player({ music, musicList }: PlayerProps) {
   const [isCircular, setIsCircular] = useState(false);
   const [eqGains, setEqGains] = useState<number[]>(equalizerPresets.Flat); // 初期値はFlat
   const [selectedPreset, setSelectedPreset] = useState<string>("Flat");
+  const [volume, setVolume] = useState(1); // 音量の初期値を1(最大)に設定
 
   const audioRef = useRef<HTMLAudioElement>(null);
   const audioCtxRef = useRef<AudioContext | null>(null);
@@ -383,6 +384,19 @@ export function Player({ music, musicList }: PlayerProps) {
     setEqGains(equalizerPresets[presetName]);
   };
 
+  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!audioRef.current) return;
+    const newVolume = parseFloat(e.target.value);
+    audioRef.current.volume = newVolume;
+    setVolume(newVolume);
+  };
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume;
+    }
+  }, [volume]);
+
   return (
     <div className={styles["music-player-container"]}>
       {music.jacketUrl && (
@@ -497,6 +511,19 @@ export function Player({ music, musicList }: PlayerProps) {
             className={styles["time-slider"]}
           />
           <span>{formatTime(duration)}</span>
+        </div>
+
+        <div className={styles["volume-control"]}>
+          <span>{t("volume")}</span>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value={volume}
+            onChange={handleVolumeChange}
+            className={styles["volume-slider"]}
+          />
         </div>
 
         <details>
