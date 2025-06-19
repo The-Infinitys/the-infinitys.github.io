@@ -9,9 +9,9 @@
         "msg1": "Hello! I'm The-Infinitys.",
         "msg2": "I'm passionate about programming and work on various projects on GitHub.",
         "msg3": "On my personal website, I publish my work and ideas, allowing visitors to glimpse into my world.",
-        "msg4": "I also share technical topics and daily happenings on X (formerly Twitter).",
+        "msg4": "I also share technical topics and daily happenings on Twitter (old X).",
         "msg5": "If you're interested in my activities, please check them out!",
-        "msg6": "And please follow me on X (formerly Twitter) and GitHub!"
+        "msg6": "And please follow me on Twitter (Old X) and GitHub!"
       }
     },
     "article": {
@@ -32,7 +32,7 @@
         "words": {
           "index": "Table of Contents",
           "others": "Other Articles",
-          "shareX": "Share on X/Twitter"
+          "shareX": "Share on Twitter(Old X)"
         }
       }
     },
