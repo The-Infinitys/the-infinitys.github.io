@@ -4703,14 +4703,14 @@ netmask@^2.0.2:
   resolved "https://registry.yarnpkg.com/netmask/-/netmask-2.0.2.tgz#8b01a07644065d536383835823bc52004ebac5e7"
   integrity sha512-dBpDMdxv9Irdq66304OLfEmQ9tbNRFnFTuZiLo+bD+r332bBmMJ8GBLXklIXXgxd3+v9+KUnZaUR5PJMa75Gsg==
 
-next-intl@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/next-intl/-/next-intl-4.1.0.tgz#91fc7adc4790f4ad0296b5a43a08f0197f24aded"
-  integrity sha512-JNJRjc7sdnfUxhZmGcvzDszZ60tQKrygV/VLsgzXhnJDxQPn1cN2rVpc53adA1SvBJwPK2O6Sc6b4gYSILjCzw==
+next-intl@^4.3.3:
+  version "4.3.3"
+  resolved "https://registry.yarnpkg.com/next-intl/-/next-intl-4.3.3.tgz#474abbd9e5d994c81d5d935e6f23489988b3a15e"
+  integrity sha512-KUyTgkp9Ud8yS2J4cs/MbjILFHjW6Ws9oAtxgL4a2Zyy4p5/xMUo69yV0psg4hGWn47dBQlbcDDj3HID3EyoDA==
   dependencies:
     "@formatjs/intl-localematcher" "^0.5.4"
     negotiator "^1.0.0"
-    use-intl "^4.1.0"
+    use-intl "^4.3.3"
 
 next-sitemap@^4.2.3:
   version "4.2.3"
@@ -6613,10 +6613,10 @@ uri-js@^4.2.2:
   dependencies:
     punycode "^2.1.0"
 
-use-intl@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/use-intl/-/use-intl-4.1.0.tgz#b22f776e255d9de66b8c3d56097d33025928cf59"
-  integrity sha512-mQvDYFvoGn+bm/PWvlQOtluKCknsQ5a9F1Cj0hMfBjMBVTwnOqLPd6srhjvVdEQEQFVyHM1PfyifKqKYb11M9Q==
+use-intl@^4.3.3:
+  version "4.3.3"
+  resolved "https://registry.yarnpkg.com/use-intl/-/use-intl-4.3.3.tgz#b4cdd208ae1716f8bc0850e35c32632f4555eb79"
+  integrity sha512-nyaEdN+NhnQW38uMPeB2z74T3+Uxslo9FtBToq3xbv1hxwXpjGfvZHu7BElJaaOaBDv5KQTRuHBbpliP8HZSTA==
   dependencies:
     "@formatjs/fast-memoize" "^2.2.0"
     "@schummar/icu-type-parser" "1.21.5"
