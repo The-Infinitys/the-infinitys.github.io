@@ -50,15 +50,13 @@ export default function MonochromeMergeClient() {
 
   const processImageData = (
     imageData: ImageData,
-    isLight: boolean
+    isLight: boolean,
   ): ImageData => {
     const { data, width, height } = imageData;
 
     const histogram = new Array(256).fill(0);
     for (let i = 0; i < data.length; i += 4) {
-      const grayscale = Math.round(
-        (data[i] + data[i + 1] + data[i + 2]) / 3
-      );
+      const grayscale = Math.round((data[i] + data[i + 1] + data[i + 2]) / 3);
       histogram[grayscale]++;
     }
 
@@ -121,7 +119,7 @@ export default function MonochromeMergeClient() {
       if (!lightCtx) return;
       const lightScale = Math.min(
         maxWidth / lightImg.width,
-        maxHeight / lightImg.height
+        maxHeight / lightImg.height,
       );
       const lightNewWidth = lightImg.width * lightScale;
       const lightNewHeight = lightImg.height * lightScale;
@@ -132,7 +130,7 @@ export default function MonochromeMergeClient() {
         lightX,
         lightY,
         lightNewWidth,
-        lightNewHeight
+        lightNewHeight,
       );
       const lightScaledData = lightCtx.getImageData(0, 0, maxWidth, maxHeight);
 
@@ -144,7 +142,7 @@ export default function MonochromeMergeClient() {
       if (!darkCtx) return;
       const darkScale = Math.min(
         maxWidth / darkImg.width,
-        maxHeight / darkImg.height
+        maxHeight / darkImg.height,
       );
       const darkNewWidth = darkImg.width * darkScale;
       const darkNewHeight = darkImg.height * darkScale;

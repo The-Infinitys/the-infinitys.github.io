@@ -11,7 +11,10 @@ export default function ArtToolPage() {
       <section className="tool-list-section">
         <h1>{t("title")}</h1>
         <div className="tool-categories">
-          <Link href="/tool/art/monochrome-merge" className="tool-category-card">
+          <Link
+            href="/tool/art/monochrome-merge"
+            className="tool-category-card"
+          >
             <div className="tool-category-info">
               <h2>{t("monochrome-merge.title")}</h2>
               <p>{t("monochrome-merge.description")}</p>
