@@ -8,7 +8,7 @@ section.articles {
   align-items: center;
 }
 
-.article-link{
+.article-link {
   background-color: color-mix(in srgb, transparent 50%, var(--primary));
   box-sizing: border-box;
   text-decoration: none;

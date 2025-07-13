@@ -1,0 +1,131 @@
+.image-input-flexbox {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+  display: flex;
+}
+.image-input {
+  width: 40%;
+  margin: 5%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.image-input.dark {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.image-input.light {
+  color: #000000;
+  background-color: #ffffff;
+}
+
+.image-input p {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  font-style: italic;
+  font-family: "Chakra Petch", sans-serif;
+  cursor: pointer;
+}
+
+.image-input.dark p {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.image-input.light p {
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.image-container {
+  flex-grow: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 0;
+}
+
+.image-container img,
+.image-container svg {
+  object-fit: contain;
+  max-width: 90%;
+  max-height: 90%;
+  width: auto;
+  height: auto;
+}
+
+.start-process-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: #333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  animation: rainbow-glow 2s linear infinite;
+}
+
+@keyframes rainbow-glow {
+  0% {
+    box-shadow:
+      0 0 5px #f00,
+      0 0 10px #ff0,
+      0 0 15px #0f0;
+  }
+  16% {
+    box-shadow:
+      0 0 5px #ff0,
+      0 0 10px #0f0,
+      0 0 15px #0ff;
+  }
+  33% {
+    box-shadow:
+      0 0 5px #0f0,
+      0 0 10px #0ff,
+      0 0 15px #00f;
+  }
+  50% {
+    box-shadow:
+      0 0 5px #0ff,
+      0 0 10px #00f,
+      0 0 15px #f0f;
+  }
+  67% {
+    box-shadow:
+      0 0 5px #00f,
+      0 0 10px #f0f,
+      0 0 15px #f00;
+  }
+  83% {
+    box-shadow:
+      0 0 5px #f0f,
+      0 0 10px #f00,
+      0 0 15px #ff0;
+  }
+  100% {
+    box-shadow:
+      0 0 5px #f00,
+      0 0 10px #ff0,
+      0 0 15px #0f0;
+  }
+}
+button.start-process {
+  font-size: 3rem;
+  font-weight: 600;
+  font-style: italic;
+  font-family: "Chakra Petch", sans-serif;
+}
+div.start {
+  flex-grow: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 0;
+  flex-direction: column;
+}

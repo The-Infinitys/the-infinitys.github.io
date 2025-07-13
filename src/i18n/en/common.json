@@ -55,9 +55,33 @@
         "artist": "Artist",
         "duration": "Duration",
         "equalizer": "Equalizer",
-        "volume":"Volume",
+        "volume": "Volume",
         "preset": "Preset",
         "browserNotSupported": "Your browser does not support audio playback."
+      }
+    },
+    "tool": {
+      "title": "Tools",
+      "description": {
+        "msg1": "Here you can find various tools I've created!",
+        "msg2": "Feel free to use them as much as you like!"
+      },
+      "toolCategories": "Tool Categories",
+      "art": {
+        "title": "Art Tools",
+        "description": "Tools for art and image manipulation.",
+        "monochrome-merge": {
+          "title": "Monochrome Merge",
+          "description": "Merge images into monochrome.",
+          "uploadTwoImages": "Please upload two images to merge.",
+          "uploadImage1": "Upload Image 1",
+          "uploadImage2": "Upload Image 2",
+          "mergeImages": "Merge Images",
+          "mergedImage": "Merged Image",
+          "downloadMergedImage": "Download Merged Image",
+          "mergeError": "Error merging images: ",
+          "noImage": "No Image Selected"
+        }
       }
     }
   }

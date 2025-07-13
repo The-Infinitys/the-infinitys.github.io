@@ -3,7 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --primary:  color-mix(in srgb, var(--foreground), var(--background) 80%);
+  --primary: color-mix(in srgb, var(--foreground), var(--background) 80%);
   --link-color: #0000ff;
   --body-color-value: 0deg;
   --secondary: color-mix(in srgb, var(--foreground), var(--background) 50%);
