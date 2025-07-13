@@ -107,17 +107,37 @@ export default function MonochromeMergeClient() {
         willReadFrequently: true,
       });
       if (!lightCtx) return;
-      lightCtx.drawImage(lightImg, 0, 0, maxWidth, maxHeight);
+      const lightScale = Math.min(
+        maxWidth / lightImg.width,
+        maxHeight / lightImg.height
+      );
+      const lightNewWidth = lightImg.width * lightScale;
+      const lightNewHeight = lightImg.height * lightScale;
+      const lightX = (maxWidth - lightNewWidth) / 2;
+      const lightY = (maxHeight - lightNewHeight) / 2;
+      lightCtx.drawImage(
+        lightImg,
+        lightX,
+        lightY,
+        lightNewWidth,
+        lightNewHeight
+      );
       const lightScaledData = lightCtx.getImageData(0, 0, maxWidth, maxHeight);
 
       const darkCanvas = document.createElement("canvas");
       darkCanvas.width = maxWidth;
       darkCanvas.height = maxHeight;
-      const darkCtx = darkCanvas.getContext("2d", {
-        willReadFrequently: true,
-      });
+      const darkCtx = darkCanvas.getContext("2d", { willReadFrequently: true });
       if (!darkCtx) return;
-      darkCtx.drawImage(darkImg, 0, 0, maxWidth, maxHeight);
+      const darkScale = Math.min(
+        maxWidth / darkImg.width,
+        maxHeight / darkImg.height
+      );
+      const darkNewWidth = darkImg.width * darkScale;
+      const darkNewHeight = darkImg.height * darkScale;
+      const darkX = (maxWidth - darkNewWidth) / 2;
+      const darkY = (maxHeight - darkNewHeight) / 2;
+      darkCtx.drawImage(darkImg, darkX, darkY, darkNewWidth, darkNewHeight);
       const darkScaledData = darkCtx.getImageData(0, 0, maxWidth, maxHeight);
 
       const processedLight = processImageData(lightScaledData, true);
