@@ -1,14 +1,9 @@
 import { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("pages.tool.art.monochrome-merge");
-
-  return {
-    title: t("title"),
-    description: t("description"),
-  };
-}
+export const metadata: Metadata = {
+  title: "Monochrome Merge",
+  description: "Merge a light and dark image into a single monochrome image.",
+};
 
 export default function MonochromeMergeLayout({
   children,

@@ -1,16 +1,12 @@
-"use client";
-import { useTranslations } from "next-intl";
-
 export default function Explains() {
-  const t = useTranslations("pages.tool"); // Assuming a 'pages.tool' translation key
   return (
     <>
       <section className="title">
-        <h1>{t("title")}</h1>
+        <h1>The Infinity's Tools</h1>
       </section>
       <section className="description">
-        <p>{t("description.msg1")}</p>
-        <p>{t("description.msg2")}</p>
+        <p>Useful tools for everyone!</p>
+        <p>More tools will be added in the future.</p>
       </section>
     </>
   );

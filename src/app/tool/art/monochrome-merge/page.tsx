@@ -1,15 +1,11 @@
-"use client";
-
-import { useTranslations } from "next-intl";
 import MonochromeMergeClient from "./client";
 
 export default function MonochromeMergePage() {
-  const t = useTranslations("pages.tool.art.monochrome-merge");
   return (
     <>
       <section className="title">
-        <h1>{t("title")}</h1>
-        <p>{t("description")}</p>
+        <h1>Monochrome Merge</h1>
+        <p>Merge a light and dark image into a single monochrome image.</p>
       </section>
       <section className="monochrome-merge-tool-section">
         <MonochromeMergeClient />
