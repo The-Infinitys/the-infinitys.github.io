@@ -61,17 +61,17 @@
       }
     },
     "tool": {
-      "title": "ツール",
+      "title": "Tool",
       "description": {
         "msg1": "ここでは、私が作った様々なツールを見ることができます！",
         "msg2": "自由に利用してください！"
       },
       "toolCategories": "ツールカテゴリ",
       "art": {
-        "title": "アートツール",
+        "title": "Art Tools",
         "description": "アートや画像操作のためのツールです。",
         "monochrome-merge": {
-          "title": "モノクロマージ",
+          "title": "Monochrome Merge",
           "description": "画像をモノクロに合成します。",
           "uploadTwoImages": "画像を2枚アップロードしてください。",
           "uploadImage1": "画像1をアップロード",

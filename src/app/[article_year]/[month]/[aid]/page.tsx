@@ -48,7 +48,7 @@ export async function generateMetadata({
   const og_image_url = `${slug}/${article?.thumbnail?.split("/").slice(-1)[0]}`;
   const metadata: Metadata = {
     metadataBase: new URL(
-      process.env.BASE_URL || "https://the-infinitys.f5.si"
+      process.env.BASE_URL || "https://the-infinitys.f5.si",
     ),
     title: fullTitle, // ページのタイトルを設定
     description: description, // ページのディスクリプションを設定

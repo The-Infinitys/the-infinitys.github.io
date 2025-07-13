@@ -10,7 +10,10 @@ const MonochromeMergeClient: React.FC = () => {
   const [mergedImage, setMergedImage] = useState<string | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>, setImage: React.Dispatch<React.SetStateAction<string | null>>) => {
+  const handleImageUpload = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    setImage: React.Dispatch<React.SetStateAction<string | null>>,
+  ) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
@@ -35,12 +38,18 @@ const MonochromeMergeClient: React.FC = () => {
     const data = imageData.data;
     for (let i = 0; i < data.length; i += 4) {
       // Calculate luminance (perceived brightness)
-      sumBrightness += (data[i] * 0.299 + data[i + 1] * 0.587 + data[i + 2] * 0.114);
+      sumBrightness +=
+        data[i] * 0.299 + data[i + 1] * 0.587 + data[i + 2] * 0.114;
     }
     return sumBrightness / (data.length / 4);
   };
 
-  const processImage = (img: HTMLImageElement, targetWidth: number, targetHeight: number, isDarkImage: boolean): ImageData => {
+  const processImage = (
+    img: HTMLImageElement,
+    targetWidth: number,
+    targetHeight: number,
+    isDarkImage: boolean,
+  ): ImageData => {
     const tempCanvas = document.createElement("canvas");
     const tempCtx = tempCanvas.getContext("2d");
     if (!tempCtx) throw new Error("Could not get canvas context");
@@ -79,7 +88,7 @@ const MonochromeMergeClient: React.FC = () => {
       const b = data[i + 2];
 
       // Convert to grayscale (luminance method)
-      const gray = (r * 0.299 + g * 0.587 + b * 0.114);
+      const gray = r * 0.299 + g * 0.587 + b * 0.114;
       data[i] = gray;
       data[i + 1] = gray;
       data[i + 2] = gray;
@@ -117,7 +126,12 @@ const MonochromeMergeClient: React.FC = () => {
       tempCanvas1.width = img1.width;
       tempCanvas1.height = img1.height;
       tempCtx1.drawImage(img1, 0, 0);
-      const initialImageData1 = tempCtx1.getImageData(0, 0, img1.width, img1.height);
+      const initialImageData1 = tempCtx1.getImageData(
+        0,
+        0,
+        img1.width,
+        img1.height,
+      );
 
       const tempCanvas2 = document.createElement("canvas");
       const tempCtx2 = tempCanvas2.getContext("2d");
@@ -125,7 +139,12 @@ const MonochromeMergeClient: React.FC = () => {
       tempCanvas2.width = img2.width;
       tempCanvas2.height = img2.height;
       tempCtx2.drawImage(img2, 0, 0);
-      const initialImageData2 = tempCtx2.getImageData(0, 0, img2.width, img2.height);
+      const initialImageData2 = tempCtx2.getImageData(
+        0,
+        0,
+        img2.width,
+        img2.height,
+      );
 
       const brightness1 = getAverageBrightness(initialImageData1);
       const brightness2 = getAverageBrightness(initialImageData2);
@@ -136,8 +155,18 @@ const MonochromeMergeClient: React.FC = () => {
       const processedImg1 = await loadImage(darkImageSrc);
       const processedImg2 = await loadImage(lightImageSrc);
 
-      const imageDataDark = processImage(processedImg1, targetWidth, targetHeight, true);
-      const imageDataLight = processImage(processedImg2, targetWidth, targetHeight, false);
+      const imageDataDark = processImage(
+        processedImg1,
+        targetWidth,
+        targetHeight,
+        true,
+      );
+      const imageDataLight = processImage(
+        processedImg2,
+        targetWidth,
+        targetHeight,
+        false,
+      );
 
       const finalCanvas = canvasRef.current;
       if (!finalCanvas) return;
@@ -147,7 +176,10 @@ const MonochromeMergeClient: React.FC = () => {
       finalCanvas.width = targetWidth;
       finalCanvas.height = targetHeight;
 
-      const finalImageData = finalCtx.createImageData(targetWidth, targetHeight);
+      const finalImageData = finalCtx.createImageData(
+        targetWidth,
+        targetHeight,
+      );
       const finalData = finalImageData.data;
 
       // Chessboard merge
@@ -173,7 +205,6 @@ const MonochromeMergeClient: React.FC = () => {
 
       finalCtx.putImageData(finalImageData, 0, 0);
       setMergedImage(finalCanvas.toDataURL("image/png"));
-
     } catch (error) {
       console.error("Error merging images:", error);
       alert(t("mergeError") + (error as Error).message);
@@ -196,13 +227,27 @@ const MonochromeMergeClient: React.FC = () => {
       <div className="image-inputs">
         <div className="image-input-group">
           <label htmlFor="image1-upload">{t("uploadImage1")}</label>
-          <input type="file" id="image1-upload" accept="image/*" onChange={(e) => handleImageUpload(e, setImage1)} />
-          {image1 && <img src={image1} alt="Image 1" className="uploaded-image" />}
+          <input
+            type="file"
+            id="image1-upload"
+            accept="image/*"
+            onChange={(e) => handleImageUpload(e, setImage1)}
+          />
+          {image1 && (
+            <img src={image1} alt="Image 1" className="uploaded-image" />
+          )}
         </div>
         <div className="image-input-group">
           <label htmlFor="image2-upload">{t("uploadImage2")}</label>
-          <input type="file" id="image2-upload" accept="image/*" onChange={(e) => handleImageUpload(e, setImage2)} />
-          {image2 && <img src={image2} alt="Image 2" className="uploaded-image" />}
+          <input
+            type="file"
+            id="image2-upload"
+            accept="image/*"
+            onChange={(e) => handleImageUpload(e, setImage2)}
+          />
+          {image2 && (
+            <img src={image2} alt="Image 2" className="uploaded-image" />
+          )}
         </div>
       </div>
 
@@ -213,7 +258,10 @@ const MonochromeMergeClient: React.FC = () => {
       {mergedImage && (
         <div className="merged-image-output">
           <h3>{t("mergedImage")}:</h3>
-          <canvas ref={canvasRef} style={{ maxWidth: "100%", height: "auto" }}></canvas>
+          <canvas
+            ref={canvasRef}
+            style={{ maxWidth: "100%", height: "auto" }}
+          ></canvas>
           <button onClick={downloadImage}>{t("downloadMergedImage")}</button>
         </div>
       )}

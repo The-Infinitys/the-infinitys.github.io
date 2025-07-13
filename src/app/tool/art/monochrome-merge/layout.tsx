@@ -10,10 +10,10 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function MonochromeMergeLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <>
-      {children}
-    </>
-  );
+export default function MonochromeMergeLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return <>{children}</>;
 }

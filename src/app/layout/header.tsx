@@ -58,9 +58,7 @@ export default function Header() {
     // Added padding, flex layout for alignment
     <header className="p-4 py-6 flex justify-between items-center relative">
       {/* Title */}
-      <div
-        className="flex items-center justify-start"
-      >
+      <div className="flex items-center justify-start">
         <h1
           className={`${chakraPetch.className} italic font-semibold text-4xl`} // text-4xlに変更
         >

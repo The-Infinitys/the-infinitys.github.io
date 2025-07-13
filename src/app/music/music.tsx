@@ -34,10 +34,10 @@ export function getMusicList(): Music[] {
     // 音楽ファイルとジャケット画像を探す
     const musicFile = files.find(
       (file) =>
-        file.endsWith(".mp3") || file.endsWith(".m4a") || file.endsWith(".wav")
+        file.endsWith(".mp3") || file.endsWith(".m4a") || file.endsWith(".wav"),
     );
     const jacketFile = files.find(
-      (file) => file.startsWith("jacket.") || file.startsWith("cover.")
+      (file) => file.startsWith("jacket.") || file.startsWith("cover."),
     );
 
     // music.jsonを読み込む
@@ -70,10 +70,7 @@ export function getMusicList(): Music[] {
 
 export function MusicCard({ music }: { music: Music }) {
   return (
-    <a
-      href={`/music/${music.id}`}
-      className={styles["music-card"]}
-    >
+    <a href={`/music/${music.id}`} className={styles["music-card"]}>
       {music.jacketUrl && (
         <Image
           src={music.jacketUrl}
