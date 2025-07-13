@@ -48,19 +48,11 @@ export default function MonochromeMergeClient() {
     }
   };
 
-  const processImage = (
-    img: HTMLImageElement,
+  const processImageData = (
+    imageData: ImageData,
     isLight: boolean
-  ): ImageData | null => {
-    const canvas = document.createElement("canvas");
-    canvas.width = img.width;
-    canvas.height = img.height;
-    const ctx = canvas.getContext("2d", { willReadFrequently: true });
-    if (!ctx) return null;
-
-    ctx.drawImage(img, 0, 0);
-    const imageData = ctx.getImageData(0, 0, img.width, img.height);
-    const data = imageData.data;
+  ): ImageData => {
+    const { data, width, height } = imageData;
 
     const histogram = new Array(256).fill(0);
     for (let i = 0; i < data.length; i += 4) {
@@ -79,13 +71,13 @@ export default function MonochromeMergeClient() {
       }
     });
 
-    const outputData = ctx.createImageData(img.width, img.height);
+    const outputData = new ImageData(width, height);
     const colorValue = isLight ? 0 : 255;
 
     for (let i = 0; i < data.length; i += 4) {
       const grayscale = (data[i] + data[i + 1] + data[i + 2]) / 3;
       const distance = Math.abs(grayscale - mostFrequentColor);
-      const alpha = Math.min(distance * 2, 255); // Amplify transparency effect
+      const alpha = Math.min(distance * 2, 255);
 
       outputData.data[i] = colorValue;
       outputData.data[i + 1] = colorValue;
@@ -105,16 +97,31 @@ export default function MonochromeMergeClient() {
     const darkImg = new window.Image();
 
     const process = () => {
-      const processedLight = processImage(lightImg, true);
-      const processedDark = processImage(darkImg, false);
-
-      if (!processedLight || !processedDark) {
-        alert("Failed to process one or both images.");
-        return;
-      }
-
       const maxWidth = Math.max(lightImg.width, darkImg.width);
       const maxHeight = Math.max(lightImg.height, darkImg.height);
+
+      const lightCanvas = document.createElement("canvas");
+      lightCanvas.width = maxWidth;
+      lightCanvas.height = maxHeight;
+      const lightCtx = lightCanvas.getContext("2d", {
+        willReadFrequently: true,
+      });
+      if (!lightCtx) return;
+      lightCtx.drawImage(lightImg, 0, 0, maxWidth, maxHeight);
+      const lightScaledData = lightCtx.getImageData(0, 0, maxWidth, maxHeight);
+
+      const darkCanvas = document.createElement("canvas");
+      darkCanvas.width = maxWidth;
+      darkCanvas.height = maxHeight;
+      const darkCtx = darkCanvas.getContext("2d", {
+        willReadFrequently: true,
+      });
+      if (!darkCtx) return;
+      darkCtx.drawImage(darkImg, 0, 0, maxWidth, maxHeight);
+      const darkScaledData = darkCtx.getImageData(0, 0, maxWidth, maxHeight);
+
+      const processedLight = processImageData(lightScaledData, true);
+      const processedDark = processImageData(darkScaledData, false);
 
       const outputCanvas = document.createElement("canvas");
       outputCanvas.width = maxWidth;
@@ -122,21 +129,22 @@ export default function MonochromeMergeClient() {
       const outputCtx = outputCanvas.getContext("2d");
       if (!outputCtx) return;
 
-      // Create temporary canvases to hold the processed data
-      const lightCanvas = document.createElement("canvas");
-      lightCanvas.width = processedLight.width;
-      lightCanvas.height = processedLight.height;
-      lightCanvas.getContext("2d")?.putImageData(processedLight, 0, 0);
+      const outputData = outputCtx.createImageData(maxWidth, maxHeight);
 
-      const darkCanvas = document.createElement("canvas");
-      darkCanvas.width = processedDark.width;
-      darkCanvas.height = processedDark.height;
-      darkCanvas.getContext("2d")?.putImageData(processedDark, 0, 0);
+      for (let y = 0; y < maxHeight; y++) {
+        for (let x = 0; x < maxWidth; x++) {
+          const i = (y * maxWidth + x) * 4;
+          const isLightPixel = (x + y) % 2 === 0;
+          const source = isLightPixel ? processedLight : processedDark;
 
-      // Draw the processed images onto the output canvas, letting the browser handle alpha blending
-      outputCtx.drawImage(darkCanvas, 0, 0, maxWidth, maxHeight);
-      outputCtx.drawImage(lightCanvas, 0, 0, maxWidth, maxHeight);
+          outputData.data[i] = source.data[i];
+          outputData.data[i + 1] = source.data[i + 1];
+          outputData.data[i + 2] = source.data[i + 2];
+          outputData.data[i + 3] = source.data[i + 3];
+        }
+      }
 
+      outputCtx.putImageData(outputData, 0, 0);
       setProcessedImage(outputCanvas.toDataURL("image/png"));
     };
 
