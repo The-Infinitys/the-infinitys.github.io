@@ -82,7 +82,7 @@ export default function MonochromeMergeClient() {
       outputData.data[i] = colorValue;
       outputData.data[i + 1] = colorValue;
       outputData.data[i + 2] = colorValue;
-      outputData.data[i + 3] = alpha;
+      outputData.data[i + 3] = alpha * 0.5; // Set alpha to 50% of the calculated value
     }
     return outputData;
   };
@@ -97,9 +97,21 @@ export default function MonochromeMergeClient() {
     const darkImg = new window.Image();
 
     const process = () => {
-      const maxWidth = Math.max(lightImg.width, darkImg.width);
-      const maxHeight = Math.max(lightImg.height, darkImg.height);
+      let maxWidth = Math.max(lightImg.width, darkImg.width);
+      let maxHeight = Math.max(lightImg.height, darkImg.height);
+      const maxSize = 900;
 
+      if (maxWidth > maxSize || maxHeight > maxSize) {
+        if (maxWidth > maxHeight) {
+          maxHeight = Math.round((maxSize / maxWidth) * maxHeight);
+          maxWidth = maxSize;
+        } else {
+          maxWidth = Math.round((maxSize / maxHeight) * maxWidth);
+          maxHeight = maxSize;
+        }
+      }
+
+      // Scale and draw light image
       const lightCanvas = document.createElement("canvas");
       lightCanvas.width = maxWidth;
       lightCanvas.height = maxHeight;
@@ -124,6 +136,7 @@ export default function MonochromeMergeClient() {
       );
       const lightScaledData = lightCtx.getImageData(0, 0, maxWidth, maxHeight);
 
+      // Scale and draw dark image
       const darkCanvas = document.createElement("canvas");
       darkCanvas.width = maxWidth;
       darkCanvas.height = maxHeight;
@@ -140,31 +153,32 @@ export default function MonochromeMergeClient() {
       darkCtx.drawImage(darkImg, darkX, darkY, darkNewWidth, darkNewHeight);
       const darkScaledData = darkCtx.getImageData(0, 0, maxWidth, maxHeight);
 
+      // Process both scaled images
       const processedLight = processImageData(lightScaledData, true);
       const processedDark = processImageData(darkScaledData, false);
 
+      // Composite the images by overlaying
       const outputCanvas = document.createElement("canvas");
       outputCanvas.width = maxWidth;
       outputCanvas.height = maxHeight;
       const outputCtx = outputCanvas.getContext("2d");
       if (!outputCtx) return;
 
-      const outputData = outputCtx.createImageData(maxWidth, maxHeight);
+      // Create temporary canvases to hold the processed ImageData
+      const tempLightCanvas = document.createElement("canvas");
+      tempLightCanvas.width = maxWidth;
+      tempLightCanvas.height = maxHeight;
+      tempLightCanvas.getContext("2d")?.putImageData(processedLight, 0, 0);
 
-      for (let y = 0; y < maxHeight; y++) {
-        for (let x = 0; x < maxWidth; x++) {
-          const i = (y * maxWidth + x) * 4;
-          const isLightPixel = (x + y) % 2 === 0;
-          const source = isLightPixel ? processedLight : processedDark;
+      const tempDarkCanvas = document.createElement("canvas");
+      tempDarkCanvas.width = maxWidth;
+      tempDarkCanvas.height = maxHeight;
+      tempDarkCanvas.getContext("2d")?.putImageData(processedDark, 0, 0);
 
-          outputData.data[i] = source.data[i];
-          outputData.data[i + 1] = source.data[i + 1];
-          outputData.data[i + 2] = source.data[i + 2];
-          outputData.data[i + 3] = source.data[i + 3];
-        }
-      }
+      // Draw the images on top of each other
+      outputCtx.drawImage(tempDarkCanvas, 0, 0);
+      outputCtx.drawImage(tempLightCanvas, 0, 0);
 
-      outputCtx.putImageData(outputData, 0, 0);
       setProcessedImage(outputCanvas.toDataURL("image/png"));
     };
 
