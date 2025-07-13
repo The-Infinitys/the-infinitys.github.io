@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import NextImage from "next/image";
 import { useTranslations } from "next-intl";
-
+import { useState } from "react";
+import { useRef } from "react";
 const MonochromeMergeClient: React.FC = () => {
   const t = useTranslations("pages.tool.art.monochrome-merge");
   const [image1, setImage1] = useState<string | null>(null);
@@ -12,7 +13,7 @@ const MonochromeMergeClient: React.FC = () => {
 
   const handleImageUpload = (
     event: React.ChangeEvent<HTMLInputElement>,
-    setImage: React.Dispatch<React.SetStateAction<string | null>>,
+    setImage: React.Dispatch<React.SetStateAction<string | null>>
   ) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -48,7 +49,7 @@ const MonochromeMergeClient: React.FC = () => {
     img: HTMLImageElement,
     targetWidth: number,
     targetHeight: number,
-    isDarkImage: boolean,
+    isDarkImage: boolean
   ): ImageData => {
     const tempCanvas = document.createElement("canvas");
     const tempCtx = tempCanvas.getContext("2d");
@@ -94,12 +95,12 @@ const MonochromeMergeClient: React.FC = () => {
       data[i + 2] = gray;
 
       // Adjust transparency based on grayscale value
-      // Dark image: black becomes transparent (alpha 0), white becomes opaque (alpha 255)
-      // Light image: white becomes transparent (alpha 0), black becomes opaque (alpha 255)
+      // Dark image: black (0) -> transparent, white (255) -> opaque (alpha 255)
+      // Light image: white (255) -> transparent, black (0) -> opaque (alpha 255)
       if (isDarkImage) {
-        data[i + 3] = gray; // Black (0) -> transparent, White (255) -> opaque
+        data[i + 3] = gray;
       } else {
-        data[i + 3] = 255 - gray; // White (255) -> transparent, Black (0) -> opaque
+        data[i + 3] = 255 - gray;
       }
     }
     return imageData;
@@ -130,7 +131,7 @@ const MonochromeMergeClient: React.FC = () => {
         0,
         0,
         img1.width,
-        img1.height,
+        img1.height
       );
 
       const tempCanvas2 = document.createElement("canvas");
@@ -143,14 +144,14 @@ const MonochromeMergeClient: React.FC = () => {
         0,
         0,
         img2.width,
-        img2.height,
+        img2.height
       );
 
       const brightness1 = getAverageBrightness(initialImageData1);
       const brightness2 = getAverageBrightness(initialImageData2);
 
-      let darkImageSrc = brightness1 < brightness2 ? image1 : image2;
-      let lightImageSrc = brightness1 < brightness2 ? image2 : image1;
+      const darkImageSrc = brightness1 < brightness2 ? image1 : image2;
+      const lightImageSrc = brightness1 < brightness2 ? image2 : image1;
 
       const processedImg1 = await loadImage(darkImageSrc);
       const processedImg2 = await loadImage(lightImageSrc);
@@ -159,13 +160,13 @@ const MonochromeMergeClient: React.FC = () => {
         processedImg1,
         targetWidth,
         targetHeight,
-        true,
+        true
       );
       const imageDataLight = processImage(
         processedImg2,
         targetWidth,
         targetHeight,
-        false,
+        false
       );
 
       const finalCanvas = canvasRef.current;
@@ -178,7 +179,7 @@ const MonochromeMergeClient: React.FC = () => {
 
       const finalImageData = finalCtx.createImageData(
         targetWidth,
-        targetHeight,
+        targetHeight
       );
       const finalData = finalImageData.data;
 
@@ -234,7 +235,13 @@ const MonochromeMergeClient: React.FC = () => {
             onChange={(e) => handleImageUpload(e, setImage1)}
           />
           {image1 && (
-            <img src={image1} alt="Image 1" className="uploaded-image" />
+            <NextImage
+              src={image1}
+              alt="Image 1"
+              className="uploaded-image"
+              width={200}
+              height={200}
+            />
           )}
         </div>
         <div className="image-input-group">
@@ -246,7 +253,13 @@ const MonochromeMergeClient: React.FC = () => {
             onChange={(e) => handleImageUpload(e, setImage2)}
           />
           {image2 && (
-            <img src={image2} alt="Image 2" className="uploaded-image" />
+            <NextImage
+              src={image2}
+              alt="Image 2"
+              className="uploaded-image"
+              width={200}
+              height={200}
+            />
           )}
         </div>
       </div>
