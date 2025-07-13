@@ -59,6 +59,29 @@
         "preset": "プリセット",
         "browserNotSupported": "お使いのブラウザは音声再生に対応していません。"
       }
+    },
+    "tool": {
+      "title": "ツール",
+      "description": {
+        "msg1": "ここでは、私が作った様々なツールを見ることができます！",
+        "msg2": "自由に利用してください！"
+      },
+      "toolCategories": "ツールカテゴリ",
+      "art": {
+        "title": "アートツール",
+        "description": "アートや画像操作のためのツールです。",
+        "monochrome-merge": {
+          "title": "モノクロマージ",
+          "description": "画像をモノクロに合成します。",
+          "uploadTwoImages": "画像を2枚アップロードしてください。",
+          "uploadImage1": "画像1をアップロード",
+          "uploadImage2": "画像2をアップロード",
+          "mergeImages": "画像をマージ",
+          "mergedImage": "マージされた画像",
+          "downloadMergedImage": "マージされた画像をダウンロード",
+          "mergeError": "画像のマージ中にエラーが発生しました: "
+        }
+      }
     }
   }
 }

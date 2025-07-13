@@ -1,0 +1,41 @@
+/* src/app/tool/page.css */
+
+.tool-layout {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.tool-categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.tool-category-card {
+  background: var(--background);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px var(--primary);
+  transition: transform 0.2s ease-in-out;
+}
+
+.tool-category-card:hover {
+  transform: translateY(-4px);
+}
+
+.tool-category-info {
+  padding: 1rem;
+}
+
+.tool-category-info h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--foreground);
+}
+
+.tool-category-info p {
+  margin: 0.5rem 0;
+  color: var(--secondary);
+}

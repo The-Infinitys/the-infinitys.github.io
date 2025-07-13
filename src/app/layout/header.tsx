@@ -34,6 +34,12 @@ const menus_list = [
     target: "_self",
     label: "Games",
   },
+  {
+    name: "Tools",
+    link: "/tool",
+    target: "_self",
+    label: "Tools",
+  },
 ];
 
 export default function Header() {
