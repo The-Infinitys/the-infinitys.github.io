@@ -17,6 +17,7 @@ const nextConfig: NextConfig = {
   // Enabling it could improve image loading performance if the compatibility issues are resolved.
   images: { unoptimized: true },
   trailingSlash: true,
+  turbopack: {},
 };
 
 export default withBundleAnalyzer(withNextIntl(nextConfig));
