@@ -1,8 +1,7 @@
 import "./page.css";
 import Explains from "./components/explains";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
-
+import Link from "next/link";
 export default function ToolPage() {
   const t = useTranslations("pages.tool");
   return (
