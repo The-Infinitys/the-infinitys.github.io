@@ -1,85 +1,131 @@
-/* src/app/tool/art/monochrome-merge/page.css */
+.image-input-flexbox {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+  display: flex;
+}
+.image-input {
+  width: 40%;
+  margin: 5%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.image-input.dark {
+  background-color: #000000;
+  color: #ffffff;
+}
 
-.monochrome-merge-container {
-  padding: 2rem;
-  max-width: 800px;
-  margin: 0 auto;
+.image-input.light {
+  color: #000000;
+  background-color: #ffffff;
+}
+
+.image-input p {
   text-align: center;
-}
-
-.monochrome-merge-container h1 {
   font-size: 2rem;
-  margin-bottom: 1rem;
+  font-weight: 600;
+  font-style: italic;
+  font-family: "Chakra Petch", sans-serif;
+  cursor: pointer;
 }
 
-.monochrome-merge-container p {
-  font-size: 1.1rem;
-  color: var(--secondary);
+.image-input.dark p {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
 }
 
-.image-inputs {
+.image-input.light p {
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.image-container {
+  flex-grow: 1;
+  width: 100%;
   display: flex;
   justify-content: center;
-  gap: 20px;
-  margin-bottom: 20px;
+  align-items: center;
+  min-height: 0;
 }
 
-.image-input-group {
-  flex: 1;
-  border: 2px dashed var(--primary);
-  padding: 20px;
-  border-radius: 8px;
-}
-
-.image-input-group label {
-  display: block;
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-
-.uploaded-image {
-  max-width: 100%;
+.image-container img,
+.image-container svg {
+  object-fit: contain;
+  max-width: 90%;
+  max-height: 90%;
+  width: auto;
   height: auto;
-  margin-top: 10px;
-  border: 1px solid var(--secondary);
-  border-radius: 4px;
 }
 
-button {
-  background-color: var(--link-color);
-  color: white;
+.start-process-button {
+  margin-top: 20px;
   padding: 10px 20px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: #333;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
+  animation: rainbow-glow 2s linear infinite;
 }
 
-button:hover:not(:disabled) {
-  background-color: color-mix(in srgb, var(--link-color), black 20%);
+@keyframes rainbow-glow {
+  0% {
+    box-shadow:
+      0 0 5px #f00,
+      0 0 10px #ff0,
+      0 0 15px #0f0;
+  }
+  16% {
+    box-shadow:
+      0 0 5px #ff0,
+      0 0 10px #0f0,
+      0 0 15px #0ff;
+  }
+  33% {
+    box-shadow:
+      0 0 5px #0f0,
+      0 0 10px #0ff,
+      0 0 15px #00f;
+  }
+  50% {
+    box-shadow:
+      0 0 5px #0ff,
+      0 0 10px #00f,
+      0 0 15px #f0f;
+  }
+  67% {
+    box-shadow:
+      0 0 5px #00f,
+      0 0 10px #f0f,
+      0 0 15px #f00;
+  }
+  83% {
+    box-shadow:
+      0 0 5px #f0f,
+      0 0 10px #f00,
+      0 0 15px #ff0;
+  }
+  100% {
+    box-shadow:
+      0 0 5px #f00,
+      0 0 10px #ff0,
+      0 0 15px #0f0;
+  }
 }
-
-button:disabled {
-  background-color: var(--secondary);
-  cursor: not-allowed;
+button.start-process {
+  font-size: 3rem;
+  font-weight: 600;
+  font-style: italic;
+  font-family: "Chakra Petch", sans-serif;
 }
-
-.merged-image-output {
-  margin-top: 30px;
-  border: 2px solid var(--primary);
-  padding: 20px;
-  border-radius: 8px;
-}
-
-.merged-image-output h3 {
-  margin-bottom: 15px;
-  font-size: 1.5rem;
-}
-
-canvas {
-  display: block;
-  margin: 0 auto 20px auto;
-  border: 1px solid var(--secondary);
-  border-radius: 4px;
+div.start {
+  flex-grow: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 0;
+  flex-direction: column;
 }

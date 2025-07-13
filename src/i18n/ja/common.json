@@ -79,7 +79,8 @@
           "mergeImages": "画像をマージ",
           "mergedImage": "マージされた画像",
           "downloadMergedImage": "マージされた画像をダウンロード",
-          "mergeError": "画像のマージ中にエラーが発生しました: "
+          "mergeError": "画像のマージ中にエラーが発生しました: ",
+            "noImage": "画像が選択されていません"
         }
       }
     }

@@ -79,7 +79,8 @@
           "mergeImages": "Merge Images",
           "mergedImage": "Merged Image",
           "downloadMergedImage": "Download Merged Image",
-          "mergeError": "Error merging images: "
+          "mergeError": "Error merging images: ",
+          "noImage": "No Image Selected"
         }
       }
     }
