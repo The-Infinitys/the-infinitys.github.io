@@ -14,7 +14,9 @@ export default function ArtToolPage() {
           >
             <div className="tool-category-info">
               <h2>Monochrome Merge</h2>
-              <p>Merge a light and dark image into a single monochrome image.</p>
+              <p>
+                Merge a light and dark image into a single monochrome image.
+              </p>
             </div>
           </Link>
         </div>
