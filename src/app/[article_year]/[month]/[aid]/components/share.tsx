@@ -2,7 +2,6 @@
 import { TheInfiniteX } from "./img"; // TheInfiniteX は適切な画像のパスに置き換えてください
 import "./share.css";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react"; // useEffectとuseStateをインポート
 
 interface ToXTwitterProps {
   hashtags?: string[]; // ツイートに含めるハッシュタグの配列 (オプション)
@@ -17,48 +16,36 @@ export default function SNSShare() {
 }
 export function ToXTwitter({ hashtags, via }: ToXTwitterProps) {
   const t = useTranslations("pages.article.content.words"); // 翻訳フック
-  const [shareUrl, setShareUrl] = useState("#"); // 共有URLを保持するstate。初期値は無効なリンク'#'
 
-  useEffect(() => {
-    // このeffectはクライアントサイドでのみ実行されます
-    if (typeof window !== "undefined" && typeof document !== "undefined") {
-      const pageUrl = window.location.href; // 現在のページのURLを自動取得
-      // ページのタイトルまたは適切なテキストを自動取得（ここではタイトルを使用）
-      const pageText = document.title || ""; // document.titleがない場合を考慮
+  const baseUrl = "https://twitter.com/intent/tweet";
+  const queryParams = new URLSearchParams();
 
-      const baseUrl = "https://twitter.com/intent/tweet";
-      const queryParams = new URLSearchParams({
-        text: pageText,
-        url: pageUrl,
-      });
+  if (typeof window !== "undefined" && typeof document !== "undefined") {
+    const pageUrl = window.location.href; // 現在のページのURLを自動取得
+    const pageText = document.title || ""; // document.titleがない場合を考慮
+    queryParams.set("text", pageText);
+    queryParams.set("url", pageUrl);
+  }
 
-      // オプションのハッシュタグを追加
-      if (hashtags && hashtags.length > 0) {
-        queryParams.append("hashtags", hashtags.join(","));
-      }
+  if (hashtags && hashtags.length > 0) {
+    queryParams.append("hashtags", hashtags.join(","));
+  }
 
-      // オプションのviaを追加
-      if (via) {
-        queryParams.append("via", via);
-      }
+  if (via) {
+    queryParams.append("via", via);
+  }
 
-      // 生成した共有URLをstateにセット
-      setShareUrl(`${baseUrl}?${queryParams.toString()}`);
-    }
-    // hashtags または via props が変更されたらeffectを再実行
-  }, [hashtags, via]);
+  const shareUrl = `${baseUrl}?${queryParams.toString()}`;
 
   return (
     <a
-      href={shareUrl} // stateから取得した共有URLを使用
+      href={shareUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="twitter-share-button" // このクラス名でCSSを適用
-      aria-label={t("shareX")} // 翻訳されたテキストをaria-labelに使用
+      className="twitter-share-button"
+      aria-label={t("shareX")}
     >
-      {/* Xのアイコン画像 - next/imageコンポーネントを使用 */}
       {TheInfiniteX}
-      {/* 共有ボタンのテキスト - 翻訳されたテキストを使用 */}
       <p>{t("shareX")}</p>
     </a>
   );

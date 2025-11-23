@@ -8,7 +8,7 @@
       "description": {
         "msg1": "Hello! I'm The-Infinitys.",
         "msg2": "I'm passionate about programming and work on various projects on GitHub.",
-        "msg3": "On my personal website, I publish my work and ideas, allowing visitors to glimpse into my world.",
+        "msg3": "My personal website publishes my work and ideas, allowing visitors to glimpse into my world.",
         "msg4": "I also share technical topics and daily happenings on X (formerly Twitter).",
         "msg5": "If you're interested in my activities, please check them out!",
         "msg6": "And please follow me on X (formerly Twitter) and GitHub!"
@@ -41,6 +41,13 @@
       "description": {
         "msg1": "Here you can play games I've created!",
         "msg2": "Feel free to play as much as you like!"
+      },
+      "cards": {
+        "infiniteClient": {
+          "title": "Infinite Client (Minecraft)",
+          "description": "The \"Infinite Client\" for Minecraft is a custom client developed by The Infinity's, aiming to improve performance, add new features, and optimize the user experience."
+        },
+        "viewDetails": "View Details"
       }
     },
     "music": {

@@ -41,6 +41,13 @@
       "description": {
         "msg1": "ここでは、私が作ったゲームを遊ぶことができます！",
         "msg2": "自由に遊んでください！"
+      },
+      "cards": {
+        "infiniteClient": {
+          "title": "Infinite Client (Minecraft)",
+          "description": "Minecraftの「Infinite Client」は、The Infinity'sによって開発されたカスタムクライアントです。パフォーマンス向上、新機能の追加、ユーザーエクスペリエンスの最適化を目的としています。"
+        },
+        "viewDetails": "詳細を見る"
       }
     },
     "music": {

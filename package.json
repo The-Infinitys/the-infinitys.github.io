@@ -8,10 +8,11 @@
     "build": "next build",
     "postbuild": "next-sitemap --config next-sitemap.config.js",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint",
     "format": "prettier --write src"
   },
   "dependencies": {
+    "eslint-plugin-unused-imports": "^4.3.0",
     "framer-motion": "^12.23.24",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.11.1",
