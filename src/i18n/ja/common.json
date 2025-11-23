@@ -83,6 +83,30 @@
           "noImage": "画像が選択されていません"
         }
       }
+    },
+    "infiniteClient": {
+      "title": "Infinite Client",
+      "description": {
+        "msg1": "Infinite Clientは、Minecraftのプレイ体験を拡張するために開発された高機能なクライアントです。",
+        "msg2": "快適な操作性と多彩な機能を備え、初心者から上級者まで幅広いユーザーにおすすめです。"
+      },
+      "features": {
+        "title": "主な特徴",
+        "feature1": "軽量かつ高速な動作",
+        "feature2": "スタイリッシュなUI",
+        "feature3": "統合されたショートカット機能",
+        "feature4": "サーバー対策強化",
+        "feature5": "最新バージョンへの迅速な対応"
+      },
+      "download": {
+        "title": "ダウンロード",
+        "msg1": "最新版のダウンロードは以下のリンクから行えます。",
+        "link": "Infinite Client ダウンロードページ"
+      },
+      "support": {
+        "title": "サポート・お問い合わせ",
+        "msg1": "ご質問や不具合報告は、GitHubまたはDiscordよりご連絡ください。"
+      }
     }
   }
 }

@@ -83,6 +83,30 @@
           "noImage": "No Image Selected"
         }
       }
+    },
+    "infiniteClient": {
+      "title": "Infinite Client",
+      "description": {
+        "msg1": "Infinite Client is a feature-rich client developed to extend your Minecraft gaming experience.",
+        "msg2": "With comfortable operability and diverse functions, it is recommended for a wide range of users from beginners to advanced players."
+      },
+      "features": {
+        "title": "Main Features",
+        "feature1": "Lightweight and high-speed operation",
+        "feature2": "Stylish UI",
+        "feature3": "Integrated shortcut functions",
+        "feature4": "Enhanced server countermeasures",
+        "feature5": "Quick adaptation to the latest version"
+      },
+      "download": {
+        "title": "Download",
+        "msg1": "The latest version can be downloaded from the link below.",
+        "link": "Infinite Client Download Page"
+      },
+      "support": {
+        "title": "Support / Contact",
+        "msg1": "Please contact us via GitHub or Discord for questions or bug reports."
+      }
     }
   }
 }
