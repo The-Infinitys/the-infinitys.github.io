@@ -8,6 +8,7 @@ import { useTranslations } from "next-intl";
 import { notFound } from "next/navigation";
 import { AvailableLocales } from "@/i18n/request";
 import { useLocale } from "@/app/i18nProvider";
+import styles from "../page.module.css"; // page.module.cssをインポート
 interface ClientComponentProps {
   articles: Article[];
   slug: string;
@@ -143,20 +144,20 @@ export default function ClientComponent({
   }
 
   return (
-    <div className="article-container">
-      <aside className="toc relative md:sticky" ref={tocRef}>
+    <div className={styles["article-container"]}>
+      <aside className={styles.toc + " relative md:sticky"} ref={tocRef}>
         <h2>{t("words.index")}</h2>
         <ul>
           {toc.map((item) => (
             <li key={item.id}>
-              <a className={item.level} href={`#${item.id}`}>
+              <a className={styles[item.level]} href={`#${item.id}`}>
                 {item.text}
               </a>
             </li>
           ))}
         </ul>
       </aside>
-      <article className="article-detail">
+      <article className={styles["article-detail"]}>
         <h1>{article.title}</h1>
         <p>{article.date}</p>
         {article.thumbnail && (
@@ -166,16 +167,16 @@ export default function ClientComponent({
             width={800}
             height={450}
             priority
-            className="article-thumbnail"
+            className={styles["article-thumbnail"]}
           />
         )}
         <div
-          className="article-content"
+          className={styles["article-content"]}
           dangerouslySetInnerHTML={{ __html: processedContent }}
         />
         <SNSShare />
       </article>
-      <section className="other-articles relative md:sticky">
+      <section className={styles["other-articles"] + " relative md:sticky"}>
         <h2>{t("words.others")}</h2>
         <ul>
           {randomOtherArticles.map((other) => generateArticleButton(other))}

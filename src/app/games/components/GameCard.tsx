@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import React from "react";
 import { Game } from "@/lib/games";
 import { useTranslations } from "next-intl"; // Import useTranslations
 

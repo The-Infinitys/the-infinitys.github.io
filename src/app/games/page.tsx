@@ -1,5 +1,4 @@
 // src/app/games/page.tsx
-import "./page.css";
 import Explains from "./components/explains";
 import { Metadata } from "next";
 import { getGames } from "@/lib/games"; // Import getGames

@@ -1,6 +1,6 @@
 "use client";
 import { TheInfiniteX } from "./img"; // TheInfiniteX は適切な画像のパスに置き換えてください
-import "./share.css";
+import styles from "./share.module.css";
 import { useTranslations } from "next-intl";
 
 interface ToXTwitterProps {
@@ -9,7 +9,7 @@ interface ToXTwitterProps {
 }
 export default function SNSShare() {
   return (
-    <div className="sns-share">
+    <div className={styles["sns-share"]}>
       <ToXTwitter />
     </div>
   );
@@ -42,7 +42,7 @@ export function ToXTwitter({ hashtags, via }: ToXTwitterProps) {
       href={shareUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="twitter-share-button"
+      className={styles["twitter-share-button"]}
       aria-label={t("shareX")}
     >
       {TheInfiniteX}

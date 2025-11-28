@@ -1,5 +1,5 @@
 import { getArticleIndexes, toHTML } from "../../../../article/article";
-import "../../../../article/article.css";
+import articleStyles from "../../../../article/article.module.css";
 import crypto from "crypto";
 import ClientComponent from "./client";
 import { AvailableLocales } from "@/i18n/request";

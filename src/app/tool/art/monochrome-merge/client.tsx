@@ -1,5 +1,5 @@
 "use client";
-import "./page.css";
+import styles from "./page.module.css";
 import Image from "next/image";
 import { PlaceholderImage } from "./img";
 import { useState, useRef, useEffect } from "react";
@@ -191,8 +191,8 @@ export default function MonochromeMergeClient() {
 
   return (
     <>
-      <div className="image-input-flexbox">
-        <div className="image-input light">
+      <div className={styles["image-input-flexbox"]}>
+        <div className={styles["image-input"] + " " + styles.light}>
           <p onClick={() => lightInputRef.current?.click()}>Light Image</p>
           <input
             type="file"
@@ -201,7 +201,7 @@ export default function MonochromeMergeClient() {
             onChange={handleLightImageSelect}
             accept="image/*"
           />
-          <div className="image-container">
+          <div className={styles["image-container"]}>
             {lightImage ? (
               <Image
                 width={400}
@@ -219,7 +219,7 @@ export default function MonochromeMergeClient() {
             )}
           </div>
         </div>
-        <div className="image-input dark">
+        <div className={styles["image-input"] + " " + styles.dark}>
           <p onClick={() => darkInputRef.current?.click()}>Dark Image</p>
           <input
             type="file"
@@ -228,7 +228,7 @@ export default function MonochromeMergeClient() {
             onChange={handleDarkImageSelect}
             accept="image/*"
           />
-          <div className="image-container">
+          <div className={styles["image-container"]}>
             {darkImage ? (
               <Image
                 width={400}
@@ -247,15 +247,18 @@ export default function MonochromeMergeClient() {
           </div>
         </div>
       </div>
-      <div className="start">
-        <button className="start-process-button" onClick={handleProcessImages}>
+      <div className={styles.start}>
+        <button
+          className={styles["start-process-button"]}
+          onClick={handleProcessImages}
+        >
           Start Process
         </button>
       </div>
       {processedImage && (
-        <div className="image-output">
+        <div className={styles["image-output"]}>
           <div
-            className="image-container"
+            className={styles["image-container"]}
             style={{
               backgroundColor: background,
               transition: "background-color 0.5s ease",
@@ -271,7 +274,7 @@ export default function MonochromeMergeClient() {
           <a
             href={processedImage}
             download="monochrome-merged.png"
-            className="download-button"
+            className={styles["download-button"]}
           >
             Download Image
           </a>
