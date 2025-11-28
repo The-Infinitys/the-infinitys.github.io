@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ReactNode } from "react";
+import articleStyles from "./article.module.css";
 export type Article = {
   slug: string;
   title: string;
@@ -19,7 +20,7 @@ export function generateArticleButton(article: Article): ReactNode {
     <Link
       key={article.slug + article.lang}
       href={`/${year}/${month}/${aid}`}
-      className="article-link"
+      className={articleStyles["article-link"]}
     >
       <article>
         {article.thumbnail && (
@@ -28,10 +29,10 @@ export function generateArticleButton(article: Article): ReactNode {
             alt={article.title}
             width={300}
             height={200}
-            className="article-thumbnail"
+            className={articleStyles["article-thumbnail"]}
           />
         )}
-        <div className="article-content">
+        <div className={articleStyles["article-content"]}>
           <h2>{article.title}</h2>
           <p>{article.date}</p>
           <p>{article.description}</p>

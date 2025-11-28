@@ -1,5 +1,5 @@
-import "../article/article.css"; // CSSファイルをインポート
-import "../article/page.css";
+import articleStyles from "../article/article.module.css"; // CSSファイルをインポート
+import pageStyles from "../article/page.module.css";
 import Explains from "./components/explains";
 import ArticlePage from "./components/articlepage"; // クライアントコンポーネントをインポート
 import { getArticleIndexes } from "@/app/article/article";

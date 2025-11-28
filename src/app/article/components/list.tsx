@@ -3,6 +3,7 @@ import { ReactNode, useState } from "react";
 import { generateArticleButton, Article } from "../article-client";
 import { useTranslations } from "next-intl";
 import { useLocale } from "@/app/i18nProvider";
+import pageStyles from "../page.module.css";
 
 interface ArticleListProps {
   articles: Article[];
@@ -47,24 +48,24 @@ export default function ArticleList({ articles }: ArticleListProps) {
 
   return (
     <>
-      <section className="search">
+      <section className={pageStyles["search"]}>
         <input
           type="text"
           placeholder={t("words.search")}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="search-input"
+          className={pageStyles["search-input"]}
         />
         <details>
           <summary>{t("words.advancedSearch")}</summary>
-          <div className="advanced-search">
+          <div className={pageStyles["advanced-search"]}>
             <label>
               {t("words.startDate")}
               <input
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                className="search-date"
+                className={pageStyles["search-date"]}
               />
             </label>
             <label>
@@ -73,19 +74,19 @@ export default function ArticleList({ articles }: ArticleListProps) {
                 type="date"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
-                className="search-date"
+                className={pageStyles["search-date"]}
               />
             </label>
           </div>
         </details>
       </section>
-      <section className="articles">
+      <section className={pageStyles["articles"]}>
         {currentArticles.map(
           (article: Article): ReactNode => generateArticleButton(article),
         )}
       </section>
-      <section className="pager">
-        <div className="pagination">
+      <section className={pageStyles["pager"]}>
+        <div className={pageStyles["pagination"]}>
           <button
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}

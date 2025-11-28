@@ -1,5 +1,4 @@
 // src/app/games/components/GamesList.tsx
-import React from "react";
 import { Game } from "@/lib/games";
 import GameCard from "./GameCard";
 

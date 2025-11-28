@@ -1,5 +1,5 @@
-import "./article.css"; // CSSファイルをインポート
-import "./page.css";
+import articleStyles from "./article.module.css"; // CSSファイルをインポート
+import pageStyles from "./page.module.css";
 import Explains from "./components/explains";
 import ArticlePage from "./components/articlepage"; // クライアントコンポーネントをインポート
 import { Metadata } from "next";

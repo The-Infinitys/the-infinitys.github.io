@@ -13,6 +13,7 @@ import { unified } from "unified";
 import "highlight.js/styles/gradient-dark.css";
 import { ReactNode } from "react";
 import { PlaceholderValue } from "next/dist/shared/lib/get-img-props";
+import articleStyles from "./article.module.css";
 
 const postsDirectory = path.join(process.cwd(), "public");
 
@@ -173,7 +174,7 @@ export function generateArticleButton(article: Article): ReactNode {
     <Link
       key={article.slug + article.lang}
       href={`/${year}/${month}/${aid}`}
-      className="article-link"
+      className={articleStyles["article-link"]}
     >
       <article>
         {article.thumbnail && (
@@ -183,10 +184,10 @@ export function generateArticleButton(article: Article): ReactNode {
             width={300}
             height={200}
             placeholder={LoadingImage as PlaceholderValue}
-            className="article-thumbnail"
+            className={articleStyles["article-thumbnail"]}
           />
         )}
-        <div className="article-content">
+        <div className={articleStyles["article-content"]}>
           <h2>{article.title}</h2>
           <p>{article.date}</p>
           <p>{article.description}</p>
