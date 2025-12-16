@@ -8,11 +8,11 @@
     "build": "next build",
     "postbuild": "next-sitemap --config next-sitemap.config.js",
     "start": "next start",
-    "lint": "eslint",
-    "format": "prettier --write src"
+    "lint": "biome check src",
+    "lint:fix": "biome check --write src",
+    "format": "biome format --write src"
   },
   "dependencies": {
-    "eslint-plugin-unused-imports": "^4.3.0",
     "framer-motion": "^12.23.25",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.11.1",
@@ -31,15 +31,12 @@
     "unified": "^11.0.5"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.3",
     "@next/bundle-analyzer": "^16.0.7",
     "@tailwindcss/postcss": "^4.1.17",
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
-    "eslint": "^9.39.1",
-    "eslint-config-next": "^16.0.7",
-    "prettier": "^3.7.4",
+    "biome": "^0.3.3",
     "tailwindcss": "^4.1.17",
     "typescript": "^5.9.3"
   }
