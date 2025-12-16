@@ -40,16 +40,13 @@ export async function generateMetadata({
 
   // 4. 記事データからタイトルとディスクリプションを取得し、Metadata オブジェクトを生成
   const title = article?.title || "記事が見つかりません"; // 記事が見つからない場合のデフォルトタイトル
-  const description =
-    article?.description || "要求された記事が見つかりませんでした。"; // 記事が見つからない場合のデフォルトディスクリプション
+  const description = article?.description || "要求された記事が見つかりませんでした。"; // 記事が見つからない場合のデフォルトディスクリプション
 
   // 必要に応じて、サイト名などをタイトルに追加する
   const fullTitle = `${title} | The Infinity's`; // 例: "Next.jsでメタデータを生成する | あなたのサイト名"
   const og_image_url = `${slug}/${article?.thumbnail?.split("/").slice(-1)[0]}`;
   const metadata: Metadata = {
-    metadataBase: new URL(
-      process.env.BASE_URL || "https://the-infinitys.f5.si",
-    ),
+    metadataBase: new URL(process.env.BASE_URL || "https://the-infinitys.f5.si"),
     title: fullTitle, // ページのタイトルを設定
     description: description, // ページのディスクリプションを設定
     alternates: {

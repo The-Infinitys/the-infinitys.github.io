@@ -48,10 +48,7 @@ export default function MonochromeMergeClient() {
     }
   };
 
-  const processImageData = (
-    imageData: ImageData,
-    isLight: boolean,
-  ): ImageData => {
+  const processImageData = (imageData: ImageData, isLight: boolean): ImageData => {
     const { data, width, height } = imageData;
 
     const histogram = new Array(256).fill(0);
@@ -117,21 +114,12 @@ export default function MonochromeMergeClient() {
         willReadFrequently: true,
       });
       if (!lightCtx) return;
-      const lightScale = Math.min(
-        maxWidth / lightImg.width,
-        maxHeight / lightImg.height,
-      );
+      const lightScale = Math.min(maxWidth / lightImg.width, maxHeight / lightImg.height);
       const lightNewWidth = lightImg.width * lightScale;
       const lightNewHeight = lightImg.height * lightScale;
       const lightX = (maxWidth - lightNewWidth) / 2;
       const lightY = (maxHeight - lightNewHeight) / 2;
-      lightCtx.drawImage(
-        lightImg,
-        lightX,
-        lightY,
-        lightNewWidth,
-        lightNewHeight,
-      );
+      lightCtx.drawImage(lightImg, lightX, lightY, lightNewWidth, lightNewHeight);
       const lightScaledData = lightCtx.getImageData(0, 0, maxWidth, maxHeight);
 
       // Scale and draw dark image
@@ -140,10 +128,7 @@ export default function MonochromeMergeClient() {
       darkCanvas.height = maxHeight;
       const darkCtx = darkCanvas.getContext("2d", { willReadFrequently: true });
       if (!darkCtx) return;
-      const darkScale = Math.min(
-        maxWidth / darkImg.width,
-        maxHeight / darkImg.height,
-      );
+      const darkScale = Math.min(maxWidth / darkImg.width, maxHeight / darkImg.height);
       const darkNewWidth = darkImg.width * darkScale;
       const darkNewHeight = darkImg.height * darkScale;
       const darkX = (maxWidth - darkNewWidth) / 2;
@@ -203,17 +188,9 @@ export default function MonochromeMergeClient() {
           />
           <div className={styles["image-container"]}>
             {lightImage ? (
-              <Image
-                width={400}
-                height={400}
-                alt="light-image"
-                src={lightImage}
-              ></Image>
+              <Image width={400} height={400} alt="light-image" src={lightImage}></Image>
             ) : (
-              <div
-                onClick={() => lightInputRef.current?.click()}
-                style={{ cursor: "pointer" }}
-              >
+              <div onClick={() => lightInputRef.current?.click()} style={{ cursor: "pointer" }}>
                 <PlaceholderImage />
               </div>
             )}
@@ -230,17 +207,9 @@ export default function MonochromeMergeClient() {
           />
           <div className={styles["image-container"]}>
             {darkImage ? (
-              <Image
-                width={400}
-                height={400}
-                alt="dark-image"
-                src={darkImage}
-              ></Image>
+              <Image width={400} height={400} alt="dark-image" src={darkImage}></Image>
             ) : (
-              <div
-                onClick={() => darkInputRef.current?.click()}
-                style={{ cursor: "pointer" }}
-              >
+              <div onClick={() => darkInputRef.current?.click()} style={{ cursor: "pointer" }}>
                 <PlaceholderImage />
               </div>
             )}
@@ -248,10 +217,7 @@ export default function MonochromeMergeClient() {
         </div>
       </div>
       <div className={styles.start}>
-        <button
-          className={styles["start-process-button"]}
-          onClick={handleProcessImages}
-        >
+        <button className={styles["start-process-button"]} onClick={handleProcessImages}>
           Start Process
         </button>
       </div>
@@ -264,12 +230,7 @@ export default function MonochromeMergeClient() {
               transition: "background-color 0.5s ease",
             }}
           >
-            <Image
-              width={300}
-              height={300}
-              alt="processed-image"
-              src={processedImage}
-            />
+            <Image width={300} height={300} alt="processed-image" src={processedImage} />
           </div>
           <a
             href={processedImage}

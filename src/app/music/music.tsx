@@ -33,8 +33,7 @@ export function getMusicList(): Music[] {
 
     // 音楽ファイルとジャケット画像を探す
     const musicFile = files.find(
-      (file) =>
-        file.endsWith(".mp3") || file.endsWith(".m4a") || file.endsWith(".wav"),
+      (file) => file.endsWith(".mp3") || file.endsWith(".m4a") || file.endsWith(".wav"),
     );
     const jacketFile = files.find(
       (file) => file.startsWith("jacket.") || file.startsWith("cover."),

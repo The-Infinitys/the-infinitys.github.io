@@ -1,13 +1,7 @@
 "use client";
 import { useTranslations } from "next-intl";
 
-export default function Explains({
-  year,
-  month,
-}: {
-  year: string;
-  month: string;
-}) {
+export default function Explains({ year, month }: { year: string; month: string }) {
   const t = useTranslations("pages.article");
   return (
     <>

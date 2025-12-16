@@ -13,11 +13,7 @@ export default function I18nProvider({ children }: { children: ReactNode }) {
   const locale = useLocale();
   const messages: Translation = getMessages(locale);
   return (
-    <NextIntlClientProvider
-      locale={locale}
-      messages={messages}
-      timeZone="Asia/Tokyo"
-    >
+    <NextIntlClientProvider locale={locale} messages={messages} timeZone="Asia/Tokyo">
       {children}
     </NextIntlClientProvider>
   );

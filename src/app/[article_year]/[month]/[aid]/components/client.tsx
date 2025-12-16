@@ -25,9 +25,7 @@ async function generateSha256Hex(input: string): Promise<string> {
   const data = encoder.encode(input);
   const hashBuffer = await crypto.subtle.digest("SHA-256", data);
   const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hashHex = hashArray
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("");
+  const hashHex = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
   return hashHex;
 }
 
@@ -40,9 +38,7 @@ export default function ClientComponent({
   const tocRef = useRef<HTMLElement>(null);
   const t = useTranslations("pages.article.content");
   const locale = useLocale();
-  const processedContent = processedContents.find(
-    (c) => c.lang === locale,
-  )?.content;
+  const processedContent = processedContents.find((c) => c.lang === locale)?.content;
   const toc = tocs.find((t) => t.lang === locale)?.toc || [];
   const [sha256Seed, setSha256Seed] = useState<number | null>(null);
   const max_show_others = 2;
@@ -87,9 +83,7 @@ export default function ClientComponent({
       return { article, randomOtherArticles: [] };
     }
 
-    const otherArticles = articles.filter(
-      (a) => a.slug !== slug && a.lang === locale,
-    );
+    const otherArticles = articles.filter((a) => a.slug !== slug && a.lang === locale);
 
     const pseudoRandom = mulberry32(sha256Seed);
 
@@ -178,9 +172,7 @@ export default function ClientComponent({
       </article>
       <section className={styles["other-articles"] + " relative md:sticky"}>
         <h2>{t("words.others")}</h2>
-        <ul>
-          {randomOtherArticles.map((other) => generateArticleButton(other))}
-        </ul>
+        <ul>{randomOtherArticles.map((other) => generateArticleButton(other))}</ul>
       </section>
     </div>
   );

@@ -24,8 +24,7 @@ const postsDirectory = path.join(process.cwd(), "public");
 // `fs.readFileSync`を使用することで、追加の設定なしにSVGのコンテンツを直接取得し、
 // Data URLを確実に構築できます。
 const svgFilePath = path.join(process.cwd(), "public", "next-loading.svg");
-const LoadingImage =
-  "data:image/svg+xml," + fs.readFileSync(svgFilePath, "utf-8").toString();
+const LoadingImage = "data:image/svg+xml," + fs.readFileSync(svgFilePath, "utf-8").toString();
 
 function getYearDirectories(basePath: string): string[] {
   return fs
@@ -111,9 +110,7 @@ export function getArticleIndexes() {
           const articleDir = path.join(monthPath, articleId);
           return processArticleDirectory(articleDir, year, month, articleId);
         })
-        .filter(
-          (article): article is NonNullable<typeof article> => article !== null,
-        )
+        .filter((article): article is NonNullable<typeof article> => article !== null)
         .flat(); // ネストされた配列を平坦化
     });
   });
@@ -122,9 +119,7 @@ export function getArticleIndexes() {
 function findThumbnailFile(directory: string): string | null {
   const files = fs.readdirSync(directory);
   const thumbnail = files.find((file) => file.startsWith("thumbnail."));
-  return thumbnail
-    ? `/${path.relative("public", path.join(directory, thumbnail))}`
-    : null;
+  return thumbnail ? `/${path.relative("public", path.join(directory, thumbnail))}` : null;
 }
 
 export type Article = {

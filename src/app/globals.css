@@ -74,11 +74,7 @@ body {
 body {
   color: var(--foreground);
   background: radial-gradient(
-    color-mix(
-      in srgb,
-      hsl(var(--body-color-value) 100% 50%),
-      var(--background) 80%
-    ),
+    color-mix(in srgb, hsl(var(--body-color-value) 100% 50%), var(--background) 80%),
     var(--background)
   );
   min-height: 100vh;

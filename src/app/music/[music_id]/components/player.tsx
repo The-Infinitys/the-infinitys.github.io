@@ -45,9 +45,7 @@ export function Player({ music, musicList }: PlayerProps) {
   const [duration, setDuration] = useState(0);
   const [timePosition, setTimePosition] = useState(0);
   const [playbackRate, setPlaybackRate] = useState(1);
-  const [source, setSource] = useState<MediaElementAudioSourceNode | null>(
-    null,
-  );
+  const [source, setSource] = useState<MediaElementAudioSourceNode | null>(null);
   const [analyserNode, setAnalyserNode] = useState<AnalyserNode | null>(null);
   const [isCircular, setIsCircular] = useState(false);
   const [eqGains, setEqGains] = useState<number[]>(equalizerPresets.Flat); // 初期値はFlat
@@ -96,9 +94,7 @@ export function Player({ music, musicList }: PlayerProps) {
   useEffect(() => {
     if (!audioRef.current) return;
     audioCtxRef.current = new AudioContext();
-    const elementSource = audioCtxRef.current.createMediaElementSource(
-      audioRef.current,
-    );
+    const elementSource = audioCtxRef.current.createMediaElementSource(audioRef.current);
     const analyser = audioCtxRef.current.createAnalyser();
     analyser.fftSize = 2 ** 8;
 
@@ -159,13 +155,7 @@ export function Player({ music, musicList }: PlayerProps) {
   }, [eqGains]);
 
   useEffect(() => {
-    if (
-      !source ||
-      !analyserNode ||
-      playState !== "play" ||
-      !spectrumRef.current
-    )
-      return;
+    if (!source || !analyserNode || playState !== "play" || !spectrumRef.current) return;
 
     const canvas = spectrumRef.current;
     const canvasCtx = canvas.getContext("2d");
@@ -217,12 +207,7 @@ export function Player({ music, musicList }: PlayerProps) {
           canvasCtx.strokeStyle = `hsla(${hue}, 100%, 50%, 0.8)`;
           canvasCtx.lineWidth = barWidthCirc;
           canvasCtx.fillStyle = `hsla(${hue}, 100%, 50%, 0.8)`;
-          canvasCtx.fillRect(
-            innerRadius,
-            -barWidthCirc / 2,
-            barHeight,
-            barWidthCirc,
-          );
+          canvasCtx.fillRect(innerRadius, -barWidthCirc / 2, barHeight, barWidthCirc);
           canvasCtx.restore();
         }
       } else {
@@ -231,22 +216,12 @@ export function Player({ music, musicList }: PlayerProps) {
         for (let i = 0; i < bufferLength; i++) {
           const barHeight = (dataArray[i] / 255) * canvas.height;
           const hue = (i / bufferLength) * 360;
-          const gradient = canvasCtx.createLinearGradient(
-            0,
-            canvas.height,
-            0,
-            0,
-          );
+          const gradient = canvasCtx.createLinearGradient(0, canvas.height, 0, 0);
           gradient.addColorStop(0, `hsla(${hue}, 100%, 50%, 0.4)`);
           gradient.addColorStop(1, `hsla(${hue}, 100%, 50%, 0.2)`);
 
           canvasCtx.fillStyle = gradient;
-          canvasCtx.fillRect(
-            x,
-            canvas.height - barHeight,
-            barWidth - 1,
-            barHeight,
-          );
+          canvasCtx.fillRect(x, canvas.height - barHeight, barWidth - 1, barHeight);
           x += barWidth;
         }
       }
@@ -302,18 +277,12 @@ export function Player({ music, musicList }: PlayerProps) {
 
   const handleSkipForward = () => {
     if (!audioRef.current) return;
-    audioRef.current.currentTime = Math.min(
-      audioRef.current.currentTime + 10,
-      duration,
-    );
+    audioRef.current.currentTime = Math.min(audioRef.current.currentTime + 10, duration);
   };
 
   const handleSkipBackward = () => {
     if (!audioRef.current) return;
-    audioRef.current.currentTime = Math.max(
-      audioRef.current.currentTime - 5,
-      0,
-    );
+    audioRef.current.currentTime = Math.max(audioRef.current.currentTime - 5, 0);
   };
 
   const handleNextTrack = () => {
@@ -368,10 +337,7 @@ export function Player({ music, musicList }: PlayerProps) {
     window.location.href = `/music/${trackId}`;
   };
 
-  const handleEqChange = (
-    index: number,
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleEqChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
     const newGains = [...eqGains];
     newGains[index] = parseFloat(e.target.value);
     setEqGains(newGains);
@@ -421,39 +387,19 @@ export function Player({ music, musicList }: PlayerProps) {
 
       <div className={styles["player-controls"]}>
         <div className={styles["control-buttons"]}>
-          <button
-            type="button"
-            onClick={handlePreviousTrack}
-            className={styles["control-button"]}
-          >
+          <button type="button" onClick={handlePreviousTrack} className={styles["control-button"]}>
             <PreviousMusic />
           </button>
-          <button
-            type="button"
-            onClick={handleSkipBackward}
-            className={styles["control-button"]}
-          >
+          <button type="button" onClick={handleSkipBackward} className={styles["control-button"]}>
             <SkipToBack />
           </button>
-          <button
-            type="button"
-            onClick={handleTogglePlay}
-            className={styles["play-button"]}
-          >
+          <button type="button" onClick={handleTogglePlay} className={styles["play-button"]}>
             {playState === "stop" ? <PlayButton /> : <StopButton />}
           </button>
-          <button
-            type="button"
-            onClick={handleSkipForward}
-            className={styles["control-button"]}
-          >
+          <button type="button" onClick={handleSkipForward} className={styles["control-button"]}>
             <SkipToForward />
           </button>
-          <button
-            type="button"
-            onClick={handleNextTrack}
-            className={styles["control-button"]}
-          >
+          <button type="button" onClick={handleNextTrack} className={styles["control-button"]}>
             <NextMusic />
           </button>
         </div>
@@ -630,12 +576,8 @@ export function Player({ music, musicList }: PlayerProps) {
                 </div>
               )}
               <div className={styles["music-list-info"]}>
-                <span className={styles["music-list-title"]}>
-                  {track.title}
-                </span>
-                <span className={styles["music-list-artist"]}>
-                  {track.artist}
-                </span>
+                <span className={styles["music-list-title"]}>{track.title}</span>
+                <span className={styles["music-list-artist"]}>{track.artist}</span>
               </div>
             </li>
           ))}

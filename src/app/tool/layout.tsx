@@ -6,10 +6,6 @@ export const metadata: Metadata = {
   description: "Useful tools for everyone!",
 };
 
-export default function ToolLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function ToolLayout({ children }: { children: React.ReactNode }) {
   return children;
 }

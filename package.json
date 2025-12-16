@@ -8,9 +8,9 @@
     "build": "next build",
     "postbuild": "next-sitemap --config next-sitemap.config.js",
     "start": "next start",
-    "lint": "biome check src",
-    "lint:fix": "biome check --write src",
-    "format": "biome format --write src"
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "format": "oxfmt"
   },
   "dependencies": {
     "framer-motion": "^12.23.25",
@@ -36,7 +36,8 @@
     "@types/node": "^25.0.2",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
-    "biome": "^0.3.3",
+    "oxfmt": "^0.18.0",
+    "oxlint": "^1.33.0",
     "tailwindcss": "^4.1.17",
     "typescript": "^5.9.3"
   }

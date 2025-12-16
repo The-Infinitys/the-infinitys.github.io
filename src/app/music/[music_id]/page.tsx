@@ -27,9 +27,7 @@ export async function generateMetadata({
   const description = `Music: ${title}`;
   const og_image_url = `${slug}/${music.jacketUrl?.split("/").slice(-1)[0]}`;
   const metadata: Metadata = {
-    metadataBase: new URL(
-      process.env.BASE_URL || "https://the-infinitys.f5.si",
-    ),
+    metadataBase: new URL(process.env.BASE_URL || "https://the-infinitys.f5.si"),
     title: fullTitle, // ページのタイトルを設定
     description: description, // ページのディスクリプションを設定
     alternates: {
@@ -48,11 +46,7 @@ export async function generateMetadata({
   return metadata;
 }
 
-export default async function MusicPage({
-  params,
-}: {
-  params: Promise<{ music_id: string }>;
-}) {
+export default async function MusicPage({ params }: { params: Promise<{ music_id: string }> }) {
   const resolvedParams = await params;
   const musicList = getMusicList();
   const music = musicList.find((m) => m.id === resolvedParams.music_id);

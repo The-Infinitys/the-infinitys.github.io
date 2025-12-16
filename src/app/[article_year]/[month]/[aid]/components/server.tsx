@@ -18,9 +18,7 @@ export async function generateStaticParams() {
         return { article_year, month, aid };
       }
       // 予期しない形式のslugはスキップするか、ログを出す
-      console.warn(
-        `Skipping invalid slug format in generateStaticParams: ${article.slug}`,
-      );
+      console.warn(`Skipping invalid slug format in generateStaticParams: ${article.slug}`);
       return null; // nullを返して後でfilter(Boolean)で除外する
     })
     .filter(Boolean); // nullを除外
@@ -70,16 +68,13 @@ export default async function ArticleServer({
   // コンテンツ処理ロジック (既存のまま)
   const processedContents = articlesForSlug.map((article) => {
     return {
-      content: article.content.replace(
-        /<h([1-6])>(.*?)<\/h[1-6]>/g,
-        (match, level, text) => {
-          // 見出しレベルを1つ下げる（h1 -> h2, h2 -> h3など）
-          const newLevel = Math.min(parseInt(level) + 1, 6);
-          // IDは元の見出しテキストから生成
-          const id = crypto.createHash("sha512").update(text).digest("hex");
-          return `<h${newLevel} id="${id}">${text}</h${newLevel}>`;
-        },
-      ),
+      content: article.content.replace(/<h([1-6])>(.*?)<\/h[1-6]>/g, (match, level, text) => {
+        // 見出しレベルを1つ下げる（h1 -> h2, h2 -> h3など）
+        const newLevel = Math.min(parseInt(level) + 1, 6);
+        // IDは元の見出しテキストから生成
+        const id = crypto.createHash("sha512").update(text).digest("hex");
+        return `<h${newLevel} id="${id}">${text}</h${newLevel}>`;
+      }),
       lang: article.lang as AvailableLocales,
     };
   });

@@ -34,10 +34,7 @@ export default function ArticleList({ articles }: ArticleListProps) {
   // ページネーション用の計算
   const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
   const startIndex = (currentPage - 1) * articlesPerPage;
-  const currentArticles = filteredArticles.slice(
-    startIndex,
-    startIndex + articlesPerPage,
-  );
+  const currentArticles = filteredArticles.slice(startIndex, startIndex + articlesPerPage);
 
   // ページ変更ハンドラー
   const handlePageChange = (page: number) => {
@@ -81,16 +78,11 @@ export default function ArticleList({ articles }: ArticleListProps) {
         </details>
       </section>
       <section className={pageStyles["articles"]}>
-        {currentArticles.map(
-          (article: Article): ReactNode => generateArticleButton(article),
-        )}
+        {currentArticles.map((article: Article): ReactNode => generateArticleButton(article))}
       </section>
       <section className={pageStyles["pager"]}>
         <div className={pageStyles["pagination"]}>
-          <button
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-          >
+          <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
             {t("words.previous")}
           </button>
           <span>

@@ -24,9 +24,7 @@ export function getMessages(locale: AvailableLocales): Translation {
 
 export default getRequestConfig(async ({ locale }) => {
   // 利用可能なロケールかどうかを確認
-  const availableLocale = (["en", "ja"] as AvailableLocales[]).includes(
-    locale as AvailableLocales,
-  )
+  const availableLocale = (["en", "ja"] as AvailableLocales[]).includes(locale as AvailableLocales)
     ? (locale as AvailableLocales)
     : "en"; // デフォルトは "en"
 

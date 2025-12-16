@@ -62,11 +62,7 @@ export default function Header() {
         <h1
           className={`${chakraPetch.className} italic font-semibold text-4xl`} // text-4xlに変更
         >
-          <Link
-            href="/"
-            onClick={handleLinkClick}
-            className="text-[var(--foreground)]"
-          >
+          <Link href="/" onClick={handleLinkClick} className="text-[var(--foreground)]">
             {"The Infinity's"}
             {/* Added Link here for consistency */}
           </Link>
@@ -95,8 +91,7 @@ export default function Header() {
         style={
           isMenuOpen
             ? {
-                backgroundColor:
-                  "color-mix(in srgb, var(--primary), transparent 50%)",
+                backgroundColor: "color-mix(in srgb, var(--primary), transparent 50%)",
                 backdropFilter: "blur(4px)",
               }
             : {}

@@ -12,12 +12,7 @@ export interface Game {
 }
 
 export function getGames(): Game[] {
-  const gamesFilePath = path.join(
-    process.cwd(),
-    "public",
-    "games",
-    "games.json",
-  );
+  const gamesFilePath = path.join(process.cwd(), "public", "games", "games.json");
   const fileContents = fs.readFileSync(gamesFilePath, "utf-8");
   const games: Game[] = JSON.parse(fileContents);
   return games;

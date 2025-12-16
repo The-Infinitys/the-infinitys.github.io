@@ -5,10 +5,6 @@ export const metadata: Metadata = {
   description: "Merge a light and dark image into a single monochrome image.",
 };
 
-export default function MonochromeMergeLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function MonochromeMergeLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
