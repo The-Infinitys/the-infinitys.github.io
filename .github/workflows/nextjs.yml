@@ -5,9 +5,9 @@
 name: Deploy Next.js site to Pages
 
 on:
-  # Runs on pushes targeting the default branch
+  # Runs on pushes targeting the default branch, and dev branches
   push:
-    branches: ["main"]
+    branches: ["main", "dev/**"] # dev/* のブランチにも反応するように変更
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -25,7 +25,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Build job
+  # Build/Lint job
   build:
     runs-on: ubuntu-latest
     steps:
@@ -39,20 +39,23 @@ jobs:
           echo "manager=bun" >> $GITHUB_OUTPUT
           echo "command=install" >> $GITHUB_OUTPUT
           echo "runner=bun" >> $GITHUB_OUTPUT
-          
+
       - name: Setup Bun
         # Bunをインストールするための専用アクション
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest # または '1.1.0' のような特定のバージョンを指定
 
+      # mainブランチでのみPagesの設定とNext.jsの設定を適用
       - name: Setup Pages
+        if: github.ref == 'refs/heads/main'
         uses: actions/configure-pages@v5
         with:
           # Automatically inject basePath in your Next.js configuration file and disable
           # server side image optimization.
           static_site_generator: next
 
+      # キャッシュの復元（main/devのいずれでも依存関係のインストール前に実行）
       - name: Restore cache
         uses: actions/cache@v4
         with:
@@ -67,18 +70,32 @@ jobs:
       - name: Install dependencies
         # 'bun install' を実行
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
-        
-      - name: Build with Next.js
+
+      # === 処理分岐 ===
+
+      - name: Run lint for dev branches
+        # ブランチ名が 'dev/' で始まる場合にのみ実行
+        if: startsWith(github.ref, 'refs/heads/dev/')
+        # lintコマンドを実行
+        run: ${{ steps.detect-package-manager.outputs.runner }} run lint
+
+      - name: Build with Next.js (for main branch)
+        # mainブランチの場合にのみ実行
+        if: github.ref == 'refs/heads/main'
         # 'bun next build' を実行
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
-        
-      - name: Upload artifact
+
+      - name: Upload artifact (for main branch)
+        # mainブランチの場合にのみ実行
+        if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
 
   # Deployment job
   deploy:
+    # mainブランチの場合にのみ実行
+    if: github.ref == 'refs/heads/main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
