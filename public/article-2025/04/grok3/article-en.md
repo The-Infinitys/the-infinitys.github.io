@@ -28,16 +28,16 @@ Grok3 possesses powerful reasoning abilities and extensive knowledge. Its main f
 - **Reasoning Ability**: Uses reinforcement learning (RL) and thinks for several seconds to minutes. Corrects errors and provides accurate answers ([TechCrunch article](https://techcrunch.com/2025/02/17/elon-musks-ai-company-xai-releases-its-latest-flagship-ai-grok-3/)).
 - **Benchmark Performance**: Recorded an Elo score of 1402 on Chatbot Arena ([xAI News](https://x.ai/news/grok-3)). The main benchmark results are as follows:
 
-| Benchmark    | Grok3 Beta | Grok3 mini Beta |
-| :----------- | ---------: | --------------: |
-| AIME’24      |      52.2% |           39.7% |
-| GPQA         |      75.4% |           66.2% |
-| LCB          |      57.0% |           41.5% |
-| MMLU-pro     |      79.9% |           78.9% |
-| LOFT (128k)  |      83.3% |           83.1% |
-| SimpleQA     |      43.6% |           21.7% |
-| MMMU         |      73.2% |           69.4% |
-| EgoSchema    |      74.5% |           74.3% |
+| Benchmark   | Grok3 Beta | Grok3 mini Beta |
+| :---------- | ---------: | --------------: |
+| AIME’24     |      52.2% |           39.7% |
+| GPQA        |      75.4% |           66.2% |
+| LCB         |      57.0% |           41.5% |
+| MMLU-pro    |      79.9% |           78.9% |
+| LOFT (128k) |      83.3% |           83.1% |
+| SimpleQA    |      43.6% |           21.7% |
+| MMMU        |      73.2% |           69.4% |
+| EgoSchema   |      74.5% |           74.3% |
 
 - **Compute at Test Time**: Grok3 Think (cons@64) achieved 93.3% on AIME’25, 84.6% on GPQA, and 79.4% on LiveCodeBench.
 - **Context Window**: 1 million tokens (8 times that of previous models).

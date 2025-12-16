@@ -10,6 +10,7 @@ description: "すごく使いやすい"
 
 [Edit](https://devblogs.microsoft.com/commandline/edit-is-now-open-source/)
 というエディタがあったので使ってみることにしました！
+
 ## Editとは
 
 Editというのは、Microsoftが現在制作しているオープンソースのコマンドラインテキストエディタです！

@@ -80,7 +80,7 @@ requestAnimationFrameを使用することで、スムーズなアニメーシ�
 ```tsx
 const handleTogglePlay = () => {
   if (!audioRef.current || !audioCtxRef.current) return;
-  
+
   if (audioCtxRef.current.state === "suspended") {
     audioCtxRef.current.resume();
     setPlayState("play");

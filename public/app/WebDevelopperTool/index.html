@@ -1,329 +1,336 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>InfinityDevelopperTool</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <title>InfinityDevelopperTool</title>
-</head>
+  <body>
+    <a href="./BookMarkLet.html"><h1>ダウンロードはこちらから。</h1></a>
 
-<body>
+    <div id="InfinityDevelopperTool">
+      <style>
+        #DevelopperToolBox {
+          z-index: 9999999;
+          padding: 0;
+          position: fixed;
+          width: 20%;
+          height: 100%;
+          top: 0;
+          right: 0;
+          background-color: black;
+        }
 
-<a href="./BookMarkLet.html"><h1>ダウンロードはこちらから。</h1></a>
+        #VisibleSwitch {
+          z-index: 99999999999999999;
+          position: fixed;
+          top: 0;
+          right: 0%;
+          width: 5%;
+          height: 5%;
+          padding: 0;
+          background-color: white;
+          color: black;
+          border: 1px solid gray;
+        }
 
-  <div id="InfinityDevelopperTool">
-    <style>
-      #DevelopperToolBox {
-        z-index: 9999999;
-        padding: 0;
-        position: fixed;
-        width: 20%;
-        height: 100%;
-        top: 0;
-        right: 0;
-        background-color: black;
-      }
+        #MaximiseSwitch {
+          z-index: 99999999999999999;
+          position: fixed;
+          top: 0;
+          right: 5%;
+          width: 5%;
+          height: 5%;
+          padding: 0;
+          background-color: white;
+          color: black;
+          border: 1px solid gray;
+        }
 
-      #VisibleSwitch {
-        z-index: 99999999999999999;
-        position: fixed;
-        top: 0;
-        right: 0%;
-        width: 5%;
-        height: 5%;
-        padding: 0;
-        background-color: white;
-        color: black;
-        border: 1px solid gray;
-      }
+        #HTML {
+          position: absolute;
+          top: 5%;
+          left: 0%;
+          width: 33%;
+          height: 5%;
+          color: orange;
+          font-family: arial;
+          border: 2px solid orange;
+        }
 
-      #MaximiseSwitch {
-        z-index: 99999999999999999;
-        position: fixed;
-        top: 0;
-        right: 5%;
-        width: 5%;
-        height: 5%;
-        padding: 0;
-        background-color: white;
-        color: black;
-        border: 1px solid gray;
-      }
+        #CSS {
+          position: absolute;
+          top: 5%;
+          left: 33.3%;
+          width: 33%;
+          height: 5%;
+          color: lightblue;
+          font-family: arial;
+          border: 2px solid lightblue;
+        }
 
-      #HTML {
-        position: absolute;
-        top: 5%;
-        left: 0%;
-        width: 33%;
-        height: 5%;
-        color: orange;
-        font-family: arial;
-        border: 2px solid orange;
-      }
+        #JS {
+          position: absolute;
+          top: 5%;
+          right: 0;
+          width: 33%;
+          height: 5%;
+          color: yellow;
+          font-family: arial;
+          border: 2px solid yellow;
+        }
 
-      #CSS {
-        position: absolute;
-        top: 5%;
-        left: 33.3%;
-        width: 33%;
-        height: 5%;
-        color: lightblue;
-        font-family: arial;
-        border: 2px solid lightblue;
-      }
+        #HTMLEditor {
+          position: absolute;
+          top: 10%;
+          left: 0;
+          width: 100%;
+          height: 90%;
+          border: 2px solid orange;
+        }
 
-      #JS {
-        position: absolute;
-        top: 5%;
-        right: 0;
-        width: 33%;
-        height: 5%;
-        color: yellow;
-        font-family: arial;
-        border: 2px solid yellow;
-      }
+        #HTMLSource {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 80%;
+          border: 2px solid orange;
+        }
 
-      #HTMLEditor {
-        position: absolute;
-        top: 10%;
-        left: 0;
-        width: 100%;
-        height: 90%;
-        border: 2px solid orange;
-      }
+        #UpdateHTML {
+          z-index: 999999;
+          position: absolute;
+          top: 80%;
+          left: 0;
+          width: 100%;
+          height: 10%;
+          border: 2px solid orange;
+        }
 
-      #HTMLSource {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 80%;
-        border: 2px solid orange;
-      }
+        #RestoreHTML {
+          z-index: 999999;
+          position: absolute;
+          top: 90%;
+          left: 0;
+          width: 100%;
+          height: 10%;
+          border: 2px solid orange;
+        }
 
-      #UpdateHTML {
-        z-index: 999999;
-        position: absolute;
-        top: 80%;
-        left: 0;
-        width: 100%;
-        height: 10%;
-        border: 2px solid orange;
-      }
+        #CSSEditor {
+          visibility: hidden;
+          position: absolute;
+          top: 10%;
+          left: 0;
+          width: 100%;
+          height: 90%;
+          border: 2px solid lightblue;
+        }
 
-      #RestoreHTML {
-        z-index: 999999;
-        position: absolute;
-        top: 90%;
-        left: 0;
-        width: 100%;
-        height: 10%;
-        border: 2px solid orange;
-      }
+        #CSSSource {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 90%;
+          border: 2px solid lightblue;
+        }
 
-      #CSSEditor {
-        visibility: hidden;
-        position: absolute;
-        top: 10%;
-        left: 0;
-        width: 100%;
-        height: 90%;
-        border: 2px solid lightblue;
-      }
+        #UpdateCSS {
+          z-index: 999999;
+          position: absolute;
+          top: 90%;
+          left: 0;
+          width: 100%;
+          height: 10%;
+          border: 2px solid lightblue;
+        }
 
-      #CSSSource {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 90%;
-        border: 2px solid lightblue;
-      }
+        #JSEditor {
+          visibility: hidden;
+          position: absolute;
+          top: 10%;
+          left: 0;
+          width: 100%;
+          height: 90%;
+          border: 2px solid yellow;
+        }
 
-      #UpdateCSS {
-        z-index: 999999;
-        position: absolute;
-        top: 90%;
-        left: 0;
-        width: 100%;
-        height: 10%;
-        border: 2px solid lightblue;
-      }
+        #JSSource {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 70%;
+          border: 2px solid yellow;
+        }
 
-      #JSEditor {
-        visibility: hidden;
-        position: absolute;
-        top: 10%;
-        left: 0;
-        width: 100%;
-        height: 90%;
-        border: 2px solid yellow;
-      }
+        #JSRunnerButton {
+          z-index: 999999;
+          position: absolute;
+          top: 70%;
+          left: 0;
+          width: 100%;
+          height: 10%;
+          background-color: black;
+          color: yellow;
+          border: 2px solid yellow;
+        }
 
-      #JSSource {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 70%;
-        border: 2px solid yellow;
-      }
-
-      #JSRunnerButton {
-        z-index: 999999;
-        position: absolute;
-        top: 70%;
-        left: 0;
-        width: 100%;
-        height: 10%;
-        background-color: black;
-        color: yellow;
-        border: 2px solid yellow;
-      }
-
-      #JSRunnerConsole {
-        z-index: 999999;
-        position: absolute;
-        top: 80%;
-        left: 0;
-        width: 100%;
-        height: 20%;
-        color: white;
-        font-family: sans-serif;
-        background-color: black;
-        border: 2px solid yellow;
-        overflow: scroll;
-        font-size: 5px;
-      }
-    </style>
-    <button id="VisibleSwitch">x</button>
-    <button id="MaximiseSwitch">[]</button>
-    <div id="DevelopperToolBox">
-      <button id="HTML">&lt;&gt;</button>
-      <div id="HTMLEditor">
-        <textarea id="HTMLSource" id="" cols="30" rows="10" placeHolder="//Please Write Here to Code"></textarea>
-        <button id="UpdateHTML">Update</button>
-        <button id="RestoreHTML">Restore</button>
-      </div>
-      <button id="CSS">#</button>
-      <div id="CSSEditor">
-        <textarea id="CSSSource" cols="30" rows="10" placeHolder="//Please Write Here to Code"></textarea>
-        <button id="UpdateCSS">Update</button>
-        <style id="CSSAdder"></style>
-      </div>
-      <button id="JS">JS</button>
-      <div id="JSEditor">
-        <textarea id="JSSource" rows="30" cols="10" placeHolder="//Please Write Here to Code">
-      </textarea>
-        <button id="JSRunnerButton">Run</button>
-        <div id="JSRunnerConsole">
+        #JSRunnerConsole {
+          z-index: 999999;
+          position: absolute;
+          top: 80%;
+          left: 0;
+          width: 100%;
+          height: 20%;
+          color: white;
+          font-family: sans-serif;
+          background-color: black;
+          border: 2px solid yellow;
+          overflow: scroll;
+          font-size: 5px;
+        }
+      </style>
+      <button id="VisibleSwitch">x</button>
+      <button id="MaximiseSwitch">[]</button>
+      <div id="DevelopperToolBox">
+        <button id="HTML">&lt;&gt;</button>
+        <div id="HTMLEditor">
+          <textarea
+            id="HTMLSource"
+            id=""
+            cols="30"
+            rows="10"
+            placeholder="//Please Write Here to Code"
+          ></textarea>
+          <button id="UpdateHTML">Update</button>
+          <button id="RestoreHTML">Restore</button>
         </div>
-        <script id="JSRunner"></script>
+        <button id="CSS">#</button>
+        <div id="CSSEditor">
+          <textarea
+            id="CSSSource"
+            cols="30"
+            rows="10"
+            placeholder="//Please Write Here to Code"
+          ></textarea>
+          <button id="UpdateCSS">Update</button>
+          <style id="CSSAdder"></style>
+        </div>
+        <button id="JS">JS</button>
+        <div id="JSEditor">
+          <textarea id="JSSource" rows="30" cols="10" placeholder="//Please Write Here to Code">
+          </textarea>
+          <button id="JSRunnerButton">Run</button>
+          <div id="JSRunnerConsole"></div>
+          <script id="JSRunner"></script>
+        </div>
       </div>
-    </div>
 
-    <script>
-      var HTMLEditor = document.getElementById("HTMLEditor");
-      var CSSEditor = document.getElementById("CSSEditor");
-      var JSEditor = document.getElementById("JSEditor");
-      function openDevelopper() {
-        document.getElementById("DevelopperToolBox").style.visibility = "visible";
-        
-        document.getElementById("MaximiseSwitch").style.visibility = "visible";
-        
-        CSSEditor.style.visibility = "hidden";
-        JSEditor.style.visibility = "hidden";
-        HTMLEditor.style.visibility = "visible";
-        document.getElementById("VisibleSwitch").style.opacity = "1";
-      }
-      openDevelopper();
-      document.querySelector("#VisibleSwitch").addEventListener("click", (e) => {
-        if (
-          document.getElementById("DevelopperToolBox").style.visibility === "visible"
-          ) {
-          document.getElementById("DevelopperToolBox").style.visibility = "hidden";
-          document.getElementById("MaximiseSwitch").style.visibility = "hidden";
+      <script>
+        var HTMLEditor = document.getElementById("HTMLEditor");
+        var CSSEditor = document.getElementById("CSSEditor");
+        var JSEditor = document.getElementById("JSEditor");
+        function openDevelopper() {
+          document.getElementById("DevelopperToolBox").style.visibility = "visible";
+
+          document.getElementById("MaximiseSwitch").style.visibility = "visible";
+
           CSSEditor.style.visibility = "hidden";
           JSEditor.style.visibility = "hidden";
+          HTMLEditor.style.visibility = "visible";
+          document.getElementById("VisibleSwitch").style.opacity = "1";
+        }
+        openDevelopper();
+        document.querySelector("#VisibleSwitch").addEventListener("click", (e) => {
+          if (
+            document.getElementById("DevelopperToolBox").style.visibility === "visible"
+            ) {
+            document.getElementById("DevelopperToolBox").style.visibility = "hidden";
+            document.getElementById("MaximiseSwitch").style.visibility = "hidden";
+            CSSEditor.style.visibility = "hidden";
+            JSEditor.style.visibility = "hidden";
+            HTMLEditor.style.visibility = "hidden";
+            document.getElementById("VisibleSwitch").style.opacity = "0";
+          } else {
+            openDevelopper();
+          }
+        });
+        document.querySelector("#MaximiseSwitch").addEventListener("click", (e) => {
+          if (document.getElementById("DevelopperToolBox").style.width == "100%") {
+            document.getElementById("DevelopperToolBox").style.width = "20%";
+          } else {
+            document.getElementById("DevelopperToolBox").style.width = "100%";
+          }
+        });
+        document.querySelector("#HTML").addEventListener("click", (e) => {
+          CSSEditor.style.visibility = "hidden";
+          JSEditor.style.visibility = "hidden";
+          HTMLEditor.style.visibility = "visible";
+        });
+        document.querySelector("#CSS").addEventListener("click", (e) => {
           HTMLEditor.style.visibility = "hidden";
-          document.getElementById("VisibleSwitch").style.opacity = "0";
-        } else {
-          openDevelopper();
+          JSEditor.style.visibility = "hidden";
+          CSSEditor.style.visibility = "visible";
+        });
+        document.querySelector("#JS").addEventListener("click", (e) => {
+          CSSEditor.style.visibility = "hidden";
+          HTMLEditor.style.visibility = "hidden";
+          JSEditor.style.visibility = "visible";
+        });
+        var HTMLSource = document.getElementById("HTMLSource");
+        function getHTMLSource() {
+          return document.documentElement.outerHTML
+            .replace("/&/g", "&amp;")
+            .replace("/</g", "&lt;")
+            .replace("/>/g", "&gt;");
         }
-      });
-      document.querySelector("#MaximiseSwitch").addEventListener("click", (e) => {
-        if (document.getElementById("DevelopperToolBox").style.width == "100%") {
-          document.getElementById("DevelopperToolBox").style.width = "20%";
-        } else {
-          document.getElementById("DevelopperToolBox").style.width = "100%";
-        }
-      });
-      document.querySelector("#HTML").addEventListener("click", (e) => {
-        CSSEditor.style.visibility = "hidden";
-        JSEditor.style.visibility = "hidden";
-        HTMLEditor.style.visibility = "visible";
-      });
-      document.querySelector("#CSS").addEventListener("click", (e) => {
-        HTMLEditor.style.visibility = "hidden";
-        JSEditor.style.visibility = "hidden";
-        CSSEditor.style.visibility = "visible";
-      });
-      document.querySelector("#JS").addEventListener("click", (e) => {
-        CSSEditor.style.visibility = "hidden";
-        HTMLEditor.style.visibility = "hidden";
-        JSEditor.style.visibility = "visible";
-      });
-      var HTMLSource = document.getElementById("HTMLSource");
-      function getHTMLSource() {
-        return document.documentElement.outerHTML
-          .replace("/&/g", "&amp;")
-          .replace("/</g", "&lt;")
-          .replace("/>/g", "&gt;");
-      }
-      HTMLSource.value = getHTMLSource();
-      document.querySelector("#RestoreHTML").addEventListener("click", (e) => {
         HTMLSource.value = getHTMLSource();
-      });
-      document.querySelector("#UpdateHTML").addEventListener("click", (e) => {
-        console.log(HTMLSource.value);
-        document.open();
-        document.write(HTMLSource.value);
-      });
-      document.querySelector("#UpdateCSS").addEventListener("click", (e) => {
-        let before = document.getElementById("CSSAdder");
-        before.remove();
-        let after = document.createElement("style");
-        after.id = "CSSAdder";
-        after.innerHTML = document.getElementById("CSSSource").value;
-        document.getElementById("CSSEditor").appendChild(after);
-      });
-      /* consoleプログラムの書き換え*/
-      console.log = ((logTextAreaArgument) => {
-        let logTextArea = logTextAreaArgument;
-        return (text) => (logTextArea.innerHTML += ">" + text + "<br>");
-      })(document.getElementById("JSRunnerConsole"));
-      console.info = ((logTextAreaArgument) => {
-        let logTextArea = logTextAreaArgument;
-        return (text) => (logTextArea.innerHTML += "[i]>" + text + "<br>");
-      })(document.getElementById("JSRunnerConsole"));
-      console.warn = ((logTextAreaArgument) => {
-        let logTextArea = logTextAreaArgument;
-        return (text) => (logTextArea.innerHTML += "[⚠︎]>" + text + "<br>");
-      })(document.getElementById("JSRunnerConsole"));
-      console.error = ((logTextAreaArgument) => {
-        let logTextArea = logTextAreaArgument;
-        return (text) => (logTextArea.innerHTML += "[×]>" + text + "<br>");
-      })(document.getElementById("JSRunnerConsole"));
+        document.querySelector("#RestoreHTML").addEventListener("click", (e) => {
+          HTMLSource.value = getHTMLSource();
+        });
+        document.querySelector("#UpdateHTML").addEventListener("click", (e) => {
+          console.log(HTMLSource.value);
+          document.open();
+          document.write(HTMLSource.value);
+        });
+        document.querySelector("#UpdateCSS").addEventListener("click", (e) => {
+          let before = document.getElementById("CSSAdder");
+          before.remove();
+          let after = document.createElement("style");
+          after.id = "CSSAdder";
+          after.innerHTML = document.getElementById("CSSSource").value;
+          document.getElementById("CSSEditor").appendChild(after);
+        });
+        /* consoleプログラムの書き換え*/
+        console.log = ((logTextAreaArgument) => {
+          let logTextArea = logTextAreaArgument;
+          return (text) => (logTextArea.innerHTML += ">" + text + "<br>");
+        })(document.getElementById("JSRunnerConsole"));
+        console.info = ((logTextAreaArgument) => {
+          let logTextArea = logTextAreaArgument;
+          return (text) => (logTextArea.innerHTML += "[i]>" + text + "<br>");
+        })(document.getElementById("JSRunnerConsole"));
+        console.warn = ((logTextAreaArgument) => {
+          let logTextArea = logTextAreaArgument;
+          return (text) => (logTextArea.innerHTML += "[⚠︎]>" + text + "<br>");
+        })(document.getElementById("JSRunnerConsole"));
+        console.error = ((logTextAreaArgument) => {
+          let logTextArea = logTextAreaArgument;
+          return (text) => (logTextArea.innerHTML += "[×]>" + text + "<br>");
+        })(document.getElementById("JSRunnerConsole"));
 
-      document.querySelector("#JSRunnerButton").addEventListener("click", (e) => {
-        let before = document.getElementById("JSRunner");
-        before.remove();
-        let after = document.createElement("script");
-        after.id = "JSRunner";
-        after.innerHTML = document.getElementById("JSSource").value;
-        document.getElementById("JSEditor").appendChild(after);
-      });
-    </script>
-  </div>
-</body>
-
+        document.querySelector("#JSRunnerButton").addEventListener("click", (e) => {
+          let before = document.getElementById("JSRunner");
+          before.remove();
+          let after = document.createElement("script");
+          after.id = "JSRunner";
+          after.innerHTML = document.getElementById("JSSource").value;
+          document.getElementById("JSEditor").appendChild(after);
+        });
+      </script>
+    </div>
+  </body>
 </html>

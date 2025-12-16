@@ -1,18 +1,15 @@
-const controller =document.querySelector("div.control");
+const controller = document.querySelector("div.control");
 const audio = document.querySelector("#audio");
 const get_audio_url = () => {
   const default_audio =
     "https://develop.the-infinitys.f5.si/article-2024/09/through-infinity/Through-Infinity.mp3";
-  const param_audio = new URLSearchParams(document.location.search).get(
-    "audio"
-  );
+  const param_audio = new URLSearchParams(document.location.search).get("audio");
   return param_audio == null ? default_audio : param_audio;
 };
 audio.src = get_audio_url();
 const add_bg = () => {
   const get_image_url = () => {
-    const default_img =
-      "https://develop.the-infinitys.f5.si/image/The-Infinitys.webp";
+    const default_img = "https://develop.the-infinitys.f5.si/image/The-Infinitys.webp";
     const param_img = new URLSearchParams(document.location.search).get("img");
     return param_img == null ? default_img : param_img;
   };
@@ -30,9 +27,7 @@ const add_bg = () => {
 add_bg();
 const set_title = () => {
   const default_title = "Though Infinity (The Infinity's) ";
-  const param_title = new URLSearchParams(document.location.search).get(
-    "title"
-  );
+  const param_title = new URLSearchParams(document.location.search).get("title");
   document.querySelector("h1.music-title").innerHTML =
     param_title == null ? default_title : param_title;
 };

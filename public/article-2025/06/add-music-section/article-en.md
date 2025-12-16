@@ -77,7 +77,7 @@ The requestAnimationFrame ensures smooth animation performance.
 ```tsx
 const handleTogglePlay = () => {
   if (!audioRef.current || !audioCtxRef.current) return;
-  
+
   if (audioCtxRef.current.state === "suspended") {
     audioCtxRef.current.resume();
     setPlayState("play");

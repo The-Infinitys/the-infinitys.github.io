@@ -21,9 +21,7 @@ function openDevelopper() {
 openDevelopper();
 HTMLSource.value = getHTMLSource();
 document.querySelector("#VisibleSwitch").addEventListener("click", (e) => {
-  if (
-    document.getElementById("DevelopperToolBox").style.visibility === "visible"
-  ) {
+  if (document.getElementById("DevelopperToolBox").style.visibility === "visible") {
     document.getElementById("DevelopperToolBox").style.visibility = "hidden";
     document.getElementById("MaximiseSwitch").style.visibility = "hidden";
     CSSEditor.style.visibility = "hidden";

@@ -6,7 +6,6 @@ description: "Super easy to use"
 
 # Microsoft Edit
 
-
 I decided to try out an editor called [Edit](https://devblogs.microsoft.com/commandline/edit-is-now-open-source/)!
 
 ## What is Edit?
