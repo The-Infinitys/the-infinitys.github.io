@@ -29,6 +29,16 @@ async function generateSha256Hex(input: string): Promise<string> {
   return hashHex;
 }
 
+// シードに基づいた疑似乱数生成器 (Mulberry32)
+const mulberry32 = (seed: number) => {
+  return () => {
+    let t = (seed += 0x6d2b79f5);
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+};
+
 export default function ClientComponent({
   articles,
   slug,
@@ -42,15 +52,6 @@ export default function ClientComponent({
   const toc = tocs.find((t) => t.lang === locale)?.toc || [];
   const [sha256Seed, setSha256Seed] = useState<number | null>(null);
   const max_show_others = 2;
-  // シードに基づいた疑似乱数生成器 (Mulberry32)
-  const mulberry32 = (seed: number) => {
-    return () => {
-      let t = (seed += 0x6d2b79f5);
-      t = Math.imul(t ^ (t >>> 15), t | 1);
-      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-    };
-  };
 
   useEffect(() => {
     const seedString = `${slug}-${locale}`;

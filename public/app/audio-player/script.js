@@ -7,12 +7,14 @@ const get_audio_url = () => {
   return param_audio == null ? default_audio : param_audio;
 };
 audio.src = get_audio_url();
+
+const get_image_url = () => {
+  const default_img = "https://develop.the-infinitys.f5.si/image/The-Infinitys.webp";
+  const param_img = new URLSearchParams(document.location.search).get("img");
+  return param_img == null ? default_img : param_img;
+};
+
 const add_bg = () => {
-  const get_image_url = () => {
-    const default_img = "https://develop.the-infinitys.f5.si/image/The-Infinitys.webp";
-    const param_img = new URLSearchParams(document.location.search).get("img");
-    return param_img == null ? default_img : param_img;
-  };
   const jacket = document.createElement("img");
   jacket.src = get_image_url();
   jacket.className = "jacket";

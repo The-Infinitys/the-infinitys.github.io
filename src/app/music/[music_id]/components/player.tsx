@@ -18,6 +18,14 @@ interface PlayerProps {
   musicList: Music[];
 }
 
+// 時間をフォーマットするヘルパー関数
+const formatTime = (time: number) => {
+  if (isNaN(time)) return "0:00";
+  const minutes = Math.floor(time / 60);
+  const seconds = Math.floor(time % 60);
+  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+};
+
 // イコライザのプリセットを定義
 const equalizerPresets: { [key: string]: number[] } = {
   Flat: [0, 0, 0, 0, 0],
@@ -268,13 +276,6 @@ export function Player({ music, musicList }: PlayerProps) {
     audioRef.current.currentTime = position;
   };
 
-  const formatTime = (time: number) => {
-    if (isNaN(time)) return "0:00";
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60);
-    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
-  };
-
   const handleSkipForward = () => {
     if (!audioRef.current) return;
     audioRef.current.currentTime = Math.min(audioRef.current.currentTime + 10, duration);
@@ -439,7 +440,7 @@ export function Player({ music, musicList }: PlayerProps) {
           <button
             type="button"
             onClick={handleToggleArrangement}
-            className={`${styles["rate-button"]} ${isCircular ? styles["active"] : ""}`}
+            className={`${styles["rate-button"]} ${isCircular ? "active" : ""}`}
           >
             {isCircular ? "Linear" : "Circular"}
           </button>

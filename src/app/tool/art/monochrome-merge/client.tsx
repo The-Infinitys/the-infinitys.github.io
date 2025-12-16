@@ -4,6 +4,43 @@ import Image from "next/image";
 import { PlaceholderImage } from "./img";
 import { useState, useRef, useEffect } from "react";
 
+const processImageData = (
+  imageData: ImageData,
+  isLight: boolean
+): ImageData => {
+  const { data, width, height } = imageData;
+
+  const histogram = (Array(256).fill(0) as number[]);
+  for (let i = 0; i < data.length; i += 4) {
+    const grayscale = Math.round((data[i] + data[i + 1] + data[i + 2]) / 3);
+    histogram[grayscale]++;
+  }
+
+  let mostFrequentColor = 0;
+  let maxCount = 0;
+  histogram.forEach((count, color) => {
+    if (count > maxCount) {
+      maxCount = count;
+      mostFrequentColor = color;
+    }
+  });
+
+  const outputData = new ImageData(width, height);
+  const colorValue = isLight ? 0 : 255;
+
+  for (let i = 0; i < data.length; i += 4) {
+    const grayscale = (data[i] + data[i + 1] + data[i + 2]) / 3;
+    const distance = Math.abs(grayscale - mostFrequentColor);
+    const alpha = Math.min(distance * 2, 255);
+
+    outputData.data[i] = colorValue;
+    outputData.data[i + 1] = colorValue;
+    outputData.data[i + 2] = colorValue;
+    outputData.data[i + 3] = alpha * 0.5; // Set alpha to 50% of the calculated value
+  }
+  return outputData;
+};
+
 export default function MonochromeMergeClient() {
   const [lightImage, setLightImage] = useState<string | null>(null);
   const [darkImage, setDarkImage] = useState<string | null>(null);
@@ -25,12 +62,12 @@ export default function MonochromeMergeClient() {
   const handleLightImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const reader = new FileReader();
-      reader.onload = (event) => {
+      reader.addEventListener("load", (event) => {
         if (event.target && typeof event.target.result === "string") {
           setLightImage(event.target.result);
           setProcessedImage(null);
         }
-      };
+      });
       reader.readAsDataURL(e.target.files[0]);
     }
   };
@@ -38,48 +75,14 @@ export default function MonochromeMergeClient() {
   const handleDarkImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const reader = new FileReader();
-      reader.onload = (event) => {
+      reader.addEventListener("load", (event) => {
         if (event.target && typeof event.target.result === "string") {
           setDarkImage(event.target.result);
           setProcessedImage(null);
         }
-      };
+      });
       reader.readAsDataURL(e.target.files[0]);
     }
-  };
-
-  const processImageData = (imageData: ImageData, isLight: boolean): ImageData => {
-    const { data, width, height } = imageData;
-
-    const histogram = new Array(256).fill(0);
-    for (let i = 0; i < data.length; i += 4) {
-      const grayscale = Math.round((data[i] + data[i + 1] + data[i + 2]) / 3);
-      histogram[grayscale]++;
-    }
-
-    let mostFrequentColor = 0;
-    let maxCount = 0;
-    histogram.forEach((count, color) => {
-      if (count > maxCount) {
-        maxCount = count;
-        mostFrequentColor = color;
-      }
-    });
-
-    const outputData = new ImageData(width, height);
-    const colorValue = isLight ? 0 : 255;
-
-    for (let i = 0; i < data.length; i += 4) {
-      const grayscale = (data[i] + data[i + 1] + data[i + 2]) / 3;
-      const distance = Math.abs(grayscale - mostFrequentColor);
-      const alpha = Math.min(distance * 2, 255);
-
-      outputData.data[i] = colorValue;
-      outputData.data[i + 1] = colorValue;
-      outputData.data[i + 2] = colorValue;
-      outputData.data[i + 3] = alpha * 0.5; // Set alpha to 50% of the calculated value
-    }
-    return outputData;
   };
 
   const handleProcessImages = () => {
@@ -114,12 +117,21 @@ export default function MonochromeMergeClient() {
         willReadFrequently: true,
       });
       if (!lightCtx) return;
-      const lightScale = Math.min(maxWidth / lightImg.width, maxHeight / lightImg.height);
+      const lightScale = Math.min(
+        maxWidth / lightImg.width,
+        maxHeight / lightImg.height
+      );
       const lightNewWidth = lightImg.width * lightScale;
       const lightNewHeight = lightImg.height * lightScale;
       const lightX = (maxWidth - lightNewWidth) / 2;
       const lightY = (maxHeight - lightNewHeight) / 2;
-      lightCtx.drawImage(lightImg, lightX, lightY, lightNewWidth, lightNewHeight);
+      lightCtx.drawImage(
+        lightImg,
+        lightX,
+        lightY,
+        lightNewWidth,
+        lightNewHeight
+      );
       const lightScaledData = lightCtx.getImageData(0, 0, maxWidth, maxHeight);
 
       // Scale and draw dark image
@@ -128,7 +140,10 @@ export default function MonochromeMergeClient() {
       darkCanvas.height = maxHeight;
       const darkCtx = darkCanvas.getContext("2d", { willReadFrequently: true });
       if (!darkCtx) return;
-      const darkScale = Math.min(maxWidth / darkImg.width, maxHeight / darkImg.height);
+      const darkScale = Math.min(
+        maxWidth / darkImg.width,
+        maxHeight / darkImg.height
+      );
       const darkNewWidth = darkImg.width * darkScale;
       const darkNewHeight = darkImg.height * darkScale;
       const darkX = (maxWidth - darkNewWidth) / 2;
@@ -165,12 +180,16 @@ export default function MonochromeMergeClient() {
       setProcessedImage(outputCanvas.toDataURL("image/png"));
     };
 
-    lightImg.onload = () => {
-      darkImg.onload = process;
-      darkImg.onerror = () => alert("Failed to load dark image.");
+    lightImg.addEventListener("load", () => {
+      darkImg.addEventListener("load", process);
+      darkImg.addEventListener("error", () =>
+        alert("Failed to load dark image.")
+      );
       darkImg.src = darkImage;
-    };
-    lightImg.onerror = () => alert("Failed to load light image.");
+    });
+    lightImg.addEventListener("error", () =>
+      alert("Failed to load light image.")
+    );
     lightImg.src = lightImage;
   };
 
@@ -188,9 +207,17 @@ export default function MonochromeMergeClient() {
           />
           <div className={styles["image-container"]}>
             {lightImage ? (
-              <Image width={400} height={400} alt="light-image" src={lightImage}></Image>
+              <Image
+                width={400}
+                height={400}
+                alt="light-image"
+                src={lightImage}
+              ></Image>
             ) : (
-              <div onClick={() => lightInputRef.current?.click()} style={{ cursor: "pointer" }}>
+              <div
+                onClick={() => lightInputRef.current?.click()}
+                style={{ cursor: "pointer" }}
+              >
                 <PlaceholderImage />
               </div>
             )}
@@ -207,9 +234,17 @@ export default function MonochromeMergeClient() {
           />
           <div className={styles["image-container"]}>
             {darkImage ? (
-              <Image width={400} height={400} alt="dark-image" src={darkImage}></Image>
+              <Image
+                width={400}
+                height={400}
+                alt="dark-image"
+                src={darkImage}
+              ></Image>
             ) : (
-              <div onClick={() => darkInputRef.current?.click()} style={{ cursor: "pointer" }}>
+              <div
+                onClick={() => darkInputRef.current?.click()}
+                style={{ cursor: "pointer" }}
+              >
                 <PlaceholderImage />
               </div>
             )}
@@ -217,7 +252,10 @@ export default function MonochromeMergeClient() {
         </div>
       </div>
       <div className={styles.start}>
-        <button className={styles["start-process-button"]} onClick={handleProcessImages}>
+        <button
+          className={styles["start-process-button"]}
+          onClick={handleProcessImages}
+        >
           Start Process
         </button>
       </div>
@@ -230,7 +268,12 @@ export default function MonochromeMergeClient() {
               transition: "background-color 0.5s ease",
             }}
           >
-            <Image width={300} height={300} alt="processed-image" src={processedImage} />
+            <Image
+              width={300}
+              height={300}
+              alt="processed-image"
+              src={processedImage}
+            />
           </div>
           <a
             href={processedImage}

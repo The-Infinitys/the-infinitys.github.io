@@ -20,7 +20,7 @@ function openDevelopper() {
 }
 openDevelopper();
 HTMLSource.value = getHTMLSource();
-document.querySelector("#VisibleSwitch").addEventListener("click", (e) => {
+document.querySelector("#VisibleSwitch").addEventListener("click", (_e) => {
   if (document.getElementById("DevelopperToolBox").style.visibility === "visible") {
     document.getElementById("DevelopperToolBox").style.visibility = "hidden";
     document.getElementById("MaximiseSwitch").style.visibility = "hidden";
@@ -32,32 +32,32 @@ document.querySelector("#VisibleSwitch").addEventListener("click", (e) => {
     openDevelopper();
   }
 });
-document.querySelector("#MaximiseSwitch").addEventListener("click", (e) => {
+document.querySelector("#MaximiseSwitch").addEventListener("click", (_e) => {
   if (document.getElementById("DevelopperToolBox").style.width == "100%") {
     document.getElementById("DevelopperToolBox").style.width = "20%";
   } else {
     document.getElementById("DevelopperToolBox").style.width = "100%";
   }
 });
-document.querySelector("#HTML").addEventListener("click", (e) => {
+document.querySelector("#HTML").addEventListener("click", (_e) => {
   CSSEditor.style.visibility = "hidden";
   JSEditor.style.visibility = "hidden";
   HTMLEditor.style.visibility = "visible";
 });
-document.querySelector("#CSS").addEventListener("click", (e) => {
+document.querySelector("#CSS").addEventListener("click", (_e) => {
   HTMLEditor.style.visibility = "hidden";
   JSEditor.style.visibility = "hidden";
   CSSEditor.style.visibility = "visible";
 });
-document.querySelector("#JS").addEventListener("click", (e) => {
+document.querySelector("#JS").addEventListener("click", (_e) => {
   CSSEditor.style.visibility = "hidden";
   HTMLEditor.style.visibility = "hidden";
   JSEditor.style.visibility = "visible";
 });
-document.querySelector("#RestoreHTML").addEventListener("click", (e) => {
+document.querySelector("#RestoreHTML").addEventListener("click", (_e) => {
   HTMLSource.value = getHTMLSource();
 });
-document.querySelector("#UpdateHTML").addEventListener("click", (e) => {
+document.querySelector("#UpdateHTML").addEventListener("click", (_e) => {
   console.log(HTMLSource.value);
   document.open();
   document.write(HTMLSource.value);
@@ -80,7 +80,7 @@ console.error = ((logTextAreaArgument) => {
   return (text) => (logTextArea.innerHTML += "[×]>" + text + "<br>");
 })(document.getElementById("JSRunnerConsole"));
 
-document.querySelector("#JSRunnerButton").addEventListener("click", (e) => {
+document.querySelector("#JSRunnerButton").addEventListener("click", (_e) => {
   let before = document.getElementById("JSRunner");
   before.remove();
   let after = document.createElement("script");
@@ -88,7 +88,7 @@ document.querySelector("#JSRunnerButton").addEventListener("click", (e) => {
   after.innerHTML = document.getElementById("JSSource").value;
   document.getElementById("JSEditor").appendChild(after);
 });
-document.querySelector("#UpdateCSS").addEventListener("click", (e) => {
+document.querySelector("#UpdateCSS").addEventListener("click", (_e) => {
   let before = document.getElementById("CSSAdder");
   before.remove();
   let after = document.createElement("style");

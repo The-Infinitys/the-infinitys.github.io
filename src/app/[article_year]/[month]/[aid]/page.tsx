@@ -1,7 +1,6 @@
 import ArticleServer from "./components/server";
 import { getArticleIndexes } from "@/app/article/article";
 import { toHTML } from "@/app/article/article";
-import styles from "./page.module.css";
 import { Metadata } from "next";
 import Loading from "@/app/loading";
 import { Suspense } from "react";
