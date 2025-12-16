@@ -34,7 +34,7 @@ function getYearDirectories(basePath: string): string[] {
       // Ensure it's a directory and starts with "article-"
       return fs.statSync(yearPath).isDirectory() && year.startsWith("article-");
     })
-    .reverse(); // Process in reverse chronological order (e.g., 2025 before 2024)
+    .toReversed(); // Process in reverse chronological order (e.g., 2025 before 2024)
 }
 
 function getMonthDirectories(yearPath: string): string[] {
@@ -44,7 +44,7 @@ function getMonthDirectories(yearPath: string): string[] {
       const monthPath = path.join(yearPath, month);
       return fs.statSync(monthPath).isDirectory();
     })
-    .reverse(); // Process in reverse chronological order
+    .toReversed(); // Process in reverse chronological order
 }
 
 function getArticleIdDirectories(monthPath: string): string[] {
@@ -54,7 +54,7 @@ function getArticleIdDirectories(monthPath: string): string[] {
       const articlePath = path.join(monthPath, articleId);
       return fs.statSync(articlePath).isDirectory();
     })
-    .reverse(); // Process in reverse chronological order
+    .toReversed(); // Process in reverse chronological order
 }
 
 function processArticleDirectory(

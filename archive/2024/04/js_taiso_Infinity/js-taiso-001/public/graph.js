@@ -69,7 +69,7 @@ function clear() {
 
 function guide(url) {
   promises.push(
-    Promise.all([...promises]).then(() =>
+    Promise.all(promises).then(() =>
       fetch(url)
         .then((res) => res.arrayBuffer())
         .then((bin) => {
@@ -88,7 +88,7 @@ function guide(url) {
 }
 
 function draw(f) {
-  Promise.all([...promises]).then(() => {
+  Promise.all(promises).then(() => {
     ctx.save();
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
