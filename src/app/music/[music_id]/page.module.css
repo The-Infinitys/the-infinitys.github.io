@@ -1,387 +1,481 @@
 .music-player-container {
-  position: relative;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  overflow: hidden;
-  color: var(--foreground);
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    overflow: hidden;
+    color: var(--foreground);
 }
 
 .jacket-background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
 }
 
 .jacket-image {
-  object-fit: cover;
-  filter: blur(20px);
-  opacity: 0.5;
-  transform: scale(1.1);
+    object-fit: cover;
+    filter: blur(20px);
+    opacity: 0.5;
+    transform: scale(1.1);
 }
 
 .jacket-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    to bottom,
-    color-mix(in srgb, var(--background), transparent 70%) 0%,
-    color-mix(in srgb, var(--background), transparent 50%) 50%,
-    color-mix(in srgb, var(--background), transparent 70%) 100%
-  );
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--background), transparent 70%) 0%,
+        color-mix(in srgb, var(--background), transparent 50%) 50%,
+        color-mix(in srgb, var(--background), transparent 70%) 100%
+    );
 }
 
 .music-info {
-  text-align: center;
-  margin-bottom: 2rem;
-  z-index: 1;
-  text-shadow: 0 2px 4px color-mix(in srgb, var(--background), transparent 50%);
+    text-align: center;
+    margin-bottom: 2rem;
+    z-index: 1;
+    text-shadow: 0 2px 4px
+        color-mix(in srgb, var(--background), transparent 50%);
 }
 
 .music-info h1 {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  font-weight: bold;
-  color: var(--foreground);
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: var(--foreground);
 }
 
 .music-info p {
-  font-size: 1.2rem;
-  opacity: 0.9;
-  color: var(--foreground);
+    font-size: 1.2rem;
+    opacity: 0.9;
+    color: var(--foreground);
 }
 
 .player-controls {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-  width: 100%;
-  max-width: 600px;
-  z-index: 1;
-  background: color-mix(in srgb, var(--background), transparent 80%);
-  padding: 2rem;
-  border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 600px;
+    z-index: 1;
+    background: color-mix(in srgb, var(--background), transparent 80%);
+    padding: 2rem;
+    border-radius: 1rem;
 }
 
 .time-control {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
 }
 
 .time-control span {
-  font-size: 0.9rem;
-  min-width: 3rem;
-  text-align: center;
-  color: var(--foreground);
-  opacity: 0.9;
+    font-size: 0.9rem;
+    min-width: 3rem;
+    text-align: center;
+    color: var(--foreground);
+    opacity: 0.9;
 }
 
 .play-button {
-  padding: 1rem;
-  background-color: var(--primary);
-  color: var(--foreground);
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.2s;
-  width: 64px;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    padding: 1rem;
+    background-color: var(--primary);
+    color: var(--foreground);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .play-button:hover {
-  background-color: var(--foreground);
-  color: var(--background);
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px color-mix(in srgb, var(--background), transparent 20%);
+    background-color: var(--foreground);
+    color: var(--background);
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px
+        color-mix(in srgb, var(--background), transparent 20%);
 }
 
 .time-slider {
-  flex: 1;
-  height: 4px;
-  -webkit-appearance: none;
-  appearance: none;
-  background: color-mix(in srgb, var(--foreground), transparent 20%);
-  border-radius: 2px;
-  outline: none;
-  cursor: pointer;
+    flex: 1;
+    height: 4px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: color-mix(in srgb, var(--foreground), transparent 20%);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
 }
 
 .time-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 16px;
-  height: 16px;
-  background: var(--primary);
-  border-radius: 50%;
-  cursor: pointer;
-  transition: transform 0.1s;
-  box-shadow: 0 2px 4px color-mix(in srgb, var(--background), transparent 20%);
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: var(--primary);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.1s;
+    box-shadow: 0 2px 4px color-mix(in srgb, var(--background), transparent 20%);
 }
 
 .time-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.2);
-  background: var(--foreground);
+    transform: scale(1.2);
+    background: var(--foreground);
 }
 
 .spectrum {
-  position: fixed;
-  width: 100vmin;
-  height: 100vmin;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
-  z-index: 0;
-  border: none;
-  opacity: 0.75;
-  mix-blend-mode: screen;
+    position: fixed;
+    width: 100vmin;
+    height: 100vmin;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    z-index: 0;
+    border: none;
+    opacity: 0.75;
+    mix-blend-mode: screen;
 }
 
 .control-buttons {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
 }
 
 .control-button {
-  background: color-mix(in srgb, var(--background), transparent 10%);
-  border: none;
-  border-radius: 50%;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  color: var(--foreground);
+    background: color-mix(in srgb, var(--background), transparent 10%);
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--foreground);
 }
 
 .control-button:hover {
-  background: var(--primary);
-  transform: scale(1.1);
+    background: var(--primary);
+    transform: scale(1.1);
 }
 
 .playback-rate-control {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 .rate-button {
-  background: color-mix(in srgb, var(--background), transparent 10%);
-  border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  color: var(--foreground);
-  font-size: 0.8rem;
+    background: color-mix(in srgb, var(--background), transparent 10%);
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--foreground);
+    font-size: 0.8rem;
 }
 
 .rate-button:hover {
-  background: var(--primary);
+    background: var(--primary);
 }
 
 .rate-button.active {
-  background: var(--primary);
-  font-weight: bold;
+    background: var(--primary);
+    font-weight: bold;
 }
 
 .music-list-container {
-  margin-top: 20px;
-  padding: 20px;
-  background: rgba(0, 0, 0, 0.7);
-  border-radius: 8px;
-  max-width: 600px;
-  width: 100%;
+    margin-top: 20px;
+    padding: 20px;
+    background: color-mix(in srgb, var(--background), transparent 30%);
+    backdrop-filter: blur(10px);
+    border: 1px solid color-mix(in srgb, var(--foreground), transparent 80%);
+    border-radius: 16px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
 }
 
 .music-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  margin-bottom: 100px;
-  max-height: 300px;
-  overflow-y: auto;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 20px; /* space for scroll */
+    max-height: 300px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) transparent;
+}
+
+.music-list::-webkit-scrollbar {
+    width: 6px;
+}
+.music-list::-webkit-scrollbar-thumb {
+    background-color: var(--primary);
+    border-radius: 3px;
 }
 
 .music-list-item {
-  display: flex;
-  align-items: center;
-  /* 垂直方向の中央揃え */
-  padding: 10px;
-  cursor: pointer;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-bottom: 1px solid
+        color-mix(in srgb, var(--foreground), transparent 90%);
+    transition: all 0.2s ease;
+    border-radius: 8px;
+    margin-bottom: 4px;
+    color: var(--foreground);
 }
 
 .music-list-item:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+    background-color: color-mix(in srgb, var(--foreground), transparent 95%);
+    transform: translateX(4px);
 }
 
 .music-list-item.active {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: #fff;
+    background-color: color-mix(in srgb, var(--primary), transparent 85%);
+    border-color: var(--primary);
+    box-shadow: 0 0 10px color-mix(in srgb, var(--primary), transparent 80%);
+}
+
+.music-list-item.active .music-list-artist {
+    color: color-mix(in srgb, var(--foreground), transparent 30%);
 }
 
 .music-list-jacket {
-  margin-right: 15px;
+    margin-right: 15px;
+    flex-shrink: 0;
 }
 
 .music-list-jacket-image {
-  width: 50px;
-  height: 50px;
-  border-radius: 4px;
-  object-fit: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .music-list-info {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  /* テキスト部分が残りのスペースを占有 */
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0; /* for truncation */
 }
 
 .music-list-title {
-  font-weight: bold;
-  font-size: 16px;
+    font-weight: 600;
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .music-list-artist {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    color: color-mix(in srgb, var(--foreground), transparent 40%);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* イコライザーコンテナ */
 .eq-controls {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 1rem;
-  padding: 0.5rem;
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+    padding: 1.5rem;
+    background: color-mix(in srgb, var(--background), transparent 30%);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    border: 1px solid color-mix(in srgb, var(--foreground), transparent 80%);
+}
+
+.eq-preset {
+    margin-bottom: 1.5rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.eq-preset label {
+    font-weight: 600;
+    color: var(--foreground);
+}
+
+.eq-preset-select {
+    padding: 0.5rem 2rem 0.5rem 1rem;
+
+    border-radius: 8px;
+
+    border: 1px solid color-mix(in srgb, var(--foreground), transparent 70%);
+
+    background-color: color-mix(in srgb, var(--background), transparent 20%);
+
+    color: var(--foreground);
+
+    font-size: 1rem;
+
+    cursor: pointer;
+
+    appearance: none;
+
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23171717%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+
+    background-repeat: no-repeat;
+
+    background-position: right 0.7rem top 50%;
+
+    background-size: 0.65rem auto;
+
+    transition: all 0.2s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+    .eq-preset-select {
+        background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23ededed%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    }
+}
+
+.eq-preset-select:hover {
+    border-color: var(--primary);
+    background-color: color-mix(in srgb, var(--background), transparent 10%);
+}
+
+.eq-preset-select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary), transparent 50%);
 }
 
 /* イコライザースライダーのグループ */
 .eq-sliders {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 600px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 600px;
 }
 
 /* 個々のスライダーコンテナ */
 .eq-slider {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 240px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 240px;
 }
 
 /* 周波数値のスタイル */
 .eq-frequency {
-  font-size: 0.8rem;
-  color: #ffffff;
-  margin-bottom: 0.2rem;
+    font-size: 0.8rem;
+    color: #ffffff;
+    margin-bottom: 0.2rem;
 }
 
 /* スライダーのスタイル */
 .eq-slider input[type="range"] {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  height: 6px;
-  background: #444;
-  border-radius: 3px;
-  outline: none;
-  margin: 0.5rem 0;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    background: #444;
+    border-radius: 3px;
+    outline: none;
+    margin: 0.5rem 0;
 }
 
 /* スライダーのトラック */
 .eq-slider input[type="range"]::-webkit-slider-runnable-track {
-  background: #444;
-  height: 6px;
-  border-radius: 3px;
+    background: #444;
+    height: 6px;
+    border-radius: 3px;
 }
 
 /* スライダーのthumb */
 .eq-slider input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 14px;
-  height: 14px;
-  background: #1db954;
-  border-radius: 50%;
-  margin-top: -4px;
-  cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    background: #1db954;
+    border-radius: 50%;
+    margin-top: -4px;
+    cursor: pointer;
 }
 
 /* ゲイン値のスタイル */
 .eq-gain {
-  font-size: 0.75rem;
-  color: #b3b3b3;
-  margin-top: 0.2rem;
+    font-size: 0.75rem;
+    color: #b3b3b3;
+    margin-top: 0.2rem;
 }
 
 /* ボリュームコントロール */
 .volume-control {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin: 1rem 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
 }
 
 .volume-slider {
-  flex: 1;
-  height: 4px;
-  -webkit-appearance: none;
-  appearance: none;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 2px;
-  cursor: pointer;
+    flex: 1;
+    height: 4px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    cursor: pointer;
 }
 
 .volume-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #fff;
-  cursor: pointer;
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
 }
 
 .volume-slider::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #fff;
-  cursor: pointer;
-  border: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+    border: none;
 }
 
 /* レスポンシブ対応 */
 @media (max-width: 600px) {
-  .eq-sliders {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .eq-slider {
-    width: 60px;
-    margin: 0.5rem;
-  }
+    .eq-sliders {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .eq-slider {
+        width: 60px;
+        margin: 0.5rem;
+    }
 }

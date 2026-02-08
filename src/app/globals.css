@@ -1,133 +1,144 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --primary: color-mix(in srgb, var(--foreground), var(--background) 80%);
-  --link-color: #0000ff;
-  --body-color-value: 0deg;
-  --secondary: color-mix(in srgb, var(--foreground), var(--background) 50%);
-  /* ライトテーマ用のリンク色を追加 */
+    --background: #ffffff;
+    --foreground: #171717;
+    --primary: color-mix(in srgb, var(--foreground), var(--background) 80%);
+    --link-color: #0000ff;
+    --body-color-value: 0deg;
+    --secondary: color-mix(in srgb, var(--foreground), var(--background) 50%);
+    /* ライトテーマ用のリンク色を追加 */
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  /* position: relative; */
-  /* この行を削除またはコメントアウト */
-  box-sizing: border-box;
-  /* box-sizing を追加 */
+    margin: 0;
+    padding: 0;
+    /* position: relative; */
+    /* この行を削除またはコメントアウト */
+    box-sizing: border-box;
+    /* box-sizing を追加 */
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --link-color: #00ffff;
-  }
+    :root {
+        --background: #0a0a0a;
+        --foreground: #ededed;
+        --link-color: #00ffff;
+    }
 }
 
 html,
 /* html にも適用 */
 body {
-  width: 100%;
-  overflow-x: hidden auto;
-  /* 横スクロールのみを禁止 */
+    width: 100%;
+    overflow-x: hidden auto;
+    /* 横スクロールのみを禁止 */
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--foreground), transparent 50%)
+        var(--background);
 }
-
 @keyframes body-background-animation {
-  0% {
-    --body-color-value: 0deg;
-  }
+    0% {
+        --body-color-value: 0deg;
+    }
 
-  17% {
-    --body-color-value: 60deg;
-  }
+    17% {
+        --body-color-value: 60deg;
+    }
 
-  33% {
-    --body-color-value: 120deg;
-  }
+    33% {
+        --body-color-value: 120deg;
+    }
 
-  50% {
-    --body-color-value: 180deg;
-  }
+    50% {
+        --body-color-value: 180deg;
+    }
 
-  67% {
-    --body-color-value: 240deg;
-  }
+    67% {
+        --body-color-value: 240deg;
+    }
 
-  83% {
-    --body-color-value: 300deg;
-  }
+    83% {
+        --body-color-value: 300deg;
+    }
 
-  100% {
-    --body-color-value: 360deg;
-  }
+    100% {
+        --body-color-value: 360deg;
+    }
 }
 
 @property --body-color-value {
-  syntax: "<angle>";
-  inherits: true;
-  initial-value: 0deg;
+    syntax: "<angle>";
+    inherits: true;
+    initial-value: 0deg;
 }
 
 body {
-  color: var(--foreground);
-  background: radial-gradient(
-    color-mix(in srgb, hsl(var(--body-color-value) 100% 50%), var(--background) 80%),
-    var(--background)
-  );
-  min-height: 100vh;
-  animation: body-background-animation 20s infinite;
+    min-height: 100vh;
+    background-color: transparent;
+}
+
+html {
+    color: var(--foreground);
+    background: radial-gradient(
+        color-mix(
+            in srgb,
+            hsl(var(--body-color-value) 100% 50%),
+            var(--background) 80%
+        ),
+        var(--background)
+    );
+    animation: body-background-animation 20s infinite;
+    min-height: 100vh;
 }
 
 header {
-  width: 100%;
-  background-color: color-mix(in srgb, var(--primary), transparent 50%);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  min-height: 48px; /* 高さを大きく */
+    width: 100%;
+    background-color: color-mix(in srgb, var(--primary), transparent 50%);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    min-height: 48px; /* 高さを大きく */
 }
 
 /*header 内のリンクスタイルは header.tsx の Tailwind クラスで制御するため、ここでは不要な場合が多い */
 header a {
-  color: var(--foreground);
-  font-family: "Chakra Petch", "noto-sans", sans-serif;
-  font-style: italic;
-  font-weight: 600;
-  padding: 1em;
-  padding-left: 0;
-  text-decoration: none;
+    color: var(--foreground);
+    font-family: "Chakra Petch", "noto-sans", sans-serif;
+    font-style: italic;
+    font-weight: 600;
+    padding: 1em;
+    padding-left: 0;
+    text-decoration: none;
 }
 
 main {
-  width: 100%;
-  /* min-height: 100%; */
-  /* flex: 1 などで高さを確保する方が一般的 */
-  flex: 1;
-  /* layout.tsx で body が flex コンテナでないため、これは効かない。必要なら body に display: flex; flex-direction: column; を追加 */
+    width: 100%;
+    /* min-height: 100%; */
+    /* flex: 1 などで高さを確保する方が一般的 */
+    flex: 1;
+    /* layout.tsx で body が flex コンテナでないため、これは効かない。必要なら body に display: flex; flex-direction: column; を追加 */
 }
 
 main > section.title > h1 {
-  text-align: center;
-  font-family: "Chakra Petch", "noto-sans", sans-serif;
-  font-size: min(64px, 8vw);
-  font-weight: 600;
-  font-style: italic;
-  padding: 2rem;
+    text-align: center;
+    font-family: "Chakra Petch", "noto-sans", sans-serif;
+    font-size: min(64px, 8vw);
+    font-weight: 600;
+    font-style: italic;
+    padding: 2rem;
 }
 
 section.title {
-  background-color: transparent;
+    background-color: transparent;
 }
 
 section {
-  padding: 1rem;
-  margin: 1rem;
-  border-radius: 16px;
-  background-color: color-mix(in srgb, transparent 50%, var(--background));
-  backdrop-filter: blur(4px);
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 16px;
+    background-color: color-mix(in srgb, transparent 50%, var(--background));
+    backdrop-filter: blur(4px);
 }
 
 section h1,
@@ -137,86 +148,107 @@ section h4,
 section h5,
 section h6,
 section p {
-  line-height: 2;
-  margin: 1em;
-  padding: 1em;
+    line-height: 2;
+    margin: 1em;
+    padding: 1em;
 }
 
 footer {
-  width: 100%;
-  background-color: color-mix(in srgb, var(--primary), transparent 50%);
-  backdrop-filter: blur(4px);
-  padding-bottom: 4em;
+    width: 100%;
+    background-color: color-mix(in srgb, var(--primary), transparent 50%);
+    backdrop-filter: blur(4px);
+    padding-bottom: 4em;
 }
 
 a {
-  color: var(--link-color);
-  text-decoration: none;
+    color: var(--link-color);
+    text-decoration: none;
 }
 
 .back-to-top {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  background-color: var(--primary);
-  color: var(--foreground);
-  border: none;
-  border-radius: 50%;
-  width: 3rem;
-  height: 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  z-index: 1000;
-  opacity: 0;
-  /* 初期状態は非表示 */
-  visibility: hidden;
-  /* 初期状態は非表示 */
-  transition:
-    opacity 0.3s ease,
-    visibility 0.3s ease,
-    transform 0.3s ease;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background-color: var(--primary);
+    color: var(--foreground);
+    border: none;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    z-index: 1000;
+    opacity: 0;
+    /* 初期状態は非表示 */
+    visibility: hidden;
+    /* 初期状態は非表示 */
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease,
+        transform 0.3s ease;
 }
 
 .back-to-top.visible {
-  opacity: 0.8;
-  /* 表示時の透明度 */
-  visibility: visible;
-  /* 表示状態に変更 */
-  transform: scale(1);
-  /* 通常サイズ */
+    opacity: 0.8;
+    /* 表示時の透明度 */
+    visibility: visible;
+    /* 表示状態に変更 */
+    transform: scale(1);
+    /* 通常サイズ */
 }
 
 .back-to-top:hover {
-  opacity: 1;
-  transform: scale(1.1);
-  /* ホバー時に拡大 */
+    opacity: 1;
+    transform: scale(1.1);
+    /* ホバー時に拡大 */
 }
 
 .back-to-top svg {
-  fill: var(--foreground);
+    fill: var(--foreground);
 }
 
 .language-button {
-  padding: 0.5rem 1rem;
-  margin-right: 0.5rem;
-  background-color: var(--gray-200);
-  color: var(--foreground);
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
+    padding: 0.5rem 1rem;
+    margin-right: 0.5rem;
+    background-color: var(--gray-200);
+    color: var(--foreground);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
 }
 
 .language-button.active {
-  background-color: var(--link-color);
-  color: var(--background);
+    background-color: var(--link-color);
+    color: var(--background);
 }
 
 .language-button:last-child {
-  margin-right: 0;
+    margin-right: 0;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--foreground), transparent 60%);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in srgb, var(--foreground), transparent 40%);
+}
+::-webkit-scrollbar-corner {
+    background: var(--background);
 }
