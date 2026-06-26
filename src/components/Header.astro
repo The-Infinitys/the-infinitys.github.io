@@ -1,0 +1,56 @@
+---
+import { getLangFromUrl } from "@/i18n/utils";
+import { HamburgerIcon } from "./HamburgerIcon";
+import Logo from "./Logo.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const navItems = [
+    { name: "Home", path: `/${lang}/` },
+    { name: "Article", path: `/${lang}/articles/` },
+    { name: "Musics", path: `/${lang}/musics/` },
+    { name: "Contact", path: `/${lang}/contact/` },
+];
+---
+
+<header
+    id="site-header"
+    class="fixed top-0 left-0 w-full z-50 transition-transform duration-300 h-16 md:h-20 bg-background/80 backdrop-blur-md border-b border-foreground/10 flex items-center px-6 md:px-12"
+>
+    <div
+        class="relative flex items-center justify-between flex-row-reverse w-full mx-auto"
+    >
+        <div class="absolute left-1/2 -translate-x-1/2">
+            <Logo loading="eager" />
+        </div>
+
+        <button id="menu-toggle" class="p-2 z-50">
+            <HamburgerIcon client:load />
+        </button>
+    </div>
+</header>
+
+<div
+    id="full-menu"
+    class="fixed top-0 right-0 h-full w-full md:w-80 z-40 bg-black/95 backdrop-blur-lg border-l border-foreground/10 flex flex-col items-center justify-center gap-8 translate-x-full transition-transform duration-500"
+>
+    {
+        navItems.map((item) => (
+            <a
+                href={item.path}
+                class="nav-link text-2xl font-bold text-white/60 hover:text-white transition-all"
+            >
+                {item.name}
+            </a>
+        ))
+    }
+</div>
+
+<script>
+    const toggle = document.getElementById("menu-toggle");
+    const menu = document.getElementById("full-menu");
+
+    toggle?.addEventListener("click", () => {
+        const isOpen = menu?.classList.toggle("translate-x-0");
+        menu?.classList.toggle("translate-x-full", !isOpen);
+    });
+</script>

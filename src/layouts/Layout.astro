@@ -1,23 +1,18 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+---
+// src/layouts/Layout.astro
+import { ClientRouter } from "astro:transitions";
+import Header from "@/components/Header.astro";
+import "../styles/global.css";
+// 現在の言語を取得 (Astroのi18n設定と連動)
+const lang = Astro.currentLocale || "en";
+---
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+<!doctype html>
+<html lang={lang}>
+    <head>
+        <ClientRouter />
+    </head><body>
+        <Header />
+        <slot />
+    </body>
+</html>

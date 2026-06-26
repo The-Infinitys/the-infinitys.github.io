@@ -1,0 +1,20 @@
+---
+// src/components/Logo.astro
+import { Image } from "astro:assets";
+import LogoSrc from "@/assets/icon.svg"; // パスは適宜調整
+
+interface Props {
+    loading?: "eager" | "lazy";
+    class?: string; // クラスも受け取れるようにすると便利
+}
+
+const { loading = "lazy", class: className } = Astro.props;
+---
+
+<Image
+    src={LogoSrc}
+    alt="Logo"
+    loading={loading}
+    class={className}
+    format="svg"
+/>

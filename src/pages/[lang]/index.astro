@@ -1,0 +1,14 @@
+---
+import { locales } from "@/i18n/routing";
+import Layout from "@/layouts/Layout.astro";
+
+export async function getStaticPaths() {
+    return locales.map((locale) => ({
+        params: { lang: locale },
+    }));
+}
+---
+
+<Layout>
+    <h1>Hello!</h1>
+</Layout>
