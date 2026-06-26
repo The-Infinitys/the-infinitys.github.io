@@ -1,5 +1,6 @@
 ---
 // src/layouts/Layout.astro
+import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
 import Header from "@/components/Header.astro";
 import "../styles/global.css";
@@ -10,7 +11,11 @@ const lang = Astro.currentLocale || "en";
 <!doctype html>
 <html lang={lang}>
     <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
         <ClientRouter />
+        <Font cssVariable="--font-orbitron" preload />
+        <title>The Infinity's</title>
     </head><body>
         <Header />
         <slot />

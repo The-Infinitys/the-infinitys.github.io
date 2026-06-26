@@ -1,9 +1,16 @@
 // @ts-check
-import { defineConfig } from "astro/config";
+import { defineConfig, fontProviders } from "astro/config";
 import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
 // https://astro.build/config
 export default defineConfig({
+  fonts: [
+    {
+      provider: fontProviders.google(),
+      name: "Orbitron",
+      cssVariable: "--font-orbitron",
+    },
+  ],
   i18n: {
     defaultLocale: "ja",
     locales: ["ja", "en"],

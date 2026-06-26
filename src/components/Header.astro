@@ -13,7 +13,7 @@ const navItems = [
 
 <header
     id="site-header"
-    class="fixed top-0 left-0 w-full z-50 transition-transform duration-300 h-16 md:h-20 bg-background/80 backdrop-blur-md border-b border-foreground/10 flex items-center px-6 md:px-12"
+    class="sticky top-0 left-0 w-full z-50 transition-all duration-300 h-16 md:h-20 bg-background/80 backdrop-blur-md border-b border-foreground/10 flex items-center px-6 md:px-12 transform translate-y-0"
 >
     <div
         class="relative flex items-center justify-between flex-row-reverse w-full mx-auto"
@@ -30,39 +30,88 @@ const navItems = [
 
 <div
     id="full-menu"
-    class="fixed top-0 right-0 h-full w-full md:w-80 z-40 bg-black/95 backdrop-blur-lg border-l border-foreground/10 flex flex-col items-center justify-center gap-8 translate-x-full transition-transform duration-500"
+    class="fixed top-0 right-0 h-full w-full md:w-80 z-40 bg-black/95 backdrop-blur-lg border-l border-foreground/10 flex flex-col items-center justify-center gap-8 translate-x-full transition-transform duration-500 font-orbitron"
 >
     {
         navItems.map((item) => (
-            <a
-                href={item.path}
-                class="nav-link text-2xl font-bold text-white/60 hover:text-white transition-all"
-            >
-                {item.name}
+            <a href={item.path} class="nav-link text-2xl font-bold italic">
+                <span class="hover:text-accent text-white/60 transition-all">
+                    {item.name}
+                </span>
             </a>
         ))
     }
 </div>
 
 <script>
-    // astro:page-load を使用することで、遷移後にもイベントを再登録します
     document.addEventListener("astro:page-load", () => {
+        // --- 1. 既存のメニュー開閉ロジック ---
         const toggle = document.getElementById("menu-toggle");
         const menu = document.getElementById("full-menu");
 
-        if (!toggle || !menu) return;
+        if (toggle && menu) {
+            toggle.addEventListener("click", () => {
+                const isOpen = menu.classList.contains("translate-x-0");
+                if (isOpen) {
+                    menu.classList.remove("translate-x-0");
+                    menu.classList.add("translate-x-full");
+                } else {
+                    menu.classList.remove("translate-x-full");
+                    menu.classList.add("translate-x-0");
+                }
+            });
+        }
 
-        toggle.addEventListener("click", () => {
-            // translate-x-full があれば削除し、なければ追加する（トグル）
-            const isOpen = menu.classList.contains("translate-x-0");
+        // --- 2. 新規：ヘッダーの自動隠蔽・出現ロジック ---
+        const header = document.getElementById("site-header");
+        if (!header) return;
 
-            if (isOpen) {
-                menu.classList.remove("translate-x-0");
-                menu.classList.add("translate-x-full");
-            } else {
-                menu.classList.remove("translate-x-full");
-                menu.classList.add("translate-x-0");
-            }
-        });
+        let lastScrollY = window.scrollY;
+        let scrollTimeout: NodeJS.Timeout | number;
+
+        // ヘッダーを表示する関数
+        const showHeader = () => {
+            header.classList.remove("-translate-y-full");
+            header.classList.add("translate-y-0");
+        };
+
+        // ヘッダーを隠す関数
+        const hideHeader = () => {
+            // フルスクリーンメニューが開いている時は隠さない
+            if (menu?.classList.contains("translate-x-0")) return;
+            header.classList.remove("translate-y-0");
+            header.classList.add("-translate-y-full");
+        };
+
+        window.addEventListener(
+            "scroll",
+            () => {
+                const currentScrollY = window.scrollY;
+
+                // 誤作動防止：最上部付近（0〜50px）では常に表示する
+                if (currentScrollY <= 50) {
+                    showHeader();
+                    return;
+                }
+
+                // スクロール方向の判定
+                if (currentScrollY > lastScrollY) {
+                    // 下にスクロール中 -> 隠す
+                    hideHeader();
+                } else if (currentScrollY < lastScrollY) {
+                    // 上にスクロール中 -> 出す
+                    showHeader();
+                }
+
+                lastScrollY = currentScrollY;
+
+                // 放置判定：スクロールが止まってから1.5秒（1500ms）経ったら自動で出す
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    showHeader();
+                }, 1500); // ここで放置時間をミリ秒単位で調整できます
+            },
+            { passive: true },
+        );
     });
 </script>
