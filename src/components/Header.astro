@@ -1,9 +1,8 @@
 ---
-import { getLangFromUrl } from "@/i18n/utils";
 import { HamburgerIcon } from "./HamburgerIcon";
 import Logo from "./Logo.astro";
 
-const lang = getLangFromUrl(Astro.url);
+const lang = Astro.currentLocale;
 const navItems = [
     { name: "Home", path: `/${lang}/` },
     { name: "Article", path: `/${lang}/articles/` },
@@ -46,11 +45,24 @@ const navItems = [
 </div>
 
 <script>
-    const toggle = document.getElementById("menu-toggle");
-    const menu = document.getElementById("full-menu");
+    // astro:page-load を使用することで、遷移後にもイベントを再登録します
+    document.addEventListener("astro:page-load", () => {
+        const toggle = document.getElementById("menu-toggle");
+        const menu = document.getElementById("full-menu");
 
-    toggle?.addEventListener("click", () => {
-        const isOpen = menu?.classList.toggle("translate-x-0");
-        menu?.classList.toggle("translate-x-full", !isOpen);
+        if (!toggle || !menu) return;
+
+        toggle.addEventListener("click", () => {
+            // translate-x-full があれば削除し、なければ追加する（トグル）
+            const isOpen = menu.classList.contains("translate-x-0");
+
+            if (isOpen) {
+                menu.classList.remove("translate-x-0");
+                menu.classList.add("translate-x-full");
+            } else {
+                menu.classList.remove("translate-x-full");
+                menu.classList.add("translate-x-0");
+            }
+        });
     });
 </script>

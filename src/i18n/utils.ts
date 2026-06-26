@@ -5,16 +5,7 @@ import { messagesMap } from "@/i18n/locales";
 export function getTranslation(locale: string | undefined) {
   // 1. Astro.currentLocale は undefined になる可能性があるため、フォールバックを設定
   const targetLocale =
-    locale && locales.includes(locale as Locale)
-      ? (locale as Locale)
-      : defaultLocale;
+    locale && locale in locales ? (locale as Locale) : defaultLocale;
 
   return messagesMap[targetLocale] || messagesMap[defaultLocale];
-}
-
-// URLから言語を取得するヘルパー (Astro.url.pathname用)
-export function getLangFromUrl(url: URL) {
-  const [, lang] = url.pathname.split("/");
-  if (lang in locales) return lang as Locale;
-  return defaultLocale;
 }
