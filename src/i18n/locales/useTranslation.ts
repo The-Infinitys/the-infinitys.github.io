@@ -45,7 +45,5 @@ export function resolveLocale(): Locale {
 }
 
 export function toLocale(locale: string): Locale {
-  return locales.includes(locale as Locale)
-    ? (locale as Locale)
-    : ("en" as Locale);
+  return locales.includes(locale as Locale) ? (locale as Locale) : ("en" as Locale);
 }

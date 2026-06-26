@@ -1,75 +1,75 @@
 @import "tailwindcss";
 
 @property --accent-hue {
-    syntax: "<number>";
-    initial-value: 190;
-    inherits: true;
+  syntax: "<number>";
+  initial-value: 190;
+  inherits: true;
 }
 
 @keyframes hue-rotate {
-    from {
-        --accent-hue: 0;
-    }
-    to {
-        --accent-hue: 360;
-    }
+  from {
+    --accent-hue: 0;
+  }
+  to {
+    --accent-hue: 360;
+  }
 }
 
 :root {
-    /* グローバルアニメーション */
-    animation: hue-rotate 60s linear infinite;
+  /* グローバルアニメーション */
+  animation: hue-rotate 60s linear infinite;
 
-    /* ベースカラー */
-    --background: #ffffff;
-    --foreground: #000000;
+  /* ベースカラー */
+  --background: #ffffff;
+  --foreground: #000000;
 
-    /* 動的アクセント */
-    --accent: hsl(var(--accent-hue), 100%, 50%);
+  /* 動的アクセント */
+  --accent: hsl(var(--accent-hue), 100%, 50%);
 }
 
 @media (prefers-color-scheme: dark) {
-    :root {
-        --background: #000000;
-        --foreground: #ffffff;
-    }
+  :root {
+    --background: #000000;
+    --foreground: #ffffff;
+  }
 }
 
 @theme inline {
-    --color-background: var(--background);
-    --color-foreground: var(--foreground);
-    --color-accent: var(--accent);
-    --font-orbitron: var(--font-orbitron);
-    /* フォント設定 (Next.jsのデフォルトを活かす場合) */
-    --font-sans: "Inter", sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --font-orbitron: var(--font-orbitron);
+  /* フォント設定 (Next.jsのデフォルトを活かす場合) */
+  --font-sans: "Inter", sans-serif;
 }
 
 /* 基本リセットとスタイル */
 body {
-    background: var(--color-background);
-    color: var(--color-foreground);
-    -webkit-font-smoothing: antialiased;
-    line-height: 1.6;
-    font-family: var(--font-orbitron), var(--font-m-plus-1-code), sans-serif;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+  font-family: var(--font-orbitron), var(--font-m-plus-1-code), sans-serif;
 }
 
 /* 視認性確保のためのユーティリティ */
 .text-sharp {
-    letter-spacing: -0.02em;
-    font-weight: 800;
-    text-transform: uppercase;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+  text-transform: uppercase;
 }
 
 *,
 *::before,
 *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    min-height: 100vh;
-    position: relative;
-    /* 以下の設定でバキバキ感を支える */
-    text-rendering: optimizeLegibility;
+  min-height: 100vh;
+  position: relative;
+  /* 以下の設定でバキバキ感を支える */
+  text-rendering: optimizeLegibility;
 }

@@ -28,8 +28,7 @@ export default function ConnectingLoader({
           style={{
             backgroundImage:
               "conic-gradient(from 0deg, #ff4545, #ffee55, #00ffcc, #aa44ff, #ff4545)",
-            WebkitMaskImage:
-              "radial-gradient(circle, transparent 65%, black 66%)",
+            WebkitMaskImage: "radial-gradient(circle, transparent 65%, black 66%)",
             maskImage: "radial-gradient(circle, transparent 65%, black 66%)",
           }}
         />
