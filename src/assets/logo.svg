@@ -1,278 +1,115 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5000 1000">
-    <path
-        d="
-        M 200 100
-        l -50 50
-        l -10 50
-        h 200
-        l -150 400
-        h -20
-        l -50 40
-        h 110
-        l 160 -440
-        h 180
-        l -20 50
-        l 50 -50
-        l 10 -50
-        h -420
-        z
-        M 550 250
-        l 100 -100
-        h 70
-        l -80 240
-        l 50 -40
-        h 150
-        l 30 50
-        l -80 210
-        l 60 -10
-        l -60 40
-        h -60
-        l 80 -220
-        l -20 -30
-        h -100
-        l -50 50
-        l -70 200
-        h -100
-        l 40 -40
-        h 20
-        l 130 -390
-        z
-        M 850 600
-        l 100 -200
-        l 70 -50
-        h 160
-        l 30 50
-        l -10 60
-        l -60 50
-        h -180
-        l 10 -40
-        h 140
-        l 40 -20
-        l 10 -30
-        l -20 -30
-        h -100
-        l -40 30
-        l -60 150
-        l 20 30
-        h 120
-        l 40 -20
-        l 20 -50
-        h 50
-        l -20 60
-        l -60 50
-        h -160
-        l -40 -60
-        l 10 -50
-        z
-        M 1500 350
-        l 40 -150
-        l 50 -50
-        h 180
-        l -50 40
-        h -20
-        l -120 410
-        l 30 -10
-        l 100 -150
-        l -40 150
-        l -50 50
-        h -170
-        l 40 -40
-        h 20
-        l 120 -410
-        h -20
-        z
-        v 10
-        l 180 80
-        v -10
-        z
-        M 1700 450
-        l 100 -100
-        h 70
-        l -10 40
-        l 50 -40
-        h 140
-        l 30 50
-        l -80 210
-        l 60 -10
-        l -60 40
-        h -60
-        l 80 -220
-        l -20 -30
-        h -100
-        l -40 30
-        l -80 220
-        h -100
-        l 40 -40
-        h 20
-        l 70 -210
-        z
-        M 2050 600
-        l 100 -200
-        l 50 -50
-        h 90
-        l 30 -80
-        l 50 -50
-        h 150
-        l -30 50
-        h -90
-        l -20 10
-        l -30 70
-        h 100
-        l -30 50
-        h -80
-        l -100 320
-        l -50 50
-        h -140
-        l -30 -50
-        l 40 -120
-        l 50 -10
-        l -30 100
-        l 30 30
-        h 40
-        l 30 -30
-        l 100 -290
-        h -100
-        z
-        M 2440 400
-        l 110 -50
-        h 60
-        l -100 260
-        l 20 -10
-        l 140 -160
-        l -70 140
-        l -60 60
-        h -130
-        l 30 -30
-        h 20
-        l 80 -220
-        z
-        m 120 -80
-        l 20 -60
-        l 60 -40
-        l -20 60
-        z
-        M 2660 450
-        l 100 -100
-        h 70
-        l -10 40
-        l 50 -40
-        h 140
-        l 30 50
-        l -80 210
-        l 60 -10
-        l -60 40
-        h -60
-        l 80 -220
-        l -20 -30
-        h -100
-        l -40 30
-        l -80 220
-        h -100
-        l 40 -40
-        h 20
-        l 70 -210
-        z
-        M 3020 600
-        l 100 -200
-        l 80 -50
-        h 80
-        l -100 260
-        l 20 -10
-        l 110 -160
-        l -40 140
-        l -60 60
-        h -130
-        l 30 -30
-        h 20
-        l 80 -220
-        h -20
-        z
-        m 220 -280
-        l 20 -60
-        l 60 -40
-        l -20 60
-        z
-        M 3300 450
-        l 20 -50
-        l 50 -50
-        h 60
-        l 20 -80
-        l 60 -40
-        l -30 120
-        h 80
-        l -30 50
-        h -60
-        l -50 180
-        l 20 20
-        h 40
-        l -10 40
-        h -70
-        l -40 -60
-        l 50 -180
-        h -60
-        z
-        M 3500 600
-        l 100 -180
-        l 70 -70
-        h 50
-        l -60 220
-        l 20 30
-        h 60
-        l 30 -30
-        l 60 -220
-        h 60
-        l -120 400
-        l -60 30
-        h -140
-        l -20 -40
-        l 20 -60
-        l 50 -10
-        l -20 50
-        l 20 20
-        h 80
-        l 40 -40
-        l 20 -80
-        l -30 20
-        h -80
-        l -30 -60
-        l 30 -120
-        z
-        M 3970 250
-        l -20 80
-        l 50 -40
-        l 20 -80
-        z
-        M 4050,350
-        h 120
-        l 20 30
-        l -30 70
-        h -40
-        l 20 -50
-        l -10 -20
-        h -80
-        l -20 20
-        l -20 60
-        l 20 10
-        h 100
-        l 20 30
-        l -30 100
-        l -40 30
-        h -160
-        l -10 -30
-        l 30 -70
-        h 50
-        l -20 40
-        l 10 20
-        h 80
-        l 20 -10
-        l 20 -60
-        l -10 -20
-        h -100
-        l -30 -30
-        l 40 -100
-        z
-        "
-        fill="#fff"
-        stroke="none"
-    />
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 5000 1000"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="logo.svg"
+   inkscape:version="1.4.3 (0d15f75042, 2025-12-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     showgrid="true"
+     showguides="false"
+     inkscape:zoom="0.15999999"
+     inkscape:cx="2115.6251"
+     inkscape:cy="212.50001"
+     inkscape:window-width="1280"
+     inkscape:window-height="720"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="1"
+       spacingy="1"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="5"
+       enabled="true"
+       visible="true"
+       dotted="false" />
+  </sodipodi:namedview>
+  <path
+     d="m 3930,350 h 150 l 20,30 -30,65 -40,5 20,-50 -10,-20 h -90 l -15,15 -25,60 15,15 h 95 l 30,30 -40,120 -40,30 h -160 l -15,-30 40,-90 50,-5 -30,65 15,20 h 95 l 15,-15 30,-80 -10,-15 h -110 l -20,-40 35,-90 z"
+     id="path16"
+     style="fill:#ffffff;fill-opacity:1"
+     sodipodi:nodetypes="ccccccccccccccccccccccccccccc" />
+  <path
+     d="m 3850,270 -20,80 50,-40 20,-80 z"
+     id="path15"
+     style="fill:#ffffff;fill-opacity:1"
+     sodipodi:nodetypes="ccccc" />
+  <path
+     d="m 3425,620 100,-210 55,-60 h 40 l -70,250 15,20 h 80 l 40,-40 75,-230 h 40 l -115,380 -70,70 h -160 l -20,-40 25,-60 50,-20 -30,70 15,20 h 105 l 45,-50 30,-90 -30,20 h -100 l -40,-50 50,-165 z"
+     id="path14"
+     style="fill:#ffffff;fill-opacity:1"
+     sodipodi:nodetypes="cccccccccccccccccccccccccc" />
+  <path
+     d="m 3245,450 10,-50 50,-50 h 65 l 20,-80 55,-20 -25,100 h 95 l -50,50 h -60 l -50,200 20,20 h 50 l -15,30 h -65 l -40,-50 50,-200 h -50 l -20,5 z"
+     id="path13"
+     style="fill:#ffffff;fill-opacity:1"
+     sodipodi:nodetypes="cccccccccccccccccccc" />
+  <path
+     id="path8"
+     d="m 2373,400 127,-50 h 60 l -100,270 20,-10 140,-160 -70,140 -60,60 h -145 l 45,-30 h 20 l 80,-230 z m 137,-70 20,-70 60,-50 -20,70 z"
+     style="fill:#ffffff;fill-opacity:1"
+     sodipodi:nodetypes="cccccccccccccccccc" />
+  <path
+     d="m 2030,590 85,-190 80,-50 h 58 l 30,-90 60,-50 h 130 l -30,50 h -100 l -10,10 -30,80 h 95 l -25,50 h -80 l -98,350 -60,50 h -115 l -40,-50 25,-100 40,-10 -25,100 20,20 h 80 l 25,-20 98,-340 h -53 l -20,10 z"
+     id="path7"
+     style="fill:#ffffff;fill-opacity:1"
+     sodipodi:nodetypes="cccccccccccccccccccccccccccc" />
+  <path
+     id="path4"
+     d="m 1500,370 40,-160 60,-60 h 210 l -50,50 h -60 l -145,400 40,-10 100,-160 -40,160 -50,60 h -230 l 50,-50 h 60 l 145,-400 -40,10 z m 0,0 5,10 190,50 -5,-10 z"
+     style="fill:#ffffff;fill-opacity:1"
+     sodipodi:nodetypes="cccccccccccccccccccccc" />
+  <path
+     d="m 795,590 110,-190 60,-50 h 120 l 60,65 -10,50 -60,50 H 900 l 10,-30 h 155 l 40,-35 5,-25 -25,-35 H 965 l -40,35 -40,160 15,25 h 120 l 35,-30 25,-40 35,-5 -15,40 -85,75 H 890 l -50,-60 10,-45 z"
+     id="path3"
+     style="fill:#ffffff;fill-opacity:1"
+     sodipodi:nodetypes="ccccccccccccccccccccccccccc" />
+  <path
+     d="M 490,250 590,150 h 50 l -10,50 -50.08256,200 60,-50 H 730 l 60,75 -45,175 50,-10 -60,60 h -50 l 55,-225 -25,-25 h -75 l -75,60 -50,190 H 395 l 75,-50 h 10 L 580,200 Z"
+     id="path2"
+     style="fill:#ffffff;fill-opacity:1"
+     sodipodi:nodetypes="cccccccccccccccccccccc" />
+  <path
+     d="m 160,100 -50,50 -10,50 H 300 L 190,600 h -10 l -75,50 H 225 L 350,200 h 150 l -10,50 50,-50 10,-50 H 150 Z"
+     id="path1"
+     style="fill:#ffffff;fill-opacity:1"
+     sodipodi:nodetypes="ccccccccccccccc" />
+  <path
+     d="m 1695,430 100,-80 h 50 l -10,50 59.9174,-50 H 1975 l 60,75 -55,175 50,-10 -60,60 h -50 l 65,-225 -25,-25 h -65 l -75,60 -60,190 h -120 l 75,-50 h 10 l 60,-200 z"
+     style="fill:#ffffff;fill-opacity:1"
+     id="path1-5"
+     sodipodi:nodetypes="ccccccccccccccccccccc" />
+  <path
+     d="m 2610,450 105,-100 h 50 l -10,50 59.9174,-50 H 2895 l 60,75 -45,175 50,-10 -60,60 h -50 l 55,-225 -25,-25 h -65 l -75,60 -60,190 h -120 l 75,-50 h 10 l 60,-200 z"
+     style="fill:#ffffff;fill-opacity:1"
+     id="path1-2"
+     sodipodi:nodetypes="ccccccccccccccccccccc" />
+  <path
+     d="m 2970,590 155,-240 h 60 l -100,270 20,-10 140,-160 -70,140 -60,60 h -145 l 45,-30 h 20 l 65,-190 z m 165,-260 20,-70 60,-50 -20,70 z"
+     style="fill:#ffffff;fill-opacity:1"
+     id="path1-7"
+     sodipodi:nodetypes="cccccccccccccccccc" />
 </svg>
