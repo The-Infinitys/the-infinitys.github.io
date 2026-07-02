@@ -11,10 +11,6 @@ interface Props {
 const { loading = "lazy", class: className } = Astro.props;
 ---
 
-<Image
-    src={LogoSrc}
-    alt="Logo"
-    loading={loading}
-    class={className}
-    format="svg"
-/>
+<div class={className}>
+    <Image src={LogoSrc} alt="Logo" loading={loading} format="svg" />
+</div>
