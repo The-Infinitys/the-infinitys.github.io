@@ -13,7 +13,7 @@ const navItems = [
 
 <header
     id="site-header"
-    class="sticky top-0 left-0 w-full z-50 transition-all duration-300 h-16 md:h-20 bg-background/80 backdrop-blur-md border-b border-foreground/10 flex items-center px-6 md:px-12 transform translate-y-0"
+    class="sticky top-0 left-0 w-full z-50 transition-all duration-300 h-(--header-height) bg-background/30 backdrop-blur-xs border-b border-foreground/10 flex items-center px-6 md:px-12 transform translate-y-0"
 >
     <div
         class="relative flex items-center justify-between flex-row-reverse w-full mx-auto"
@@ -22,7 +22,7 @@ const navItems = [
             <Logo loading="eager" class="h-full w-auto object-contain" />
         </div>
 
-        <button id="menu-toggle" class="p-2 z-50">
+        <button id="menu-toggle" class="p-5! z-50">
             <HamburgerIcon client:load />
         </button>
     </div>
@@ -30,7 +30,7 @@ const navItems = [
 
 <div
     id="full-menu"
-    class="fixed top-0 right-0 h-full w-full md:w-80 z-40 bg-black/95 backdrop-blur-lg border-l border-foreground/10 flex flex-col items-center justify-center gap-8 translate-x-full transition-transform duration-500 font-orbitron"
+    class="fixed top-0 right-0 h-full w-full md:w-80 z-40 bg-background/30 backdrop-blur-xs border-l border-foreground/10 flex flex-col items-center justify-center gap-8 translate-x-full transition-transform duration-500 font-orbitron"
 >
     {
         navItems.map((item) => (
@@ -115,3 +115,14 @@ const navItems = [
         );
     });
 </script>
+
+<style is:global>
+    :root {
+        --header-height: 4rem; /* スマホ時の高さ (h-16 = 64px) */
+    }
+    @media (min-width: 768px) {
+        :root {
+            --header-height: 5rem; /* PC時の高さ (h-20 = 80px) */
+        }
+    }
+</style>

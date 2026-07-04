@@ -1,17 +1,17 @@
 // src/i18n/useTranslation.ts
-import { Locale, locales, routing } from "@/i18n/routing";
+import { Locale, locales } from "@/i18n/routing";
 import { messagesMap } from "@/i18n/locales";
-import { Messages } from "./types";
+import { Messages } from "../types";
 
 export function useTranslation(locale: string): Messages {
   // 1. 引数の locale が定義済み Locale か確認
   const isSupported = (l: string): l is Locale => locales.includes(l as Locale);
 
   // 2. 正しければその言語、ダメならデフォルト言語をキーにする
-  const targetLocale = isSupported(locale) ? locale : routing.defaultLocale;
+  const targetLocale = isSupported(locale) ? locale : Astro.preferredLocale;
 
   // 3. マップから取得（念のためフォールバックとしてデフォルト言語のデータを返す）
-  return messagesMap[targetLocale] || messagesMap[routing.defaultLocale];
+  return messagesMap[targetLocale] || messagesMap[Astro.preferredLocale];
 }
 
 export function resolveLocale(): Locale {

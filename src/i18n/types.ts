@@ -3,4 +3,8 @@ export type Messages = {
     title: string;
     description: string;
   };
+  notFound: {
+    message: string;
+    buttonText: string;
+  };
 };

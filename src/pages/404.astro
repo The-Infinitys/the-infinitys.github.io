@@ -1,0 +1,43 @@
+---
+// src/pages/404.astro
+import { getTranslation } from "@/i18n/utils";
+import Layout from "@/layouts/Layout.astro";
+const t = getTranslation(Astro.currentLocale).notFound;
+---
+
+<Layout>
+    <head>
+        <meta name="robots" content="noindex, follow" />
+    </head>
+
+    <div
+        class="relative min-h-[calc(100vh-var(--header-height))] w-full flex flex-col items-center justify-center px-4 overflow-hidden"
+    >
+        <div
+            class="relative z-10 flex flex-col items-center text-center max-w-6xl mix-blend-screen select-none"
+        >
+            <h1
+                class="w-full font-orbitron text-8xl md:text-9xl italic tracking-tighter text-transparent bg-clip-text bg-linear-to-r from-red-500 via-purple-500 to-blue-500 drop-shadow-[0_0_40px_rgba(168,85,247,0.6)] animate-pulse"
+            >
+                404
+            </h1>
+            <h2
+                class="font-chakrapetch text-2xl md:text-3xl font-bold tracking-widest text-white mt-6 uppercase drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]"
+            >
+                NOT FOUND
+            </h2>
+
+            <p
+                class="font-chakrapetch text-sm md:text-base text-gray-400 mt-6 leading-relaxed max-w-sm"
+            >
+                {t.message}
+            </p>
+            <a
+                href="/"
+                class="font-orbitron mt-12 px-10! py-3.5! rounded-full border border-purple-500/50 bg-purple-950/20 text-white font-bold tracking-wider text-sm md:text-base transition-all duration-300 hover:bg-purple-500 hover:shadow-[0_0_25px_rgba(168,85,247,0.5)] hover:scale-105 active:scale-95"
+            >
+                {t.buttonText}
+            </a>
+        </div>
+    </div>
+</Layout>

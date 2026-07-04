@@ -4,4 +4,8 @@ export const ja: Messages = {
     title: "The Infinity's",
     description: "The only thing I Believe in is The Infinite Possibilities.",
   },
+  notFound: {
+    message: "アクセスされたページは存在しません。",
+    buttonText: "ホームに戻る",
+  },
 };

@@ -2,25 +2,70 @@
 import Logo from "@/assets/logo.svg";
 import { Image } from "astro:assets";
 import { locales } from "@/i18n/routing";
-import { getTranslation } from "@/i18n/utils";
 import Layout from "@/layouts/Layout.astro";
+import PixivLogo from "@/assets/sns/pixiv-logo.svg";
+import XLogo from "@/assets/sns/x-logo.svg";
+import GitHubLogo from "@/assets/sns/github-logo.svg";
 
 export async function getStaticPaths() {
     return locales.map((locale) => ({
         params: { lang: locale },
     }));
 }
-const t = getTranslation(Astro.currentLocale);
 ---
 
 <Layout>
     <div
-        class="min-h-screen w-full flex flex-col items-center pt-50! md:pt-75! px-4"
+        class="min-h-[calc(100vh-var(--header-height))] w-full flex flex-col items-center pt-50! md:pt-75! px-4"
     >
         <Image
             src={Logo}
             alt="The Infinity's"
             class="w-120 max-w-full h-auto object-contain"
         />
+        <h1 class="font-orbitron mt-8! text-2xl">Beyond The Infinite</h1>
+    </div>
+
+    <div class="min-h-screen flex items-center justify-center">
+        <div
+            class="flex flex-col items-center border rounded-2xl border-accent/20 bg-background/50 backdrop-blur-md m-8! md:m-16! p-6! md:p-8!"
+        >
+            <div class="flex flex-row items-center gap-8 md:gap-12">
+                <!-- X (Twitter) -->
+                <a
+                    target="_blank"
+                    href="https://x.com/The_Infinity_s"
+                    class="opacity-60 hover:opacity-100 transition-all duration-300 hover:scale-110"
+                >
+                    <Image
+                        src={XLogo}
+                        alt="X"
+                        class="w-24 h-24 object-contain"
+                    />
+                </a>
+
+                <!-- GitHub -->
+                <a
+                    target="_blank"
+                    href="https://github.com/The-Infinitys"
+                    class="opacity-60 hover:opacity-100 transition-all duration-300 hover:scale-110"
+                >
+                    <Image src={GitHubLogo} alt="GitHub" class="w-24 h-24" />
+                </a>
+
+                <!-- Pixiv -->
+                <a
+                    target="_blank"
+                    href="https://www.pixiv.net/users/109461187"
+                    class="opacity-60 hover:opacity-100 transition-all duration-300 hover:scale-110"
+                >
+                    <Image
+                        src={PixivLogo}
+                        alt="Pixiv"
+                        class="w-24 h-24 object-contain"
+                    />
+                </a>
+            </div>
+        </div>
     </div>
 </Layout>

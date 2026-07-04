@@ -1,5 +1,4 @@
 // src/i18n/routing.ts
-
 // 1. 言語の定数定義
 export const locales = ["ja", "en"] as const;
 

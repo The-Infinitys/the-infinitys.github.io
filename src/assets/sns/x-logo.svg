@@ -1,0 +1,59 @@
+<svg
+    width="120"
+    height="120"
+    viewBox="-10 -10 120 120"
+    version="1.1"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:svg="http://www.w3.org/2000/svg"
+>
+    <defs id="defs1">
+        <linearGradient id="prismGradient" x1="0%" y1="0%" x2="100%" y2="25%">
+            <stop offset="0%" stop-color="#ff0000" />
+            <stop offset="25%" stop-color="#ffff00" />
+            <stop offset="45%" stop-color="#00ff00" />
+            <stop offset="55%" stop-color="#00ffff" />
+            <stop offset="75%" stop-color="#0000ff" />
+            <stop offset="100%" stop-color="#ff00ff" />
+        </linearGradient>
+        <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="6" result="blur" />
+            <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+    </defs>
+    <path
+        style="
+            baseline-shift: baseline;
+            display: inline;
+            overflow: visible;
+            vector-effect: none;
+            enable-background: accumulate;
+            stop-color: #000000;
+            stop-opacity: 1;
+            opacity: 1;
+            filter: url(#glow);
+        "
+        fill="url(#prismGradient)"
+        d="M 95,0 70,2 77,4 12,97 5,100 30,98 23,96 88,3 Z M 40,2 5,0 12,3 67,96 60,98 95,100 88,97 33,4 Z M 29,5 14,3 71,95 84,97 Z"
+        id="path2"
+        fill-rule="evenodd"
+    />
+    <path
+        style="
+            baseline-shift: baseline;
+            display: inline;
+            overflow: visible;
+            vector-effect: none;
+            enable-background: accumulate;
+            stop-color: #000000;
+            stop-opacity: 1;
+            opacity: 1;
+        "
+        d="M 95,0 70,2 77,4 12,97 5,100 30,98 23,96 88,3 Z M 40,2 5,0 12,3 67,96 60,98 95,100 88,97 33,4 Z M 29,5 14,3 71,95 84,97 Z"
+        fill="#ffffff"
+        fill-rule="evenodd"
+        id="path1"
+    />
+</svg>
