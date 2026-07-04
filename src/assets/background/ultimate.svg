@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+    width="100"
+    height="100"
+    viewBox="0 0 100 100"
+    version="1.1"
+    id="svg1"
+    sodipodi:docname="XrossInfinite.svg"
+    inkscape:version="1.4.3 (0d15f75042, 2025-12-25)"
+    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:svg="http://www.w3.org/2000/svg"
+>
+    <defs id="defs1">
+        <linearGradient id="prismGradient" x1="0%" y1="0%" x2="100%" y2="20%">
+            <stop offset="0%" stop-color="#ff0000" />
+            <stop offset="25%" stop-color="#ffff00" />
+            <stop offset="45%" stop-color="#00ff00" />
+            <stop offset="55%" stop-color="#00ffff" />
+            <stop offset="75%" stop-color="#0000ff" />
+            <stop offset="100%" stop-color="#ff00ff" />
+        </linearGradient>
+        <filter id="glow" x="-20%" y="-20%" width="200%" height="200%">
+            <!-- 1. 色を潰さないために、ぼかし幅は「2」のままキープ -->
+            <feGaussianBlur stdDeviation="2" result="blur" />
+
+            <!-- 2. ぼかした光を「1.5倍」に少しだけくっきり増幅（色が飛ばない絶妙なライン） -->
+            <feComponentTransfer in="blur" result="sharpBlur">
+                <feFuncA type="linear" slope="1.5" />
+            </feComponentTransfer>
+
+            <!-- 3. 背景の黒とロゴの境界線をはっきりさせる -->
+            <feMerge>
+                <feMergeNode in="sharpBlur" />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+        <radialGradient
+            id="MetalColor"
+            cx="50%"
+            cy="50%"
+            r="60%"
+            fx="50%"
+            fy="50%"
+        >
+            <stop offset="0%" stop-color="#ffffff" />
+            <stop offset="3%" stop-color="#777777" />
+            <stop offset="8%" stop-color="#0a0a0a" />
+            <stop offset="35%" stop-color="#000000" />
+            <stop offset="65%" stop-color="#3a3a3a" />
+            <stop offset="80%" stop-color="#050505" />
+            <stop offset="100%" stop-color="#000000" />
+        </radialGradient>
+
+        <filter id="metal_edge" x="-10%" y="-10%" width="120%" height="120%">
+            <feOffset dx="1" dy="1" />
+            <feGaussianBlur stdDeviation="1.2" result="offset-blur" />
+            <feComposite
+                operator="out"
+                in="SourceGraphic"
+                in2="offset-blur"
+                result="inverse"
+            />
+            <feFlood flood-color="black" flood-opacity="0.8" result="color" />
+            <feComposite
+                operator="in"
+                in="color"
+                in2="inverse"
+                result="shadow"
+            />
+            <!-- メタルグラデーション（SourceGraphic）の上にインナーシャドウを合成 -->
+            <feComposite operator="over" in="shadow" in2="SourceGraphic" />
+        </filter>
+    </defs>
+    <path
+        style="
+            baseline-shift: baseline;
+            display: inline;
+            overflow: visible;
+            vector-effect: none;
+            enable-background: accumulate;
+            stop-color: #000000;
+            stop-opacity: 1;
+            opacity: 1;
+            filter: url(#glow);
+        "
+        fill="url(#prismGradient)"
+        d="M 23.964844,37.5 17.5,43.964844 V 56.035156 L 23.964844,62.5 h 17.070312 l 20,-20 H 73.964844 L 77.5,46.035156 v 7.929688 L 73.964844,57.5 H 61.035156 L 56.767578,53.232422 53.232422,56.767578 58.964844,62.5 H 76.035156 L 82.5,56.035156 V 43.964844 L 76.035156,37.5 H 58.964844 l -20,20 H 26.035156 L 22.5,53.964844 V 46.035156 L 26.035156,42.5 h 12.929688 l 4.267578,4.267578 3.535156,-3.535156 L 41.035156,37.5 Z"
+        id="path2"
+    />
+    <path
+        style="
+            baseline-shift: baseline;
+            display: inline;
+            overflow: visible;
+            vector-effect: none;
+            enable-background: accumulate;
+            stop-color: #000000;
+            stop-opacity: 1;
+            opacity: 1;
+            filter: url(#metal_edge);
+        "
+        d="M 23.964844,37.5 17.5,43.964844 V 56.035156 L 23.964844,62.5 h 17.070312 l 20,-20 H 73.964844 L 77.5,46.035156 v 7.929688 L 73.964844,57.5 H 61.035156 L 56.767578,53.232422 53.232422,56.767578 58.964844,62.5 H 76.035156 L 82.5,56.035156 V 43.964844 L 76.035156,37.5 H 58.964844 l -20,20 H 26.035156 L 22.5,53.964844 V 46.035156 L 26.035156,42.5 h 12.929688 l 4.267578,4.267578 3.535156,-3.535156 L 41.035156,37.5 Z"
+        fill="url(#MetalColor)"
+        id="path1"
+    />
+</svg>

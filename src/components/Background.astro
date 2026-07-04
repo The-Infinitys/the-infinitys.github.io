@@ -1,0 +1,226 @@
+---
+// src/components/Background.astro
+import BackgroundImage from "@/assets/background/background.svg";
+import Ultimate from "@/assets/background/ultimate.svg";
+import { Image } from "astro:assets";
+---
+
+<div
+    class="fixed inset-0 -z-10 bg-black overflow-hidden flex items-center justify-center pointer-events-none"
+>
+    <Image
+        src={BackgroundImage}
+        alt="Background"
+        decoding="async"
+        loading="eager"
+        class="absolute w-[120vmax] h-[120vmax] blur-[8vmin] opacity-20 pointer-events-none select-none max-w-none"
+    />
+
+    <Image
+        src={Ultimate}
+        alt="Ultimate"
+        decoding="async"
+        loading="eager"
+        class="absolute w-[100vmin] h-[100vmin] opacity-65 pointer-events-none select-none max-w-none z-10"
+    />
+
+    <canvas id="overlay" class="absolute w-full h-full pointer-events-none"
+    ></canvas>
+</div>
+<script>
+    // ページをまたいでもリサイズイベントが正常に連動するように、外側で関数を管理します
+    let currentResizeListener: (() => void) | null = null;
+
+    document.addEventListener("astro:page-load", () => {
+        const canvas = document.getElementById(
+            "overlay",
+        ) as HTMLCanvasElement | null;
+        if (!canvas) return;
+
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        // 【最重要】前に登録された古いリサイズリスナーがあれば確実に解除する（多重登録バグ防止）
+        if (currentResizeListener) {
+            window.removeEventListener("resize", currentResizeListener);
+        }
+
+        let width = 0;
+        let height = 0;
+
+        // サイズを再計算し、その後に描画を実行する『リサイズ管理関数』
+        function executeResizeAndDraw() {
+            if (!canvas || !ctx) return;
+
+            // 【修正】BoundingClientRectをやめ、ブラウザの画面サイズを直接取得する
+            const dpr = window.devicePixelRatio || 1;
+            width = window.innerWidth;
+            height = window.innerHeight;
+
+            // Canvas内部の解像度（画素数）を最新の画面幅に更新
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+
+            // スタイルの表示サイズを画面全体にリセット
+            canvas.style.width = width + "px";
+            canvas.style.height = height + "px";
+
+            // 高解像度ディスプレイ（Retinaなど）向けのスケール補正
+            ctx.scale(dpr, dpr);
+
+            // 描画を実行
+            draw();
+        }
+
+        // 正多角形を描画するヘルパー関数
+        function drawPolygon(
+            ctx: CanvasRenderingContext2D,
+            x: number,
+            y: number,
+            radius: number,
+            sides: number,
+            index: number,
+        ) {
+            ctx.beginPath();
+            const rotateAngle = (index * Math.PI) / (sides / 2);
+
+            for (let i = 0; i < sides; i++) {
+                const angle = (i / sides) * Math.PI * 2 + rotateAngle;
+                const px = x + Math.cos(angle) * radius;
+                const py = y + Math.sin(angle) * radius;
+                if (i === 0) ctx.moveTo(px, py);
+                else ctx.lineTo(px, py);
+            }
+            ctx.closePath();
+        }
+
+        // ② 純粋な描画のみを担当する関数
+        function draw() {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, width, height);
+
+            const centerX = width / 2;
+            const centerY = height / 2;
+
+            const diagonal = Math.sqrt(width * width + height * height);
+            const maxRadius = diagonal / 2;
+            const baseSize = (diagonal + Math.max(width, height)) / 2;
+            const totalLines = 24;
+
+            const minRadius = Math.min(width, height) * 0.35;
+            const outerLimit = maxRadius * 1.3;
+
+            ctx.save();
+            ctx.globalCompositeOperation = "screen";
+
+            // --- 1. 交差線 --------------------------------------
+            ctx.lineWidth = 1.0;
+            const linesPerQuadrant = totalLines / 4;
+
+            for (let i = 0; i < linesPerQuadrant; i++) {
+                const baseAngle = (i / linesPerQuadrant) * (Math.PI / 2);
+                const bendFactor = Math.sin(i * 3.2) * (baseSize * 0.11);
+                const crossFactor = Math.cos(i * 4.1) * (baseSize * 0.06);
+
+                const startX =
+                    centerX +
+                    Math.cos(baseAngle) * outerLimit +
+                    Math.sin(baseAngle) * bendFactor;
+                const startY =
+                    centerY -
+                    (Math.sin(baseAngle) * outerLimit +
+                        Math.cos(baseAngle) * bendFactor);
+                const endX = centerX + Math.cos(baseAngle) * minRadius;
+                const endY = centerY - Math.sin(baseAngle) * minRadius;
+
+                const midX =
+                    (startX + endX) / 2 +
+                    Math.cos(baseAngle + Math.PI / 2) * bendFactor +
+                    crossFactor;
+                const midY =
+                    (startY + endY) / 2 -
+                    (Math.sin(baseAngle + Math.PI / 2) * bendFactor +
+                        crossFactor);
+
+                const symmetries = [
+                    { sx: 1, sy: 1 },
+                    { sx: -1, sy: 1 },
+                    { sx: 1, sy: -1 },
+                    { sx: -1, sy: -1 },
+                ];
+
+                symmetries.forEach((sym) => {
+                    const sX = centerX + (startX - centerX) * sym.sx;
+                    const sY = centerY + (startY - centerY) * sym.sy;
+                    const mX = centerX + (midX - centerX) * sym.sx;
+                    const mY = centerY + (midY - centerY) * sym.sy;
+                    const eX = centerX + (endX - centerX) * sym.sx;
+                    const eY = centerY + (endY - centerY) * sym.sy;
+
+                    const currentAngle = Math.atan2(mY - centerY, mX - centerX);
+                    let hue = (currentAngle * 180) / Math.PI;
+                    if (hue < 0) hue += 360;
+
+                    const lineGrad = ctx.createLinearGradient(sX, sY, eX, eY);
+                    lineGrad.addColorStop(0, `hsla(${hue}, 100%, 60%, 1.0)`);
+                    lineGrad.addColorStop(0.35, `hsla(${hue}, 95%, 55%, 1.0)`);
+                    lineGrad.addColorStop(0.65, `hsla(${hue}, 90%, 50%, 0.0)`);
+                    lineGrad.addColorStop(1, `rgba(0, 0, 0, 0)`);
+
+                    ctx.beginPath();
+                    ctx.moveTo(sX, sY);
+                    ctx.lineTo(mX, mY);
+                    ctx.lineTo(eX, eY);
+
+                    ctx.strokeStyle = lineGrad;
+                    ctx.stroke();
+                });
+            }
+
+            // --- 2. 多角形と同心円 ---------------------------------
+            const step = Math.min(width, height) * 0.12;
+            const startRadius = minRadius * 1.2;
+
+            const conicGrad = ctx.createConicGradient(0, centerX, centerY);
+            conicGrad.addColorStop(0, "hsla(0, 100%, 55%, 1.0)");
+            conicGrad.addColorStop(0.15, "hsla(45, 100%, 50%, 1.0)");
+            conicGrad.addColorStop(0.35, "hsla(120, 100%, 45%, 1.0)");
+            conicGrad.addColorStop(0.55, "hsla(190, 100%, 50%, 1.0)");
+            conicGrad.addColorStop(0.7, "hsla(240, 100%, 55%, 1.0)");
+            conicGrad.addColorStop(0.85, "hsla(290, 100%, 55%, 1.0)");
+            conicGrad.addColorStop(1, "hsla(360, 100%, 55%, 1.0)");
+
+            for (let r = startRadius; r <= outerLimit + step; r += step) {
+                const index = (r - startRadius) / step;
+                const sides = 8 + (index % 3) * 4;
+
+                const radiusRatio = Math.min(1.0, r / maxRadius);
+                const dynamicOpacity = Math.pow(radiusRatio, 4.0);
+
+                ctx.save();
+                ctx.strokeStyle = conicGrad;
+                ctx.globalAlpha = dynamicOpacity;
+
+                ctx.lineWidth = 1.0;
+                drawPolygon(ctx, centerX, centerY, r, sides, index);
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, r, 0, Math.PI * 2);
+                ctx.lineWidth = 0.5;
+                ctx.stroke();
+
+                ctx.restore();
+            }
+
+            ctx.restore();
+        }
+
+        // ③ 新しいリサイズリスナーを登録
+        currentResizeListener = executeResizeAndDraw;
+        window.addEventListener("resize", executeResizeAndDraw);
+
+        // ④ ページ読み込み完了時（初回起動）
+        executeResizeAndDraw();
+    });
+</script>

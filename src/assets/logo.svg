@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-    viewBox="0 0 4500 900"
+    viewBox="0 0 4250 800"
     version="1.1"
     id="svg1"
     sodipodi:docname="logo.svg"
@@ -98,7 +98,7 @@
         sodipodi:nodetypes="ccccccccccccccccccccccccccc"
     />
     <path
-        d="M 490,250 590,150 h 50 l -10,50 -50.08256,200 60,-50 H 730 l 60,75 -45,175 50,-10 -60,60 h -50 l 55,-225 -25,-25 h -75 l -75,60 -50,190 H 395 l 75,-50 h 10 L 580,200 Z"
+        d="M 490,250 590,150 h 50 l -10,50 -50,200 60,-50 H 730 l 60,75 -45,175 50,-10 -60,60 h -50 l 55,-225 -25,-25 h -75 l -75,60 -50,190 H 395 l 75,-50 h 10 L 580,200 Z"
         id="path2"
         style="fill: #ffffff; fill-opacity: 1"
         sodipodi:nodetypes="cccccccccccccccccccccc"
@@ -110,13 +110,13 @@
         sodipodi:nodetypes="ccccccccccccccc"
     />
     <path
-        d="m 1715,450 100,-100 h 50 l -10,50 59.9174,-50 H 1995 l 60,75 -55,175 60,-10 -70,60 h -50 l 65,-225 -25,-25 h -65 l -75,60 -60,190 h -120 l 75,-50 h 10 l 60,-200 z"
+        d="m 1715,450 100,-100 h 50 l -10,50 60,-50 H 1995 l 60,75 -55,175 60,-10 -70,60 h -50 l 65,-225 -25,-25 h -65 l -75,60 -60,190 h -120 l 75,-50 h 10 l 60,-200 z"
         style="fill: #ffffff; fill-opacity: 1"
         id="path1-5"
         sodipodi:nodetypes="ccccccccccccccccccccc"
     />
     <path
-        d="m 2680,450 105,-100 h 50 l -10,50 59.9174,-50 H 2965 l 60,75 -45,175 70,-55 -80,105 h -50 l 55,-225 -25,-25 h -65 l -75,60 -60,190 h -120 l 75,-50 h 10 l 60,-200 z"
+        d="m 2680,450 105,-100 h 50 l -10,50 60,-50 H 2965 l 60,75 -45,175 70,-55 -80,105 h -50 l 55,-225 -25,-25 h -65 l -75,60 -60,190 h -120 l 75,-50 h 10 l 60,-200 z"
         style="fill: #ffffff; fill-opacity: 1"
         id="path1-2"
         sodipodi:nodetypes="ccccccccccccccccccccc"

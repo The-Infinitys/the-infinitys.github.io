@@ -10,6 +10,11 @@ export default defineConfig({
       name: "Orbitron",
       cssVariable: "--font-orbitron",
     },
+    {
+      provider: fontProviders.google(),
+      name: "Chakra Petch",
+      cssVariable: "--font-chakrapetch",
+    },
   ],
   i18n: {
     defaultLocale: "ja",

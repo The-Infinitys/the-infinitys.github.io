@@ -1,5 +1,8 @@
 ---
+import Logo from "@/assets/logo.svg";
+import { Image } from "astro:assets";
 import { locales } from "@/i18n/routing";
+import { getTranslation } from "@/i18n/utils";
 import Layout from "@/layouts/Layout.astro";
 
 export async function getStaticPaths() {
@@ -7,58 +10,17 @@ export async function getStaticPaths() {
         params: { lang: locale },
     }));
 }
+const t = getTranslation(Astro.currentLocale);
 ---
 
 <Layout>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
-    <h1>Hello!</h1>
+    <div
+        class="min-h-screen w-full flex flex-col items-center pt-50! md:pt-75! px-4"
+    >
+        <Image
+            src={Logo}
+            alt="The Infinity's"
+            class="w-120 max-w-full h-auto object-contain"
+        />
+    </div>
 </Layout>
