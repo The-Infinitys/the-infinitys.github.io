@@ -115,7 +115,7 @@
         h -25
         l -5 -5
         z"
-        fill="#ffffff"
+        fill="currentColor"
         id="path1"
     />
 </svg>

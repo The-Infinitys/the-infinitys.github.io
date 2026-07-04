@@ -52,7 +52,7 @@
             opacity: 1;
         "
         d="M 95,0 70,2 77,4 12,97 5,100 30,98 23,96 88,3 Z M 40,2 5,0 12,3 67,96 60,98 95,100 88,97 33,4 Z M 29,5 14,3 71,95 84,97 Z"
-        fill="#ffffff"
+        fill="currentColor"
         fill-rule="evenodd"
         id="path1"
     />

@@ -1,27 +1,44 @@
 ---
 // src/components/Background.astro
-import BackgroundImage from "@/assets/background/background.svg";
-import Ultimate from "@/assets/background/ultimate.svg";
+import BackgroundDarkness from "@/assets/background/background-darkness.svg";
+import BackgroundBrightness from "@/assets/background/background-brightness.svg";
+import UltimateDarkness from "@/assets/background/ultimate-darkness.svg";
+import UltimateBrightness from "@/assets/background/ultimate-brightness.svg";
+
 import { Image } from "astro:assets";
 ---
 
 <div
-    class="fixed inset-0 -z-10 bg-black overflow-hidden flex items-center justify-center pointer-events-none"
+    class="fixed inset-0 -z-10 bg-background overflow-hidden flex items-center justify-center pointer-events-none"
 >
     <Image
-        src={BackgroundImage}
+        src={BackgroundDarkness}
         alt="Background"
         decoding="async"
         loading="eager"
-        class="absolute w-[120vmax] h-[120vmax] blur-[8vmin] opacity-20 pointer-events-none select-none max-w-none"
+        class="absolute w-[120vmax] h-[120vmax] blur-[8vmin] opacity-20 pointer-events-none select-none max-w-none not-dark:hidden"
+    />
+    <Image
+        src={BackgroundBrightness}
+        alt="Background"
+        decoding="async"
+        loading="eager"
+        class="absolute w-[120vmax] h-[120vmax] blur-[8vmin] opacity-20 pointer-events-none select-none max-w-none dark:hidden"
     />
 
     <Image
-        src={Ultimate}
+        src={UltimateDarkness}
         alt="Ultimate"
         decoding="async"
         loading="eager"
-        class="absolute w-[100vmin] h-[100vmin] opacity-65 pointer-events-none select-none max-w-none z-10"
+        class="absolute w-[100vmin] h-[100vmin] opacity-65 pointer-events-none select-none max-w-none z-10 not-dark:hidden"
+    />
+    <Image
+        src={UltimateBrightness}
+        alt="Ultimate"
+        decoding="async"
+        loading="eager"
+        class="absolute w-[100vmin] h-[100vmin] opacity-65 pointer-events-none select-none max-w-none z-10 dark:hidden"
     />
 
     <canvas id="overlay" class="absolute w-full h-full pointer-events-none"

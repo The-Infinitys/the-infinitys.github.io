@@ -16,8 +16,42 @@ const t = getTranslation(Astro.currentLocale).notFound;
         <div
             class="relative z-10 flex flex-col items-center text-center max-w-6xl mix-blend-screen select-none"
         >
+            <style>
+                /* 1. 6色を滑らかにループさせるアニメーション */
+                @keyframes custom-gradient {
+                    0% {
+                        background-position: 0% 50%;
+                    }
+                    100% {
+                        background-position: 400% 50%;
+                    }
+                }
+
+                /* 2. 元のanimate-pulseと同じ、透明度とネオンの強さを変えるアニメーション */
+                @keyframes custom-pulse {
+                    0%,
+                    100% {
+                        opacity: 1;
+                        filter: drop-shadow(0 0 40px rgba(168, 85, 247, 0.6));
+                    }
+                    50% {
+                        opacity: 0.5;
+                        filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.3));
+                    }
+                }
+
+                /* 2つのアニメーションをカンマ区切りで同時に適用する専用クラス */
+                .animate-combined {
+                    background-size: 400% auto; /* 6色を綺麗に動かすために幅を広く設定 */
+                    animation:
+                        custom-gradient 16s linear infinite,
+                        custom-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+                }
+            </style>
+
+            <!-- 修正後：Tailwindの gradient や via はすべて外してすっきりさせる -->
             <h1
-                class="w-full font-orbitron text-8xl md:text-9xl italic tracking-tighter text-transparent bg-clip-text bg-linear-to-r from-red-500 via-purple-500 to-blue-500 drop-shadow-[0_0_40px_rgba(168,85,247,0.6)] animate-pulse"
+                class="w-full font-orbitron text-8xl md:text-9xl italic tracking-tighter text-transparent bg-clip-text bg-[linear-gradient(to_right,#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00)] bg-size-[400%_auto] animate-combined"
             >
                 404
             </h1>
@@ -34,7 +68,7 @@ const t = getTranslation(Astro.currentLocale).notFound;
             </p>
             <a
                 href="/"
-                class="font-orbitron mt-12 px-10! py-3.5! rounded-full border border-purple-500/50 bg-purple-950/20 text-white font-bold tracking-wider text-sm md:text-base transition-all duration-300 hover:bg-purple-500 hover:shadow-[0_0_25px_rgba(168,85,247,0.5)] hover:scale-105 active:scale-95"
+                class="font-orbitron mt-12 px-10! py-3.5! rounded-full border border-accent/50 bg-accent/20 text-white font-bold tracking-wider text-sm md:text-base transition-all duration-300 hover:bg-accent hover:scale-105 active:scale-95"
             >
                 {t.buttonText}
             </a>
