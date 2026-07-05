@@ -43,8 +43,7 @@
   --color-accent: var(--accent);
   --font-orbitron: var(--font-orbitron);
   --font-chakrapetch: var(--font-chakrapetch);
-  /* フォント設定 (Next.jsのデフォルトを活かす場合) */
-  --font-sans: "Inter", sans-serif;
+  --font-sans: var(--font-ibm-plex-sans-jp), sans-serif;
 }
 
 /* 基本リセットとスタイル */
@@ -67,8 +66,7 @@ body {
   font-weight: 800;
   text-transform: uppercase;
 }
-
-* {
+:where(*) {
   margin: 0;
   padding: 0;
   box-sizing: border-box;

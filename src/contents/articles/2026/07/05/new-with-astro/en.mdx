@@ -1,4 +1,46 @@
 ---
-title: hello
-previewImage: preview.png
+title: From Next.js to Astro
 ---
+
+# The Dream of SPA and the "Joy of Writing"
+
+Hello everyone, this is The Infinity's!
+
+I recently migrated my website from Next.js to Astro. While it was quite an undertaking, the process was incredibly rewarding and fun.
+
+Why did I choose to leave the powerhouse that is Next.js and opt for Astro? And how did this transition evolve into more than just a "framework swap," leading to a significant enhancement in my "writing experience"?
+
+## 1. Why Astro, "Now"?
+
+Next.js is an incredibly powerful tool, but for a site primarily focused on static content like a blog, I began to feel it was "over-engineered" for my needs. An unnecessarily complex architecture only drives up maintenance costs.
+
+"I want to write faster, with more freedom, and more simply." That desire was the catalyst for my decision to switch to Astro.
+
+## 2. The Nature of "Speed"
+
+The most surprising improvement was the dramatic reduction in build times. Compared to Next.js, Astro’s build process is "incomparably" faster.
+
+Being liberated from the stress of waiting for builds has lowered the psychological hurdle for deployment, making me far more willing to push updates and add new articles. This pursuit of performance has, in turn, increased my update frequency and made the entire management process lighter and more agile.
+
+## 3. Architecture Focused on "Writing"
+
+For an engineer, setting up front matter for every single post is a tedious task. To solve this, I built a management system based on the philosophy of "Directory Structure as Database."
+
+- **Automatic Path Resolution:** By simply placing a file at `articles/2026/07/05/new-with-astro/en.mdx`, the date, slug, and language settings are automatically mapped.
+- **Automated Image Management:** I used `import.meta.glob` to automatically detect `preview.*` files within the folder and apply them as OGP images.
+
+Thanks to this mechanism, I can now focus entirely on the act of writing. I’ve achieved a wonderfully satisfying loop where my engineering "system building" directly translates to my productivity as a writer.
+
+## 4. SPA Comfort and the "Right Tool for the Job"
+
+Of course, I haven’t compromised on user experience, either. With SPA mode, smooth page transitions were surprisingly easy to implement via Astro’s config settings.
+
+On the other hand, I’ve limited React usage to components that truly require state management, such as `HamburgerIcon` or `ConnectingLoader`. This "Islands Architecture"—using React only where necessary—is the greatest charm of Astro.
+
+## 5. Finally: Realistic Advice for Beginners
+
+I’ve shared my technical obsessions here, but if your goal is simply to "get a website published by today," using a no-code tool like Google Sites is the shortest path. You don't need to build it from scratch.
+
+However, if you want to experience the joy of building a website system from the ground up and tuning it exactly to your liking, Astro is the ultimate playground.
+
+Enjoy the technology, enjoy the writing. That is the essence of my site's renewal. I look forward to continuing to nurture this space, one step at a time.

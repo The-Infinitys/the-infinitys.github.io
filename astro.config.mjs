@@ -16,6 +16,11 @@ export default defineConfig({
       name: "Chakra Petch",
       cssVariable: "--font-chakrapetch",
     },
+    {
+      provider: fontProviders.google(),
+      name: "IBM Plex Sans JP",
+      cssVariable: "--font-ibm-plex-sans-jp",
+    },
   ],
   i18n: {
     defaultLocale: "ja",

@@ -1,8 +1,10 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { getAllArticles } from "@/pages/[lang]/articles/index.astro";
+import {
+    EnrichedArticle,
+    getAllArticles,
+} from "@/pages/[lang]/articles/index.astro";
 import { Image } from "astro:assets";
-// 1. Astro v5推奨の「render」関数を公式インポートする
 import { render } from "astro:content";
 
 export async function getStaticPaths() {
@@ -12,13 +14,7 @@ export async function getStaticPaths() {
         const { lang, year, month, day, slug } = article.computed;
 
         return {
-            params: {
-                lang,
-                year,
-                month,
-                day,
-                id: slug,
-            },
+            params: { lang, year, month, day, id: slug },
             props: { article },
         };
     });
@@ -26,38 +22,241 @@ export async function getStaticPaths() {
 
 const { article } = Astro.props;
 
-// 2. 公式の render 関数に記事データを丸ごと渡して、有効な Content コンポーネントを展開する
-const { Content } = await render(article);
+const { Content, headings } = await render(article);
+const tocHeadings = headings.filter((h: { depth: number }) => h.depth <= 3);
+
+const allArticles = await getAllArticles();
+const sameLangArticles = allArticles.filter(
+    (a) => a.computed.lang === article.computed.lang,
+);
+const currentIndex = sameLangArticles.findIndex(
+    (a) => a.computed.slug === article.computed.slug,
+);
+
+const nextArticle =
+    currentIndex > 0 ? sameLangArticles[currentIndex - 1] : null;
+const prevArticle =
+    currentIndex < sameLangArticles.length - 1
+        ? sameLangArticles[currentIndex + 1]
+        : null;
+
+const isJa = article.computed.lang === "ja";
+
+const getArticleUrl = (art: EnrichedArticle) => {
+    const { lang, year, month, day, slug } = art.computed;
+    return `/${lang}/articles/${year}/${month}/${day}/${slug}`;
+};
 ---
 
 <Layout title={article.data.title}>
-    <article style="max-width: 700px; margin: 0 auto; padding: 2rem;">
-        <header style="margin-bottom: 2rem;">
-            <p style="color: #666; font-size: 0.9rem;">
-                {article.computed.year}/{article.computed.month}/{
-                    article.computed.day
-                } | Language: {article.computed.lang.toUpperCase()}
-            </p>
-            <h1 style="font-size: 2.5rem; margin: 0.5rem 0;">
-                {article.data.title}
-            </h1>
-        </header>
+    <div class="w-full flex justify-center py-16! px-6!">
+        <div
+            class="w-full max-w-5xl flex flex-col md:flex-row justify-center gap-12"
+        >
+            {
+                tocHeadings.length > 0 && (
+                    <aside class="w-full md:w-65 shrink-0 md:sticky md:top-40 md:self-start max-md:mb-8!">
+                        <nav
+                            class="rounded-xl border p-6! max-h-[calc(100vh-6rem)] overflow-y-auto backdrop-blur-md"
+                            style={{
+                                borderColor:
+                                    "color-mix(in srgb, var(--color-foreground), transparent 85%)",
+                                background:
+                                    "color-mix(in srgb, var(--color-foreground), transparent 96%)",
+                                boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+                            }}
+                        >
+                            <ul class="space-y-3">
+                                {tocHeadings.map(
+                                    (heading: {
+                                        depth: number;
+                                        text: string;
+                                        slug: string;
+                                    }) => {
+                                        const indent =
+                                            heading.depth === 2
+                                                ? "pl-4!"
+                                                : heading.depth === 3
+                                                  ? "pl-8!"
+                                                  : "pl-0!";
+                                        return (
+                                            <li class={indent}>
+                                                <a
+                                                    href={`#${heading.slug}`}
+                                                    class="toc-link text-sm font-medium tracking-wide transition-all duration-300 block py-3! border-l-2 border-transparent pl-2! hover:border-accent"
+                                                >
+                                                    {heading.text}
+                                                </a>
+                                            </li>
+                                        );
+                                    },
+                                )}
+                            </ul>
+                        </nav>
+                    </aside>
+                )
+            }
 
-        {
-            article.computed.previewImage && (
-                <div style="margin-bottom: 2rem; border-radius: 8px; overflow: hidden; aspect-ratio: 16/9;">
-                    <Image
-                        src={article.computed.previewImage}
-                        alt={article.data.title}
-                        style="width: 100%; height: 100%; object-fit: cover;"
-                    />
-                </div>
-            )
-        }
+            <article
+                class="w-full max-w-3xl bg-background/25 backdrop-blur-md rounded-md border border-accent/30 p-4!"
+            >
+                <header style="margin-bottom: 3rem;">
+                    <p
+                        style="color: color-mix(in srgb, var(--color-foreground), transparent 40%); font-size: 0.9rem; letter-spacing: 0.05em;"
+                    >
+                        {article.computed.year}/{article.computed.month}/{
+                            article.computed.day
+                        } | Language: {article.computed.lang.toUpperCase()}
+                    </p>
+                    <h1
+                        style="font-size: 2.75rem; margin: 0.75rem 0; font-weight: 800; tracking: -0.02em; color: var(--color-foreground);"
+                    >
+                        {article.data.title}
+                    </h1>
+                </header>
 
-        <main class="prose">
-            <!-- 3. これでエラーにならず、MDXの中身が正しくレンダリングされます -->
-            <Content />
-        </main>
-    </article>
+                {
+                    article.computed.previewImage && (
+                        <div style="margin-bottom: 3rem; border-radius: 12px; overflow: hidden; aspect-ratio: 16/9;">
+                            <Image
+                                src={article.computed.previewImage}
+                                alt={article.data.title}
+                                style="width: 100%; height: 100%; object-fit: cover;"
+                            />
+                        </div>
+                    )
+                }
+
+                <main
+                    class:list={[
+                        isJa ? "font-sans" : "font-chakrapetch",
+                        "[&_h1]:text-[3rem] [&_h1]:leading-[1.1] [&_h1]:tracking-tighter [&_h1]:mt-16 [&_h1]:font-thin [&_h1]:mb-8 [&_h1]:uppercase max-md:[&_h1]:text-[2.25rem]",
+                        "[&_h2]:text-[1.8rem] [&_h2]:mt-16 [&_h2]:mb-7 [&_h2]:pb-2 [&_h2]:border-b-2 [&_h2]:inline-block",
+                        "[&_a]:underline [&_a]:underline-offset-4 [&_a]:transition-[filter] [&_a]:duration-200 hover:[&_a]:brightness-[1.2]",
+                        "[&_blockquote]:border-l-4 [&_blockquote]:px-7 [&_blockquote]:py-[1.2rem] [&_blockquote]:italic [&_blockquote]:my-10 [&_blockquote]:rounded-r-lg",
+                    ]}
+                    style={{ color: "var(--color-foreground)" }}
+                >
+                    <Content />
+                </main>
+
+                <footer
+                    class="mt-20 grid grid-cols-2 gap-6 border-t pt-10!"
+                    style={{
+                        borderColor:
+                            "color-mix(in srgb, var(--color-foreground), transparent 85%)",
+                    }}
+                >
+                    <div>
+                        {
+                            prevArticle && (
+                                <a
+                                    href={getArticleUrl(prevArticle)}
+                                    class="footer-nav-link group block rounded-xl border p-5! backdrop-blur-md transition-all duration-300 hover:scale-[1.01]"
+                                >
+                                    <span
+                                        class="text-xs font-semibold uppercase tracking-wider block mb-2!"
+                                        style={{
+                                            color: "color-mix(in srgb, var(--color-foreground), transparent 50%)",
+                                        }}
+                                    >
+                                        ← {isJa ? "前の記事" : "Previous"}
+                                    </span>
+                                    <span class="nav-title text-sm font-medium transition-colors duration-200 line-clamp-2">
+                                        {prevArticle.data.title}
+                                    </span>
+                                </a>
+                            )
+                        }
+                    </div>
+                    <div class="text-right">
+                        {
+                            nextArticle && (
+                                <a
+                                    href={getArticleUrl(nextArticle)}
+                                    class="footer-nav-link group block rounded-xl border p-5! backdrop-blur-md transition-all duration-300 hover:scale-[1.01]"
+                                >
+                                    <span
+                                        class="text-xs font-semibold uppercase tracking-wider block mb-2!"
+                                        style={{
+                                            color: "color-mix(in srgb, var(--color-foreground), transparent 50%)",
+                                        }}
+                                    >
+                                        {isJa ? "次の記事" : "Next"} →
+                                    </span>
+                                    <span class="nav-title text-sm font-medium transition-colors duration-200 line-clamp-2">
+                                        {nextArticle.data.title}
+                                    </span>
+                                </a>
+                            )
+                        }
+                    </div>
+                </footer>
+            </article>
+        </div>
+    </div>
 </Layout>
+
+<style is:global>
+    html {
+        scroll-behavior: smooth;
+        scroll-padding-top: var(--header-height);
+    }
+
+    .toc-link {
+        color: color-mix(in srgb, var(--color-foreground), transparent 30%);
+    }
+
+    .toc-link.active-toc {
+        color: var(--accent) !important;
+        border-left-color: var(--accent) !important;
+        font-weight: 700;
+        background: color-mix(in srgb, var(--accent), transparent 90%);
+    }
+    main {
+        line-height: 2;
+    }
+    main :is(h1, h2, a) {
+        color: var(--accent);
+    }
+    main h2 {
+        border-color: var(--accent);
+    }
+    main blockquote {
+        border-color: var(--accent);
+        background: color-mix(in srgb, var(--accent), transparent 92%);
+    }
+
+    .footer-nav-link:hover {
+        border-color: var(--accent) !important;
+    }
+    .footer-nav-link:hover .nav-title {
+        color: var(--accent) !important;
+    }
+</style>
+
+<script>
+    const observerOptions = {
+        root: null,
+        rootMargin: "-20% 0px -70% 0px",
+        threshold: 0,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute("id");
+                document.querySelectorAll(".toc-link").forEach((link) => {
+                    link.classList.remove("active-toc");
+                    if (link.getAttribute("href") === `#${id}`) {
+                        link.classList.add("active-toc");
+                    }
+                });
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll("main h2, main h3").forEach((heading) => {
+        observer.observe(heading);
+    });
+</script>

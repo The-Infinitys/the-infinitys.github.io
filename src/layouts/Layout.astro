@@ -6,6 +6,7 @@ import Header from "@/components/Header.astro";
 import Background from "@/components/Background.astro";
 
 import "../styles/global.css";
+import Footer from "@/components/Footer.astro";
 // 現在の言語を取得 (Astroのi18n設定と連動)
 const lang = Astro.currentLocale || "en";
 ---
@@ -18,11 +19,13 @@ const lang = Astro.currentLocale || "en";
         <ClientRouter />
         <Font cssVariable="--font-orbitron" preload />
         <Font cssVariable="--font-chakrapetch" preload />
+        <Font cssVariable="--font-ibm-plex-sans-jp" preload />
         <title>The Infinity's</title>
     </head>
     <body class={Astro.props.class}>
         <Background />
         <Header />
         <slot />
+        <Footer />
     </body>
 </html>
