@@ -32,45 +32,43 @@ const snsLinks = [
 ];
 ---
 
-<Layout class="snap-mandatory snap-y">
-    <BasePageLayout>
-        <!-- 🔥 【1枚目】ロゴと文字を丸ごとカスタムタイトルとして流し込む -->
-        <div slot="title" class="flex flex-col items-center px-4">
-            {/* 元のコードのサイズ感とスタイルを完全維持 */}
-            <div
-                class="w-120 max-w-full h-auto text-foreground fill-current [&>svg]:w-full [&>svg]:h-auto"
-            >
-                <Fragment set:html={LogoSvg} />
-            </div>
-            {/* h1タグとしてブランドメッセージを配置 */}
-            <h1
-                class="font-orbitron mt-8! text-2xl tracking-widest text-center select-none"
-            >
-                Beyond The Infinite
-            </h1>
-        </div>
-
-        <!-- 🌐 【2枚目】SNSリンクの入った枠組み（そのまま中身に流し込まれます） -->
+<BasePageLayout>
+    <!-- 🔥 【1枚目】ロゴと文字を丸ごとカスタムタイトルとして流し込む -->
+    <div slot="title" class="flex flex-col items-center px-4">
+        {/* 元のコードのサイズ感とスタイルを完全維持 */}
         <div
-            class="flex flex-col items-center border rounded-2xl border-accent/20 bg-background/50 backdrop-blur-md m-8! md:m-16! p-6! md:p-8!"
+            class="w-120 max-w-full h-auto text-foreground fill-current [&>svg]:w-full [&>svg]:h-auto"
         >
-            <div class="flex flex-row items-center gap-8 md:gap-12">
-                {
-                    snsLinks.map((sns) => (
-                        <a
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            href={sns.url}
-                            aria-label={sns.name}
-                            class="opacity-60 hover:opacity-100 transition-all duration-300 hover:scale-110"
-                        >
-                            <div class="w-24 h-24 [&>svg]:w-full [&>svg]:h-full [&>svg]:object-contain">
-                                <Fragment set:html={sns.icon} />
-                            </div>
-                        </a>
-                    ))
-                }
-            </div>
+            <Fragment set:html={LogoSvg} />
         </div>
-    </BasePageLayout>
-</Layout>
+        {/* h1タグとしてブランドメッセージを配置 */}
+        <h1
+            class="font-orbitron mt-8! text-2xl tracking-widest text-center select-none"
+        >
+            Beyond The Infinite
+        </h1>
+    </div>
+
+    <!-- 🌐 【2枚目】SNSリンクの入った枠組み（そのまま中身に流し込まれます） -->
+    <div
+        class="flex flex-col items-center border rounded-2xl border-accent/20 bg-background/50 backdrop-blur-md m-8! md:m-16! p-6! md:p-8!"
+    >
+        <div class="flex flex-row items-center gap-8 md:gap-12">
+            {
+                snsLinks.map((sns) => (
+                    <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={sns.url}
+                        aria-label={sns.name}
+                        class="opacity-60 hover:opacity-100 transition-all duration-300 hover:scale-110"
+                    >
+                        <div class="w-24 h-24 [&>svg]:w-full [&>svg]:h-full [&>svg]:object-contain">
+                            <Fragment set:html={sns.icon} />
+                        </div>
+                    </a>
+                ))
+            }
+        </div>
+    </div>
+</BasePageLayout>
