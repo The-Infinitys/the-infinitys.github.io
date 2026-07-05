@@ -1,5 +1,19 @@
 ---
-
+// 各種SNS・外部サービスのURL（ご自身のURLに差し替えてください）
+import { snsLinks } from "../pages/[lang]/index.astro";
 ---
 
-<div class="w-full min-h-80 bg-background/50 backdrop-blur-md"></div>
+<footer
+    class="w-full bg-background/50 backdrop-blur-md p-8! md:p-12! border-t border-foreground/10 flex flex-col justify-between gap-12"
+>
+    <div class="w-full text-center">
+        <h1 class="font-orbitron text-2xl tracking-wider text-foreground/90">
+            &copy; 2026 The Infinity&apos;s
+        </h1>
+        <h2
+            class="font-chakrapetch text-xl font-light tracking-widest text-foreground/40 mt-1!"
+        >
+            All rights reserved.
+        </h2>
+    </div>
+</footer>
