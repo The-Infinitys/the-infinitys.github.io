@@ -1,11 +1,10 @@
 ---
-import BasePageLayout from "@/components/BasePageLayout.astro";
+import BasePageLayout from "@/layouts/BasePageLayout.astro";
 import LogoSvg from "@/assets/logo.svg?raw";
 import { locales } from "@/i18n/routing";
 import PixivLogo from "@/assets/sns/pixiv-logo.svg?raw";
 import XLogo from "@/assets/sns/x-logo.svg?raw";
 import GitHubLogo from "@/assets/sns/github-logo.svg?raw";
-import Layout from "@/layouts/Layout.astro";
 
 export async function getStaticPaths() {
     return locales.map((locale) => ({
