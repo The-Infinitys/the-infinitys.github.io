@@ -1,0 +1,63 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { getAllArticles } from "@/pages/[lang]/articles/index.astro";
+import { Image } from "astro:assets";
+// 1. Astro v5推奨の「render」関数を公式インポートする
+import { render } from "astro:content";
+
+export async function getStaticPaths() {
+    const allArticles = await getAllArticles();
+
+    return allArticles.map((article) => {
+        const { lang, year, month, day, slug } = article.computed;
+
+        return {
+            params: {
+                lang,
+                year,
+                month,
+                day,
+                id: slug,
+            },
+            props: { article },
+        };
+    });
+}
+
+const { article } = Astro.props;
+
+// 2. 公式の render 関数に記事データを丸ごと渡して、有効な Content コンポーネントを展開する
+const { Content } = await render(article);
+---
+
+<Layout title={article.data.title}>
+    <article style="max-width: 700px; margin: 0 auto; padding: 2rem;">
+        <header style="margin-bottom: 2rem;">
+            <p style="color: #666; font-size: 0.9rem;">
+                {article.computed.year}/{article.computed.month}/{
+                    article.computed.day
+                } | Language: {article.computed.lang.toUpperCase()}
+            </p>
+            <h1 style="font-size: 2.5rem; margin: 0.5rem 0;">
+                {article.data.title}
+            </h1>
+        </header>
+
+        {
+            article.computed.previewImage && (
+                <div style="margin-bottom: 2rem; border-radius: 8px; overflow: hidden; aspect-ratio: 16/9;">
+                    <Image
+                        src={article.computed.previewImage}
+                        alt={article.data.title}
+                        style="width: 100%; height: 100%; object-fit: cover;"
+                    />
+                </div>
+            )
+        }
+
+        <main class="prose">
+            <!-- 3. これでエラーにならず、MDXの中身が正しくレンダリングされます -->
+            <Content />
+        </main>
+    </article>
+</Layout>

@@ -1,8 +1,131 @@
 ---
 import BasePageLayout from "@/layouts/BasePageLayout.astro";
-export { getStaticPaths } from "../index.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+import { getImage } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+
+export { getStaticPaths } from "@/pages/[lang]/index.astro";
+
+// 型定義
+interface ComputedArticleData {
+    year: string;
+    month: string;
+    day: string;
+    slug: string;
+    lang: string;
+    pubDate: Date;
+    previewImage: Awaited<ReturnType<typeof getImage>> | null;
+    url: string;
+}
+
+type EnrichedArticle = CollectionEntry<"articles"> & {
+    computed: ComputedArticleData;
+};
+
+const currentLocale = Astro.currentLocale;
+export const allImages = import.meta.glob<{ default: ImageMetadata }>(
+    "/src/contents/articles/**/*.{png,jpg,jpeg,webp,avif}",
+);
+// 関数の中で定義し、その関数内で直接利用する
+export async function getAllArticles(): Promise<EnrichedArticle[]> {
+    // 1. 関数内で定義する（これでスコープエラーが消えます）
+
+    const allArticles = await getCollection("articles");
+
+    return await Promise.all(
+        allArticles.map(async (entry: EnrichedArticle) => {
+            const parts = entry.id.split("/");
+            const [year, month, day, folderSlug, filename] = parts;
+            const articleLang = filename;
+
+            // 2. preview. に続く拡張子を問わず検索
+            const imagePathPrefix = `/src/contents/articles/${year}/${month}/${day}/${folderSlug}/preview.`;
+
+            const imageKey = Object.keys(allImages).find((key) =>
+                key.startsWith(imagePathPrefix),
+            );
+
+            // getAllArticles 内の最適化処理
+            let previewImage: ImageMetadata | null = null; // 型を ImageMetadata に
+
+            if (imageKey) {
+                try {
+                    const img = await allImages[imageKey]();
+                    // getImage を使わず、インポートしたものを直接代入する
+                    previewImage = img.default;
+                } catch (e) {
+                    console.error(`画像読み込みエラー (${folderSlug}):`, e);
+                }
+            }
+
+            return {
+                ...entry,
+                computed: {
+                    year,
+                    month,
+                    day,
+                    slug: folderSlug,
+                    lang: articleLang,
+                    pubDate: new Date(`${year}-${month}-${day}`),
+                    previewImage,
+                    url: `/${articleLang}/articles/${year}/${month}/${day}/${folderSlug}/`,
+                },
+            };
+        }),
+    ).then((articles) =>
+        articles.sort(
+            (a, b) =>
+                b.computed.pubDate.getTime() - a.computed.pubDate.getTime(),
+        ),
+    );
+}
+
+const allArticles = await getAllArticles();
+const articles = allArticles.filter((a) => a.computed.lang === currentLocale);
 ---
 
+<!-- HTML部分は変更なし -->
 <BasePageLayout title="Articles">
-    <h1>Articles</h1>
+    <h1>Articles ({currentLocale?.toUpperCase()})</h1>
+    <div
+        class="article-grid"
+        style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; margin-top: 2rem;"
+    >
+        {
+            articles.map((article) => (
+                <a
+                    href={article.computed.url}
+                    style="text-decoration: none; color: inherit; border: 1px solid #eee; border-radius: 8px; overflow: hidden; display: block;"
+                >
+                    <div
+                        class="image-wrapper"
+                        style="aspect-ratio: 16/9; background: #f5f5f5; overflow: hidden;"
+                    >
+                        {article.computed.previewImage ? (
+                            <Image
+                                src={article.computed.previewImage}
+                                alt={article.data.title}
+                                style="width: 100%; height: 100%; object-fit: cover;"
+                                loading="lazy"
+                            />
+                        ) : (
+                            <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #999; font-size: 0.9rem;">
+                                No Image
+                            </div>
+                        )}
+                    </div>
+                    <div style="padding: 1rem;">
+                        <time style="font-size: 0.85rem; color: #666;">
+                            {article.computed.year}/{article.computed.month}/
+                            {article.computed.day}
+                        </time>
+                        <h2 style="margin: 0.5rem 0 0 0; font-size: 1.25rem;">
+                            {article.data.title}
+                        </h2>
+                    </div>
+                </a>
+            ))
+        }
+    </div>
 </BasePageLayout>
