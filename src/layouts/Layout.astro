@@ -20,7 +20,7 @@ const lang = Astro.currentLocale || "en";
         <Font cssVariable="--font-chakrapetch" preload />
         <title>The Infinity's</title>
     </head>
-    <body>
+    <body class={Astro.props.class}>
         <Background />
         <Header />
         <slot />
