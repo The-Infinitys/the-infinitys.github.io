@@ -1,5 +1,4 @@
 @import "tailwindcss";
-
 @property --accent-hue {
   syntax: "<number>";
   initial-value: 190;

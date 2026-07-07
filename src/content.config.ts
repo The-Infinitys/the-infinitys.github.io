@@ -10,7 +10,7 @@ const articles = defineCollection({
     load: async (context) => {
       // 1. 元のglobローダーを実行してデータを取得
       // ここで指定する loader の base はプロジェクトルート基準です
-      const files = await glob({
+      await glob({
         pattern: "**/[^_]*.mdx",
         base: "./src/contents/articles",
       }).load(context);

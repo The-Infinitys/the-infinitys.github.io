@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro build && serve dist -l 4321",
+    "preview": "astro build && serve dist/client -l 4321",
     "astro": "astro",
     "lint": "oxlint --deny-warnings --import-plugin --fix",
     "format": "oxfmt --write .",

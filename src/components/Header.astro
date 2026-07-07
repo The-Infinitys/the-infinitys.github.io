@@ -34,12 +34,10 @@ const getSwitchLangPath = (targetLang: Locale) => {
         class="relative flex items-center justify-between flex-row-reverse w-full mx-auto"
     >
         <div class="absolute left-1/2 -translate-x-1/2">
-            <Logo loading="eager" class="h-full w-auto object-contain" />
+            <Logo class="h-full w-auto object-contain" />
         </div>
 
-        <button id="menu-toggle" class="p-5! z-50">
-            <HamburgerIcon client:load />
-        </button>
+        <HamburgerIcon client:load class="p-5! z-50" id="menu-toggle" />
     </div>
 </header>
 
@@ -109,7 +107,7 @@ const getSwitchLangPath = (targetLang: Locale) => {
         if (!header) return;
 
         let lastScrollY = window.scrollY;
-        let scrollTimeout: number;
+        let scrollTimeout: ReturnType<typeof setTimeout>;
 
         const showHeader = () => {
             header.classList.remove("-translate-y-full");

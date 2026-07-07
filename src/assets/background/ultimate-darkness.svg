@@ -5,15 +5,17 @@
     viewBox="0 0 100 100"
     version="1.1"
     id="svg1"
-    sodipodi:docname="XrossInfinite.svg"
-    inkscape:version="1.4.3 (0d15f75042, 2025-12-25)"
-    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:svg="http://www.w3.org/2000/svg"
 >
     <defs id="defs1">
-        <linearGradient id="prismGradient" x1="0%" y1="0%" x2="100%" y2="20%">
+        <linearGradient
+            id="prismGradientUltimateDarkness"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="20%"
+        >
             <stop offset="0%" stop-color="#ff0000" />
             <stop offset="25%" stop-color="#ffff00" />
             <stop offset="45%" stop-color="#00ff00" />
@@ -37,7 +39,7 @@
             </feMerge>
         </filter>
         <radialGradient
-            id="MetalColor"
+            id="MetalColorUltimateDarkness"
             cx="50%"
             cy="50%"
             r="60%"
@@ -53,7 +55,13 @@
             <stop offset="100%" stop-color="#000000" />
         </radialGradient>
 
-        <filter id="metal_edge" x="-10%" y="-10%" width="120%" height="120%">
+        <filter
+            id="metalEdgeUltimateDarkness"
+            x="-10%"
+            y="-10%"
+            width="120%"
+            height="120%"
+        >
             <feOffset dx="1" dy="1" />
             <feGaussianBlur stdDeviation="1.2" result="offset-blur" />
             <feComposite
@@ -85,7 +93,7 @@
             opacity: 1;
             filter: url(#glow);
         "
-        fill="url(#prismGradient)"
+        fill="url(#prismGradientUltimateDarkness)"
         d="M 23.964844,37.5 17.5,43.964844 V 56.035156 L 23.964844,62.5 h 17.070312 l 20,-20 H 73.964844 L 77.5,46.035156 v 7.929688 L 73.964844,57.5 H 61.035156 L 56.767578,53.232422 53.232422,56.767578 58.964844,62.5 H 76.035156 L 82.5,56.035156 V 43.964844 L 76.035156,37.5 H 58.964844 l -20,20 H 26.035156 L 22.5,53.964844 V 46.035156 L 26.035156,42.5 h 12.929688 l 4.267578,4.267578 3.535156,-3.535156 L 41.035156,37.5 Z"
         id="path2"
     />
@@ -99,10 +107,10 @@
             stop-color: #000000;
             stop-opacity: 1;
             opacity: 1;
-            filter: url(#metal_edge);
+            filter: url(#metalEdgeUltimateDarkness);
         "
         d="M 23.964844,37.5 17.5,43.964844 V 56.035156 L 23.964844,62.5 h 17.070312 l 20,-20 H 73.964844 L 77.5,46.035156 v 7.929688 L 73.964844,57.5 H 61.035156 L 56.767578,53.232422 53.232422,56.767578 58.964844,62.5 H 76.035156 L 82.5,56.035156 V 43.964844 L 76.035156,37.5 H 58.964844 l -20,20 H 26.035156 L 22.5,53.964844 V 46.035156 L 26.035156,42.5 h 12.929688 l 4.267578,4.267578 3.535156,-3.535156 L 41.035156,37.5 Z"
-        fill="url(#MetalColor)"
+        fill="url(#MetalColorUltimateDarkness)"
         id="path1"
     />
 </svg>

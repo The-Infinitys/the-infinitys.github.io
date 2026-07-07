@@ -1,49 +1,46 @@
 ---
 // src/components/Background.astro
-import BackgroundDarkness from "@/assets/background/background-darkness.svg";
-import BackgroundBrightness from "@/assets/background/background-brightness.svg";
-import UltimateDarkness from "@/assets/background/ultimate-darkness.svg";
-import UltimateBrightness from "@/assets/background/ultimate-brightness.svg";
-
-import { Image } from "astro:assets";
+import BackgroundDarkness from "@/assets/background/background-darkness.svg?raw";
+import BackgroundBrightness from "@/assets/background/background-brightness.svg?raw";
+import UltimateDarkness from "@/assets/background/ultimate-darkness.svg?raw";
+import UltimateBrightness from "@/assets/background/ultimate-brightness.svg?raw";
 ---
 
 <div
     class="fixed inset-0 -z-10 bg-background overflow-hidden flex items-center justify-center pointer-events-none"
 >
-    <Image
-        src={BackgroundDarkness}
-        alt="Background"
-        decoding="async"
-        loading="eager"
-        class="absolute w-[120vmax] h-[120vmax] blur-[8vmin] opacity-20 pointer-events-none select-none max-w-none not-dark:hidden"
-    />
-    <Image
-        src={BackgroundBrightness}
-        alt="Background"
-        decoding="async"
-        loading="eager"
-        class="absolute w-[120vmax] h-[120vmax] blur-[8vmin] opacity-20 pointer-events-none select-none max-w-none dark:hidden"
-    />
+    <!-- Background (Dark) -->
+    <div
+        class="absolute w-[120vmax] h-[120vmax] blur-[8vmin] opacity-20 pointer-events-none select-none max-w-none not-dark:hidden [&>svg]:w-full [&>svg]:h-full"
+    >
+        <Fragment set:html={BackgroundDarkness} />
+    </div>
 
-    <Image
-        src={UltimateDarkness}
-        alt="Ultimate"
-        decoding="async"
-        loading="eager"
-        class="absolute w-[100vmin] h-[100vmin] opacity-65 pointer-events-none select-none max-w-none z-10 not-dark:hidden"
-    />
-    <Image
-        src={UltimateBrightness}
-        alt="Ultimate"
-        decoding="async"
-        loading="eager"
-        class="absolute w-[100vmin] h-[100vmin] opacity-65 pointer-events-none select-none max-w-none z-10 dark:hidden"
-    />
+    <!-- Background (Light) -->
+    <div
+        class="absolute w-[120vmax] h-[120vmax] blur-[8vmin] opacity-40 pointer-events-none select-none max-w-none dark:hidden [&>svg]:w-full [&>svg]:h-full"
+    >
+        <Fragment set:html={BackgroundBrightness} />
+    </div>
+
+    <!-- Ultimate (Dark) -->
+    <div
+        class="absolute w-[100vmin] h-[100vmin] opacity-65 pointer-events-none select-none max-w-none z-10 not-dark:hidden [&>svg]:w-full [&>svg]:h-full"
+    >
+        <Fragment set:html={UltimateDarkness} />
+    </div>
+
+    <!-- Ultimate (Light) -->
+    <div
+        class="absolute w-[100vmin] h-[100vmin] opacity-65 pointer-events-none select-none max-w-none z-10 dark:hidden [&>svg]:w-full [&>svg]:h-full"
+    >
+        <Fragment set:html={UltimateBrightness} />
+    </div>
 
     <canvas id="overlay" class="absolute w-full h-full pointer-events-none"
     ></canvas>
 </div>
+
 <script>
     // ページをまたいでもリサイズイベントが正常に連動するように、外側で関数を管理します
     let currentResizeListener: (() => void) | null = null;

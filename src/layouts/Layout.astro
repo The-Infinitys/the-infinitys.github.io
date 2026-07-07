@@ -4,10 +4,21 @@ import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
 import Header from "@/components/Header.astro";
 import Background from "@/components/Background.astro";
-
-import "../styles/global.css";
 import Footer from "@/components/Footer.astro";
-// 現在の言語を取得 (Astroのi18n設定と連動)
+import "../styles/global.css";
+
+interface Props {
+    title?: string;
+    description?: string;
+    class?: string;
+}
+
+const {
+    title = "The Infinity's",
+    description = "The Infinity's official website", // ← サイト全体の説明
+    class: className,
+} = Astro.props;
+
 const lang = Astro.currentLocale || "en";
 ---
 
@@ -17,15 +28,18 @@ const lang = Astro.currentLocale || "en";
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width" />
         <ClientRouter />
-        <Font cssVariable="--font-orbitron" preload />
-        <Font cssVariable="--font-chakrapetch" preload />
-        <Font cssVariable="--font-ibm-plex-sans-jp" preload />
-        <title>The Infinity's</title>
+        <meta name="description" content={description} />
+        <Font cssVariable="--font-orbitron" />
+        <Font cssVariable="--font-chakrapetch" />
+        <Font cssVariable="--font-ibm-plex-sans-jp" />
+        <title>{title}</title>
     </head>
-    <body class={Astro.props.class}>
+    <body class={className}>
         <Background />
         <Header />
-        <slot />
+        <main>
+            <slot />
+        </main>
         <Footer />
     </body>
 </html>

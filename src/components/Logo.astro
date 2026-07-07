@@ -1,16 +1,14 @@
 ---
 // src/components/Logo.astro
-import { Image } from "astro:assets";
-import LogoSrc from "@/assets/icon.svg"; // パスは適宜調整
+import LogoSrc from "@/assets/icon.svg?raw"; // ?raw を追加
 
 interface Props {
-    loading?: "eager" | "lazy";
-    class?: string; // クラスも受け取れるようにすると便利
+    class?: string; // 外側からサイズや色を指定できるように
 }
 
-const { loading = "lazy", class: className } = Astro.props;
+const { class: className } = Astro.props;
 ---
 
-<div class={className}>
-    <Image src={LogoSrc} alt="Logo" loading={loading} format="svg" />
+<div class:list={[className, "[&>svg]:w-full [&>svg]:h-full"]}>
+    <Fragment set:html={LogoSrc} />
 </div>

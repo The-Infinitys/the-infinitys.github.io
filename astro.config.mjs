@@ -4,6 +4,10 @@ import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
 import mdx from "@astrojs/mdx";
 import cloudflare from "@astrojs/cloudflare";
+
+// 本番環境（ビルド時など）かどうかを判定
+const isProduction = process.env.NODE_ENV === "production";
+
 // https://astro.build/config
 export default defineConfig({
   fonts: [
@@ -46,8 +50,11 @@ export default defineConfig({
     plugins: [tailwindcss()], // Viteプラグインとして指定
   },
 
-  adapter: cloudflare({
-    prerenderEnvironment: "node",
-    imageService: "compile",
-  }),
+  // 本番ビルド時のみ cloudflare アダプターを設定し、ローカル開発時は undefined にする
+  adapter: isProduction
+    ? cloudflare({
+        prerenderEnvironment: "node",
+        imageService: "compile",
+      })
+    : undefined,
 });
