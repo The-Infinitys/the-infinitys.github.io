@@ -47,7 +47,7 @@ export default defineConfig({
   },
 
   adapter: cloudflare({
-    // staticモードの時は、ビルド時に画像を最適化する「compile」がデフォルトになります
-    imageService: 'compile', 
+    prerenderEnvironment: "node",
+    imageService: "compile",
   }),
 });
