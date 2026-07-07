@@ -46,5 +46,8 @@ export default defineConfig({
     plugins: [tailwindcss()], // Viteプラグインとして指定
   },
 
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    // staticモードの時は、ビルド時に画像を最適化する「compile」がデフォルトになります
+    imageService: 'compile', 
+  }),
 });
