@@ -1,3 +1,60 @@
 ---
-title: High Gain Distortion Effectors Metal Xross
+title: High-Gain Distortion Plugin, Metal Xross
 ---
+
+# Beyond Modern Metal: The Development Diary of Metal Xross
+
+Greetings! This is The Infinity’s.
+
+While I still hold a fondness for the 90s atmosphere of the Metal Zone I’ve used for years, when I sought to balance the **ultra-low-end definition** with **ear-friendly highs**—the hallmark of modern metal—I hit a wall with off-the-shelf pedals.
+
+**If the sound I imagine doesn’t exist, I have to build the box that produces it.**
+
+With that resolve, I launched the _Metal Xross_ development project: a distortion plugin built using Rust and the [truce](https://truce.audio/) framework.
+
+## Why DIY: The Limits of Commercial Gear vs. The Pursuit of an Ideal
+
+Commercial pedals offer incredible polish, but when you have a specific sound in mind, they can sometimes become a shackle.
+
+| Commercial Distortion                                      | Metal Xross                                                       |
+| ---------------------------------------------------------- | ----------------------------------------------------------------- |
+| **Versatility**: Easy for anyone to get a good sound       | **Specialization**: A one-of-a-kind piece tuned to my gear        |
+| **Perfection**: Pre-tuned to the manufacturer’s philosophy | **Obsession**: Extracting only the frequency bands that feel good |
+| **Restriction**: Bound by era and hardware limitations     | **Evolution**: Continuously updated via code                      |
+
+## The Core of Development: The Struggle and Passion of Rust DSP Implementation
+
+The hardest part of this project was the trial and error of physical modeling for distortion, especially given the extreme scarcity of reference material. I was obsessed with creating logic that preserves the chugging feel of palm muting while suppressing the ear-piercing noise inherent in high-gain signals.
+
+### 1. Intelligent Multi-Band Gate
+
+Standard input-level detection causes the gate to misfire when playing complex harmonic textures. To solve this, I implemented multi-band envelope detection that prioritizes the sweet spot (the mids) of the guitar. This captures unwanted residual noise without sacrificing picking nuances.
+
+### 2. Adaptive Post-Smoothing
+
+When a gate closes, an abrupt cut creates digital unnaturalness.
+In this project, I integrated an adaptive LPF where the cutoff frequency dynamically changes in sync with the gate opening (the `gate_gain`).
+
+As the gate closes, the high frequencies decay naturally. This process reproduces an organic texture, mimicking the way tube amp saturation fades away.
+
+> **The Battle Against Noise**
+> When turning the gain to the maximum, the hiss and unexpected artifacts lingering in the background were impossible to kill, and I struggled for half a month.
+> In the end, it wasn’t just about filtering, but re-optimizing the gain at each stage of the signal path and revising the dynamic gate control logic.
+> This process of rewriting code to get closer to the ideal is the true thrill of DIY development.
+
+## Why Choose Rust?
+
+I chose Rust for DSP implementation due to its **overwhelming performance and safety.**
+
+- **Zero-cost abstractions**: Combined with a framework like `truce`, I can write sophisticated mathematical processing without sacrificing real-time performance (buffer sizes of 64 samples or less).
+- **Type Safety**: The last thing you want in audio processing is an unexpected runtime crash. Rust's ownership model prevents crashes caused by race conditions or null pointers at the compilation stage.
+
+## Final Thoughts: Between Commercial Products and Obsession
+
+Honestly, buying a commercial pedal is much faster and provides a more stable sound. For most people, that is the correct answer.
+
+However, if you feel a sonic gap that off-the-shelf gear simply cannot fill, I encourage you to build your own from scratch. The sound that is uniquely yours, gained through the process of logically implementing your own ideals, will sound more precious than any expensive gear could ever be.
+
+**Metal Xross** is the crystallization of my ideal sound. If this engine helps with your music production, there is no greater joy for me.
+
+[View the Source Code on GitHub](https://github.com/the-infinitys/metal-xross)

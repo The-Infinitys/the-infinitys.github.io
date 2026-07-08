@@ -86,7 +86,7 @@ const articles = allArticles.filter((a) => a.computed.lang === currentLocale);
                     href={article.computed.url}
                     class="block overflow-hidden rounded-lg border border-gray-100 text-inherit no-underline"
                 >
-                    <div class="image-wrapper aspect-video overflow-hidden bg-gray-100">
+                    <div class="image-wrapper aspect-video overflow-hidden">
                         {article.computed.previewImage ? (
                             <Image
                                 src={article.computed.previewImage}

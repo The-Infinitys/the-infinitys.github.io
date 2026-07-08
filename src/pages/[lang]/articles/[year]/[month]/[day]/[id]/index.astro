@@ -57,9 +57,9 @@ const t = getTranslation(Astro.currentLocale).articles;
         >
             {
                 tocHeadings.length > 0 && (
-                    <aside class="w-full md:w-65 shrink-0 md:sticky md:top-40 md:self-start max-md:mb-8!">
+                    <aside class="w-full md:w-65 shrink-0 md:sticky md:top-[50vh] md:-translate-y-1/2 md:self-start max-md:mb-8!">
                         <nav
-                            class="rounded-xl border p-6! max-h-[calc(100vh-6rem)] overflow-y-auto backdrop-blur-md"
+                            class="rounded-xl border p-6! max-h-[calc(100vh-2.25*var(--header-height))] overflow-y-auto backdrop-blur-md"
                             style={{
                                 borderColor:
                                     "color-mix(in srgb, var(--color-foreground), transparent 85%)",
@@ -77,15 +77,15 @@ const t = getTranslation(Astro.currentLocale).articles;
                                     }) => {
                                         const indent =
                                             heading.depth === 2
-                                                ? "pl-4!"
+                                                ? "pl-2!"
                                                 : heading.depth === 3
-                                                  ? "pl-8!"
+                                                  ? "pl-4!"
                                                   : "pl-0!";
                                         return (
                                             <li class={indent}>
                                                 <a
                                                     href={`#${heading.slug}`}
-                                                    class="toc-link text-sm font-medium tracking-wide transition-all duration-300 block py-3! border-l-2 border-transparent pl-2! hover:border-accent"
+                                                    class="toc-link text-sm font-medium tracking-wide transition-all duration-300 block py-1! border-l-2 border-transparent pl-1! hover:border-accent"
                                                 >
                                                     {heading.text}
                                                 </a>
@@ -167,7 +167,7 @@ const t = getTranslation(Astro.currentLocale).articles;
                                     <span class="nav-title text-sm font-medium text-accent duration-200 line-clamp-2">
                                         {prevArticle.data.title}
                                     </span>
-                                    <div class="image-wrapper aspect-video overflow-hidden bg-gray-100">
+                                    <div class="image-wrapper aspect-video overflow-hidden">
                                         {prevArticle.computed.previewImage ? (
                                             <Image
                                                 src={
@@ -206,7 +206,7 @@ const t = getTranslation(Astro.currentLocale).articles;
                                     <span class="nav-title text-sm font-medium text-accent duration-200 line-clamp-2">
                                         {nextArticle.data.title}
                                     </span>
-                                    <div class="image-wrapper aspect-video overflow-hidden bg-gray-100">
+                                    <div class="image-wrapper aspect-video overflow-hidden">
                                         {nextArticle.computed.previewImage ? (
                                             <Image
                                                 src={
@@ -254,11 +254,17 @@ const t = getTranslation(Astro.currentLocale).articles;
     }
     main :is(h1, h2, a) {
         color: var(--accent);
+        padding-bottom: 1rem;
+    }
+    main :is(p, li) {
+        padding-bottom: 0.5rem;
     }
     main h2 {
         border-color: var(--accent);
     }
     main blockquote {
+        margin-top: 2rem !important;
+        margin-bottom: 2rem !important;
         border-color: var(--accent);
         background: color-mix(in srgb, var(--accent), transparent 92%);
     }
@@ -272,27 +278,37 @@ const t = getTranslation(Astro.currentLocale).articles;
 </style>
 
 <script>
-    const observerOptions = {
-        root: null,
-        rootMargin: "-20% 0px -70% 0px",
-        threshold: 0,
-    };
+    function initTocObserver() {
+        const observerOptions = {
+            root: null,
+            rootMargin: "-20% 0px -70% 0px",
+            threshold: 0,
+        };
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                const id = entry.target.getAttribute("id");
-                document.querySelectorAll(".toc-link").forEach((link) => {
-                    link.classList.remove("active-toc");
-                    if (link.getAttribute("href") === `#${id}`) {
-                        link.classList.add("active-toc");
-                    }
-                });
-            }
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute("id");
+                    document.querySelectorAll(".toc-link").forEach((link) => {
+                        link.classList.remove("active-toc");
+                        if (link.getAttribute("href") === `#${id}`) {
+                            link.classList.add("active-toc");
+                            const navContainer = link.closest("nav");
+                            if (navContainer) {
+                                link.scrollIntoView({
+                                    block: "nearest",
+                                    behavior: "smooth",
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll("main h2, main h3").forEach((heading) => {
+            observer.observe(heading);
         });
-    }, observerOptions);
-
-    document.querySelectorAll("main h2, main h3").forEach((heading) => {
-        observer.observe(heading);
-    });
+    }
+    document.addEventListener("astro:page-load", initTocObserver);
 </script>
