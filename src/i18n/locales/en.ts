@@ -8,4 +8,8 @@ export const en: Messages = {
     message: "The page you are looking for does not exist.",
     buttonText: "Go Home",
   },
+  articles: {
+    nextArticle: "Next Article",
+    prevArticle: "Previous Article",
+  },
 };

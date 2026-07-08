@@ -8,4 +8,8 @@ export const ja: Messages = {
     message: "アクセスされたページは存在しません。",
     buttonText: "ホームに戻る",
   },
+  articles: {
+    nextArticle: "次の記事へ",
+    prevArticle: "前の記事へ",
+  },
 };

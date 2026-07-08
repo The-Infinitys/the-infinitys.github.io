@@ -7,4 +7,8 @@ export type Messages = {
     message: string;
     buttonText: string;
   };
+  articles: {
+    nextArticle: string;
+    prevArticle: string;
+  };
 };

@@ -38,7 +38,7 @@ export async function getAllArticles(): Promise<EnrichedArticle[]> {
     const rawArticles = await getCollection("articles");
 
     return rawArticles
-        .map((entry: EnrichedArticle) => {
+        .map((entry) => {
             const [year, month, day, folderSlug, filename] =
                 entry.id.split("/");
 
@@ -76,7 +76,7 @@ const articles = allArticles.filter((a) => a.computed.lang === currentLocale);
 ---
 
 <BasePageLayout title="Articles">
-    <h1 class="text-2xl font-bold">{currentLocale.toUpperCase()}</h1>
+    <h1 class="text-2xl font-bold">All Articles</h1>
     <div
         class="p-4! article-grid mt-8 grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-8"
     >

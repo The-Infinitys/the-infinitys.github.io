@@ -1,4 +1,5 @@
 ---
+import { getTranslation } from "@/i18n/utils";
 import Layout from "@/layouts/Layout.astro";
 import {
     EnrichedArticle,
@@ -46,6 +47,7 @@ const getArticleUrl = (art: EnrichedArticle) => {
     const { lang, year, month, day, slug } = art.computed;
     return `/${lang}/articles/${year}/${month}/${day}/${slug}`;
 };
+const t = getTranslation(Astro.currentLocale).articles;
 ---
 
 <Layout title={article.data.title}>
@@ -160,11 +162,28 @@ const getArticleUrl = (art: EnrichedArticle) => {
                                             color: "color-mix(in srgb, var(--color-foreground), transparent 50%)",
                                         }}
                                     >
-                                        ← {isJa ? "前の記事" : "Previous"}
+                                        ← {t.prevArticle}
                                     </span>
-                                    <span class="nav-title text-sm font-medium transition-colors duration-200 line-clamp-2">
+                                    <span class="nav-title text-sm font-medium text-accent duration-200 line-clamp-2">
                                         {prevArticle.data.title}
                                     </span>
+                                    <div class="image-wrapper aspect-video overflow-hidden bg-gray-100">
+                                        {prevArticle.computed.previewImage ? (
+                                            <Image
+                                                src={
+                                                    prevArticle.computed
+                                                        .previewImage
+                                                }
+                                                alt={prevArticle.data.title}
+                                                class="h-full w-full object-cover"
+                                                loading="lazy"
+                                            />
+                                        ) : (
+                                            <div class="flex h-full items-center justify-center text-sm text-gray-400">
+                                                No Image
+                                            </div>
+                                        )}
+                                    </div>
                                 </a>
                             )
                         }
@@ -182,11 +201,28 @@ const getArticleUrl = (art: EnrichedArticle) => {
                                             color: "color-mix(in srgb, var(--color-foreground), transparent 50%)",
                                         }}
                                     >
-                                        {isJa ? "次の記事" : "Next"} →
+                                        {t.nextArticle} →
                                     </span>
-                                    <span class="nav-title text-sm font-medium transition-colors duration-200 line-clamp-2">
+                                    <span class="nav-title text-sm font-medium text-accent duration-200 line-clamp-2">
                                         {nextArticle.data.title}
                                     </span>
+                                    <div class="image-wrapper aspect-video overflow-hidden bg-gray-100">
+                                        {nextArticle.computed.previewImage ? (
+                                            <Image
+                                                src={
+                                                    nextArticle.computed
+                                                        .previewImage
+                                                }
+                                                alt={nextArticle.data.title}
+                                                class="h-full w-full object-cover"
+                                                loading="lazy"
+                                            />
+                                        ) : (
+                                            <div class="flex h-full items-center justify-center text-sm text-gray-400">
+                                                No Image
+                                            </div>
+                                        )}
+                                    </div>
                                 </a>
                             )
                         }
