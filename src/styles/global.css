@@ -1,10 +1,16 @@
 @import "tailwindcss";
+
 @property --accent-hue {
   syntax: "<number>";
   initial-value: 190;
-  inherits: true;
+  inherits: false; /* true→false: 継承コストを削減。使う要素側でvar()参照すれば問題なし */
 }
 
+/* 🔧 変更点：
+   :root で --accent-hue を直接アニメーションさせるのをやめ、
+   .hue-scope という限定要素にスコープを絞ってアニメーションさせる。
+   これにより毎フレームのDOMツリー全体の再計算(recalc)を回避できる。
+*/
 @keyframes hue-rotate {
   from {
     --accent-hue: 0;
@@ -15,27 +21,30 @@
 }
 
 :root {
-  /* グローバルアニメーション */
-  animation: hue-rotate 60s linear infinite;
-
   /* ベースカラー */
   --background: #ffffff;
   --foreground: #000000;
-
-  /* 動的アクセント */
+  /* 動的アクセント（初期値は静的。アニメーションは.hue-scopeで行う） */
+  --accent-hue: 190;
   --accent: hsl(var(--accent-hue), 100%, 45%);
+}
+
+/* 🔧 アニメーションはこのクラスを付けた要素（例: <body>）だけに限定 */
+.hue-scope {
+  contain: style; /* 再計算の影響範囲をこの要素内に閉じ込める */
+  animation: hue-rotate 60s linear infinite;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #000000;
     --foreground: #ffffff;
-
     /* 💡 ダークモード（黒背景）用の動的アクセント */
     /* 黒背景に対しては 50%〜55% が最もバキバキにネオン発光して見えます */
     --accent: hsl(var(--accent-hue), 100%, 53%);
   }
 }
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -52,7 +61,6 @@ body {
   -webkit-font-smoothing: antialiased;
   line-height: 1.6;
   font-family: var(--font-orbitron), var(--font-chakrapetch), var(--font-m-plus-1-code), sans-serif;
-
   min-height: 100vh;
   position: relative;
   /* 以下の設定でバキバキ感を支える */
@@ -65,6 +73,7 @@ body {
   font-weight: 800;
   text-transform: uppercase;
 }
+
 :where(*) {
   margin: 0;
   padding: 0;
@@ -72,11 +81,9 @@ body {
 }
 
 html {
-  /* 1. スクロールバーを要素の上に浮かせる（非表示からホバー時のみ出す設定） */
-  overflow: overlay;
-  /* 2. もし上の指定が効かないブラウザ用に領域を固定してガタつきを防ぐ */
+  /* 🔧 overflow: overlay は非推奨・実質無効化されているため削除
+     scrollbar-gutter だけでガタつき防止は機能する */
   scrollbar-gutter: stable both-edges;
-
   scrollbar-color: var(--accent) transparent;
   scrollbar-width: thin;
 }
@@ -86,12 +93,10 @@ html {
   width: 8px;
   height: 8px;
 }
-
 ::-webkit-scrollbar-track {
   /* 背景を完全に透明にして、下の要素が透けて見えるようにする */
   background: transparent;
 }
-
 ::-webkit-scrollbar-thumb {
   background-color: var(--accent);
   border-radius: 4px;
@@ -99,7 +104,6 @@ html {
   border: 2px solid transparent;
   background-clip: padding-box;
 }
-
 ::-webkit-scrollbar-thumb:hover {
   filter: brightness(0.8);
 }
