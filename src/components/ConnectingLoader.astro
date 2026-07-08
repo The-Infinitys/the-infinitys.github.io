@@ -1,0 +1,68 @@
+---
+// src/components/ConnectingLoader.astro
+import Logo from "./Logo.astro";
+
+interface Props {
+    title?: string;
+    description?: string;
+    animate?: boolean;
+    showLogo?: boolean;
+}
+
+const {
+    title = "Connecting",
+    description = "Please wait a moment...",
+    animate = true,
+    showLogo = true,
+} = Astro.props;
+---
+
+<div class="flex flex-col items-center justify-center select-none">
+    {/* 1. 境界線が一切ない、なだらかな虹色ネオンスピナーエリア */}
+    <div class="relative flex items-center justify-center mb-8">
+        {/* 外側の虹色発光リング */}
+        <div
+            class="absolute w-16 h-16 rounded-full animate-spin blur-xs opacity-90"
+            style={{
+                backgroundImage:
+                    "conic-gradient(from 0deg, #ff4545, #ffee55, #00ffcc, #aa44ff, #ff4545)",
+                WebkitMaskImage:
+                    "radial-gradient(circle, transparent 65%, black 66%)",
+                maskImage:
+                    "radial-gradient(circle, transparent 65%, black 66%)",
+            }}
+        >
+        </div>
+        {/* 中心部分のソリッドリングとロゴエリア */}
+        <div
+            class="w-12 h-12 border border-white/10 rounded-full flex items-center justify-center bg-black/50 backdrop-blur-[1px]"
+        >
+            {
+                showLogo && (
+                    <div class="w-6 h-6 flex items-center justify-center text-white/90 scale-90 transition-transform duration-300">
+                        <Logo />
+                    </div>
+                )
+            }
+        </div>
+    </div>
+
+    {/* 2. テキストエリア */}
+    <div class="text-center">
+        <h1
+            class:list={[
+                "text-sm font-light tracking-[0.3em] uppercase text-white/90 font-orbitron",
+                { "animate-pulse": animate },
+            ]}
+        >
+            {title}
+        </h1>
+        {
+            description && (
+                <p class="text-[10px] tracking-widest text-white/40 mt-1 font-(family-name:--font-m-plus-1-code)">
+                    {description}
+                </p>
+            )
+        }
+    </div>
+</div>
