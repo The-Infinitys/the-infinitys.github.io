@@ -36,9 +36,15 @@ const lang = Astro.currentLocale || "en";
         <title>{title}</title>
     </head>
     <body class={className}>
+        <Background />
+        <Header />
+        <main>
+            <slot />
+        </main>
+        <Footer />
         <div
             id="loader-wrapper"
-            class="fixed inset-0 z-50 opacity-0 pointer-events-none transition-opacity duration-300"
+            class="fixed inset-0 z-50 opacity-0 pointer-events-none transition-opacity duration-300 w-full h-full flex items-center justify-center bg-background/75"
         >
             <ConnectingLoader
                 title="Connecting"
@@ -48,12 +54,6 @@ const lang = Astro.currentLocale || "en";
                 client:load
             />
         </div>
-        <Background />
-        <Header />
-        <main>
-            <slot />
-        </main>
-        <Footer />
         <script>
             const setupLoader = () => {
                 const wrapper = document.getElementById("loader-wrapper");
