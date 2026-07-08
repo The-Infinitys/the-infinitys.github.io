@@ -6,6 +6,7 @@ import Header from "@/components/Header.astro";
 import Background from "@/components/Background.astro";
 import Footer from "@/components/Footer.astro";
 import "../styles/global.css";
+import ConnectingLoader from "@/components/ConnectingLoader";
 
 interface Props {
     title?: string;
@@ -15,7 +16,7 @@ interface Props {
 
 const {
     title = "The Infinity's",
-    description = "The Infinity's official website", // ← サイト全体の説明
+    description = "The Infinity's official website",
     class: className,
 } = Astro.props;
 
@@ -35,11 +36,40 @@ const lang = Astro.currentLocale || "en";
         <title>{title}</title>
     </head>
     <body class={className}>
+        <div
+            id="loader-wrapper"
+            class="fixed inset-0 z-50 opacity-0 pointer-events-none transition-opacity duration-300"
+        >
+            <ConnectingLoader
+                title="Connecting"
+                description="Please wait..."
+                animate={true}
+                showLogo={true}
+                client:load
+            />
+        </div>
         <Background />
         <Header />
         <main>
             <slot />
         </main>
         <Footer />
+        <script>
+            const setupLoader = () => {
+                const wrapper = document.getElementById("loader-wrapper");
+                if (!wrapper) return;
+                document.addEventListener("astro:before-preparation", () => {
+                    wrapper.classList.remove(
+                        "opacity-0",
+                        "pointer-events-none",
+                    );
+                });
+                document.addEventListener("astro:after-preparation", () => {
+                    wrapper.classList.add("opacity-0", "pointer-events-none");
+                });
+            };
+            setupLoader();
+            document.addEventListener("astro:after-swap", setupLoader);
+        </script>
     </body>
 </html>

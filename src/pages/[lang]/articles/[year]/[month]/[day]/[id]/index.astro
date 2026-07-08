@@ -129,7 +129,7 @@ const t = getTranslation(Astro.currentLocale).articles;
                     )
                 }
 
-                <main
+                <article
                     class:list={[
                         isJa ? "font-sans" : "font-chakrapetch",
                         "[&_h1]:text-[3rem] [&_h1]:leading-[1.1] [&_h1]:tracking-tighter [&_h1]:mt-16 [&_h1]:font-thin [&_h1]:mb-8 [&_h1]:uppercase max-md:[&_h1]:text-[2.25rem]",
@@ -140,7 +140,7 @@ const t = getTranslation(Astro.currentLocale).articles;
                     style={{ color: "var(--color-foreground)" }}
                 >
                     <Content />
-                </main>
+                </article>
 
                 <footer
                     class="mt-20 grid grid-cols-2 gap-6 border-t pt-10!"
@@ -249,23 +249,40 @@ const t = getTranslation(Astro.currentLocale).articles;
         font-weight: 700;
         background: color-mix(in srgb, var(--accent), transparent 90%);
     }
-    main {
-        line-height: 2;
+    article {
+        line-height: 1.7; /* 1.5から1.7〜1.8へ変更 */
     }
-    main :is(h1, h2, a) {
+    article :is(h1, h2, h3) {
+        color: var(
+            --color-foreground
+        ); /* アクセントカラーからメイン文字色へ変更 */
+        margin-top: 2rem; /* 上部の余白を追加 */
+        margin-bottom: 1rem;
+        line-height: 1.3; /* 1.1から1.3へ変更 */
+    }
+    article a {
         color: var(--accent);
-        padding-bottom: 1rem;
+        text-decoration: underline; /* リンクであることを明示 */
     }
-    main :is(p, li) {
-        padding-bottom: 0.5rem;
+    article :is(p, li) {
+        margin-bottom: 1rem; /* 0.5remから1remへ変更 */
     }
-    main h2 {
-        border-color: var(--accent);
+    article :is(h1, h2, h3) {
+        color: var(--color-accent);
     }
-    main blockquote {
+    article :is(h3) {
+        font-size: 1.25rem;
+    }
+    article h2 {
+        border-bottom: 2px solid var(--accent); /* 下線として機能するように修正 */
+        padding-bottom: 0.1rem;
+        width: 100%;
+    }
+    article blockquote {
         margin-top: 2rem !important;
         margin-bottom: 2rem !important;
-        border-color: var(--accent);
+        border-left: 4px solid var(--accent); /* 左線として機能するように修正 */
+        padding: 1rem; /* 内側の余白を追加 */
         background: color-mix(in srgb, var(--accent), transparent 92%);
     }
 
@@ -281,7 +298,8 @@ const t = getTranslation(Astro.currentLocale).articles;
     function initTocObserver() {
         const observerOptions = {
             root: null,
-            rootMargin: "-20% 0px -70% 0px",
+            // スマホでの視認性を考慮し、範囲を少し広げるのがコツです
+            rootMargin: "-10% 0px -60% 0px",
             threshold: 0,
         };
 
@@ -289,26 +307,25 @@ const t = getTranslation(Astro.currentLocale).articles;
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     const id = entry.target.getAttribute("id");
-                    document.querySelectorAll(".toc-link").forEach((link) => {
-                        link.classList.remove("active-toc");
-                        if (link.getAttribute("href") === `#${id}`) {
-                            link.classList.add("active-toc");
-                            const navContainer = link.closest("nav");
-                            if (navContainer) {
-                                link.scrollIntoView({
-                                    block: "nearest",
-                                    behavior: "smooth",
-                                });
-                            }
-                        }
-                    });
+                    const activeLink = document.querySelector(
+                        `.toc-link[href="#${id}"]`,
+                    );
+
+                    if (activeLink) {
+                        document
+                            .querySelectorAll(".toc-link")
+                            .forEach((l) => l.classList.remove("active-toc"));
+                        activeLink.classList.add("active-toc");
+                    }
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll("main h2, main h3").forEach((heading) => {
-            observer.observe(heading);
-        });
+        document
+            .querySelectorAll("article h2, article h3")
+            .forEach((heading) => {
+                observer.observe(heading);
+            });
     }
     document.addEventListener("astro:page-load", initTocObserver);
 </script>

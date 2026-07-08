@@ -49,7 +49,7 @@ export default function ConnectingLoader({
       {/* 2. テキストエリア */}
       <div className="text-center">
         <h1
-          className={`text-sm font-light tracking-[0.3em] uppercase text-white/90 font-(family-name:--font-orbitron) ${
+          className={`text-sm font-light tracking-[0.3em] uppercase text-white/90 font-orbitron ${
             animate ? "animate-pulse" : ""
           }`}
         >
