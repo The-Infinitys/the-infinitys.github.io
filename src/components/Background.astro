@@ -77,48 +77,70 @@ import UltimateBrightness from "@/assets/background/ultimate-brightness.svg?raw"
             const minRadius = Math.min(width, height) * 0.35;
             const outerLimit = maxRadius * 1.3;
 
-            // 線データの事前計算
+            // 線データの事前計算とグラデーションの事前生成
             cachedLines = [];
             const linesPerQuadrant = 6;
+            const symmetries = [
+                { sx: 1, sy: 1 },
+                { sx: -1, sy: 1 },
+                { sx: 1, sy: -1 },
+                { sx: -1, sy: -1 },
+            ];
+
             for (let i = 0; i < linesPerQuadrant; i++) {
                 const baseAngle = (i / linesPerQuadrant) * (Math.PI / 2);
                 const bendFactor = Math.sin(i * 3.2) * (baseSize * 0.11);
                 const crossFactor = Math.cos(i * 4.1) * (baseSize * 0.06);
 
-                cachedLines.push({
-                    sx:
-                        centerX +
-                        Math.cos(baseAngle) * outerLimit +
-                        Math.sin(baseAngle) * bendFactor,
-                    sy:
-                        centerY -
-                        (Math.sin(baseAngle) * outerLimit +
-                            Math.cos(baseAngle) * bendFactor),
-                    mx:
-                        (centerX +
-                            (centerX +
-                                Math.cos(baseAngle) * outerLimit +
-                                Math.sin(baseAngle) * bendFactor +
-                                centerX +
-                                Math.cos(baseAngle) * minRadius) /
-                                2) /
-                            2 +
-                        Math.cos(baseAngle + Math.PI / 2) * bendFactor +
-                        crossFactor,
-                    my:
-                        (centerY +
-                            (centerY -
-                                (Math.sin(baseAngle) * outerLimit +
-                                    Math.cos(baseAngle) * bendFactor) +
-                                centerY -
-                                Math.sin(baseAngle) * minRadius) /
-                                2) /
-                            2 -
-                        (Math.sin(baseAngle + Math.PI / 2) * bendFactor +
-                            crossFactor),
-                    ex: centerX + Math.cos(baseAngle) * minRadius,
-                    ey: centerY - Math.sin(baseAngle) * minRadius,
+                const sx_orig =
+                    centerX +
+                    Math.cos(baseAngle) * outerLimit +
+                    Math.sin(baseAngle) * bendFactor;
+                const sy_orig =
+                    centerY -
+                    (Math.sin(baseAngle) * outerLimit +
+                        Math.cos(baseAngle) * bendFactor);
+                const mx_orig =
+                    (centerX +
+                        (sx_orig + centerX + Math.cos(baseAngle) * minRadius) /
+                            2) /
+                        2 +
+                    Math.cos(baseAngle + Math.PI / 2) * bendFactor +
+                    crossFactor;
+                const my_orig =
+                    (centerY +
+                        (sy_orig + centerY - Math.sin(baseAngle) * minRadius) /
+                            2) /
+                        2 -
+                    (Math.sin(baseAngle + Math.PI / 2) * bendFactor +
+                        crossFactor);
+                const ex_orig = centerX + Math.cos(baseAngle) * minRadius;
+                const ey_orig = centerY - Math.sin(baseAngle) * minRadius;
+
+                // 4つの対称展開パターンごとの座標とグラデーションをすべて事前計算
+                const symPatterns = symmetries.map((sym) => {
+                    const sX = centerX + (sx_orig - centerX) * sym.sx;
+                    const sY = centerY + (sy_orig - centerY) * sym.sy;
+                    const mX = centerX + (mx_orig - centerX) * sym.sx;
+                    const mY = centerY + (my_orig - centerY) * sym.sy;
+                    const eX = centerX + (ex_orig - centerX) * sym.sx;
+                    const eY = centerY + (ey_orig - centerY) * sym.sy;
+
+                    const hue =
+                        ((Math.atan2(mY - centerY, mX - centerX) * 180) /
+                            Math.PI +
+                            360) %
+                        360;
+
+                    // グラデーションオブジェクトをここで生成してキャッシュ
+                    const grad = ctx!.createLinearGradient(sX, sY, eX, eY);
+                    grad.addColorStop(0, `hsla(${hue}, 100%, 60%, 1.0)`);
+                    grad.addColorStop(0.65, `hsla(${hue}, 90%, 50%, 0.0)`);
+
+                    return { sX, sY, mX, mY, eX, eY, grad };
                 });
+
+                cachedLines.push({ patterns: symPatterns });
             }
 
             // 多角形データの事前計算
@@ -133,7 +155,7 @@ import UltimateBrightness from "@/assets/background/ultimate-brightness.svg?raw"
                 });
             }
 
-            // グラデーションの作成（描画時に再計算させない）
+            // コニックグラデーションの作成
             conicGradient = ctx.createConicGradient(0, centerX, centerY);
             conicGradient.addColorStop(0, "hsla(0, 100%, 55%, 1.0)");
             conicGradient.addColorStop(0.15, "hsla(45, 100%, 50%, 1.0)");
@@ -144,49 +166,28 @@ import UltimateBrightness from "@/assets/background/ultimate-brightness.svg?raw"
             conicGradient.addColorStop(1, "hsla(360, 100%, 55%, 1.0)");
         }
 
-        // 2. 描画処理
+        // 2. 描画処理（オブジェクト生成なし、描画のみに特化）
         function render() {
             ctx!.clearRect(0, 0, width, height);
             ctx!.globalCompositeOperation = "screen";
 
             // 線描画
             cachedLines.forEach((line) => {
-                [
-                    { sx: 1, sy: 1 },
-                    { sx: -1, sy: 1 },
-                    { sx: 1, sy: -1 },
-                    { sx: -1, sy: -1 },
-                ].forEach((sym) => {
-                    const sX = width / 2 + (line.sx - width / 2) * sym.sx;
-                    const sY = height / 2 + (line.sy - height / 2) * sym.sy;
-                    const mX = width / 2 + (line.mx - width / 2) * sym.sx;
-                    const mY = height / 2 + (line.my - height / 2) * sym.sy;
-                    const eX = width / 2 + (line.ex - width / 2) * sym.sx;
-                    const eY = height / 2 + (line.ey - height / 2) * sym.sy;
-
-                    const hue =
-                        ((Math.atan2(mY - height / 2, mX - width / 2) * 180) /
-                            Math.PI +
-                            360) %
-                        360;
-                    const grad = ctx!.createLinearGradient(sX, sY, eX, eY);
-                    grad.addColorStop(0, `hsla(${hue}, 100%, 60%, 1.0)`);
-                    grad.addColorStop(0.65, `hsla(${hue}, 90%, 50%, 0.0)`);
-
+                line.patterns.forEach((p: any) => {
                     ctx!.beginPath();
-                    ctx!.moveTo(sX, sY);
-                    ctx!.lineTo(mX, mY);
-                    ctx!.lineTo(eX, eY);
-                    ctx!.strokeStyle = grad;
+                    ctx!.moveTo(p.sX, p.sY);
+                    ctx!.lineTo(p.mX, p.mY);
+                    ctx!.lineTo(p.eX, p.eY);
+                    ctx!.strokeStyle = p.grad; // キャッシュしたグラデーションを代入するだけ
                     ctx!.stroke();
                 });
             });
 
             // 多角形描画
+            ctx!.strokeStyle = conicGradient!;
             cachedPolygons.forEach((p) => {
                 ctx!.save();
                 ctx!.globalAlpha = p.opacity;
-                ctx!.strokeStyle = conicGradient!;
 
                 // 多角形
                 ctx!.beginPath();
