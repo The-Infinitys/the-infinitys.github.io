@@ -9,28 +9,21 @@ import UltimateBrightness from "@/assets/background/ultimate-brightness.svg?raw"
 <div
     class="fixed inset-0 -z-10 bg-background overflow-hidden flex items-center justify-center pointer-events-none"
 >
-    <!-- Background (Dark) -->
     <div
         class="absolute w-[120vmax] h-[120vmax] blur-[8vmin] opacity-20 pointer-events-none select-none max-w-none not-dark:hidden [&>svg]:w-full [&>svg]:h-full"
     >
         <Fragment set:html={BackgroundDarkness} />
     </div>
-
-    <!-- Background (Light) -->
     <div
         class="absolute w-[120vmax] h-[120vmax] blur-[8vmin] opacity-40 pointer-events-none select-none max-w-none dark:hidden [&>svg]:w-full [&>svg]:h-full"
     >
         <Fragment set:html={BackgroundBrightness} />
     </div>
-
-    <!-- Ultimate (Dark) -->
     <div
         class="absolute w-[100vmin] h-[100vmin] opacity-65 pointer-events-none select-none max-w-none z-10 not-dark:hidden [&>svg]:w-full [&>svg]:h-full"
     >
         <Fragment set:html={UltimateDarkness} />
     </div>
-
-    <!-- Ultimate (Light) -->
     <div
         class="absolute w-[100vmin] h-[100vmin] opacity-65 pointer-events-none select-none max-w-none z-10 dark:hidden [&>svg]:w-full [&>svg]:h-full"
     >
@@ -65,21 +58,19 @@ import UltimateBrightness from "@/assets/background/ultimate-brightness.svg?raw"
             window.removeEventListener("resize", currentResizeListener);
         }
 
-        // 計算結果を保持するキャッシュ
         let cachedLines: any[] = [];
         let cachedPolygons: any[] = [];
+        let conicGrad: CanvasGradient | null = null; // conicGradientをキャッシュ
         let width = 0,
             height = 0;
 
-        // 1. 計算のみを行う関数（重い処理はここに集約）
+        // 計算処理（重いグラデーション生成もここに集約）
         function updateCalculations() {
             const dpr = window.devicePixelRatio || 1;
             width = window.innerWidth;
             height = window.innerHeight;
             canvas!.width = width * dpr;
             canvas!.height = height * dpr;
-            canvas!.style.width = width + "px";
-            canvas!.style.height = height + "px";
             ctx!.scale(dpr, dpr);
 
             const centerX = width / 2;
@@ -90,7 +81,17 @@ import UltimateBrightness from "@/assets/background/ultimate-brightness.svg?raw"
             const minRadius = Math.min(width, height) * 0.35;
             const outerLimit = maxRadius * 1.3;
 
-            // 計算結果を配列に格納
+            // 1. conicGradientの事前生成
+            conicGrad = ctx!.createConicGradient(0, centerX, centerY);
+            conicGrad.addColorStop(0, "hsla(0, 100%, 55%, 1.0)");
+            conicGrad.addColorStop(0.15, "hsla(45, 100%, 50%, 1.0)");
+            conicGrad.addColorStop(0.35, "hsla(120, 100%, 45%, 1.0)");
+            conicGrad.addColorStop(0.55, "hsla(190, 100%, 50%, 1.0)");
+            conicGrad.addColorStop(0.7, "hsla(240, 100%, 55%, 1.0)");
+            conicGrad.addColorStop(0.85, "hsla(290, 100%, 55%, 1.0)");
+            conicGrad.addColorStop(1, "hsla(360, 100%, 55%, 1.0)");
+
+            // 2. 線の計算（グラデーションを事前定義）
             cachedLines = [];
             const linesPerQuadrant = 6;
             for (let i = 0; i < linesPerQuadrant; i++) {
@@ -117,9 +118,33 @@ import UltimateBrightness from "@/assets/background/ultimate-brightness.svg?raw"
                     (Math.sin(baseAngle + Math.PI / 2) * bendFactor +
                         crossFactor);
 
-                cachedLines.push({ startX, startY, midX, midY, endX, endY });
+                // ★最適化: 描画ループの外でグラデーションを作成
+                const grad = ctx!.createLinearGradient(
+                    startX,
+                    startY,
+                    endX,
+                    endY,
+                );
+                const hue =
+                    ((Math.atan2(midY - centerY, midX - centerX) * 180) /
+                        Math.PI +
+                        360) %
+                    360;
+                grad.addColorStop(0, `hsla(${hue}, 100%, 60%, 1.0)`);
+                grad.addColorStop(0.65, `hsla(${hue}, 90%, 50%, 0.0)`);
+
+                cachedLines.push({
+                    startX,
+                    startY,
+                    midX,
+                    midY,
+                    endX,
+                    endY,
+                    grad,
+                });
             }
 
+            // 多角形の計算
             cachedPolygons = [];
             const step = Math.min(width, height) * 0.12;
             for (let r = minRadius * 1.2; r <= outerLimit + step; r += step) {
@@ -130,90 +155,85 @@ import UltimateBrightness from "@/assets/background/ultimate-brightness.svg?raw"
                 });
             }
 
-            draw(); // 計算後に描画
+            draw();
         }
 
-        // 2. 描画のみを行う関数（計算せずキャッシュを利用）
+        // 描画処理（徹底的に軽く）
         function draw() {
             ctx!.clearRect(0, 0, width, height);
-            ctx!.save();
             ctx!.globalCompositeOperation = "screen";
 
-            // 線を描画
+            const centerX = width / 2;
+            const centerY = height / 2;
+            // draw() 関数内の修正箇所
+
+            // 1. 線（Lines）の描画用：各線ごとに個別の LinearGradient を使用（以前の方式を維持）
             ctx!.lineWidth = 1.0;
             cachedLines.forEach((line) => {
+                ctx!.strokeStyle = line.grad; // updateCalculations で作った grad を再利用
+
+                const singleLine = new Path2D();
+                singleLine.moveTo(line.startX, line.startY);
+                singleLine.lineTo(line.midX, line.midY);
+                singleLine.lineTo(line.endX, line.endY);
+
                 [
                     { sx: 1, sy: 1 },
                     { sx: -1, sy: 1 },
                     { sx: 1, sy: -1 },
                     { sx: -1, sy: -1 },
                 ].forEach((sym) => {
-                    const sX = width / 2 + (line.startX - width / 2) * sym.sx;
-                    const sY = height / 2 + (line.startY - height / 2) * sym.sy;
-                    const mX = width / 2 + (line.midX - width / 2) * sym.sx;
-                    const mY = height / 2 + (line.midY - height / 2) * sym.sy;
-                    const eX = width / 2 + (line.endX - width / 2) * sym.sx;
-                    const eY = height / 2 + (line.endY - height / 2) * sym.sy;
-
-                    const grad = ctx!.createLinearGradient(sX, sY, eX, eY);
-                    const hue =
-                        ((Math.atan2(mY - height / 2, mX - width / 2) * 180) /
-                            Math.PI +
-                            360) %
-                        360;
-                    grad.addColorStop(0, `hsla(${hue}, 100%, 60%, 1.0)`);
-                    grad.addColorStop(0.65, `hsla(${hue}, 90%, 50%, 0.0)`);
-
-                    ctx!.beginPath();
-                    ctx!.moveTo(sX, sY);
-                    ctx!.lineTo(mX, mY);
-                    ctx!.lineTo(eX, eY);
-                    ctx!.strokeStyle = grad;
-                    ctx!.stroke();
+                    ctx!.save();
+                    ctx!.translate(centerX, centerY);
+                    ctx!.scale(sym.sx, sym.sy);
+                    ctx!.translate(-centerX, -centerY);
+                    ctx!.stroke(singleLine);
+                    ctx!.restore();
                 });
             });
 
-            // 多角形を描画
-            const centerX = width / 2;
-            const centerY = height / 2;
-            const conicGrad = ctx.createConicGradient(0, centerX, centerY);
-            conicGrad.addColorStop(0, "hsla(0, 100%, 55%, 1.0)");
-            conicGrad.addColorStop(0.15, "hsla(45, 100%, 50%, 1.0)");
-            conicGrad.addColorStop(0.35, "hsla(120, 100%, 45%, 1.0)");
-            conicGrad.addColorStop(0.55, "hsla(190, 100%, 50%, 1.0)");
-            conicGrad.addColorStop(0.7, "hsla(240, 100%, 55%, 1.0)");
-            conicGrad.addColorStop(0.85, "hsla(290, 100%, 55%, 1.0)");
-            conicGrad.addColorStop(1, "hsla(360, 100%, 55%, 1.0)");
+            // 2. 多角形（Polygons）の描画用：ここでのみ ConicGradient を使用
+            if (conicGrad) {
+                ctx!.strokeStyle = conicGrad;
+                cachedPolygons.forEach((p, i) => {
+                    ctx!.save();
+                    ctx!.globalAlpha = p.opacity;
+
+                    const poly = new Path2D();
+                    // ... (多角形のパス生成処理はそのまま)
+                    ctx!.stroke(poly);
+                    ctx!.restore();
+                });
+            } // 2. 多角形の描画
+            if (conicGrad) ctx!.strokeStyle = conicGrad; // 事前生成したconicGradを使用
 
             cachedPolygons.forEach((p, i) => {
                 ctx!.save();
-                ctx!.globalAlpha = p.opacity;
-                ctx!.strokeStyle = conicGrad;
-                ctx!.beginPath();
-                // 頂点計算
+                ctx!.globalAlpha = p.opacity; // 透明度だけ個別に適用
+
+                // ★最適化: パス定義にPath2Dを使用
+                const poly = new Path2D();
                 for (let j = 0; j < p.sides; j++) {
                     const angle =
                         (j / p.sides) * Math.PI * 2 +
                         (i * Math.PI) / (p.sides / 2);
-                    const px = width / 2 + Math.cos(angle) * p.r;
-                    const py = height / 2 + Math.sin(angle) * p.r;
-                    if (j === 0) {
-                        ctx!.moveTo(px, py);
-                    } else {
-                        ctx!.lineTo(px, py);
-                    }
+                    const px = centerX + Math.cos(angle) * p.r;
+                    const py = centerY + Math.sin(angle) * p.r;
+                    if (j === 0) poly.moveTo(px, py);
+                    else poly.lineTo(px, py);
                 }
-                ctx!.closePath();
-                ctx!.stroke();
+                poly.closePath();
+                ctx!.stroke(poly);
                 ctx!.restore();
             });
-
-            ctx!.restore();
         }
 
-        const debouncedResize = debounce(updateCalculations, 150);
+        // 初期化
+        updateCalculations();
+
+        // リサイズ処理（デバウンスを長めに設定）
+        const debouncedResize = debounce(updateCalculations, 200);
         currentResizeListener = debouncedResize;
         window.addEventListener("resize", debouncedResize);
-        updateCalculations();
     });
 </script>
