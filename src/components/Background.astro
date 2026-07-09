@@ -42,95 +42,57 @@ import UltimateBrightness from "@/assets/background/ultimate-brightness.svg?raw"
 </div>
 
 <script>
-    // ページをまたいでもリサイズイベントが正常に連動するように、外側で関数を管理します
     let currentResizeListener: (() => void) | null = null;
+
+    // リサイズ用デバウンス関数
+    function debounce(fn: () => void, delay: number) {
+        let timer: number;
+        return () => {
+            clearTimeout(timer);
+            timer = window.setTimeout(fn, delay);
+        };
+    }
 
     document.addEventListener("astro:page-load", () => {
         const canvas = document.getElementById(
             "overlay",
         ) as HTMLCanvasElement | null;
         if (!canvas) return;
-
         const ctx = canvas.getContext("2d");
         if (!ctx) return;
 
-        // 【最重要】前に登録された古いリサイズリスナーがあれば確実に解除する（多重登録バグ防止）
         if (currentResizeListener) {
             window.removeEventListener("resize", currentResizeListener);
         }
 
-        let width = 0;
-        let height = 0;
+        // 計算結果を保持するキャッシュ
+        let cachedLines: any[] = [];
+        let cachedPolygons: any[] = [];
+        let width = 0,
+            height = 0;
 
-        // サイズを再計算し、その後に描画を実行する『リサイズ管理関数』
-        function executeResizeAndDraw() {
-            if (!canvas || !ctx) return;
-
-            // 【修正】BoundingClientRectをやめ、ブラウザの画面サイズを直接取得する
+        // 1. 計算のみを行う関数（重い処理はここに集約）
+        function updateCalculations() {
             const dpr = window.devicePixelRatio || 1;
             width = window.innerWidth;
             height = window.innerHeight;
-
-            // Canvas内部の解像度（画素数）を最新の画面幅に更新
-            canvas.width = width * dpr;
-            canvas.height = height * dpr;
-
-            // スタイルの表示サイズを画面全体にリセット
-            canvas.style.width = width + "px";
-            canvas.style.height = height + "px";
-
-            // 高解像度ディスプレイ（Retinaなど）向けのスケール補正
-            ctx.scale(dpr, dpr);
-
-            // 描画を実行
-            draw();
-        }
-
-        // 正多角形を描画するヘルパー関数
-        function drawPolygon(
-            ctx: CanvasRenderingContext2D,
-            x: number,
-            y: number,
-            radius: number,
-            sides: number,
-            index: number,
-        ) {
-            ctx.beginPath();
-            const rotateAngle = (index * Math.PI) / (sides / 2);
-
-            for (let i = 0; i < sides; i++) {
-                const angle = (i / sides) * Math.PI * 2 + rotateAngle;
-                const px = x + Math.cos(angle) * radius;
-                const py = y + Math.sin(angle) * radius;
-                if (i === 0) ctx.moveTo(px, py);
-                else ctx.lineTo(px, py);
-            }
-            ctx.closePath();
-        }
-
-        // ② 純粋な描画のみを担当する関数
-        function draw() {
-            if (!ctx) return;
-            ctx.clearRect(0, 0, width, height);
+            canvas!.width = width * dpr;
+            canvas!.height = height * dpr;
+            canvas!.style.width = width + "px";
+            canvas!.style.height = height + "px";
+            ctx!.scale(dpr, dpr);
 
             const centerX = width / 2;
             const centerY = height / 2;
-
             const diagonal = Math.sqrt(width * width + height * height);
             const maxRadius = diagonal / 2;
             const baseSize = (diagonal + Math.max(width, height)) / 2;
-            const totalLines = 24;
-
             const minRadius = Math.min(width, height) * 0.35;
             const outerLimit = maxRadius * 1.3;
 
-            ctx.save();
-            ctx.globalCompositeOperation = "screen";
-
-            // --- 1. 交差線 --------------------------------------
-            ctx.lineWidth = 1.0;
-            const linesPerQuadrant = totalLines / 4;
-
+            // 計算結果を配列に格納
+            cachedLines = [];
+            const linesPerQuadrant = 6;
             for (let i = 0; i < linesPerQuadrant; i++) {
                 const baseAngle = (i / linesPerQuadrant) * (Math.PI / 2);
                 const bendFactor = Math.sin(i * 3.2) * (baseSize * 0.11);
@@ -146,7 +108,6 @@ import UltimateBrightness from "@/assets/background/ultimate-brightness.svg?raw"
                         Math.cos(baseAngle) * bendFactor);
                 const endX = centerX + Math.cos(baseAngle) * minRadius;
                 const endY = centerY - Math.sin(baseAngle) * minRadius;
-
                 const midX =
                     (startX + endX) / 2 +
                     Math.cos(baseAngle + Math.PI / 2) * bendFactor +
@@ -156,45 +117,65 @@ import UltimateBrightness from "@/assets/background/ultimate-brightness.svg?raw"
                     (Math.sin(baseAngle + Math.PI / 2) * bendFactor +
                         crossFactor);
 
-                const symmetries = [
+                cachedLines.push({ startX, startY, midX, midY, endX, endY });
+            }
+
+            cachedPolygons = [];
+            const step = Math.min(width, height) * 0.12;
+            for (let r = minRadius * 1.2; r <= outerLimit + step; r += step) {
+                cachedPolygons.push({
+                    r,
+                    sides: 8 + (((r - minRadius * 1.2) / step) % 3) * 4,
+                    opacity: Math.pow(Math.min(1.0, r / maxRadius), 4.0),
+                });
+            }
+
+            draw(); // 計算後に描画
+        }
+
+        // 2. 描画のみを行う関数（計算せずキャッシュを利用）
+        function draw() {
+            ctx!.clearRect(0, 0, width, height);
+            ctx!.save();
+            ctx!.globalCompositeOperation = "screen";
+
+            // 線を描画
+            ctx!.lineWidth = 1.0;
+            cachedLines.forEach((line) => {
+                [
                     { sx: 1, sy: 1 },
                     { sx: -1, sy: 1 },
                     { sx: 1, sy: -1 },
                     { sx: -1, sy: -1 },
-                ];
+                ].forEach((sym) => {
+                    const sX = width / 2 + (line.startX - width / 2) * sym.sx;
+                    const sY = height / 2 + (line.startY - height / 2) * sym.sy;
+                    const mX = width / 2 + (line.midX - width / 2) * sym.sx;
+                    const mY = height / 2 + (line.midY - height / 2) * sym.sy;
+                    const eX = width / 2 + (line.endX - width / 2) * sym.sx;
+                    const eY = height / 2 + (line.endY - height / 2) * sym.sy;
 
-                symmetries.forEach((sym) => {
-                    const sX = centerX + (startX - centerX) * sym.sx;
-                    const sY = centerY + (startY - centerY) * sym.sy;
-                    const mX = centerX + (midX - centerX) * sym.sx;
-                    const mY = centerY + (midY - centerY) * sym.sy;
-                    const eX = centerX + (endX - centerX) * sym.sx;
-                    const eY = centerY + (endY - centerY) * sym.sy;
+                    const grad = ctx!.createLinearGradient(sX, sY, eX, eY);
+                    const hue =
+                        ((Math.atan2(mY - height / 2, mX - width / 2) * 180) /
+                            Math.PI +
+                            360) %
+                        360;
+                    grad.addColorStop(0, `hsla(${hue}, 100%, 60%, 1.0)`);
+                    grad.addColorStop(0.65, `hsla(${hue}, 90%, 50%, 0.0)`);
 
-                    const currentAngle = Math.atan2(mY - centerY, mX - centerX);
-                    let hue = (currentAngle * 180) / Math.PI;
-                    if (hue < 0) hue += 360;
-
-                    const lineGrad = ctx.createLinearGradient(sX, sY, eX, eY);
-                    lineGrad.addColorStop(0, `hsla(${hue}, 100%, 60%, 1.0)`);
-                    lineGrad.addColorStop(0.35, `hsla(${hue}, 95%, 55%, 1.0)`);
-                    lineGrad.addColorStop(0.65, `hsla(${hue}, 90%, 50%, 0.0)`);
-                    lineGrad.addColorStop(1, `rgba(0, 0, 0, 0)`);
-
-                    ctx.beginPath();
-                    ctx.moveTo(sX, sY);
-                    ctx.lineTo(mX, mY);
-                    ctx.lineTo(eX, eY);
-
-                    ctx.strokeStyle = lineGrad;
-                    ctx.stroke();
+                    ctx!.beginPath();
+                    ctx!.moveTo(sX, sY);
+                    ctx!.lineTo(mX, mY);
+                    ctx!.lineTo(eX, eY);
+                    ctx!.strokeStyle = grad;
+                    ctx!.stroke();
                 });
-            }
+            });
 
-            // --- 2. 多角形と同心円 ---------------------------------
-            const step = Math.min(width, height) * 0.12;
-            const startRadius = minRadius * 1.2;
-
+            // 多角形を描画
+            const centerX = width / 2;
+            const centerY = height / 2;
             const conicGrad = ctx.createConicGradient(0, centerX, centerY);
             conicGrad.addColorStop(0, "hsla(0, 100%, 55%, 1.0)");
             conicGrad.addColorStop(0.15, "hsla(45, 100%, 50%, 1.0)");
@@ -204,37 +185,35 @@ import UltimateBrightness from "@/assets/background/ultimate-brightness.svg?raw"
             conicGrad.addColorStop(0.85, "hsla(290, 100%, 55%, 1.0)");
             conicGrad.addColorStop(1, "hsla(360, 100%, 55%, 1.0)");
 
-            for (let r = startRadius; r <= outerLimit + step; r += step) {
-                const index = (r - startRadius) / step;
-                const sides = 8 + (index % 3) * 4;
+            cachedPolygons.forEach((p, i) => {
+                ctx!.save();
+                ctx!.globalAlpha = p.opacity;
+                ctx!.strokeStyle = conicGrad;
+                ctx!.beginPath();
+                // 頂点計算
+                for (let j = 0; j < p.sides; j++) {
+                    const angle =
+                        (j / p.sides) * Math.PI * 2 +
+                        (i * Math.PI) / (p.sides / 2);
+                    const px = width / 2 + Math.cos(angle) * p.r;
+                    const py = height / 2 + Math.sin(angle) * p.r;
+                    if (j === 0) {
+                        ctx!.moveTo(px, py);
+                    } else {
+                        ctx!.lineTo(px, py);
+                    }
+                }
+                ctx!.closePath();
+                ctx!.stroke();
+                ctx!.restore();
+            });
 
-                const radiusRatio = Math.min(1.0, r / maxRadius);
-                const dynamicOpacity = Math.pow(radiusRatio, 4.0);
-
-                ctx.save();
-                ctx.strokeStyle = conicGrad;
-                ctx.globalAlpha = dynamicOpacity;
-
-                ctx.lineWidth = 1.0;
-                drawPolygon(ctx, centerX, centerY, r, sides, index);
-                ctx.stroke();
-
-                ctx.beginPath();
-                ctx.arc(centerX, centerY, r, 0, Math.PI * 2);
-                ctx.lineWidth = 0.5;
-                ctx.stroke();
-
-                ctx.restore();
-            }
-
-            ctx.restore();
+            ctx!.restore();
         }
 
-        // ③ 新しいリサイズリスナーを登録
-        currentResizeListener = executeResizeAndDraw;
-        window.addEventListener("resize", executeResizeAndDraw);
-
-        // ④ ページ読み込み完了時（初回起動）
-        executeResizeAndDraw();
+        const debouncedResize = debounce(updateCalculations, 150);
+        currentResizeListener = debouncedResize;
+        window.addEventListener("resize", debouncedResize);
+        updateCalculations();
     });
 </script>

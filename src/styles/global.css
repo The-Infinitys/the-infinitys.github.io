@@ -6,11 +6,6 @@
   inherits: false; /* true→false: 継承コストを削減。使う要素側でvar()参照すれば問題なし */
 }
 
-/* 🔧 変更点：
-   :root で --accent-hue を直接アニメーションさせるのをやめ、
-   .hue-scope という限定要素にスコープを絞ってアニメーションさせる。
-   これにより毎フレームのDOMツリー全体の再計算(recalc)を回避できる。
-*/
 @keyframes hue-rotate {
   from {
     --accent-hue: 0;
