@@ -21,12 +21,16 @@
   --foreground: #000000;
   /* 動的アクセント（初期値は静的。アニメーションは.hue-scopeで行う） */
   --accent-hue: 190;
-  --accent: hsl(var(--accent-hue), 100%, 45%);
+  --accent: lch(60% 100% var(--accent-hue));
+  will-change: --accent-hue;
+  animation: hue-rotate 60s linear infinite;
 }
 
 /* 🔧 アニメーションはこのクラスを付けた要素（例: <body>）だけに限定 */
 .hue-scope {
-  contain: style; /* 再計算の影響範囲をこの要素内に閉じ込める */
+  contain: style;
+  /* ブラウザに「この要素は変化する」と事前伝達し、合成レイヤーを最適化 */
+  will-change: --accent-hue;
   animation: hue-rotate 60s linear infinite;
 }
 
@@ -36,7 +40,7 @@
     --foreground: #ffffff;
     /* 💡 ダークモード（黒背景）用の動的アクセント */
     /* 黒背景に対しては 50%〜55% が最もバキバキにネオン発光して見えます */
-    --accent: hsl(var(--accent-hue), 100%, 53%);
+    --accent: lch(80% 100% var(--accent-hue));
   }
 }
 

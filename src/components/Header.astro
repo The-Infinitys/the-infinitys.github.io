@@ -85,66 +85,65 @@ const getSwitchLangPath = (targetLang: Locale) => {
 </div>
 
 <script>
-    // （スクリプト部分は既存のままで完全に動作するため省略しませんが、変更はありません）
-    document.addEventListener("astro:page-load", () => {
-        const toggle = document.getElementById("menu-toggle");
-        const menu = document.getElementById("full-menu");
+    // --- 共通のアクセサー関数（再取得を保証） ---
+    const getToggle = () => document.getElementById("menu-toggle");
+    const getMenu = () => document.getElementById("full-menu");
+    const getHeader = () => document.getElementById("site-header");
 
-        if (toggle && menu) {
-            toggle.addEventListener("click", () => {
-                const isOpen = menu.classList.contains("translate-x-0");
-                if (isOpen) {
-                    menu.classList.remove("translate-x-0");
-                    menu.classList.add("translate-x-full");
-                } else {
-                    menu.classList.remove("translate-x-full");
-                    menu.classList.add("translate-x-0");
-                }
-            });
+    // --- 共通の状態管理変数 ---
+    let lastScrollY = window.scrollY;
+    let scrollTimeout;
+
+    // --- ヘッダー操作用関数 ---
+    const updateHeaderVisibility = (isShowing) => {
+        const header = getHeader();
+        if (!header) return;
+        header.classList.toggle("translate-y-0", isShowing);
+        header.classList.toggle("-translate-y-full", !isShowing);
+    };
+
+    // --- スクロールイベントのハンドラ ---
+    const handleScroll = () => {
+        const menu = getMenu();
+        const currentScrollY = window.scrollY;
+
+        if (currentScrollY <= 50) {
+            updateHeaderVisibility(true);
+        } else if (currentScrollY > lastScrollY) {
+            // 下スクロール（メニューが開いていなければ隠す）
+            if (!menu?.classList.contains("translate-x-0")) {
+                updateHeaderVisibility(false);
+            }
+        } else {
+            // 上スクロール
+            updateHeaderVisibility(true);
         }
 
-        const header = document.getElementById("site-header");
-        if (!header) return;
+        lastScrollY = currentScrollY;
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => updateHeaderVisibility(true), 1500);
+    };
 
-        let lastScrollY = window.scrollY;
-        let scrollTimeout: ReturnType<typeof setTimeout>;
+    // --- スクロールイベントの登録（一度だけ） ---
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
-        const showHeader = () => {
-            header.classList.remove("-translate-y-full");
-            header.classList.add("translate-y-0");
-        };
+    // --- トグル処理の関数化 ---
+    const toggleMenu = () => {
+        const menu = getMenu();
+        if (!menu) return;
+        const isOpen = menu.classList.contains("translate-x-0");
+        menu.classList.toggle("translate-x-0", !isOpen);
+        menu.classList.toggle("translate-x-full", isOpen);
+    };
 
-        const hideHeader = () => {
-            if (menu?.classList.contains("translate-x-0")) return;
-            header.classList.remove("translate-y-0");
-            header.classList.add("-translate-y-full");
-        };
+    // --- astro:page-load 時の処理 ---
+    document.addEventListener("astro:page-load", () => {
+        const toggle = getToggle();
+        if (!toggle) return;
 
-        window.addEventListener(
-            "scroll",
-            () => {
-                const currentScrollY = window.scrollY;
-
-                if (currentScrollY <= 50) {
-                    showHeader();
-                    return;
-                }
-
-                if (currentScrollY > lastScrollY) {
-                    hideHeader();
-                } else if (currentScrollY < lastScrollY) {
-                    showHeader();
-                }
-
-                lastScrollY = currentScrollY;
-
-                clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(() => {
-                    showHeader();
-                }, 1500);
-            },
-            { passive: true },
-        );
+        // 二重登録防止のため一度削除してから追加
+        toggle.removeEventListener("click", toggleMenu);
+        toggle.addEventListener("click", toggleMenu);
     });
 </script>
 

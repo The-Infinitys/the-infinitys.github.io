@@ -41,7 +41,7 @@ import UltimateBrightness from "@/assets/background/ultimate-brightness.svg?raw"
     ></canvas>
 </div>
 <script>
-    document.addEventListener("astro:page-load", () => {
+    function updateCanvas() {
         const canvas = document.getElementById(
             "overlay",
         ) as HTMLCanvasElement | null;
@@ -54,19 +54,21 @@ import UltimateBrightness from "@/assets/background/ultimate-brightness.svg?raw"
         let cachedLines: any[] = [];
         let cachedPolygons: any[] = [];
         let conicGradient: CanvasGradient | null = null;
+        let isTicking = false;
 
-        // 1. 計算処理（リサイズ時のみ実行）
         function updateLayout() {
-            const { width: eWidth, height: eHeight } =
-                canvas!.getBoundingClientRect();
+            const iWidth = window.innerWidth;
+            const iHeight = window.innerHeight;
             const dpr = window.devicePixelRatio || 1;
-            width = eWidth;
-            height = eHeight;
+            width = iWidth;
+            height = iHeight;
 
             canvas!.width = width * dpr;
             canvas!.height = height * dpr;
             canvas!.style.width = width + "px";
             canvas!.style.height = height + "px";
+
+            ctx!.setTransform(1, 0, 0, 1, 0, 0);
             ctx!.scale(dpr, dpr);
 
             const centerX = width / 2;
@@ -77,7 +79,6 @@ import UltimateBrightness from "@/assets/background/ultimate-brightness.svg?raw"
             const minRadius = Math.min(width, height) * 0.35;
             const outerLimit = maxRadius * 1.3;
 
-            // 線データの事前計算とグラデーションの事前生成
             cachedLines = [];
             const linesPerQuadrant = 6;
             const symmetries = [
@@ -91,7 +92,6 @@ import UltimateBrightness from "@/assets/background/ultimate-brightness.svg?raw"
                 const baseAngle = (i / linesPerQuadrant) * (Math.PI / 2);
                 const bendFactor = Math.sin(i * 3.2) * (baseSize * 0.11);
                 const crossFactor = Math.cos(i * 4.1) * (baseSize * 0.06);
-
                 const sx_orig =
                     centerX +
                     Math.cos(baseAngle) * outerLimit +
@@ -117,7 +117,6 @@ import UltimateBrightness from "@/assets/background/ultimate-brightness.svg?raw"
                 const ex_orig = centerX + Math.cos(baseAngle) * minRadius;
                 const ey_orig = centerY - Math.sin(baseAngle) * minRadius;
 
-                // 4つの対称展開パターンごとの座標とグラデーションをすべて事前計算
                 const symPatterns = symmetries.map((sym) => {
                     const sX = centerX + (sx_orig - centerX) * sym.sx;
                     const sY = centerY + (sy_orig - centerY) * sym.sy;
@@ -125,25 +124,19 @@ import UltimateBrightness from "@/assets/background/ultimate-brightness.svg?raw"
                     const mY = centerY + (my_orig - centerY) * sym.sy;
                     const eX = centerX + (ex_orig - centerX) * sym.sx;
                     const eY = centerY + (ey_orig - centerY) * sym.sy;
-
                     const hue =
                         ((Math.atan2(mY - centerY, mX - centerX) * 180) /
                             Math.PI +
                             360) %
                         360;
-
-                    // グラデーションオブジェクトをここで生成してキャッシュ
                     const grad = ctx!.createLinearGradient(sX, sY, eX, eY);
                     grad.addColorStop(0, `hsla(${hue}, 100%, 60%, 1.0)`);
                     grad.addColorStop(0.65, `hsla(${hue}, 90%, 50%, 0.0)`);
-
                     return { sX, sY, mX, mY, eX, eY, grad };
                 });
-
                 cachedLines.push({ patterns: symPatterns });
             }
 
-            // 多角形データの事前計算
             cachedPolygons = [];
             const step = Math.min(width, height) * 0.12;
             for (let r = minRadius * 1.2; r <= outerLimit + step; r += step) {
@@ -155,53 +148,50 @@ import UltimateBrightness from "@/assets/background/ultimate-brightness.svg?raw"
                 });
             }
 
-            // コニックグラデーションの作成
-            conicGradient = ctx.createConicGradient(0, centerX, centerY);
-            conicGradient.addColorStop(0, "hsla(0, 100%, 55%, 1.0)");
-            conicGradient.addColorStop(0.15, "hsla(45, 100%, 50%, 1.0)");
-            conicGradient.addColorStop(0.35, "hsla(120, 100%, 45%, 1.0)");
-            conicGradient.addColorStop(0.55, "hsla(190, 100%, 50%, 1.0)");
-            conicGradient.addColorStop(0.7, "hsla(240, 100%, 55%, 1.0)");
-            conicGradient.addColorStop(0.85, "hsla(290, 100%, 55%, 1.0)");
-            conicGradient.addColorStop(1, "hsla(360, 100%, 55%, 1.0)");
+            conicGradient = ctx!.createConicGradient(0, centerX, centerY);
+            const stops = [0, 0.15, 0.35, 0.55, 0.7, 0.85, 1];
+            const colors = ["0", "45", "120", "190", "240", "290", "360"];
+            stops.forEach((stop, i) =>
+                conicGradient!.addColorStop(
+                    stop,
+                    `hsla(${colors[i]}, 100%, 55%, 1.0)`,
+                ),
+            );
         }
 
-        // 2. 描画処理（オブジェクト生成なし、描画のみに特化）
         function render() {
             ctx!.clearRect(0, 0, width, height);
             ctx!.globalCompositeOperation = "screen";
 
-            // 線描画
             cachedLines.forEach((line) => {
                 line.patterns.forEach((p: any) => {
                     ctx!.beginPath();
                     ctx!.moveTo(p.sX, p.sY);
                     ctx!.lineTo(p.mX, p.mY);
                     ctx!.lineTo(p.eX, p.eY);
-                    ctx!.strokeStyle = p.grad; // キャッシュしたグラデーションを代入するだけ
+                    ctx!.strokeStyle = p.grad;
                     ctx!.stroke();
                 });
             });
 
-            // 多角形描画
             ctx!.strokeStyle = conicGradient!;
             cachedPolygons.forEach((p) => {
                 ctx!.save();
                 ctx!.globalAlpha = p.opacity;
-
-                // 多角形
                 ctx!.beginPath();
                 const rotateAngle = (p.index * Math.PI) / (p.sides / 2);
                 for (let i = 0; i < p.sides; i++) {
                     const angle = (i / p.sides) * Math.PI * 2 + rotateAngle;
                     const px = width / 2 + Math.cos(angle) * p.r;
                     const py = height / 2 + Math.sin(angle) * p.r;
-                    i === 0 ? ctx!.moveTo(px, py) : ctx!.lineTo(px, py);
+                    if (i === 0) {
+                        ctx!.moveTo(px, py);
+                    } else {
+                        ctx!.lineTo(px, py);
+                    }
                 }
                 ctx!.closePath();
                 ctx!.stroke();
-
-                // 同心円
                 ctx!.beginPath();
                 ctx!.arc(width / 2, height / 2, p.r, 0, Math.PI * 2);
                 ctx!.lineWidth = 0.5;
@@ -209,18 +199,10 @@ import UltimateBrightness from "@/assets/background/ultimate-brightness.svg?raw"
                 ctx!.restore();
             });
         }
-
-        // イベント管理
-        let timer: number;
-        window.addEventListener("resize", () => {
-            clearTimeout(timer);
-            timer = window.setTimeout(() => {
-                updateLayout();
-                render();
-            }, 150);
-        });
-
         updateLayout();
         render();
-    });
+    }
+    window.addEventListener("resize", updateCanvas);
+    updateCanvas();
+    document.addEventListener("astro:page-load", updateCanvas);
 </script>
