@@ -5,11 +5,11 @@ import tailwindcss from "@tailwindcss/vite";
 import mdx from "@astrojs/mdx";
 import cloudflare from "@astrojs/cloudflare";
 
-// HTML圧縮用のプラグイン
-import { ViteMinifyPlugin } from "vite-plugin-minify";
+// 本番環境（ビルド時など）かどうかを判定
+const isProduction = process.env.NODE_ENV === "production";
 
+// https://astro.build/config
 export default defineConfig({
-  // パフォーマンス：フォントはプリコネクトさせることでLCPを改善
   fonts: [
     {
       provider: fontProviders.google(),
@@ -31,41 +31,30 @@ export default defineConfig({
   i18n: {
     defaultLocale: "ja",
     locales: ["ja", "en"],
-    routing: { prefixDefaultLocale: true },
-  },
-
-  // 画像の処理を最適化（Cloudflareアダプターと相性が良い設定）
-  image: {
-    service: { entrypoint: "astro/assets/services/noop" },
-  },
-
-  prefetch: { prefetchAll: true, defaultStrategy: "hover" },
-
-  integrations: [react(), mdx()],
-
-  vite: {
-    plugins: [
-      tailwindcss(),
-      // HTMLの圧縮（空白削除、コメント除去など）
-      ViteMinifyPlugin({
-        removeComments: true,
-        collapseWhitespace: true,
-      }),
-    ],
-    build: {
-      // PostCSSよりも高速で強力なLightningCSSを採用
-      cssMinify: "lightningcss",
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            // 主要ライブラリをチャンク分割して初回ロードを軽量化
-            react: ["react", "react-dom"],
-          },
-        },
-      },
+    routing: {
+      prefixDefaultLocale: true,
     },
   },
 
-  // 本番ビルド時のみCloudflareアダプターを適用
-  adapter: process.env.NODE_ENV === "production" ? cloudflare() : undefined,
+  output: "static",
+
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: "hover",
+  },
+
+  // 統合（integrations）にまとめる
+  integrations: [react(), mdx()],
+
+  vite: {
+    plugins: [tailwindcss()], // Viteプラグインとして指定
+  },
+
+  // 本番ビルド時のみ cloudflare アダプターを設定し、ローカル開発時は undefined にする
+  adapter: isProduction
+    ? cloudflare({
+        prerenderEnvironment: "node",
+        imageService: "compile",
+      })
+    : undefined,
 });
