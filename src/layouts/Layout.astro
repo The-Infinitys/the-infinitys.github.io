@@ -26,6 +26,21 @@ const lang = Astro.currentLocale || "en";
 <!doctype html>
 <html lang={lang}>
     <head>
+        <!-- Google tag (gtag.js) -->
+        <script
+            is:inline
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-6F5Z0EB6JE"
+        ></script>
+        <script is:inline>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+
+            gtag("config", "G-6F5Z0EB6JE");
+        </script>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width" />
         <ClientRouter />
