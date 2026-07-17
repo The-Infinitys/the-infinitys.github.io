@@ -34,13 +34,11 @@ export const snsLinks = [
 <BasePageLayout>
     <!-- 🔥 【1枚目】ロゴと文字を丸ごとカスタムタイトルとして流し込む -->
     <div slot="title" class="flex flex-col items-center px-4">
-        {/* 元のコードのサイズ感とスタイルを完全維持 */}
         <div
-            class="w-120 max-w-full h-auto text-foreground fill-current [&>svg]:w-full [&>svg]:h-auto"
+            class="w-[min(600px,90vw)] h-auto text-foreground fill-current [&>svg]:w-full! [&>svg]:h-auto!"
         >
             <Fragment set:html={LogoSvg} />
         </div>
-        {/* h1タグとしてブランドメッセージを配置 */}
         <h1
             class="font-orbitron mt-8! text-2xl tracking-widest text-center select-none"
         >
